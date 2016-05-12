@@ -1,0 +1,38 @@
+{
+  "name": "btrz-api-client",
+  "version": "0.1.0",
+  "description": "The client for Betterez APIs",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_ENV=test node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- --ui bdd -t 15000 test/*.js",
+    "test-w": "NODE_ENV=test node_modules/mocha/bin/mocha -w test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Betterez/btrz-api-client.git"
+  },
+  "keywords": [
+    "API",
+    "client"
+  ],
+  "author": "Betterez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Betterez/btrz-api-client/issues"
+  },
+  "homepage": "https://github.com/Betterez/btrz-api-client",
+  "dependencies": {
+    "js-yaml": "^3.6.1",
+    "lodash-compat": "^3.10.2",
+    "superagent": "^1.8.3",
+    "swagger-client": "^2.1.14"
+  },
+  "devDependencies": {
+    "chai": "latest",
+    "chance": "0.7.1",
+    "istanbul": "^0.4.1",
+    "mocha": "latest",
+    "mocha-multi": "latest",
+    "sinon": "latest"
+  }
+}
