@@ -21,7 +21,9 @@
     "url": "https://github.com/Betterez/btrz-api-client/issues"
   },
   "homepage": "https://github.com/Betterez/btrz-api-client",
-  "dependencies": {},
+  "dependencies": {
+    "request": "^2.72.0"
+  },
   "devDependencies": {
     "chai": "latest",
     "chance": "0.7.1",
