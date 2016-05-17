@@ -1,0 +1,12 @@
+"use strict";
+
+export default class <%=resource.className%> {
+  constructor(baseUrl, http, logger) {
+    this.baseUrl = baseUrl;
+    this.http = http;
+    this.logger = logger;<% resource.methods.forEach((m) => { %>
+    this.<%=m.openingName%><%=m.httpMethod%>(<%=m.args.join(", ")%>) {
+<%=m.httpMethodSpaces%>return this.http.execute("<%=m.httpMethod%>", <%=m.url%><% if (m.args.length > 0) {%>, <%}%><%=m.httpArgs%>);
+<%=m.httpMethodSpaces.substr(2)%>}<%=m.closingName%>;<% }) %>
+  }
+}

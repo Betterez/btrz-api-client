@@ -1,8 +1,8 @@
+"use strict";
 module.exports = {
   root: true,
   // https://github.com/feross/standard/blob/master/RULES.md#javascript-standard-style
   extends: "eslint:recommended",
-  // required to lint *.vue files
   plugins: [
     "mocha"
   ],
@@ -11,7 +11,9 @@ module.exports = {
     "sourceType": "module",
   },
   "globals": {
-    "_": true
+    "_": true,
+    "describe": true,
+    "it": true
   },
   "env": {
     "browser": true,
@@ -317,8 +319,7 @@ module.exports = {
     "template-curly-spacing": 2,
     // require or disallow spacing around the * in yield* expressions
     "yield-star-spacing": 2,
-
-    "no-console": process.env.NODE_ENV === "production" ? 2 : 0,
+    "no-console": 0,
     "no-debugger": process.env.NODE_ENV === "production" ? 2 : 0
   }
 };
