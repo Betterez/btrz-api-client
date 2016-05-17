@@ -16,7 +16,6 @@ describe("BtrzApi", () => {
 			"uploads"
 		];
 		apis.forEach((api) => {
-			// console.log(client.inventory);
 			expect(client[api]).to.not.be.eql(undefined);
 		});
 	});

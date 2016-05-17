@@ -78,7 +78,7 @@ function swaggerArgs(parameters) {
 
 function getUrl(api, name) {
   const path = `/${name}${api.path}`;
-  return "`${this.baseUrl}" + path + "`";
+  return `\`\${this.baseUrl}${path}\``;
 }
 
 function spaces(index, seed) {

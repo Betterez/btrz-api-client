@@ -34,7 +34,7 @@
     "babel-plugin-add-module-exports": "0.1.2",
     "babel-preset-es2015": "6.3.13",
     "chai": "latest",
-    "chance": "0.7.1",
+    "chance": "^1.0.3",
     "ejs": "^2.4.1",
     "eslint": "^2.10.2",
     "eslint-loader": "^1.3.0",
@@ -42,6 +42,7 @@
     "eslint-plugin-standard": "^1.3.2",
     "istanbul": "^0.4.1",
     "mocha": "latest",
+    "nock": "^8.0.0",
     "sinon": "latest",
     "webpack": "^1.13.0"
   }
