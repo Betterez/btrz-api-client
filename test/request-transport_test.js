@@ -2,7 +2,7 @@
 
 import Transport from "../src/request-transport.js";
 
-describe("RequestTransport", () => {
+describe.only("RequestTransport", () => {
   const nock = require("nock"),
     expect = require("chai").expect,
     Chance = require("chance").Chance,
@@ -19,10 +19,10 @@ describe("RequestTransport", () => {
         "X-API-KEY": expectation
       }
     })
-    .get("/resource")
+    .get("/resource2")
     .reply(200, expectation);
 
-    client.get(`${baseUrl}/resource`)
+    client.get(`${baseUrl}/resource2`)
       .then((result) => {
         expect(result.body).to.be.eql(expectation);
         done();
@@ -33,25 +33,28 @@ describe("RequestTransport", () => {
   });
 
   it("should send a request to the baseUrl with the token", (done) => {
-    const expectation = chance.hash(),
-      headers = {"x-api-key": expectation},
+    const apiKey = chance.hash(),
+      token = chance.hash(),
+      headers = {"x-api-key": apiKey, "auth": {"bearer": token}},
       client = new Transport({headers});
+
+    nock.emitter.on("no match", (req) => {
+      expect(req._headers.auth.bearer).to.be.eql(token);
+      nock.emitter.removeAllListeners("no match");
+      done();
+    });
 
     nock(baseUrl, {
       reqheaders: {
-        "X-API-KEY": expectation
+        "X-API-KEY": apiKey,
+        auth: {
+          bearer: token
+        }
       }
     })
     .get("/resource")
-    .reply(200, expectation);
+    .reply(200);
 
-    client.get(`${baseUrl}/resource`)
-      .then((result) => {
-        expect(result.body).to.be.eql(expectation);
-        done();
-      })
-      .catch((err) => {
-        done(err);
-      });
+    client.get(`${baseUrl}/resource`);
   });
 });
