@@ -1,6 +1,0 @@
-"use strict";
-
-export default {
-  <% resources.forEach((resource, index) => { %>
-  <%= resource %>: require("./<%=resource%>")<% if (index !== resources.length - 1) {%>,<%}%><% }); %>
-};
