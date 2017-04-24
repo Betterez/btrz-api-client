@@ -1,5 +1,5 @@
-const { axiosMock } = require("./../test-helpers");
-const client = require("./../../index").defaults({});
+const { axiosMock } = require("./../../test-helpers");
+const client = require("./../../../index").createClient({ baseURL: "http://test.com" });
 
 describe('inventory/products', function() {
   const token = 'I owe you a token';
@@ -9,7 +9,7 @@ describe('inventory/products', function() {
   });
 
   it("should list products", function() {
-    return client.inventory.products.index({ token });
+    return client.inventory.products.all({ token });
   });
 
 });

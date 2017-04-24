@@ -1,10 +1,10 @@
-function productsFactory({ client, authorizationHeaderName }) {
-  const index = ({ token }) => {
-    return client.get("/inventory/products", { headers: { [authorizationHeaderName]: `${token}` } });
+function productsFactory({ client }) {
+  function all({ token }) {
+    return client.get("/inventory/products", { headers: { 'x-api-key': `${token}`} });
   }
 
   return { 
-    index 
+    all 
   };
 }
 

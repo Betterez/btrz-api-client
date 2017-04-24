@@ -5,6 +5,11 @@ const matchHeaders = (tokenPropertyName) => (response) => {
   expect(response.request._headers[tokenPropertyName]).to.exists;
 }
 
+const statusCode = (code) => (response) => {
+  expect(response.statusCode).to.eql(code);
+}
+
 module.exports = {
-  matchHeaders
+  matchHeaders,
+  statusCode
 }

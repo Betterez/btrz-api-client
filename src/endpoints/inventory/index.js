@@ -1,11 +1,12 @@
-const authorizationHeaderName = 'x-api-key';
-
 const { insurancesFactory } = require("./insurances");
 const { productsFactory } = require("./products");
 
-module.exports = (client) => {
+module.exports = ({ client }) => {
   return {
-    insurances: insurancesFactory({ client, authorizationHeaderName }),
-    products: productsFactory({ client, authorizationHeaderName })
+    insurances: insurancesFactory({ client }),
+    products: productsFactory({ client }),
+    __test: {
+      client
+    }
   };
 }

@@ -34,4 +34,12 @@ API_TOKEN=<some token> npm run test:integration
     - inventory
       - products.test.js
 
+### How to use it
+
+````
+
+const client = require("btrz-api-client").createClient({ baseURL: `http://localhost:${port}` });
+
+client.inventory.products.all() => Promise
+
 ````

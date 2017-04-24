@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --recursive  test/",
-    "test:integration": "INVENTORY_API_PORT=3010 mocha --recursive  test-integration/"
+    "test:integration": "mocha --recursive -r test-integration/ports.js  test-integration/"
   },
   "repository": {
     "type": "git",
