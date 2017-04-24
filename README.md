@@ -10,11 +10,11 @@ npm test
 
 ### Test integration
 
-First run the api inventory server 
-
 ```
 API_TOKEN=<some token> npm run test:integration
 ```
+
+> You can specify the different ports for every endpoint using `/test-integration/ports.js`
 
 ### Folders structure
 
@@ -34,12 +34,27 @@ API_TOKEN=<some token> npm run test:integration
     - inventory
       - products.test.js
 
+````
+
 ### How to use it
 
-````
 
+- Using defaults
+
+````
 const client = require("btrz-api-client").createClient({ baseURL: `http://localhost:${port}` });
-
-client.inventory.products.all() => Promise
+client.inventory.products.all({ token, query }) => Promise
 
 ````
+
+- Ready for production
+
+> This client uses production defaults if none provided, check `/src/productionDefaults.js`
+
+````
+
+const client = require("btrz-api-client").createClient();
+client.inventory.products.all({ token, query }) //you're now talking to production!
+
+````
+
