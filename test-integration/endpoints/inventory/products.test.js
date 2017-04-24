@@ -15,7 +15,7 @@ const { matchHeaders } = require("./../../test-integration-helpers");
 describe("inventory/products", function() {
 
   it("should list products", function() {
-    return client.inventory.products.all({ token })
+    return client.inventory.products.all({ token, query: { isParcel: true } })
       .then(matchHeaders('x-api-key'))
   });
 

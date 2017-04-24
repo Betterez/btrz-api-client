@@ -24,4 +24,12 @@ describe("inventory/insurances", function() {
       });
   });
 
+  it("should create insurances", function() {
+    return client.inventory.insurances.create({ token, insurance: { cost: 1000, threshold: 1000 } })
+      //.then(matchHeaders('x-api-key')) uncomment when implemented
+      .catch((err) => {
+        expect(err.response.status).to.eql(401);
+      });
+  });
+
 });

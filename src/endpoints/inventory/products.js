@@ -1,6 +1,10 @@
 function productsFactory({ client }) {
-  function all({ token }) {
-    return client.get("/inventory/products", { headers: { 'x-api-key': `${token}`} });
+  
+  function all({ token, query = {} }) {
+    return client.get("/inventory/products", {
+      params: query,   
+      headers: { 'x-api-key': `${token}`}
+    });
   }
 
   return { 
