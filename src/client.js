@@ -16,19 +16,6 @@ function clientFactory({ baseURL, timeout, overrideFn }) {
 }
 
 /**
- * 
- * @param {string} modulePath - path to the new api module
- * @param {object} options - configuration options 
- */
-function createModule({ modulePath, client }) {
-  if(!modulePath || !client) {
-    throw new Error(`Missing configuration for module.`);
-  }
-
-  return require(modulePath)({ client });
-}
-
-/**
  * @description
  * Returns the apiClient object with defaults set
  *
@@ -55,14 +42,8 @@ function createInventory({ baseURL, timeout, overrideFn }) {
   const client = clientFactory({ baseURL, timeout, overrideFn });
   
   return {
-    products: createModule({
-      modulePath: "./endpoints/inventory/products", 
-      client
-    }),
-    insurances: createModule({
-      modulePath: "./endpoints/inventory/insurances", 
-      client
-    }),
+    products: require("./endpoints/inventory/products")({ client }),
+    insurances: require("./endpoints/inventory/insurances")({ client }),
     __test: {
       client
     }
