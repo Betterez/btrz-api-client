@@ -25,7 +25,7 @@ function clientFactory({ baseURL, timeout, overrideFn }) {
  * @param {Function} baseURLOverride.someEndpoint
  */
 
-function createClient(options) {
+function createApiClient(options) {
   const { baseURL, timeout = 0, baseURLOverride = {} } = options || productionOptions;
   
   return {
@@ -35,4 +35,4 @@ function createClient(options) {
   }
 }
 
-module.exports = { clientFactory, createClient }
+module.exports = { clientFactory, createApiClient }

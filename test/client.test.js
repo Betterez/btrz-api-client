@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const { createClient } = require("./../src/client");
+const { createApiClient } = require("./../src/client");
 
 function expectKnownEndpoints(api) {
   expect(api.inventory.products).to.exists;
@@ -12,7 +12,7 @@ describe("client", function() {
     const baseURL = "http://someUrl.com"
 
     it("should create a client with production values if no default provided", function() {
-      const api = createClient();
+      const api = createApiClient();
 
       expectKnownEndpoints(api);
       expect(api.inventory.__test.client.defaults.baseURL).to.eql("http://betterez.com/inventory");
@@ -20,7 +20,7 @@ describe("client", function() {
     });
 
     it("should create a client with default values", function() {
-      const api = createClient({ baseURL });
+      const api = createApiClient({ baseURL });
 
       expectKnownEndpoints(api);
       expect(api.inventory.__test.client.defaults.baseURL).to.eql(baseURL);
@@ -29,7 +29,7 @@ describe("client", function() {
 
 
     it("should allow to override baseUrl for custom endpoints", function() {
-      const api = createClient({ baseURL, timeout: 10, baseURLOverride: { inventory: (url) => `${url}/somePath` } });
+      const api = createApiClient({ baseURL, timeout: 10, baseURLOverride: { inventory: (url) => `${url}/somePath` } });
       expect(api.inventory.products).to.exists;
       expect(api.inventory.insurances).to.exists;
 

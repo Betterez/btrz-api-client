@@ -1,5 +1,5 @@
 const { axiosMock } = require("./../../test-helpers");
-const client = require("./../../../index").createClient({ baseURL: "http://test.com" });
+const client = require("./../../../index").createApiClient({ baseURL: "http://test.com" });
 
 describe('inventory/products', function() {
   const token = 'I owe you a token';

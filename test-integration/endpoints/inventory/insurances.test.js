@@ -5,7 +5,7 @@ const token = process.env.API_TOKEN;
 
 const api = require("./../../../index");
 
-const client = api.createClient({ 
+const client = api.createApiClient({ 
   baseURL: `http://localhost`, 
   baseURLOverride: {
     inventory: (baseUrl) => `${baseUrl}:${port}`

@@ -1,5 +1,5 @@
-const { createClient } = require("./src/client");
+const { createApiClient } = require("./src/client");
 
 module.exports = {
-  createClient
+  createApiClient
 }

@@ -55,7 +55,7 @@ API_TOKEN=<some token> npm run test:integration
 - Using defaults
 
 ````
-const client = require("btrz-api-client").createClient({ baseURL: `http://localhost:${port}` });
+const client = require("btrz-api-client").createApiClient({ baseURL: `http://localhost:${port}` });
 client.inventory.products.all({ token, query }) => Promise
 
 ````
@@ -66,7 +66,7 @@ client.inventory.products.all({ token, query }) => Promise
 
 ````
 
-const client = require("btrz-api-client").createClient();
+const client = require("btrz-api-client").createApiClient();
 client.inventory.products.all({ token, query }) //you're now talking to production!
 
 ````
