@@ -15,6 +15,36 @@ We are starting to build a relatively complex code base that would have to go ov
 
 - For now all other methods will be defined in RPC style, work on whatever you want and check your decisions with a teammate
 
+### How to use it
+
+
+- Using defaults
+
+````
+const api = require("btrz-api-client").createApiClient({ baseURL: `http://localhost:${port}` });
+api.inventory.products.all({ token, query }) => Promise
+
+````
+
+- You can still perform custom requests
+
+````
+const api = require("btrz-api-client").createApiClient({ baseURL: 'http://localhost:8080', });
+api._cleanClient({ url: `/inventory/products`, headers: { 'x-api-key': token }, params: { isParcel: true } }) => Promise
+
+````
+
+- Ready for production
+
+> This client uses production defaults if none provided, check `/src/productionDefaults.js`
+
+````
+
+const api = require("btrz-api-client").createApiClient();
+api.inventory.products.all({ token, query }) //you're now talking to production!
+
+````
+
 ### Unit Test
 
 ```
@@ -46,36 +76,6 @@ API_TOKEN=<some token> npm run test:integration
   - endpoints
     - inventory
       - products.test.js
-
-````
-
-### How to use it
-
-
-- Using defaults
-
-````
-const api = require("btrz-api-client").createApiClient({ baseURL: `http://localhost:${port}` });
-api.inventory.products.all({ token, query }) => Promise
-
-````
-
-- You can still perform custom requests
-
-````
-const api = require("btrz-api-client").createApiClient({ baseURL: 'http://localhost:8080', });
-api._cleanClient({ url: `/inventory/products`, headers: { 'x-api-key': token }, params: { isParcel: true } }) => Promise
-
-````
-
-- Ready for production
-
-> This client uses production defaults if none provided, check `/src/productionDefaults.js`
-
-````
-
-const api = require("btrz-api-client").createApiClient();
-api.inventory.products.all({ token, query }) //you're now talking to production!
 
 ````
 
