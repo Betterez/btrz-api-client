@@ -1,7 +1,7 @@
 const port = process.env.INVENTORY_API_PORT;
 const token = process.env.API_TOKEN;
 
-const api = require("./../../index").createApiClient({ baseURL: `http://localhost:${port}`, });
+const api = require("./../../src/client").createApiClient({ baseURL: `http://localhost:${port}`, });
 
 const { matchHeaders } = require("./../test-integration-helpers");
 

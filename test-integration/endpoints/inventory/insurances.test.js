@@ -3,7 +3,7 @@ const { expect } = require("chai");
 const port = process.env.INVENTORY_API_PORT;
 const token = process.env.API_TOKEN;
 
-const api = require("./../../../index").createApiClient({ 
+const api = require("./../../../src/client").createApiClient({ 
   baseURL: `http://localhost`, 
   baseURLOverride: {
     inventory: (baseUrl) => `${baseUrl}:${port}`
