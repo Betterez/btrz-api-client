@@ -31,4 +31,4 @@ function insurancesFactory({ client }) {
   };
 }
 
-module.exports = { insurancesFactory };
+module.exports = insurancesFactory;

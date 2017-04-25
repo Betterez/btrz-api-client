@@ -55,8 +55,16 @@ API_TOKEN=<some token> npm run test:integration
 - Using defaults
 
 ````
-const client = require("btrz-api-client").createApiClient({ baseURL: `http://localhost:${port}` });
-client.inventory.products.all({ token, query }) => Promise
+const api = require("btrz-api-client").createApiClient({ baseURL: `http://localhost:${port}` });
+api.inventory.products.all({ token, query }) => Promise
+
+````
+
+- You can still perform custom requests
+
+````
+const api = require("btrz-api-client").createApiClient({ baseURL: 'http://localhost:8080', });
+api._cleanClient({ url: `/inventory/products`, headers: { 'x-api-key': token }, params: { isParcel: true } }) => Promise
 
 ````
 
@@ -66,8 +74,8 @@ client.inventory.products.all({ token, query }) => Promise
 
 ````
 
-const client = require("btrz-api-client").createApiClient();
-client.inventory.products.all({ token, query }) //you're now talking to production!
+const api = require("btrz-api-client").createApiClient();
+api.inventory.products.all({ token, query }) //you're now talking to production!
 
 ````
 

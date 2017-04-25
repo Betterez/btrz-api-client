@@ -12,4 +12,4 @@ function productsFactory({ client }) {
   };
 }
 
-module.exports = { productsFactory };
+module.exports = productsFactory;

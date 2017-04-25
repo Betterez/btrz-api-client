@@ -16,6 +16,19 @@ function clientFactory({ baseURL, timeout, overrideFn }) {
 }
 
 /**
+ * 
+ * @param {string} modulePath - path to the new api module
+ * @param {object} options - configuration options 
+ */
+function createModule({ modulePath, client }) {
+  if(!modulePath || !client) {
+    throw new Error(`Missing configuration for module.`);
+  }
+
+  return require(modulePath)({ client });
+}
+
+/**
  * @description
  * Returns the apiClient object with defaults set
  *
@@ -23,16 +36,38 @@ function clientFactory({ baseURL, timeout, overrideFn }) {
  * @param {String}   timeout
  * @param {Object}   baseURLOverride - options object allowing to override baseUrl for some endpoints
  * @param {Function} baseURLOverride.someEndpoint
+ * 
+ * @returns An object with a client for every "module" (needed to override baseURL)
  */
 
 function createApiClient(options) {
   const { baseURL, timeout = 0, baseURLOverride = {} } = options || productionOptions;
   
   return {
-    inventory: require("./endpoints/inventory")({ 
-      client: clientFactory({ baseURL, timeout, overrideFn: baseURLOverride.inventory }) 
-    })
+    _cleanClient: clientFactory({ baseURL, timeout }),
+    inventory: createInventory({ baseURL, timeout, overrideFn: baseURLOverride.inventory })
   }
 }
+
+/** MODULES */
+
+function createInventory({ baseURL, timeout, overrideFn }) {
+  const client = clientFactory({ baseURL, timeout, overrideFn });
+  
+  return {
+    products: createModule({
+      modulePath: "./endpoints/inventory/products", 
+      client
+    }),
+    insurances: createModule({
+      modulePath: "./endpoints/inventory/insurances", 
+      client
+    }),
+    __test: {
+      client
+    }
+  }
+}
+
 
 module.exports = { clientFactory, createApiClient }
