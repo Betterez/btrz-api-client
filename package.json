@@ -6,8 +6,9 @@
   "scripts": {
     "test": "mocha --recursive  test/",
     "test:integration": "mocha --recursive -r test-integration/ports.js  test-integration/",
+    "commit-transpile": "git add lib/ && git commit -m \"transpiled src\"",
     "transpile": "babel --presets es2015 -d lib/ src/",
-    "preversion": "npm test && npm run transpile",
+    "preversion": "npm test && npm run transpile && npm run commit-transpile",
     "postversion": "git push origin master && git push --tags",
     "publish": "publish"
   },
