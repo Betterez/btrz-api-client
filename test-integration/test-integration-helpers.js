@@ -6,6 +6,7 @@ const matchHeaders = (tokenPropertyName) => (response) => {
 }
 
 const statusCode = (code) => (response) => {
+  console.log(response);
   expect(response.statusCode).to.eql(code);
 }
 
