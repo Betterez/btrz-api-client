@@ -1,13 +1,13 @@
 function stationsFactory({client}) {
 
   function get({ token, id }) {
-    return client.get(`/inventory/station/${id}`, {
+    return client.get(`/station/${id}`, {
       headers: { 'x-api-key': `${token}`}
     });
   }
 
   function all({ token, query = {} }) {
-    return client.get("/inventory/stations", {
+    return client.get("/stations", {
       params: query,   
       headers: { 'x-api-key': `${token}`}
     });

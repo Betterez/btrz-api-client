@@ -5,9 +5,9 @@ describe('inventory/insurances', function() {
   const token = 'I owe you a token';
   
   before(function() {
-    axiosMock.onGet(`/inventory/insurances/`).reply(200);
-    axiosMock.onPost(`/inventory/insurances/`).reply(200);
-    axiosMock.onPatch(`/inventory/insurances/1`).reply(200);
+    axiosMock.onGet(`/insurances/`).reply(200);
+    axiosMock.onPost(`/insurances/`).reply(200);
+    axiosMock.onPatch(`/insurances/1`).reply(200);
   });
 
   it("should list insurances", function() {
