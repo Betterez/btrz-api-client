@@ -8,13 +8,14 @@ const api = require("./../../../src/client").createApiClient({
   }
 });
 
-const { matchHeaders } = require("./../../test-integration-helpers");
+const { matchHeaders, statusCode } = require("./../../test-integration-helpers");
 
 describe("inventory/products", function() {
 
   it("should list products", function() {
     return api.inventory.products.all({ token, query: { isParcel: true } })
       .then(matchHeaders('x-api-key'))
+      .then(statusCode(200))
   });
 
 });
