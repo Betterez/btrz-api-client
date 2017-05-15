@@ -31,4 +31,20 @@ describe("inventory/insurances", function() {
     });
   });
 
+  it("should update insurance", function() {
+    return api.inventory.products.all({ token, query: { isParcel: true } }).then((res) => {
+      return api.inventory.insurances.create({ token, jwtToken, insurance: { 
+        productId: res.data.products[0]._id, 
+        cost: 1000, 
+        threshold: 1000, 
+        enabled: true 
+        } 
+      }).then(function(created) {
+        const insurance = created.data.insurance;
+        insurance.enabled = false;
+        return api.inventory.insurances.enabled({ token, insurance, jwtToken })
+      })
+    });
+  });
+
 });

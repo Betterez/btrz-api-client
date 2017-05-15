@@ -19,13 +19,13 @@ function insurancesFactory({ client }) {
   }
 
   function enabled({ token, insurance, jwtToken }) {
-    const one = url.resolve("/insurances/", insurance._id);
+    const one = url.resolve("/insurance/", insurance._id);
     
     return client({
       url: one,
       method: "put",
       headers: authorizationHeaders({token, jwtToken}),
-      data: { insurance: { enabled: insurance.enabled } }
+      data: { insurance }
     });
   }
 
