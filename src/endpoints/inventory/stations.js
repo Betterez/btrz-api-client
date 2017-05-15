@@ -1,15 +1,17 @@
+const { authorizationHeaders } = require("./../endpoints_helpers");
+
 function stationsFactory({client}) {
 
   function get({ token, id }) {
     return client.get(`/station/${id}`, {
-      headers: { 'x-api-key': `${token}`}
+      headers: authorizationHeaders({token})
     });
   }
 
   function all({ token, query = {} }) {
     return client.get("/stations", {
       params: query,   
-      headers: { 'x-api-key': `${token}`}
+      headers: authorizationHeaders({token})
     });
   }
 

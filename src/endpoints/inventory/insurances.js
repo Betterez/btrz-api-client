@@ -1,26 +1,31 @@
 const url = require("url");
+const { authorizationHeaders } = require("./../endpoints_helpers");
 
 function insurancesFactory({ client }) {
   
   function all({ token }) {
-    return client.get("/insurances/", {
-      headers: { 'x-api-key': `${token}`}
+    return client("/insurances", {
+      headers: authorizationHeaders({token})
     });
   }
 
-  function create({ token, insurance }) {
-    return client.post("/insurances/", {
-      headers: { 'x-api-key': `${token}`},
-      data: insurance
+  function create({ token, insurance, jwtToken }) {
+    return client({ 
+      url: "/insurances",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken}),
+      data: { insurance }
     });
   }
 
-  function enabled({ token, insurance }) {
+  function enabled({ token, insurance, jwtToken }) {
     const one = url.resolve("/insurances/", insurance._id);
-    console.log(one);
-    return client.patch(one, {
-      headers: { 'x-api-key': `${token}`},
-      data: { enabled: insurance.enabled }
+    
+    return client({
+      url: one,
+      method: "put",
+      headers: authorizationHeaders({token, jwtToken}),
+      data: { insurance: { enabled: insurance.enabled } }
     });
   }
 

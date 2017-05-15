@@ -1,6 +1,7 @@
 const { expect } = require("chai");
+const MockAdapter = require('axios-mock-adapter');
+
 const { createApiClient } = require("./../src/client");
-const { axiosMock } = require("./../test/test-helpers");
   
 function expectKnownEndpoints(api) {
   expect(api.inventory.products).to.exists;
@@ -46,8 +47,12 @@ describe("client", function() {
     expect(api._cleanClient.defaults.baseURL).to.eql(baseURL);
     expect(api._cleanClient.defaults.timeout).to.eql(0);
 
-    axiosMock.onPost(`/custom/endpoint`).reply(200);
-    return api._cleanClient({ url: '/custom/endpoint', method: 'post' })
+    const mock =  new MockAdapter(api._cleanClient);
+    mock.onPost(`/custom/endpoint`).reply(200);
+    const promise = api._cleanClient({ url: '/custom/endpoint', method: 'post' });
+    
+    mock.restore();
+    return promise;
   });
 
 })
