@@ -46,6 +46,7 @@ function createInventory({ baseURL, timeout, overrideFn }) {
     insurances: require("./endpoints/inventory/insurances")({ client }),
     stations: require("./endpoints/inventory/stations")({ client }),
     parcelZones: require("./endpoints/inventory/parcel-zones")({ client }),
+    countries: require("./endpoints/inventory/countries")({ client }),
     __test: {
       client
     }
