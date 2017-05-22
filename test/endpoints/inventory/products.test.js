@@ -5,7 +5,7 @@ describe('inventory/products', function() {
   const token = 'I owe you a token';
   
   afterEach(function() {
-    axiosMock.restore();
+    axiosMock.reset();
   })
 
   it("should list products", function() {
