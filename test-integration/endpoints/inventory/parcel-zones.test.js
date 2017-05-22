@@ -21,4 +21,17 @@ describe("inventory/parcel-zones", () => {
       .then(statusCode(200))
   });
 
+  it("should create parcel zones", () => {
+    return api.inventory.products.all({ token, query: { isParcel: true } }).then((res) => {
+      const payload = {
+        name: "ParcelZone1",
+        productId: res.data.products[0]._id, 
+        accountId: res.data.products[0].accountId, 
+        provinces: ["Quebec"],
+        buckets: []
+      };
+      return api.inventory.parcelZones.create({ token, jwtToken, parcelZone: payload });
+    });
+  });
+
 });

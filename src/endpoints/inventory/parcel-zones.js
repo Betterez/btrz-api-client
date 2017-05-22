@@ -9,8 +9,18 @@ function parcelZonesFactory({ client }) {
     });
   }
 
+  function create({ token, parcelZone, jwtToken }) {
+    return client({ 
+      url: "/parcel-zones",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken}),
+      data: { parcelZone }
+    });
+  }
+
   return { 
-    all
+    all,
+    create
   };
 }
 
