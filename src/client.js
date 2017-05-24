@@ -32,7 +32,8 @@ function createApiClient(options) {
   
   return {
     _cleanClient: clientFactory({ baseURL, timeout }),
-    inventory: createInventory({ baseURL, timeout, overrideFn: baseURLOverride.inventory })
+    inventory: createInventory({ baseURL, timeout, overrideFn: baseURLOverride.inventory }),
+    accounts: createAccounts({ baseURL, timeout, overrideFn: baseURLOverride.accounts })
   }
 }
 
@@ -47,6 +48,17 @@ function createInventory({ baseURL, timeout, overrideFn }) {
     stations: require("./endpoints/inventory/stations")({ client }),
     parcelZones: require("./endpoints/inventory/parcel-zones")({ client }),
     countries: require("./endpoints/inventory/countries")({ client }),
+    __test: {
+      client
+    }
+  }
+}
+
+function createAccounts({ baseURL, timeout, overrideFn }) {
+  const client = clientFactory({ baseURL, timeout, overrideFn });
+  
+  return {
+    lexicons: require("./endpoints/accounts/lexicons")({ client }),
     __test: {
       client
     }

@@ -8,15 +8,15 @@ module.exports = {
       if(headers['x-api-key'] && headers['x-api-key'] === token) {
         if (['post', 'put', 'delete'].includes(method)) {
           if(headers.authorization && headers.authorization === `Bearer ${jwtToken}`) {
-            return [200]
+            return [statusCode]
           } else {
             return [403];
           }
         } else {
-          return [200];
+          return [statusCode];
         }
       } else {
-        return [400];
+        return [403];
       }
     }
   }
