@@ -9,7 +9,7 @@ describe('accounts/lexicons', function() {
   })
 
   it("should list countries", function() {
-    axiosMock.onGet(`/lexicons/lexicon_someLexicon`).reply((req) => {
+    axiosMock.onGet(`/lexicons/buscompany`).reply((req) => {
       if(req.params.context !== "some context") {
         return [400];
       } else {
@@ -17,7 +17,7 @@ describe('accounts/lexicons', function() {
       }
     });
 
-    return api.accounts.lexicons.all({ token, context: "some context", lexiconName: "someLexicon" });
+    return api.accounts.lexicons.all({ token, context: "some context" });
   });
 
 });

@@ -1,1 +1,2 @@
 process.env.INVENTORY_API_PORT = 3010;
+process.env.ACCOUNTS_API_PORT  = 3050;

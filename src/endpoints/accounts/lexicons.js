@@ -2,10 +2,10 @@ const { authorizationHeaders } = require("./../endpoints_helpers");
 
 function lexiconsFactory({ client }) {
   
-  function all({ token, lexiconName, context }) {
+  function all({ token, context }) {
 
     return client({
-      url: `lexicons/lexicon_${lexiconName}`,
+      url: `lexicons/buscompany`,
       params: { context },
       headers: authorizationHeaders({token})
     });
