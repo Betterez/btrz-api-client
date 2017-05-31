@@ -18,9 +18,19 @@ function parcelZonesFactory({ client }) {
     });
   }
 
+  function update({ jwtToken, token, parcelZoneId, parcelZone }) {
+    return client({ 
+      url: `/parcel-zone/${parcelZoneId}`,
+      method: "put",
+      headers: authorizationHeaders({token, jwtToken}),
+      data: { parcelZone }
+    });
+  }
+
   return { 
     all,
-    create
+    create,
+    update
   };
 }
 

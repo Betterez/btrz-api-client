@@ -24,14 +24,30 @@ describe("inventory/parcel-zones", () => {
   it("should create parcel zones", () => {
     return api.inventory.products.all({ token, query: { isParcel: true } }).then((res) => {
       const payload = {
-        name: "ParcelZone1",
         productId: res.data.products[0]._id, 
-        accountId: res.data.products[0].accountId, 
         provinces: ["Quebec"],
         buckets: []
       };
       return api.inventory.parcelZones.create({ token, jwtToken, parcelZone: payload });
     });
+  });
+
+  it("should update a parcel zone", () => {
+    return api.inventory.products.all({ token, query: { isParcel: true } })
+      .then((res) => {
+        const payload = {
+          productId: res.data.products[0]._id, 
+          provinces: ["Quebec"],
+          buckets: []
+        };
+        return api.inventory.parcelZones.create({ token, jwtToken, parcelZone: payload });
+      })
+      .then((resCreate) => {
+        const {_id, productId, buckets, provinces} = resCreate.data.parcelZone;
+        const newParcelZone = {productId, buckets, provinces};
+        newParcelZone.provinces.push("Ontario");
+        return api.inventory.parcelZones.update({ jwtToken, token, parcelZoneId: _id, parcelZone: newParcelZone });
+      });
   });
 
 });

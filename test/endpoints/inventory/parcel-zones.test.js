@@ -16,6 +16,13 @@ describe('inventory/parcel-zones', () => {
 
   it("should create parcel zones", () => {
     axiosMock.onPost(`/parcel-zones`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
-    return api.inventory.parcelZones.create({ jwtToken, token, parcelZone: { name: "ParcelZone1" } });
+    return api.inventory.parcelZones.create({ jwtToken, token, parcelZone: { productId: "6789" } });
   });
+
+  it("should update a parcel zone", () => {
+    const parcelZoneId = "1234";
+    axiosMock.onPut(`/parcel-zone/${parcelZoneId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    return api.inventory.parcelZones.update({ jwtToken, token, parcelZoneId, parcelZone: { productId: "6789" } });
+  });
+
 });
