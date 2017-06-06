@@ -10,11 +10,11 @@ const api = require("./../../../src/client").createApiClient({
 
 const { matchHeaders, statusCode } = require("./../../test-integration-helpers");
 
-describe("inventory/promos", () => {
+describe("inventory/fees", () => {
 
-  it("should list promos", () => {
-    const query = {channels: "backoffice"};
-    return api.inventory.promos.all({ token, query })
+  it("should list fees", () => {
+    const query = {rules: "manual"};
+    return api.inventory.fees.all({ token, query })
       .then(matchHeaders('x-api-key'))
       .then(statusCode(200))
   });
