@@ -33,7 +33,8 @@ function createApiClient(options) {
   return {
     _cleanClient: clientFactory({ baseURL, timeout }),
     inventory: createInventory({ baseURL, timeout, overrideFn: baseURLOverride.inventory }),
-    accounts: createAccounts({ baseURL, timeout, overrideFn: baseURLOverride.accounts })
+    accounts: createAccounts({ baseURL, timeout, overrideFn: baseURLOverride.accounts }),
+    sales: createSales({ baseURL, timeout, overrideFn: baseURLOverride.sales })
   }
 }
 
@@ -62,6 +63,17 @@ function createAccounts({ baseURL, timeout, overrideFn }) {
   
   return {
     lexicons: require("./endpoints/accounts/lexicons")({ client }),
+    __test: {
+      client
+    }
+  }
+}
+
+function createSales({ baseURL, timeout, overrideFn }) {
+  const client = clientFactory({ baseURL, timeout, overrideFn });
+  
+  return {
+    paymentProviders: require("./endpoints/sales/payment-providers")({ client }),    
     __test: {
       client
     }
