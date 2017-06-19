@@ -73,7 +73,8 @@ function createSales({ baseURL, timeout, overrideFn }) {
   const client = clientFactory({ baseURL, timeout, overrideFn });
   
   return {
-    paymentProviders: require("./endpoints/sales/payment-providers")({ client }),    
+    paymentProviders: require("./endpoints/sales/payment-providers")({ client }),
+    cart: require("./endpoints/sales/cart")({ client }),
     __test: {
       client
     }
