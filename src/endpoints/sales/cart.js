@@ -10,8 +10,18 @@ function cartFactory({ client }) {
     });
   }
 
+  function create({ token, cart, jwtToken }) {
+    return client({ 
+      url: "/cart",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken}),
+      data: cart
+    });
+  }
+
   return { 
-    get
+    get,
+    create
   };
 }
 

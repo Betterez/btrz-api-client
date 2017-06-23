@@ -16,4 +16,9 @@ describe('sales/cart', function() {
     return api.sales.cart.get({ token, id: cartId });
   });
 
+  it("should create a cart", function() {
+    axiosMock.onPost(`/cart`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    return api.sales.cart.create({ jwtToken, token, cart: { operationId: 1234 } });
+  });
+
 }); 
