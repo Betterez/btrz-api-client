@@ -77,6 +77,7 @@ function createSales({ baseURL, timeout, overrideFn }) {
     cart: require("./endpoints/sales/cart")({ client }),
     giftCertificates: require("./endpoints/sales/gift-certificates")({ client }),
     customFields: require("./endpoints/sales/custom-fields")({ client }),
+    order: require("./endpoints/sales/order")({ client }),
     __test: {
       client
     }
