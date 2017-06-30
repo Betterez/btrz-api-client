@@ -23,7 +23,7 @@ const apiInventory = require("./../../../src/client").createApiClient({
 
 const { matchHeaders, statusCode } = require("./../../test-integration-helpers");  
 
-describe.skip("sales/order", function() {
+describe("sales/order", function() {
 
   function loadCart() {
     let productId, fromId, toId, fareId;
@@ -58,7 +58,18 @@ describe.skip("sales/order", function() {
       });
   }
 
-  it("should create an order", function() {
+  it("should not get an order that does not exist", function() {
+    const orderId = "thisOrderIdShouldNotExistAnyWherePlease";
+    return apiSales.sales.order.get({ token, orderId })
+      .catch((err) => {
+        expect(err).to.exist;
+        expect(err.response.status).to.be.eql(400);
+        expect(err.response.data.code).to.be.eql('WRONG_ORDER_ID');
+        expect(err.response.data.message).to.be.eql('OrderID is not valid');
+      })
+  });
+
+  it.skip("should create an order", function() {
     const order = {
       cartId: null,
       payments: [

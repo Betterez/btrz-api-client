@@ -10,7 +10,7 @@ const api = require("./../../../src/client").createApiClient({
 
 const { matchHeaders, statusCode } = require("./../../test-integration-helpers");
 
-describe.only("sales/custom-fields", () => {
+describe("sales/custom-fields", () => {
 
   it("should list the custom fields", () => {    
     return api.sales.customFields.all({ token })

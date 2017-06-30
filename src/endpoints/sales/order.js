@@ -12,8 +12,16 @@ function orderFactory({ client }) {
     });
   }
 
+  function get({ token, orderId }) {
+    return client({
+      url: `/order/${orderId}`,
+      headers: authorizationHeaders({token})
+    });
+  }
+
   return { 
-    create
+    create,
+    get
   };
 }
 
