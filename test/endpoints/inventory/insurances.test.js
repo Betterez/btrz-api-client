@@ -14,6 +14,12 @@ describe('inventory/insurances', function() {
     return api.inventory.insurances.all({ token });
   });
 
+  it("should list insurances with a query", function() {
+    axiosMock.onGet(`/insurances`).reply(expectRequest({ statusCode: 200, token }));
+    const query = {productId: "123"};
+    return api.inventory.insurances.all({ token, query });
+  });
+
   it("should create insurances", function() {
     axiosMock.onPost(`/insurances`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
     return api.inventory.insurances.create({ jwtToken, token, insurance: { cost: 1000, threshold: 1000 } });

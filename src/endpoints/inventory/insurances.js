@@ -3,10 +3,11 @@ const { authorizationHeaders } = require("./../endpoints_helpers");
 
 function insurancesFactory({ client }) {
   
-  function all({ token }) {
-    return client("/insurances", {
+  function all({ token, query = {} }) {
+    return client.get("/insurances", {
+      params: query,   
       headers: authorizationHeaders({token})
-    });
+    });    
   }
 
   function create({ token, insurance, jwtToken }) {

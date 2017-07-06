@@ -19,6 +19,15 @@ describe("inventory/insurances", function() {
     return api.inventory.insurances.all({ token })
   });
 
+  it("should list insurances by productId", function() {
+    return api.inventory.products.all({ token, query: { isParcel: true } }).then((res) => {
+      const query = {
+        productId: res.data.products[0]._id
+      };
+      return api.inventory.insurances.all({ token, query });
+    });
+  });
+
   it("should create insurances", function() {
     return api.inventory.products.all({ token, query: { isParcel: true } }).then((res) => {
       return api.inventory.insurances.create({ token, jwtToken, insurance: { 
