@@ -89,6 +89,7 @@ function createOperations({ baseURL, timeout, overrideFn }) {
 
   return {
     parcel: require("./endpoints/operations/parcel")({ client }),
+    transaction: require("./endpoints/operations/transaction")({ client }),
     __test: {
       client
     }

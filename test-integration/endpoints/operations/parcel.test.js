@@ -11,7 +11,7 @@ const api = require("./../../../src/client").createApiClient({
   }
 });
 
-describe.only("operations/parcel", function() {
+describe("operations/parcel", function() {
 
   it("should not get a parcel that does not exist", function() {
     const parcelId = "5967e3da1b7dfb3047e5ac81";

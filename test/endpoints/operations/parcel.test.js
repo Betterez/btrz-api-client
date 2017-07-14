@@ -12,8 +12,8 @@ describe('operations/parcel', function() {
 
   it("should get a parcel by id", function() {
     const parcelId = "parcelId1";
-    axiosMock.onGet(`/cart/${parcelId}`).reply(expectRequest({ statusCode: 200, token }));
-    return api.sales.cart.get({ token, id: parcelId });
+    axiosMock.onGet(`/parcel/${parcelId}`).reply(expectRequest({ statusCode: 200, token }));
+    return api.operations.parcel.get({ token, id: parcelId });
   });
 
 }); 
