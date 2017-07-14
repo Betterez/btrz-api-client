@@ -29,12 +29,12 @@ function clientFactory({ baseURL, timeout, overrideFn }) {
 
 function createApiClient(options) {
   const { baseURL, timeout = 0, baseURLOverride = {} } = options || productionOptions;
-  
   return {
     _cleanClient: clientFactory({ baseURL, timeout }),
     inventory: createInventory({ baseURL, timeout, overrideFn: baseURLOverride.inventory }),
     accounts: createAccounts({ baseURL, timeout, overrideFn: baseURLOverride.accounts }),
-    sales: createSales({ baseURL, timeout, overrideFn: baseURLOverride.sales })
+    sales: createSales({ baseURL, timeout, overrideFn: baseURLOverride.sales }),
+    operations: createOperations({ baseURL, timeout, overrideFn: baseURLOverride.operations })
   }
 }
 
@@ -78,6 +78,17 @@ function createSales({ baseURL, timeout, overrideFn }) {
     giftCertificates: require("./endpoints/sales/gift-certificates")({ client }),
     customFields: require("./endpoints/sales/custom-fields")({ client }),
     order: require("./endpoints/sales/order")({ client }),
+    __test: {
+      client
+    }
+  }
+}
+
+function createOperations({ baseURL, timeout, overrideFn }) {
+  const client = clientFactory({ baseURL, timeout, overrideFn });
+
+  return {
+    parcel: require("./endpoints/operations/parcel")({ client }),
     __test: {
       client
     }
