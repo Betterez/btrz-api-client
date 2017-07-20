@@ -10,8 +10,18 @@ function parcelFactory({ client }) {
     });
   }
 
+  function update({ token, jwtToken, id, parcel, locationData }) {
+    return client({
+      url: `/parcel/${id}`,
+      method: "put",
+      headers: authorizationHeaders({token, jwtToken}),
+      data: { parcel, locationData }
+    });
+  }
+
   return { 
-    get
+    get,
+    update
   };
 }
 

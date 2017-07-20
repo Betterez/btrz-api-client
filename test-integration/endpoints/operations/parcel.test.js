@@ -24,4 +24,17 @@ describe("operations/parcel", function() {
       })
   });
 
+  it("should not update parcel that not exists", function() {
+    const parcelId = "596e33cea74c7dd74c2f8572",
+      parcel = {_id: parcelId, status: "delivered"},
+      locationData = {latitude: 9876, longitude: 0123};
+    return api.operations.parcel.update({ token, jwtToken, id: parcelId, parcel, locationData })
+      .catch((err) => {
+        expect(err).to.exist;
+        expect(err.response.status).to.be.eql(404);
+        expect(err.response.data.code).to.be.eql('TICKET_NOT_FOUND');
+        expect(err.response.data.msg).to.be.eql('parcel not found for id: 596e33cea74c7dd74c2f8572');
+      })
+  });
+
 });
