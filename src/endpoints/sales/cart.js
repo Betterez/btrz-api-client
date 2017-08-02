@@ -3,9 +3,15 @@ const { authorizationHeaders } = require("./../endpoints_helpers");
 
 function cartFactory({ client }) {
 
-  function get({ token, id }) {
+  function get({ token, id, providerId }) {
+    let url = `/cart/${id}`;
+
+    if(providerId) {
+      url = `${url}?providerId=${providerId}`;
+    }
+
     return client({
-      url: `/cart/${id}`,
+      url,
       headers: authorizationHeaders({token})
     });
   }
