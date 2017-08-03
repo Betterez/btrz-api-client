@@ -16,6 +16,12 @@ describe('operations/parcel', function() {
     return api.operations.parcel.get({ token, id: parcelId });
   });
 
+  it("should get all parcel by trxId", function() {
+    const trxId = "trxId1";
+    axiosMock.onGet(`/parcels`).reply(expectRequest({ statusCode: 200, token }));
+    return api.operations.parcel.all({ token, query: { trxId: trxId }});
+  });
+
   it("should update parcel", function() {
     const parcelId = "parcelId1";
     axiosMock.onPut(`/parcel/${parcelId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));

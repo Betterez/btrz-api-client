@@ -10,6 +10,14 @@ function parcelFactory({ client }) {
     });
   }
 
+  function all({ token, jwtToken, query = {} }) {
+    return client({
+      url: "/parcels",
+      params: query,
+      headers: authorizationHeaders({token, jwtToken})
+    });
+  }
+
   function update({ token, jwtToken, id, parcel, locationData }) {
     return client({
       url: `/parcel/${id}`,
@@ -21,6 +29,7 @@ function parcelFactory({ client }) {
 
   return { 
     get,
+    all,
     update
   };
 }
