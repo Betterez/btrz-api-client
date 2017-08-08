@@ -3,8 +3,9 @@ const { authorizationHeaders } = require("./../endpoints_helpers");
 
 function parcelZonesFactory({ client }) {
   
-  function all({ token }) {
+  function all({ token, query = {} }) {
     return client("/parcel-zones", {
+      params: query,
       headers: authorizationHeaders({token})
     });
   }
