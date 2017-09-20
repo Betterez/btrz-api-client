@@ -24,7 +24,7 @@ describe("operations/parcel", function() {
       })
   });
 
-  it.only("should not get any parcel from a trx that does not exist", function() {
+  it("should not get any parcel from a trx that does not exist", function() {
     const trxId = "5967e3da1b7dfb3047e5ac81";
     return api.operations.parcel.all({ token, jwtToken, query: {trxId: trxId }})
       .catch((err) => {
