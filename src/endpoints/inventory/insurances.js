@@ -5,7 +5,7 @@ function insurancesFactory({ client }) {
   
   function all({ token, query = {} }) {
     return client.get("/insurances", {
-      params: query,   
+      params: query,
       headers: authorizationHeaders({token})
     });    
   }

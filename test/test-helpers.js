@@ -6,7 +6,7 @@ module.exports = {
   expectRequest: function({ statusCode, token, jwtToken }) {
     return function({ headers, method }) {
       if(headers['x-api-key'] && headers['x-api-key'] === token) {
-        if (['post', 'put', 'delete'].includes(method)) {
+        if (['post', 'put', 'delete', 'patch'].includes(method)) {
           if(headers.authorization && headers.authorization === `Bearer ${jwtToken}`) {
             return [statusCode]
           } else {
