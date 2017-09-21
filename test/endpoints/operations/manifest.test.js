@@ -2,7 +2,7 @@ const { axiosMock, expectRequest } = require("./../../test-helpers");
 const api = require("./../../../src/client").createApiClient({ baseURL: "http://test.com" });
 const expect = require("chai").expect;
 
-describe.only('operations/manifest', function() {
+describe('operations/manifest', function() {
   const token = 'I owe you a token',
     jwtToken = 'I owe you a JWT token';
   
