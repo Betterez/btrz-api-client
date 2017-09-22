@@ -25,9 +25,19 @@ function cartFactory({ client }) {
     });
   }
 
+  function add({ token, cartId, cart, jwtToken }) {
+    return client({ 
+      url: `/cart/${cartId}/items`,
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken}),
+      data: cart
+    });
+  }
+
   return { 
     get,
-    create
+    create,
+    add
   };
 }
 
