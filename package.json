@@ -24,7 +24,6 @@
   "homepage": "https://github.com/Betterez/btrz-api-client#readme",
   "devDependencies": {
     "axios-mock-adapter": "^1.8.1",
-    "babel": "^6.23.0",
     "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
     "chai": "^3.5.0",
