@@ -94,6 +94,7 @@ function createOperations({ baseURL, timeout, overrideFn }) {
     appliedInsurance: require("./endpoints/operations/applied_insurance")({ client }),
     transaction: require("./endpoints/operations/transaction")({ client }),
     manifest: require("./endpoints/operations/manifest")({ client }),
+    redemption: require("./endpoints/operations/redemption")({ client }),
     __test: {
       client
     }
