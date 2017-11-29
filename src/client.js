@@ -65,6 +65,7 @@ function createAccounts({ baseURL, timeout, overrideFn }) {
   return {
     lexicons: require("./endpoints/accounts/lexicons")({ client }),
     shifts: require("./endpoints/accounts/shifts")({ client }),
+    customers: require("./endpoints/accounts/customers")({ client }),
     __test: {
       client
     }
