@@ -18,12 +18,12 @@ function parcelFactory({ client }) {
     });
   }
 
-  function update({ token, jwtToken, id, parcel, locationData }) {
+  function update({ token, jwtToken, id, locationData, operationType }) {
     return client({
       url: `/parcel/${id}`,
       method: "put",
       headers: authorizationHeaders({token, jwtToken}),
-      data: { parcel, locationData }
+      data: { operationType, locationData }
     });
   }
 
