@@ -27,10 +27,20 @@ function parcelFactory({ client }) {
     });
   }
 
+  function addScan({ token, jwtToken, id, operationType, locationData }) {
+    return client({
+      url: `/parcel/${id}/scans`,
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken}),
+      data: { operationType, locationData }
+    });
+  }
+
   return { 
     get,
     all,
-    update
+    update,
+    addScan
   };
 }
 

@@ -28,4 +28,10 @@ describe('operations/parcel', function() {
     return api.operations.parcel.update({ jwtToken, token, id: parcelId, parcel: { _id: parcelId }, locationData: {latitude: 0, longitude: 0} });
   });
 
+  it("should add scan to parcel", function() {
+    const parcelId = "parcelId1";
+    axiosMock.onPost(`/parcel/${parcelId}/scans`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    return api.operations.parcel.addScan({ jwtToken, token, id: parcelId, operationType: "deliver", locationData: {latitude: 0, longitude: 0} });
+  });
+
 }); 
