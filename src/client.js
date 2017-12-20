@@ -53,6 +53,7 @@ function createInventory({ baseURL, timeout, overrideFn }) {
     promos: require("./endpoints/inventory/promos")({ client }),
     fees: require("./endpoints/inventory/fees")({ client }),
     items: require("./endpoints/inventory/items")({ client }),    
+    trips: require("./endpoints/inventory/trips")({ client }),    
     __test: {
       client
     }
