@@ -2,13 +2,21 @@ const { authorizationHeaders } = require("./../endpoints_helpers");
 
 function manifestFactory({ client }) {
 
-  function get({ token, jwtToken, query = {}}) {
+  function get({ token, jwtToken, query = {} }) {
     return client({
       url: "/manifest",
       method: "get",
       params: query,
       headers: authorizationHeaders({ token, jwtToken })
     });
+  }
+
+  function getOne({ token, jwtToken, query = {} }) {
+    return get({ token, jwtToken, query: Object.assign({returnSingleElement: true}, query) });
+  }
+
+  function getById({ token, jwtToken, manifestId }) {
+    return getOne({ token, jwtToken, query: { manifestId } });
   }
 
   function patch({ token, jwtToken, id, query = {}, operations }) {
@@ -23,6 +31,8 @@ function manifestFactory({ client }) {
 
   return {
     get,
+    getOne,
+    getById,
     patch
   };
 }
