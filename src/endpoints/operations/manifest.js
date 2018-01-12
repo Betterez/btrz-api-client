@@ -38,12 +38,29 @@ function manifestFactory({ client }) {
     });
   }
 
+  function update({ token, jwtToken, data }) {
+    return patch({ token, jwtToken, id: data.manifestId, query: {}, operations: [
+      {op: "update", data}
+    ] });
+  }
+
+  function create({ token, jwtToken, data }) {
+    return client({
+      url: "/manifest",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken}),
+      data
+    });
+  }
+
   return {
     find,
     get,
     getById,
     getOrCreate,
-    patch
+    patch,
+    update,
+    create
   };
 }
 
