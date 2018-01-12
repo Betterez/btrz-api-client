@@ -24,6 +24,10 @@ function manifestFactory({ client }) {
     return get({ token, jwtToken, query: { manifestId } });
   }
 
+  function getOrCreate({ token, jwtToken, query }) {
+    return get({ token, jwtToken, query: Object.assign({createIfNotExists: true}, query) });
+  }
+
   function patch({ token, jwtToken, id, query = {}, operations }) {
     return client({
       url: `/manifest/${id}`,
@@ -38,6 +42,7 @@ function manifestFactory({ client }) {
     find,
     get,
     getById,
+    getOrCreate,
     patch
   };
 }
