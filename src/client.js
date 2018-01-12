@@ -55,6 +55,7 @@ function createInventory({ baseURL, timeout, overrideFn }) {
     items: require("./endpoints/inventory/items")({ client }),    
     trips: require("./endpoints/inventory/trips")({ client }),
     filteredTrips: require("./endpoints/inventory/filtered-trips")({ client }),
+    ssrs: require("./endpoints/inventory/ssrs")({ client }),
     __test: {
       client
     }
