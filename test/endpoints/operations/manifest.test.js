@@ -20,7 +20,7 @@ describe('operations/manifest', function() {
 
   it("should patch manifest", function() {
     const manifestId = "manifestId1";
-    axiosMock.onPatch(`/manifest/${manifestId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onPatch(`/manifests/${manifestId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
     return api.operations.manifest.patch({ token, jwtToken, id: manifestId, operations: {op: "add_tickets", tickets: []} });
   });
 

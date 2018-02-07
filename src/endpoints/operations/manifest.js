@@ -30,7 +30,7 @@ function manifestFactory({ client }) {
 
   function patch({ token, jwtToken, id, query = {}, operations }) {
     return client({
-      url: `/manifest/${id}`,
+      url: `/manifests/${id}`,
       method: "patch",
       params: query,
       headers: authorizationHeaders({token, jwtToken}),
@@ -46,7 +46,7 @@ function manifestFactory({ client }) {
 
   function create({ token, jwtToken, data }) {
     return client({
-      url: "/manifest",
+      url: "/manifests",
       method: "post",
       headers: authorizationHeaders({token, jwtToken}),
       data
