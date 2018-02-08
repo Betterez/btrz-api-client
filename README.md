@@ -79,3 +79,12 @@ API_TOKEN=<some token> npm run test:integration
 
 ````
 
+### Push a new version
+
+Run
+
+```
+npm run version -- v0.0.0
+```
+
+Where v0.0.0 is the git tag that will be created and pushed to Github.
