@@ -95,7 +95,7 @@ function createOperations({ baseURL, timeout, overrideFn }) {
   const client = clientFactory({ baseURL, timeout, overrideFn });
 
   return {
-    parcel: require("./endpoints/operations/parcel")({ client }),
+    parcel: require("./endpoints/operations/parcels")({ client }),
     appliedInsurance: require("./endpoints/operations/applied_insurance")({ client }),
     transaction: require("./endpoints/operations/transaction")({ client }),
     manifest: require("./endpoints/operations/manifest")({ client }),

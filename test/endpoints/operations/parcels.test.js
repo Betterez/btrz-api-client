@@ -2,7 +2,7 @@ const { axiosMock, expectRequest } = require("./../../test-helpers");
 const api = require("./../../../src/client").createApiClient({ baseURL: "http://test.com" });
 const expect = require("chai").expect;
 
-describe('operations/parcel', function() {
+describe('operations/parcels', function() {
   const token = 'I owe you a token';
   const jwtToken = 'I owe you a JWT token'
   
@@ -12,7 +12,7 @@ describe('operations/parcel', function() {
 
   it("should get a parcel by id", function() {
     const parcelId = "parcelId1";
-    axiosMock.onGet(`/parcel/${parcelId}`).reply(expectRequest({ statusCode: 200, token }));
+    axiosMock.onGet(`/parcels/${parcelId}`).reply(expectRequest({ statusCode: 200, token }));
     return api.operations.parcel.get({ token, id: parcelId });
   });
 
@@ -24,13 +24,13 @@ describe('operations/parcel', function() {
 
   it("should update parcel", function() {
     const parcelId = "parcelId1";
-    axiosMock.onPut(`/parcel/${parcelId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onPut(`/parcels/${parcelId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
     return api.operations.parcel.update({ jwtToken, token, id: parcelId, parcel: { _id: parcelId }, locationData: {latitude: 0, longitude: 0} });
   });
 
   it("should add scan to parcel", function() {
     const parcelId = "parcelId1";
-    axiosMock.onPost(`/parcel/${parcelId}/scans`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onPost(`/parcels/${parcelId}/scans`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
     return api.operations.parcel.addScan({ jwtToken, token, id: parcelId, operationType: "deliver", locationData: {latitude: 0, longitude: 0} });
   });
 
