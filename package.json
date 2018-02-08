@@ -1,7 +1,7 @@
 {
   "name": "btrz-api-client",
   "version": "0.23.0",
-  "description": "Api client for Betterez enpoints",
+  "description": "Api client for Betterez endpoints",
   "main": "index.js",
   "scripts": {
     "test": "mocha --recursive  test/",
@@ -10,7 +10,7 @@
     "transpile": "babel --presets es2015 -d lib/ src/",
     "preversion": "npm test && npm run transpile && npm run commit-transpile",
     "postversion": "git push origin master && git push --tags",
-    "publish": "publish"
+    "version": "git tag $1"
   },
   "repository": {
     "type": "git",
@@ -27,8 +27,7 @@
     "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
     "chai": "^3.5.0",
-    "mocha": "^3.2.0",
-    "publish": "^0.6.0"
+    "mocha": "^3.2.0"
   },
   "dependencies": {
     "axios": "^0.16.1",
