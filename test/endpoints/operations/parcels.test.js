@@ -22,16 +22,9 @@ describe('operations/parcels', function() {
     return api.operations.parcel.all({ token, query: { trxId: trxId }});
   });
 
-  it("should update parcel", function() {
-    const parcelId = "parcelId1";
-    axiosMock.onPut(`/parcels/${parcelId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
-    return api.operations.parcel.update({ jwtToken, token, id: parcelId, parcel: { _id: parcelId }, locationData: {latitude: 0, longitude: 0} });
-  });
-
   it("should add scan to parcel", function() {
     const parcelId = "parcelId1";
     axiosMock.onPost(`/parcels/${parcelId}/scans`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
     return api.operations.parcel.addScan({ jwtToken, token, id: parcelId, operationType: "deliver", locationData: {latitude: 0, longitude: 0} });
   });
-
-}); 
+});

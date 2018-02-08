@@ -18,15 +18,6 @@ function parcelFactory({ client }) {
     });
   }
 
-  function update({ token, jwtToken, id, locationData, operationType }) {
-    return client({
-      url: `/parcels/${id}`,
-      method: "put",
-      headers: authorizationHeaders({token, jwtToken}),
-      data: { operationType, locationData }
-    });
-  }
-
   function addScan({ token, jwtToken, id, operationType, locationData }) {
     return client({
       url: `/parcels/${id}/scans`,
@@ -39,7 +30,6 @@ function parcelFactory({ client }) {
   return { 
     get,
     all,
-    update,
     addScan
   };
 }
