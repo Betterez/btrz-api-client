@@ -38,17 +38,11 @@ function manifestFactory({ client }) {
     });
   }
 
-  function update({ token, jwtToken, providerId, data }) {
-    return patch({ token, jwtToken, id: data.manifestId, query: {providerId}, operations: [
-      {op: "update", data}
-    ] });
-  }
-
-  function create({ token, jwtToken, providerId, data }) {
+  function save({ token, jwtToken, providerId, data }) {
     return client({
-      url: "/manifests",
-      method: "post",
-      params: {providerId},
+      url: `/manifests`,
+      method: "put",
+      params: {providerId, manifestId: data.manifestId},
       headers: authorizationHeaders({token, jwtToken}),
       data
     });
@@ -60,8 +54,7 @@ function manifestFactory({ client }) {
     getById,
     getOrCreate,
     patch,
-    update,
-    create
+    save
   };
 }
 
