@@ -3,7 +3,7 @@ const productionOptions = require("./productionDefaults");
 
 /**
  * @description
- * Creates a new axion client
+ * Creates a new axios client
  *
  * @param {String}   baseUrl - the base url use for all endpoints by default
  * @param {String}   timeout
