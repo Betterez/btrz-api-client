@@ -1,12 +1,12 @@
 const { authorizationHeaders } = require("./../endpoints_helpers");
 
-function countriesFactory({ client }) {
+function countriesFactory({ client, internalAuthTokenProvider }) {
   
   function all({ token, query = {} }) {
     return client({
       url: "/countries",
       params: query,
-      headers: authorizationHeaders({token})
+      headers: authorizationHeaders({token, internalAuthTokenProvider})
     });
   }
 

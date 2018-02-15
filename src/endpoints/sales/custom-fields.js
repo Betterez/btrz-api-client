@@ -1,12 +1,12 @@
 const url = require("url");
 const { authorizationHeaders } = require("./../endpoints_helpers");
 
-function customFieldsFactory({ client }) {
+function customFieldsFactory({ client, internalAuthTokenProvider }) {
 
   function all({ token, query = {} }) {
     return client.get("/custom-fields", {
       params: query,   
-      headers: authorizationHeaders({token})
+      headers: authorizationHeaders({token, internalAuthTokenProvider})
     });
   }
 

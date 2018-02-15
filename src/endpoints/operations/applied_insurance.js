@@ -2,7 +2,7 @@ const url = require("url");
 const { authorizationHeaders } = require("./../endpoints_helpers");
 const querystring = require("querystring");
 
-function appliedInsuranceFactory({ client }) {
+function appliedInsuranceFactory({ client, internalAuthTokenProvider }) {
 
   function all({ token, jwtToken, trxId }) {
     const query = {trxId};
@@ -10,7 +10,7 @@ function appliedInsuranceFactory({ client }) {
     return client({
       url: `/appliedInsurances`,
       params: query,
-      headers: authorizationHeaders({ token , jwtToken })
+      headers: authorizationHeaders({ token , jwtToken, internalAuthTokenProvider })
     });
   }
 

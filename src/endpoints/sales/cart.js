@@ -1,7 +1,7 @@
 const url = require("url");
 const { authorizationHeaders } = require("./../endpoints_helpers");
 
-function cartFactory({ client }) {
+function cartFactory({ client, internalAuthTokenProvider }) {
 
   function get({ token, id, providerId }) {
     let url = `/cart/${id}`;
@@ -12,7 +12,7 @@ function cartFactory({ client }) {
 
     return client({
       url,
-      headers: authorizationHeaders({token})
+      headers: authorizationHeaders({token, internalAuthTokenProvider})
     });
   }
 
@@ -20,7 +20,7 @@ function cartFactory({ client }) {
     return client({ 
       url: "/cart",
       method: "post",
-      headers: authorizationHeaders({token, jwtToken}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
       data: cart
     });
   }
@@ -29,7 +29,7 @@ function cartFactory({ client }) {
     return client({ 
       url: `/cart/${cartId}/items`,
       method: "post",
-      headers: authorizationHeaders({token, jwtToken}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
       data: cart
     });
   }

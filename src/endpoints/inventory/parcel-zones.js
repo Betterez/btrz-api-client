@@ -1,12 +1,12 @@
 const url = require("url");
 const { authorizationHeaders } = require("./../endpoints_helpers");
 
-function parcelZonesFactory({ client }) {
+function parcelZonesFactory({ client, internalAuthTokenProvider }) {
   
   function all({ token, query = {} }) {
     return client("/parcel-zones", {
       params: query,
-      headers: authorizationHeaders({token})
+      headers: authorizationHeaders({token, internalAuthTokenProvider})
     });
   }
 
@@ -14,7 +14,7 @@ function parcelZonesFactory({ client }) {
     return client({ 
       url: "/parcel-zones",
       method: "post",
-      headers: authorizationHeaders({token, jwtToken}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
       data: { parcelZone }
     });
   }
@@ -23,7 +23,7 @@ function parcelZonesFactory({ client }) {
     return client({ 
       url: `/parcel-zone/${parcelZoneId}`,
       method: "put",
-      headers: authorizationHeaders({token, jwtToken}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
       data: { parcelZone }
     });
   }

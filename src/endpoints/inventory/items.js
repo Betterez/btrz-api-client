@@ -1,12 +1,12 @@
 const { authorizationHeaders } = require("./../endpoints_helpers");
 
-function itemsFactory({ client }) {
+function itemsFactory({ client, internalAuthTokenProvider }) {
   
   function all({ token, query = {} }) {
     return client({
       url: "/items",
       params: query,
-      headers: authorizationHeaders({token})
+      headers: authorizationHeaders({token, internalAuthTokenProvider})
     });
   }
 

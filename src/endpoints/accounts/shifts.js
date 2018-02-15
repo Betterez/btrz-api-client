@@ -1,10 +1,10 @@
 const { authorizationHeaders } = require("./../endpoints_helpers");
 
-function shiftsFactory({client}) {
+function shiftsFactory({client, internalAuthTokenProvider}) {
 
   function get({ token, userId }) {
     return client.get(`/shift/user/${userId}`, {
-      headers: authorizationHeaders({token})
+      headers: authorizationHeaders({token, internalAuthTokenProvider})
     });
   }
 

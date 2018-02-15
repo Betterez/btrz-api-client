@@ -1,12 +1,12 @@
 const url = require("url");
 const { authorizationHeaders } = require("./../endpoints_helpers");
 
-function parcelFactory({ client }) {
+function parcelFactory({ client, internalAuthTokenProvider }) {
 
   function get({ token, jwtToken, id }) {
     return client({
       url: `/parcels/${id}`,
-      headers: authorizationHeaders({ token , jwtToken })
+      headers: authorizationHeaders({ token , jwtToken, internalAuthTokenProvider })
     });
   }
 
@@ -14,7 +14,7 @@ function parcelFactory({ client }) {
     return client({
       url: "/parcels",
       params: query,
-      headers: authorizationHeaders({token, jwtToken})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
     });
   }
 
@@ -22,7 +22,7 @@ function parcelFactory({ client }) {
     return client({
       url: `/parcels/${id}/scans`,
       method: "post",
-      headers: authorizationHeaders({token, jwtToken}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
       data: { operationType, locationData }
     });
   }

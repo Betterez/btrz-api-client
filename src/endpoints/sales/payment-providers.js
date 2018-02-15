@@ -1,11 +1,11 @@
 const { authorizationHeaders } = require("./../endpoints_helpers");
 
-function paymentProvidersFactory({client}) {
+function paymentProvidersFactory({client, internalAuthTokenProvider}) {
 
   function all({ token, query = {} }) {
     return client.get("/payment-providers", {
       params: query,   
-      headers: authorizationHeaders({token})
+      headers: authorizationHeaders({token, internalAuthTokenProvider})
     });
   }
 

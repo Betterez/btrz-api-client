@@ -1,13 +1,13 @@
 const { authorizationHeaders } = require("./../endpoints_helpers");
 
-function lexiconsFactory({ client }) {
+function lexiconsFactory({ client, internalAuthTokenProvider }) {
   
   function all({ token, context }) {
 
     return client({
       url: `lexicons/buscompany`,
       params: { context },
-      headers: authorizationHeaders({token})
+      headers: authorizationHeaders({token, internalAuthTokenProvider})
     });
   }
 

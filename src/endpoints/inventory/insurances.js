@@ -1,12 +1,12 @@
 const url = require("url");
 const { authorizationHeaders } = require("./../endpoints_helpers");
 
-function insurancesFactory({ client }) {
+function insurancesFactory({ client, internalAuthTokenProvider }) {
   
   function all({ token, query = {} }) {
     return client.get("/insurances", {
       params: query,
-      headers: authorizationHeaders({token})
+      headers: authorizationHeaders({token, internalAuthTokenProvider})
     });    
   }
 
@@ -14,7 +14,7 @@ function insurancesFactory({ client }) {
     return client({ 
       url: "/insurances",
       method: "post",
-      headers: authorizationHeaders({token, jwtToken}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
       data: { insurance }
     });
   }
@@ -25,7 +25,7 @@ function insurancesFactory({ client }) {
     return client({
       url: one,
       method: "put",
-      headers: authorizationHeaders({token, jwtToken}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
       data: { insurance }
     });
   }

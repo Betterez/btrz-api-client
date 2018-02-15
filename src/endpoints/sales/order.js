@@ -1,13 +1,13 @@
 const url = require("url");
 const { authorizationHeaders } = require("./../endpoints_helpers");
 
-function orderFactory({ client }) {
+function orderFactory({ client, internalAuthTokenProvider }) {
 
   function create({ token, order, jwtToken }) {
     return client({ 
       url: "/order",
       method: "post",
-      headers: authorizationHeaders({token, jwtToken}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
       data: order
     });
   }
@@ -15,7 +15,7 @@ function orderFactory({ client }) {
   function get({ token, orderId }) {
     return client({
       url: `/order/${orderId}`,
-      headers: authorizationHeaders({token})
+      headers: authorizationHeaders({token, internalAuthTokenProvider})
     });
   }
 
