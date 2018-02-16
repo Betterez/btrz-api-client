@@ -45,6 +45,37 @@ api.inventory.products.all({ token, query }) //you're now talking to production!
 
 ````
 
+#### Performing internal service-to-service calls
+
+Provide an object that generates internal auth tokens when you create the API Client:
+
+```
+const InternalAuthTokenProvider = require("btrz-auth-api-key").InternalAuthTokenProvider,
+    tokenProviderOptions = {
+        internalAuthTokenSigningSecrets: {
+            main: "<some_secret_signing_key>"
+        }
+    },
+    internalAuthTokenProvider = new InternalAuthTokenProvider(tokenProviderOptions),
+    ApiClient = require("btrz-api-client"),
+    apiClient = ApiClient.createApiClient({
+        internalAuthTokenProvider,
+        // ... plus any other options
+    });
+```
+
+Then, to perform a service-to-service call with an auto-generated token:
+
+```
+const apiRequest = apiClient.operations.manifest.getOrCreate({
+    token: <user_api_key>,
+    jwtToken: "internal_auth_token",   // Use this exact string
+    query: {
+        ...
+    }
+});
+```
+
 ### Unit Test
 
 ```
