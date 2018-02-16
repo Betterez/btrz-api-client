@@ -12,7 +12,7 @@ const productionOptions = require("./productionDefaults");
 
 function clientFactory({ baseURL, timeout, overrideFn }) {
   const url = overrideFn ? overrideFn(baseURL) : baseURL;
-  return axios.create({ baseURL: url, timeout, headers: { 'accept': 'application/json' } });
+  return axios.create({ baseURL: url, timeout, headers: { 'Accept': 'application/json' } });
 }
 
 /**
