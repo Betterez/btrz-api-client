@@ -12,8 +12,9 @@ describe('sales/order', function() {
 
   it("should get an order by id", function() {
     const orderId = "orderId1";
-    axiosMock.onGet(`/order/${orderId}`).reply(expectRequest({ statusCode: 200, token }));
-    return api.sales.order.get({ token, orderId });
+    const providerId = "providerId1";
+    axiosMock.onGet(`/order/${orderId}?providerId=${providerId}`).reply(expectRequest({ statusCode: 200, token}));
+    return api.sales.order.get({ token, orderId, providerId});
   });
 
   it("should create an order", function() {
