@@ -10,7 +10,7 @@ const api = require("./../../../src/client").createApiClient({
 
 const { matchHeaders, statusCode } = require("./../../test-integration-helpers");
 
-describe.only("inventory/ssrs", () => {
+describe("inventory/ssrs", () => {
 
   it("should list ssrs", () => {
     const query = {

@@ -13,4 +13,9 @@ describe('inventory/products', function() {
     return api.inventory.products.all({ token });
   });
 
+  it("should get product by id", function() {
+    axiosMock.onGet(`/products/1`).reply(expectRequest({ statusCode: 200, token }));
+    return api.inventory.products.get({ token, productId: 1 });
+  });
+
 });

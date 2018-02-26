@@ -10,8 +10,17 @@ function productsFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function get({ productId, token, query = {} }) {
+    return client({
+      url: `/products/${productId}`,
+      params: query,
+      headers: authorizationHeaders({token, internalAuthTokenProvider})
+    });
+  }
+
   return { 
-    all 
+    all,
+    get
   };
 
 }
