@@ -10,14 +10,14 @@ describe('accounts/lexicons', function() {
 
   it("should list countries", function() {
     axiosMock.onGet(`/lexicons/buscompany`).reply((req) => {
-      if(req.params.context !== "some context") {
+      if(req.params.context !== "some context" || req.params.someOtherParam !== 1) {
         return [400];
       } else {
         return expectRequest({ statusCode: 200, token })(req);
       }
     });
 
-    return api.accounts.lexicons.all({ token, context: "some context" });
+    return api.accounts.lexicons.all({ token, context: "some context", query: {someOtherParam: 1} });
   });
 
 });
