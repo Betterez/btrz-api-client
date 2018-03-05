@@ -28,9 +28,9 @@ function manifestFactory({ client, internalAuthTokenProvider }) {
     return get({ token, jwtToken, query: Object.assign({createIfNotExists: true}, query) });
   }
 
-  function patch({ token, jwtToken, id, query = {}, operations }) {
+  function patch({ token, jwtToken, query = {}, operations }) {
     return client({
-      url: `/manifests/${id}`,
+      url: "/manifests",
       method: "patch",
       params: query,
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),

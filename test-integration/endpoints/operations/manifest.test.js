@@ -33,9 +33,9 @@ describe("operations/manifest", function() {
   });
 
   it("should patch a manifest with add_tickets operation", function() {
-    const id = "5997315d8efff74052000005",
+    const providerId = "5997315d8efff74052000005",
       operations = [{op: "add_tickets", tickets: ["576989208f86028739fef256"]}];
-    return api.operations.manifest.patch({ token, jwtToken, id, operations })
+    return api.operations.manifest.patch({ token, jwtToken, query: {providerId}, operations })
       .then((res) => {
         expect(res.data.results).to.have.length(1);
         expect(res.data.results[0].op).to.be.eql("add_tickets");
