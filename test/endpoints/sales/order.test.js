@@ -12,14 +12,12 @@ describe('sales/order', function() {
 
   it("should get an order by id", function() {
     const orderId = "orderId1";
-    const providerId = "providerId1";
-    axiosMock.onGet(`/order/${orderId}?providerId=${providerId}`).reply(expectRequest({ statusCode: 200, token}));
-    return api.sales.order.get({ token, orderId, providerId});
+    axiosMock.onGet(`/order/${orderId}`).reply(expectRequest({ statusCode: 200, token }));
+    return api.sales.order.get({ token, orderId });
   });
 
   it("should create an order", function() {
     axiosMock.onPost(`/order`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
     return api.sales.order.create({ jwtToken, token, order: { cartId: 1234 } });
   });
-
-}); 
+});

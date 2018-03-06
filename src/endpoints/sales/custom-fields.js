@@ -5,7 +5,7 @@ function customFieldsFactory({ client, internalAuthTokenProvider }) {
 
   function all({ token, query = {} }) {
     return client.get("/custom-fields", {
-      params: query,   
+      params: query,
       headers: authorizationHeaders({token, internalAuthTokenProvider})
     });
   }

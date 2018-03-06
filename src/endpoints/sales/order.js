@@ -12,9 +12,10 @@ function orderFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  function get({ token, orderId, providerId }) {
+  function get({ token, orderId, query = {} }) {
     return client({
-      url: `/order/${orderId}?providerId=${providerId}`,
+      url: `/order/${orderId}`,
+      params: query,
       headers: authorizationHeaders({token, internalAuthTokenProvider})
     });
   }
