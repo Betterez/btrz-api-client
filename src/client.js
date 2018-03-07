@@ -38,8 +38,9 @@ function createApiClient(options) {
     inventory: createInventory({ baseURL, timeout, overrideFn: baseURLOverride.inventory, internalAuthTokenProvider }),
     accounts: createAccounts({ baseURL, timeout, overrideFn: baseURLOverride.accounts, internalAuthTokenProvider }),
     sales: createSales({ baseURL, timeout, overrideFn: baseURLOverride.sales, internalAuthTokenProvider }),
-    operations: createOperations({ baseURL, timeout, overrideFn: baseURLOverride.operations, internalAuthTokenProvider })
-  }
+    operations: createOperations({ baseURL, timeout, overrideFn: baseURLOverride.operations, internalAuthTokenProvider }),
+    reports: createReports({baseURL, timeout, overrideFn: baseURLOverride.reports, internalAuthTokenProvider })
+  };
 }
 
 /** MODULES */
@@ -108,6 +109,17 @@ function createOperations({ baseURL, timeout, overrideFn, internalAuthTokenProvi
       client
     }
   }
+}
+
+function createReports({ baseURL, timeout, overrideFn, internalAuthTokenProvider }) {
+  const client = clientFactory({ baseURL, timeout, overrideFn });
+
+  return {
+    reportTypes: require("./endpoints/reports/report-types")({client, internalAuthTokenProvider}),
+    __test: {
+      client
+    }
+  };
 }
 
 
