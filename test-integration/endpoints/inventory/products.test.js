@@ -18,7 +18,7 @@ describe("inventory/products", function() {
       .then(statusCode(200))
   });
 
-  it.only("should get product by id", function() {
+  it("should get product by id", function() {
     return api.inventory.products.get({token, productId: "595f9ce6df9127b11d5e03ba"})
       .then(matchHeaders('x-api-key'))
       .then(statusCode(200));
