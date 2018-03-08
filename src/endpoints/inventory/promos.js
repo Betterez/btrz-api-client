@@ -9,8 +9,15 @@ function promosFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  return { 
-    all
+  function remove({ jwtToken, promoId, token }) {
+    return client.delete(`/promos/${promoId}`, {
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+    });
+  }
+
+  return {
+    all,
+    remove
   };
 
 }
