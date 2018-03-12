@@ -128,6 +128,7 @@ function createNotifications({ baseURL, timeout, overrideFn, internalAuthTokenPr
 
   return {
     printedTickets: require("./endpoints/notifications/printed-tickets")({ client, internalAuthTokenProvider }),
+    email: require("./endpoints/notifications/email")({ client, internalAuthTokenProvider }),
     __test: {
       client
     }
