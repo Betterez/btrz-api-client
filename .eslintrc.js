@@ -43,7 +43,7 @@ module.exports = {
     "no-new-func": 2,
     "no-new-wrappers": 2,
     "no-new": 2,
-    "no-process-env": 1,
+    "no-process-env": "off",
     "no-proto": 2,
     "no-redeclare": 2,
     "no-return-assign": 2,
