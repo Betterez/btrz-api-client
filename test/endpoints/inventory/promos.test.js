@@ -3,8 +3,25 @@ const api = require("./../../../src/client").createApiClient({ baseURL: "http://
 
 describe('inventory/promos', function() {
   const token = 'I owe you a token',
-  promoId = '55662844183d59b631000003',
-  jwtToken = 'I owe you a JWT token';
+    promoId = '5a959a4aa7114ffd7f000001',
+    accountId = '4f74a235b0dffc0210000015',
+    ruleId = '',
+    jwtToken = 'I owe you a JWT token',
+    promo = {
+      "accountId": "4f74a235b0dffc0210000015",
+      "internalId": "patchTEST",
+      "name": "patchTEST"
+    },
+    updatePromoData = {
+      "internalId": "createTESTmod",
+      "campaign":"patchTEST",
+      "name":"patchTESTmod",
+      "disabled": false
+    },
+    rule = {
+      "valueType": "%",
+      "value": 100
+    };
 
   afterEach(function() {
     axiosMock.reset();
