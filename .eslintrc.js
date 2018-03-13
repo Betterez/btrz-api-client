@@ -3,7 +3,9 @@ module.exports = {
   "extends": "eslint:recommended",
 
   "env": {
-    "es6": true
+    "es6": true,
+    "node": true,
+    "mocha": true
   },
 
   "parserOptions": {
@@ -12,7 +14,8 @@ module.exports = {
   },
 
   "plugins": [
-    "promise"
+    "promise",
+    "mocha"
   ],
 
   "rules": {
