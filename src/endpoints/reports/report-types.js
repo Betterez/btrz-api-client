@@ -9,8 +9,16 @@ function reportTypesFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  return {      
-    get
+  function getByName({ token, jwtToken, name }) { //deprecated
+    return client({
+      url: `/types?name=${name}`,
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+    });
+  }
+
+  return {
+    get,
+    getByName
   };
 }
 
