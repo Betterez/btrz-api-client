@@ -11,7 +11,7 @@ const api = require("./../../../src/client").createApiClient({
 
 const { matchHeaders, statusCode } = require("./../../test-integration-helpers");
 
-describe.only("notifications/printed-tickets", () => {
+describe("notifications/printed-tickets", () => {
 
   it("should get the tickets to print", () => {
     const trxId = "5aa13f1dc5faab681f7d4ef3";
