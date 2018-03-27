@@ -2,7 +2,7 @@ const { authorizationHeaders } = require("./../endpoints_helpers");
 
 function manifestFactory({ client, internalAuthTokenProvider }) {
 
-  function find({ token, jwtToken, query = {} }) {
+  function get({ token, jwtToken, query = {} }) {
     return client({
       url: "/manifests",
       method: "get",
@@ -11,21 +11,12 @@ function manifestFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  function get({ token, jwtToken, query = {} }) {
+  function getById({ token, jwtToken, manifestId }) {
     return client({
-      url: "/manifest",
+      url: `/manifests/${manifestId}`,
       method: "get",
-      params: query,
       headers: authorizationHeaders({ token, jwtToken, internalAuthTokenProvider })
     });
-  }
-
-  function getById({ token, jwtToken, manifestId }) {
-    return get({ token, jwtToken, query: { manifestId } });
-  }
-
-  function getOrCreate({ token, jwtToken, query }) {
-    return get({ token, jwtToken, query: Object.assign({createIfNotExists: true}, query) });
   }
 
   function patch({ token, jwtToken, query = {}, operations }) {
@@ -49,10 +40,8 @@ function manifestFactory({ client, internalAuthTokenProvider }) {
   }
 
   return {
-    find,
     get,
     getById,
-    getOrCreate,
     patch,
     save
   };

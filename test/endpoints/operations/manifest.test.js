@@ -14,7 +14,7 @@ describe('operations/manifest', function() {
     const routeId = "2349283409238429348",
       scheduleId = "abc",
       date = "2017-10-10";
-    axiosMock.onGet("/manifest").reply(expectRequest({ statusCode: 200, token }));
+    axiosMock.onGet("/manifests").reply(expectRequest({ statusCode: 200, token }));
     return api.operations.manifest.get({ token, jwtToken, query: {routeId, scheduleId, date} });
   });
 
