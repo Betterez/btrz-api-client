@@ -13,8 +13,18 @@ function lexiconsFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function create({ token, jwtToken, lexiconEntries }) {
+    return client({
+      url: "/lexicons",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      data: { entries: lexiconEntries }
+    });
+  }
+
   return { 
-    all 
+    all,
+    create
   };
 
 }
