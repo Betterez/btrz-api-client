@@ -3,6 +3,7 @@ const { expect } = require("chai");
 const port = process.env.INVENTORY_API_PORT;
 const token = process.env.API_TOKEN;
 const jwtToken = process.env.JWT_TOKEN;
+const accountId = process.env.ACCOUNT_ID;
 
 const api = require("./../../../src/client").createApiClient({
   baseURL: `http://localhost:${port}`,
@@ -36,4 +37,11 @@ describe("inventory/fare-classes", () => {
       });
     });
   });
+
+  it("should get all fare classes", () => {
+    return api.inventory.fareClasses.all({token, jwtToken, query: {providerId: accountId}})
+      .then((response) => {
+        expect(response.data.fareClasses).to.be.instanceOf(Array);
+      });
+  })
 });

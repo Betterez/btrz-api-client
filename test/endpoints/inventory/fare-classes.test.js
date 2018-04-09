@@ -31,4 +31,14 @@ describe('inventory/fare-classes', () => {
     });
   });
 
+  it("should get all fare classes", () => {
+    axiosMock.onGet(`/fare-classes`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    return api.inventory.fareClasses.all({
+      jwtToken,
+      token,
+      query: {
+        providerId: "4eb9990bf7885e0100000001"
+      }
+    });
+  });
 });
