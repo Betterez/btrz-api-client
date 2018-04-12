@@ -34,10 +34,20 @@ function cartFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function deleteItems({ token, cartId, params, jwtToken }) {
+    return client({ 
+      url: `/cart/${cartId}/items`,
+      method: "delete",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      params
+    });
+  }
+
   return { 
     get,
     create,
-    add
+    add,
+    deleteItems
   };
 }
 

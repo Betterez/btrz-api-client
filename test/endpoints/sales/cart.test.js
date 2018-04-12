@@ -27,4 +27,20 @@ describe('sales/cart', function() {
     return api.sales.cart.add({ jwtToken, token, cartId, cart: { operationId: 1234 } });
   });
 
-}); 
+  it("should delete item from existing cart", function() {
+    const cartId = "someCartId";
+    axiosMock.onDelete(`/cart/${cartId}/items`).reply(function(request) {
+      expect(request.params).to.eql({operationId: 1234, providerId: 123});
+      expect(request.headers).to.eql({ 
+        Accept: 'application/json',
+        'x-api-key': 'I owe you a token',
+        authorization: 'Bearer I owe you a JWT token'
+      });
+      expect(request.method).to.eql("delete");
+      expect(request.url).to.eql(`/cart/${cartId}/items`);
+      return [200];
+    });
+
+    return api.sales.cart.deleteItems({ jwtToken, token, cartId, params: { operationId: 1234, providerId: 123 } });
+  });
+});
