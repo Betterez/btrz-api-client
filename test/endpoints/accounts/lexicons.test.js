@@ -26,8 +26,8 @@ describe('accounts/lexicons', function() {
     return api.accounts.lexicons.create({ token, jwtToken, lexiconEntries: [{
         accountId: "52f94137a8663b2704000009",
         name: "test-lexicon-entry-1",
-        contexts: ["app", "websales", "vue"],
-        translations: {
+        context: ["app", "websales", "vue"],
+        values: {
           "en-us": "Test lexicon entry",
           "fr-fr": "Test lexicon entry french"
         }
