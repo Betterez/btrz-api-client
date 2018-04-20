@@ -52,12 +52,12 @@ function promosFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function updateRule({ jwtToken, token, promoId, ruleId, ruleData }) {
+  function updateRule({ jwtToken, token, promoId, ruleId, rule }) {
     return client({
       url: `/promos/${promoId}/rules/${ruleId}`,
       method: "put",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
-      data: { ruleData }
+      data: { rule }
     });
   }
 
