@@ -56,7 +56,7 @@ describe("accounts/lexicons", function() {
       expect(status).to.equal(200);
       expect(data.entries).to.have.length(1);
       expect(data.entries[0].values["en-us"]).to.eql(newTranslation);
-    })
-  })
+    });
+  });
 
 });
