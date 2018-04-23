@@ -1,9 +1,11 @@
 const { expect } = require("chai");
+const uuid = require("uuid");
 
 const port = process.env.INVENTORY_API_PORT;
 const token = process.env.API_TOKEN;
 const jwtToken = process.env.JWT_TOKEN;
 const accountId = process.env.ACCOUNT_ID;
+const fareClassId = process.env.FARE_CLASS_ID;
 
 const api = require("./../../../src/client").createApiClient({
   baseURL: `http://localhost:${port}`,
@@ -43,5 +45,23 @@ describe("inventory/fare-classes", () => {
       .then((response) => {
         expect(response.data.fareClasses).to.be.instanceOf(Array);
       });
-  })
+  });
+
+  it("should update a fare class", () => {
+    const newName = uuid.v4();
+
+    return api.inventory.fareClasses.update({
+      jwtToken,
+      token,
+      fareClassId,
+      update: {
+        name: newName
+      }
+    })
+      .then(({status, data}) => {
+        expect(status).to.equal(200);
+        expect(data.fareClass).to.exist;
+        expect(data.fareClass.name).to.eql(newName);
+      });
+  });
 });

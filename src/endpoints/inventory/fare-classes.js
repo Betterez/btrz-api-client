@@ -19,9 +19,19 @@ function fareClassesFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function update({ token, jwtToken, fareClassId, update }) {
+    return client({
+      url: `/fare-classes/${fareClassId}`,
+      method: "patch",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      data: { update }
+    });
+  }
+
   return {
     all,
     create,
+    update
   };
 }
 

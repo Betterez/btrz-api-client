@@ -41,4 +41,29 @@ describe('inventory/fare-classes', () => {
       }
     });
   });
+
+  it("should update a fare class", () => {
+    const fareClassId = "5ad7804216b426412c19f06f";
+    axiosMock.onPatch(`/fare-classes/${fareClassId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+
+    return api.inventory.fareClasses.update({
+      jwtToken,
+      token,
+      fareClassId,
+      update: {
+        productIds: ["6789"],
+        name: "Economy",
+        description: "An inexpensive fare class",
+        terms: "Tickets are non-refundable",
+        changeable: false,
+        cancellable: false,
+        disabled: false,
+        lexiconKeys: {
+          name: "fare-class-name-97ba4o9al2837g0w9",
+          description: "fare-class-description-97ba4o9al2837g0w9",
+          terms: "fare-class-terms-97ba4o9al2837g0w9",
+        }
+      }
+    });
+  });
 });
