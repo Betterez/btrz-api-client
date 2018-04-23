@@ -35,4 +35,18 @@ describe('accounts/lexicons', function() {
     });
   });
 
+  it("should update lexicon entries", function() {
+    axiosMock.onPatch("/lexicons").reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    return api.accounts.lexicons.updateMany({ token, jwtToken, updates: [{
+        accountId: "52f94137a8663b2704000009",
+        name: "test-lexicon-entry-1",
+        context: ["app", "websales", "vue"],
+        values: {
+          "en-us": "Updated english phrase",
+          "fr-fr": "Nouveau phrase en français"
+        }
+      }]
+    });
+  });
+
 });

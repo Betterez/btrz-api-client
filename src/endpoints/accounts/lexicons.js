@@ -22,9 +22,19 @@ function lexiconsFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function updateMany({ token, jwtToken, updates }) {
+    return client({
+      url: "/lexicons",
+      method: "patch",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      data: { updates }
+    });
+  }
+
   return { 
     all,
-    create
+    create,
+    updateMany
   };
 
 }
