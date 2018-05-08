@@ -94,6 +94,7 @@ function createSales({ baseURL, timeout, overrideFn, internalAuthTokenProvider }
     customFields: require("./endpoints/sales/custom-fields")({ client, internalAuthTokenProvider }),
     order: require("./endpoints/sales/order")({ client, internalAuthTokenProvider }),
     voucher: require("./endpoints/sales/voucher")({ client, internalAuthTokenProvider }),
+    cartPromo: require("./endpoints/sales/cart-promo")({ client, internalAuthTokenProvider }),
     __test: {
       client
     }
