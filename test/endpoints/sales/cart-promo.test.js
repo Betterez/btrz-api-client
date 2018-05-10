@@ -16,4 +16,10 @@ describe('sales/cart/{cartId}/promo/{promoCode}', function() {
     axiosMock.onPost(`/cart/${cartId}/promo/${promoCode}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
     return api.sales.cartPromo.create({ jwtToken, token, cartId, promoCode, query: {providerId: "provideId1"}});
   });
+
+  it("should remove promos from cart", function() {
+    const cartId = "123";
+    axiosMock.onDelete(`/cart/${cartId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    return api.sales.cartPromo.remove({ jwtToken, token, cartId, query: {providerId: "provideId1"}});
+  });
 });

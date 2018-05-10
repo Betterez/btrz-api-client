@@ -23,7 +23,7 @@ const apiInventory = require("./../../../src/client").createApiClient({
 
 const { matchHeaders, statusCode } = require("./../../test-integration-helpers");  
 
-describe.only("sales/cart", function() {
+describe("sales/cart", function() {
 
   it("should apply a promo to the cart", function() {
     const cartId = "5af231ff85d4b8a302d2b343",
@@ -33,6 +33,15 @@ describe.only("sales/cart", function() {
       };
 
     return apiSales.sales.cartPromo.create({token, jwtToken, cartId, promoCode, query});
+  });
+
+  it("should remove promos from cart", function() {
+    const cartId = "5af231ff85d4b8a302d2b343",
+      query = {
+        channel: "backoffice"
+      };
+
+    return apiSales.sales.cartPromo.remove({token, jwtToken, cartId, query});
   });
 
 });

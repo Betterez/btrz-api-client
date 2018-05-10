@@ -12,8 +12,18 @@ function cartPromoFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function remove({ token, jwtToken, cartId, query = {} }) {
+    return client({
+      url: `/cart/${cartId}`,
+      method: "delete",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      params: query
+    });
+  }
+
   return { 
-    create
+    create,
+    remove
   };
 }
 
