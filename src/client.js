@@ -26,7 +26,6 @@ function clientFactory({ baseURL, timeout, overrideFn }) {
  * @param {Object}   internalAuthTokenProvider - an object containing a getToken() function that, when called, returns an authorization
  *                                               token that's valid for making service-to-service API calls.
  * @param {Function} internalAuthTokenProvider.getToken
- * 
  * @returns An object with a client for every "module" (needed to override baseURL)
  */
 
@@ -48,7 +47,7 @@ function createApiClient(options) {
 
 function createInventory({ baseURL, timeout, overrideFn, internalAuthTokenProvider }) {
   const client = clientFactory({ baseURL, timeout, overrideFn });
-  
+
   return {
     products: require("./endpoints/inventory/products")({ client, internalAuthTokenProvider }),
     insurances: require("./endpoints/inventory/insurances")({ client, internalAuthTokenProvider }),
@@ -65,15 +64,16 @@ function createInventory({ baseURL, timeout, overrideFn, internalAuthTokenProvid
     fareClasses: require("./endpoints/inventory/fare-classes")({client, internalAuthTokenProvider}),
     brands: require("./endpoints/inventory/brands")({client, internalAuthTokenProvider}),
     routes: require("./endpoints/inventory/routes")({ client, internalAuthTokenProvider }),
+    companies: require("./endpoints/inventory/companies")({ client, internalAuthTokenProvider }),
     __test: {
       client
     }
-  }
+  };
 }
 
 function createAccounts({ baseURL, timeout, overrideFn, internalAuthTokenProvider }) {
   const client = clientFactory({ baseURL, timeout, overrideFn });
-  
+
   return {
     lexicons: require("./endpoints/accounts/lexicons")({ client, internalAuthTokenProvider }),
     shifts: require("./endpoints/accounts/shifts")({ client, internalAuthTokenProvider }),
@@ -81,12 +81,12 @@ function createAccounts({ baseURL, timeout, overrideFn, internalAuthTokenProvide
     __test: {
       client
     }
-  }
+  };
 }
 
 function createSales({ baseURL, timeout, overrideFn, internalAuthTokenProvider }) {
   const client = clientFactory({ baseURL, timeout, overrideFn });
-  
+
   return {
     paymentProviders: require("./endpoints/sales/payment-providers")({ client, internalAuthTokenProvider }),
     cart: require("./endpoints/sales/cart")({ client, internalAuthTokenProvider }),
@@ -98,7 +98,7 @@ function createSales({ baseURL, timeout, overrideFn, internalAuthTokenProvider }
     __test: {
       client
     }
-  }
+  };
 }
 
 function createOperations({ baseURL, timeout, overrideFn, internalAuthTokenProvider }) {
@@ -113,7 +113,7 @@ function createOperations({ baseURL, timeout, overrideFn, internalAuthTokenProvi
     __test: {
       client
     }
-  }
+  };
 }
 
 function createReports({ baseURL, timeout, overrideFn, internalAuthTokenProvider }) {
@@ -141,4 +141,4 @@ function createNotifications({ baseURL, timeout, overrideFn, internalAuthTokenPr
 }
 
 
-module.exports = { clientFactory, createApiClient }
+module.exports = { clientFactory, createApiClient };
