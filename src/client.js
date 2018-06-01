@@ -39,7 +39,8 @@ function createApiClient(options) {
     sales: createSales({ baseURL, timeout, overrideFn: baseURLOverride.sales, internalAuthTokenProvider }),
     operations: createOperations({ baseURL, timeout, overrideFn: baseURLOverride.operations, internalAuthTokenProvider }),
     reports: createReports({baseURL, timeout, overrideFn: baseURLOverride.reports, internalAuthTokenProvider }),
-    notifications: createNotifications({ baseURL, timeout, overrideFn: baseURLOverride.notifications, internalAuthTokenProvider })
+    notifications: createNotifications({ baseURL, timeout, overrideFn: baseURLOverride.notifications, internalAuthTokenProvider }),
+    uploads: createUploads({ baseURL, timeout, overrideFn: baseURLOverride.uploads, internalAuthTokenProvider })
   };
 }
 
@@ -135,6 +136,17 @@ function createNotifications({ baseURL, timeout, overrideFn, internalAuthTokenPr
   return {
     printedTickets: require("./endpoints/notifications/printed-tickets")({ client, internalAuthTokenProvider }),
     email: require("./endpoints/notifications/email")({ client, internalAuthTokenProvider }),
+    __test: {
+      client
+    }
+  };
+}
+
+function createUploads({ baseURL, timeout, overrideFn, internalAuthTokenProvider }) {
+  const client = clientFactory({ baseURL, timeout, overrideFn });
+
+  return {
+    files: require("./endpoints/uploads/files")({ client, internalAuthTokenProvider }),
     __test: {
       client
     }
