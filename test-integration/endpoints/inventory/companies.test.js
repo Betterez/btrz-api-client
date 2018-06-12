@@ -10,7 +10,7 @@ const api = require("./../../../src/client").createApiClient({
 
 const { matchHeaders, statusCode } = require("./../../test-integration-helpers");
 
-describe.only("inventory/companies", function() {
+describe("inventory/companies", function() {
 
   it("should list companies", function() {
     return api.inventory.companies.all({ token, query: { search: "sup" } })
