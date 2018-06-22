@@ -26,13 +26,14 @@ const { matchHeaders, statusCode } = require("./../../test-integration-helpers")
 describe("sales/cart", function() {
 
   it("should apply a promo to the cart", function() {
-    const cartId = "5af231ff85d4b8a302d2b343",
-      promoCode = "WinterPromo",
+    const cartId = "5b2d3d1c931c8c0d2543c4fb",
+      promoCode = "PetPromo",
       query = {
-        providerId: "595f9c7007ee12686d000032"
+        providerId: "595f9c7007ee12686d000032",
+        promoCode
       };
 
-    return apiSales.sales.cartPromo.create({token, jwtToken, cartId, promoCode, query});
+    return apiSales.sales.cartPromo.create({token, jwtToken, cartId, query});
   });
 
   it("should remove promos from cart", function() {

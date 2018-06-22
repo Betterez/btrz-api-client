@@ -13,8 +13,8 @@ describe('sales/cart/{cartId}/promo/{promoCode}', function() {
   it("should apply a promo to cart", function() {
     const cartId = "123",
       promoCode = "ABC";
-    axiosMock.onPost(`/cart/${cartId}/promo/${promoCode}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
-    return api.sales.cartPromo.create({ jwtToken, token, cartId, promoCode, query: {providerId: "provideId1"}});
+    axiosMock.onPost(`/cart/${cartId}/promos`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    return api.sales.cartPromo.create({ jwtToken, token, cartId, query: {providerId: "provideId1", promoCode}});
   });
 
   it("should remove promos from cart", function() {

@@ -3,9 +3,9 @@ const { authorizationHeaders } = require("./../endpoints_helpers");
 
 function cartPromoFactory({ client, internalAuthTokenProvider }) {
 
-  function create({ token, jwtToken, cartId, promoCode, query = {} }) {
+  function create({ token, jwtToken, cartId, query = {} }) {
     return client({ 
-      url: `/cart/${cartId}/promo/${promoCode}`,
+      url: `/cart/${cartId}/promos`,
       method: "post",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
       params: query
