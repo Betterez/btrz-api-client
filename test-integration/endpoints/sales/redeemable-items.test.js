@@ -8,7 +8,7 @@ const port = process.env.SALES_API_PORT,
     }
   });
 
-describe.only("sales/redeemable-items", function() {
+describe("sales/redeemable-items", function() {
 
   it("should get a redeemable item by id", function() {
     const redeemableItemId = "5b2cfe091def7f93187a4a2a",

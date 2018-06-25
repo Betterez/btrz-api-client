@@ -4,13 +4,20 @@ function faresFactory({client, internalAuthTokenProvider}) {
 
   function all({ token, query = {} }) {
     return client.get("/fares", {
-      params: query,   
+      params: query,
       headers: authorizationHeaders({token, internalAuthTokenProvider})
     });
   }
 
-  return { 
-    all
+  function get({ token, id }) {
+    return client.get(`/fare/${id}`, {
+      headers: authorizationHeaders({token, internalAuthTokenProvider})
+    });
+  }
+
+  return {
+    all,
+    get
   };
 
 }
