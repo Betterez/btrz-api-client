@@ -98,6 +98,7 @@ function createSales({ baseURL, timeout, overrideFn, internalAuthTokenProvider }
     voucher: require("./endpoints/sales/voucher")({ client, internalAuthTokenProvider }),
     cartPromo: require("./endpoints/sales/cart-promo")({ client, internalAuthTokenProvider }),
     bundles: require("./endpoints/sales/bundles")({ client, internalAuthTokenProvider }),
+    redeemableItems: require("./endpoints/sales/redeemable-items")({ client, internalAuthTokenProvider }),
     __test: {
       client
     }
