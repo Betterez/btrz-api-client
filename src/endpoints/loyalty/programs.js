@@ -21,9 +21,19 @@ function programsFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  return { 
+  function put({ token, jwtToken, programId, program }) {
+    return client({
+      url: `/programs/${programId}`,
+      method: "put",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      data: program
+    });
+  }
+
+  return {
     all,
-    create
+    create,
+    put
   };
 
 }
