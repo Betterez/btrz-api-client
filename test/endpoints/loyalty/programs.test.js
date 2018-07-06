@@ -30,4 +30,19 @@ describe("loyalty/programs", () => {
       }
     });
   });
+
+  it("should PUT a program", function() {
+    const programId = "123123123123",
+      program =  {
+        accumulateOn: "redemption",
+        disabled: false,
+        expirationDays: 20,
+        name: "An updated program",
+        terms: "Updated Loyalty program terms",
+        paymentMethods: ["cash"],
+        products: ["123123123"]
+      };
+    axiosMock.onPut(`/programs/${programId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    return api.loyalty.programs.put({ jwtToken, token, programId, program });
+  });
 });
