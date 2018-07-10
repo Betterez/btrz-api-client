@@ -114,6 +114,7 @@ function createOperations({ baseURL, timeout, overrideFn, internalAuthTokenProvi
     parcel: require("./endpoints/operations/parcels")({ client, internalAuthTokenProvider }),
     appliedInsurance: require("./endpoints/operations/applied_insurance")({ client, internalAuthTokenProvider }),
     transaction: require("./endpoints/operations/transaction")({ client, internalAuthTokenProvider }),
+    transactions: require("./endpoints/operations/transactions")({ client, internalAuthTokenProvider }),
     manifest: require("./endpoints/operations/manifest")({ client, internalAuthTokenProvider }),
     redemption: require("./endpoints/operations/redemption")({ client, internalAuthTokenProvider }),
     __test: {
