@@ -41,7 +41,8 @@ function createApiClient(options) {
     reports: createReports({baseURL, timeout, overrideFn: baseURLOverride.reports, internalAuthTokenProvider }),
     notifications: createNotifications({ baseURL, timeout, overrideFn: baseURLOverride.notifications, internalAuthTokenProvider }),
     uploads: createUploads({ baseURL, timeout, overrideFn: baseURLOverride.uploads, internalAuthTokenProvider }),
-    loyalty: createLoyalty({ baseURL, timeout, overrideFn: baseURLOverride.loyalty, internalAuthTokenProvider })
+    loyalty: createLoyalty({ baseURL, timeout, overrideFn: baseURLOverride.loyalty, internalAuthTokenProvider }),
+    webhooks: createWebhooks({ baseURL, timeout, overrideFn: baseURLOverride.webhooks, internalAuthTokenProvider })
   };
 }
 
@@ -163,6 +164,18 @@ function createLoyalty({ baseURL, timeout, overrideFn, internalAuthTokenProvider
 
   return {
     programs: require("./endpoints/loyalty/programs")({ client, internalAuthTokenProvider }),
+    __test: {
+      client
+    }
+  };
+}
+
+function createWebhooks({ baseURL, timeout, overrideFn, internalAuthTokenProvider }) {
+  const client = clientFactory({ baseURL, timeout, overrideFn });
+
+  return {
+    subscriptions: require("./endpoints/webhooks/subscriptions")({ client, internalAuthTokenProvider }),
+    events: require("./endpoints/webhooks/events")({ client, internalAuthTokenProvider }),
     __test: {
       client
     }
