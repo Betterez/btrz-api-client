@@ -70,6 +70,7 @@ function createInventory({ baseURL, timeout, overrideFn, internalAuthTokenProvid
     routes: require("./endpoints/inventory/routes")({ client, internalAuthTokenProvider }),
     companies: require("./endpoints/inventory/companies")({ client, internalAuthTokenProvider }),
     bundleFares: require("./endpoints/inventory/bundle-fares")({ client, internalAuthTokenProvider }),
+    giftCertificateDefinitions: require("./endpoints/inventory/gift-certificate-definitions")({ client, internalAuthTokenProvider }),
     __test: {
       client
     }
