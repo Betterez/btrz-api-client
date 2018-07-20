@@ -1,7 +1,7 @@
 const { axiosMock, expectRequest } = require("./../../test-helpers");
 const api = require("./../../../src/client").createApiClient({ baseURL: "http://test.com" });
 
-describe("loyalty/programs", () => {
+describe("loyalty/programs/:programId/movements", () => {
   const token = 'I owe you a token',
     jwtToken = 'I owe you a JWT token',
     programId = "abcf-2659-12sdf-12345";
