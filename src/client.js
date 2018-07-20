@@ -165,6 +165,7 @@ function createLoyalty({ baseURL, timeout, overrideFn, internalAuthTokenProvider
 
   return {
     programs: require("./endpoints/loyalty/programs")({ client, internalAuthTokenProvider }),
+    movements: require("./endpoints/loyalty/movements")({ client, internalAuthTokenProvider }),
     __test: {
       client
     }
