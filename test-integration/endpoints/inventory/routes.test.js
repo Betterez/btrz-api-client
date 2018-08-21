@@ -18,4 +18,19 @@ describe("inventory/routes", function() {
       .then(statusCode(200));
   });
 
+  it("should get prices", function() {
+    return api.inventory.routes.prices({
+      token,
+      productId: "5b6c7c9d7498b24533000009",
+      originId: "599602791c926ad5506cddc4",
+      destinationId: "599602a01c926ad5506cddc5",
+      channel: "backoffice"
+    })
+    .then(matchHeaders('x-api-key'))
+    .then(statusCode(200))
+    .then((res) => {
+      console.log(res.data);
+    })
+  });
+
 });

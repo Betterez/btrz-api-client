@@ -10,8 +10,19 @@ function routesFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  return { 
-    get
+  function prices({ token, productId, originId, destinationId, channel, query }) {
+    const params = Object.assign({}, query, {productId, originId, destinationId, channel});
+
+    return client({
+      url: "/routes/prices",
+      params,
+      headers: authorizationHeaders({token, internalAuthTokenProvider})
+    });
+  }
+
+  return {
+    get,
+    prices
   };
 
 }

@@ -10,7 +10,7 @@ const api = require("./../../../src/client").createApiClient({
 
 const { matchHeaders, statusCode } = require("./../../test-integration-helpers");
 
-describe.only("inventory/gift-certificate-definitions", () => {
+describe("inventory/gift-certificate-definitions", () => {
 
   it("should list gift certificate definitions for the given provider id", () => {
     const query = {
