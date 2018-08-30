@@ -15,7 +15,7 @@ describe("loyalty/programs/:programId/movements", () => {
     return api.loyalty.movements.all({token, jwtToken, programId});
   });
 
-  it("should create an order", function() {
+  it("should create a movement", function() {
     axiosMock.onPost(`/programs/${programId}/movements`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
     return api.loyalty.movements.create({ jwtToken, token, programId, movement: { amount: 1234 } });
   });
