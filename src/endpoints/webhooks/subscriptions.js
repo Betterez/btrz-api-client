@@ -2,13 +2,13 @@ const { authorizationHeaders } = require("./../endpoints_helpers");
 
 function subscriptionsFactory({ client, internalAuthTokenProvider }) {
 
-  function all({ token, context, query = {} }) {
+  function all({ token, jwtToken, context, query = {} }) {
     const queryObj = Object.assign({}, query, { context });
 
     return client({
       url: "/subscriptions",
       params: queryObj,
-      headers: authorizationHeaders({ token, internalAuthTokenProvider })
+      headers: authorizationHeaders({ token, jwtToken, internalAuthTokenProvider })
     });
   }
 
