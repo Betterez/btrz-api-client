@@ -13,7 +13,7 @@ const api = require("./../../../src/client").createApiClient({
 });
 
 
-describe.only("uploads/images", () => {
+describe("uploads/images", () => {
   it("should upload a image file", () => {
     const formData = new FormData(),
       fileStream = fs.createReadStream(`${__dirname}/sample.png`);
