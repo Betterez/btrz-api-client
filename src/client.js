@@ -155,6 +155,7 @@ function createUploads({ baseURL, timeout, overrideFn, internalAuthTokenProvider
 
   return {
     files: require("./endpoints/uploads/files")({ client, internalAuthTokenProvider }),
+    images: require("./endpoints/uploads/images")({ client, internalAuthTokenProvider }),
     __test: {
       client
     }
