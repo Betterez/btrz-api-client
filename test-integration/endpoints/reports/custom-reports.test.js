@@ -54,4 +54,11 @@ describe("reports/custom-report", function() {
       expect(err.response.data.customReport.name).to.be.eql(customReport.name);
     });
   });
+
+  it("should not get any custom reports", function() {
+    return api.operations.parcel.all({token, jwtToken, query: {}})
+      .catch((err) => {
+        expect(err.response.status).to.be.eql(401);
+      });
+  });
 });

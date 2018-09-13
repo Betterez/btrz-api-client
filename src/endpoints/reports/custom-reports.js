@@ -10,8 +10,17 @@ function customReportsFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function all({ token, jwtToken, query = {} }) {
+    return client({
+      url: "/custom-reports",
+      params: query,
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+    });
+  }
+
   return {
-    create
+    create,
+    all
   };
 }
 
