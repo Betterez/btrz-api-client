@@ -46,7 +46,7 @@ describe("reports/custom-report", function() {
           "14"
         ],
         prefixForFile: "greatReport"
-      }         
+      }
     };
     return api.reports.customReports.create({ jwtToken, token, customReport })
     .catch((err) => {
@@ -56,7 +56,14 @@ describe("reports/custom-report", function() {
   });
 
   it("should not get any custom reports", function() {
-    return api.operations.parcel.all({token, jwtToken, query: {}})
+    return api.reports.customReports.all({token, jwtToken, query: {}})
+      .catch((err) => {
+        expect(err.response.status).to.be.eql(401);
+      });
+  });
+
+  it("should not delete a custom report", function() {
+    return api.reports.customReports.remove({token, jwtToken, customReportId: "5a959a4aa7114ffd7f000001"})
       .catch((err) => {
         expect(err.response.status).to.be.eql(401);
       });

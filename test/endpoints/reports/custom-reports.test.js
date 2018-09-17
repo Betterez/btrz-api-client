@@ -3,7 +3,8 @@ const { axiosMock, expectRequest } = require("./../../test-helpers"),
 
 describe("reports/custom-reports", () => {
   const token = "token",
-    jwtToken = "jwtToken";
+    jwtToken = "jwtToken",
+    customReportId = "5a959a4aa7114ffd7f000001";
 
   afterEach(() => {
     axiosMock.reset();
@@ -23,4 +24,8 @@ describe("reports/custom-reports", () => {
     return api.reports.customReports.all({token, query: {}});
   });
 
+  it("should remove custom report with given id", function() {
+    axiosMock.onDelete(`/custom-reports/${customReportId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    return api.reports.customReports.remove({ jwtToken, token, customReportId });
+  });
 });

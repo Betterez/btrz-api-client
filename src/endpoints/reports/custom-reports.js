@@ -1,7 +1,7 @@
 const { authorizationHeaders } = require("./../endpoints_helpers");
 
 function customReportsFactory({ client, internalAuthTokenProvider }) {
-  function create({ token, customReport, jwtToken }) {
+  function create({token, customReport, jwtToken }) {
     return client({
       url: "/custom-reports",
       method: "post",
@@ -10,7 +10,7 @@ function customReportsFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  function all({ token, jwtToken, query = {} }) {
+  function all({token, jwtToken, query = {} }) {
     return client({
       url: "/custom-reports",
       params: query,
@@ -18,9 +18,18 @@ function customReportsFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function remove({token, jwtToken, customReportId}) {
+    return client({
+      url: `/custom-reports/${customReportId}`,
+      method: "delete",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+    });
+  }
+
   return {
     create,
-    all
+    all,
+    remove
   };
 }
 
