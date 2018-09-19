@@ -28,10 +28,19 @@ function brandsFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function get({token, brandId, jwtToken}) {
+    return client({
+      url: `/brands/${brandId}`,
+      method: "get",
+      headers: authorizationHeaders({token, internalAuthTokenProvider, jwtToken}),
+    });
+  }
+
   return {
     all,
     create,
     update,
+    get
   };
 }
 
