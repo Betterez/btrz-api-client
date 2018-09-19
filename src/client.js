@@ -120,6 +120,7 @@ function createOperations({ baseURL, timeout, overrideFn, internalAuthTokenProvi
     tickets: require("./endpoints/operations/tickets")({ client, internalAuthTokenProvider }),
     manifest: require("./endpoints/operations/manifest")({ client, internalAuthTokenProvider }),
     redemption: require("./endpoints/operations/redemption")({ client, internalAuthTokenProvider }),
+    tripChangeInfo: require("./endpoints/operations/trip_change_info")({ client, internalAuthTokenProvider }),
     __test: {
       client
     }
