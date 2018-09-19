@@ -45,4 +45,14 @@ describe('inventory/brands', () => {
       }
     });
   });
+
+  it("should get a brand", () => {
+    const brandId = "1234";
+    axiosMock.onGet(`/brands/${brandId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    return api.inventory.brands.get({
+      jwtToken,
+      token,
+      brandId
+    });
+  });
 });
