@@ -16,12 +16,12 @@ function amenityGroupsFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  function create({ token, jwtToken, amenity }) {
+  function create({ token, jwtToken, amenityGroup }) {
     return client({
       url: "/amenity-groups",
       method: "post",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
-      data: { amenity }
+      data: { amenityGroup }
     });
   }
 
