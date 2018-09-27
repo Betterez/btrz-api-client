@@ -25,9 +25,9 @@ function amenityGroupsFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  function update({ token, jwtToken, amenityId, amenityGroup }) {
+  function update({ token, jwtToken, amenityGroupId, amenityGroup }) {
     return client({
-      url: `/amenity-groups/${amenityId}`,
+      url: `/amenity-groups/${amenityGroupId}`,
       method: "put",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
       data: { amenityGroup }
