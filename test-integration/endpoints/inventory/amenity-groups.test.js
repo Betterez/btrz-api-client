@@ -25,29 +25,28 @@ describe("inventory/amenity-groups", () => {
   });
 
   it("should create an Amenity Group", () => {
-    const newName = "New Name 93",
+    const newName = "New Name 97",
       newIcon = "fa-train",
       newState = false;
     return api.inventory.amenityGroups.create({
       jwtToken,
       token,
-      amenity: {
+      amenityGroup: {
         name: newName,
         enabled: newState,
-
+        amenityIds: [],
         lexiconKeys: {}
       }
     })
     .then(({status, data}) => {
       expect(status).to.equal(200);
-      expect(data.amenity).to.exist;
-      expect(data.amenity.name).to.eql(newName);
-      expect(data.amenity.icon).to.eql(newIcon);
-      expect(data.amenity.enabled).to.eql(newState);
-      expect(data.amenity.createdAt).to.exist;
-      expect(data.amenity.createdBy).to.exist;
-      expect(data.amenity.updatedAt).to.exist;
-      expect(data.amenity.updatedBy).to.exist;
+      expect(data.amenityGroup).to.exist;
+      expect(data.amenityGroup.name).to.eql(newName);
+      expect(data.amenityGroup.enabled).to.eql(newState);
+      expect(data.amenityGroup.createdAt).to.exist;
+      expect(data.amenityGroup.createdBy).to.exist;
+      expect(data.amenityGroup.updatedAt).to.exist;
+      expect(data.amenityGroup.updatedBy).to.exist;
     });
   });
 
@@ -62,20 +61,19 @@ describe("inventory/amenity-groups", () => {
       amenityGroup: {
         name: newName,
         enabled: newState,
-        amenityIds: []
+        amenityIds: [],
         lexiconKeys: {}
       }
     })
       .then(({status, data}) => {
         expect(status).to.equal(200);
-        expect(data.amenity).to.exist;
-        expect(data.amenity.name).to.eql(newName);
-        expect(data.amenity.icon).to.eql(newIcon);
-        expect(data.amenity.enabled).to.eql(newState);
-        expect(data.amenity.createdAt).to.exist;
-        expect(data.amenity.createdBy).to.exist;
-        expect(data.amenity.updatedAt).to.exist;
-        expect(data.amenity.updatedBy).to.exist;
+        expect(data.amenityGroup).to.exist;
+        expect(data.amenityGroup.name).to.eql(newName);
+        expect(data.amenityGroup.enabled).to.eql(newState);
+        expect(data.amenityGroup.createdAt).to.exist;
+        expect(data.amenityGroup.createdBy).to.exist;
+        expect(data.amenityGroup.updatedAt).to.exist;
+        expect(data.amenityGroup.updatedBy).to.exist;
       });
   });
 });
