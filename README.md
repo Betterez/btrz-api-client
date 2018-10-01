@@ -115,7 +115,7 @@ API_TOKEN=<some token> npm run test:integration
 Run
 
 ```
-npm run version -- v0.0.0
+npm version [major || minor || patch]
 ```
 
-Where v0.0.0 is the git tag that will be created and pushed to Github.
+this will increment the version number according to your selection (major, minor or patch) and push a new TAG. There's no need to release a new version in the github UI.
