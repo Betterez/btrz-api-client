@@ -2,10 +2,10 @@ const { authorizationHeaders } = require("./../endpoints_helpers");
 
 function amenityGroupsFactory({ client, internalAuthTokenProvider }) {
 
-  function all({ token, jwtToken, query = {} }) {
+  function all({ token, query = {} }) {
     return client.get("/amenity-groups", {
       params: query,
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+      headers: authorizationHeaders({token, internalAuthTokenProvider})
     });
   }
 

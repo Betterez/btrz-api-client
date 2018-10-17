@@ -9,6 +9,12 @@ describe('inventory/amenities', () => {
     axiosMock.reset();
   });
 
+  it("should list Amenities", function() {
+    axiosMock.onGet(`/amenities`).reply(expectRequest({ statusCode: 200, token }));
+    return api.inventory.amenities.all({ token });
+  });
+
+
   it("should get an Amenity", () => {
     const amenityId = "5ad7804216b426412c19f06f";
     axiosMock.onGet(`/amenities/${amenityId}`).reply(expectRequest({ statusCode: 200, token }));
