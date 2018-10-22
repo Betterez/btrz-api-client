@@ -19,6 +19,15 @@ function manifestFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function outlook({ token, jwtToken, query = {} }) {
+    return client({
+      url: "/outlook-manifests",
+      method: "get",
+      params: query,
+      headers: authorizationHeaders({ token, jwtToken, internalAuthTokenProvider })
+    });
+  }
+
   function patch({ token, jwtToken, query = {}, operations }) {
     return client({
       url: "/manifests",
@@ -42,6 +51,7 @@ function manifestFactory({ client, internalAuthTokenProvider }) {
   return {
     get,
     getById,
+    outlook,
     patch,
     save
   };
