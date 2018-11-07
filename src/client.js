@@ -42,7 +42,8 @@ function createApiClient(options) {
     notifications: createNotifications({ baseURL, timeout, overrideFn: baseURLOverride.notifications, internalAuthTokenProvider }),
     uploads: createUploads({ baseURL, timeout, overrideFn: baseURLOverride.uploads, internalAuthTokenProvider }),
     loyalty: createLoyalty({ baseURL, timeout, overrideFn: baseURLOverride.loyalty, internalAuthTokenProvider }),
-    webhooks: createWebhooks({ baseURL, timeout, overrideFn: baseURLOverride.webhooks, internalAuthTokenProvider })
+    webhooks: createWebhooks({ baseURL, timeout, overrideFn: baseURLOverride.webhooks, internalAuthTokenProvider }),
+    liveSeatmaps: createLiveSeatmaps({ baseURL, timeout, overrideFn: baseURLOverride.webhooks, internalAuthTokenProvider })
   };
 }
 
@@ -185,6 +186,17 @@ function createWebhooks({ baseURL, timeout, overrideFn, internalAuthTokenProvide
   return {
     subscriptions: require("./endpoints/webhooks/subscriptions")({ client, internalAuthTokenProvider }),
     events: require("./endpoints/webhooks/events")({ client, internalAuthTokenProvider }),
+    __test: {
+      client
+    }
+  };
+}
+
+function createLiveSeatmaps({ baseURL, timeout, overrideFn, internalAuthTokenProvider }) {
+  const client = clientFactory({ baseURL, timeout, overrideFn });
+
+  return {
+    accessTicket: require("./endpoints/liveseatmaps/access-ticket")({ client, internalAuthTokenProvider }),
     __test: {
       client
     }
