@@ -43,7 +43,7 @@ function createApiClient(options) {
     uploads: createUploads({ baseURL, timeout, overrideFn: baseURLOverride.uploads, internalAuthTokenProvider }),
     loyalty: createLoyalty({ baseURL, timeout, overrideFn: baseURLOverride.loyalty, internalAuthTokenProvider }),
     webhooks: createWebhooks({ baseURL, timeout, overrideFn: baseURLOverride.webhooks, internalAuthTokenProvider }),
-    liveSeatmaps: createLiveSeatmaps({ baseURL, timeout, overrideFn: baseURLOverride.webhooks, internalAuthTokenProvider })
+    liveSeatmaps: createLiveSeatmaps({ baseURL, timeout, overrideFn: baseURLOverride.liveSeatmaps, internalAuthTokenProvider })
   };
 }
 
