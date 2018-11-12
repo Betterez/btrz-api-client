@@ -11,7 +11,7 @@ describe("seatmaps/ticket", () => {
 
   it("should return an access ticket", () => {
     axiosMock.onPost(`/access-ticket`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
-    return api.liveSeatmaps.accessTicket.create({
+    return api.seatmaps.accessTicket.create({
       jwtToken,
       token
     });

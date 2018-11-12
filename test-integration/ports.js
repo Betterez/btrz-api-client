@@ -5,4 +5,4 @@ process.env.OPERATIONS_API_PORT  = 3070;
 process.env.REPORTS_API_PORT  = 3030;
 process.env.NOTIFICATIONS_API_PORT = 3060;
 process.env.UPLOADS_API_PORT = 3040;
-process.env.LIVESEATMAPS_API_PORT = 4020;
+process.env.SEATMAPS_API_PORT = 4020;
