@@ -19,4 +19,10 @@ describe("loyalty/programs/:programId/movements", () => {
     axiosMock.onPost(`/programs/${programId}/movements`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
     return api.loyalty.movements.create({ jwtToken, token, programId, movement: { amount: 1234 } });
   });
+
+  it("should get the current balance", () => {
+    const customerId = "5beaec044fe897f24b000001";
+    axiosMock.onGet(`/programs/${programId}/movements/balance/${customerId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    return api.loyalty.movements.balance.get({token, jwtToken, programId, customerId});
+  });
 });
