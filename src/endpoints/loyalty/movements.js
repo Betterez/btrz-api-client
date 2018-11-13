@@ -18,9 +18,19 @@ function movementsFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  const balance = {
+    get({ token, jwtToken, programId, customerId }) {
+      return client({
+        url: `/programs/${programId}/movements/balance/${customerId}`,
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+      });
+    }
+  };
+
   return {
     all,
-    create
+    create,
+    balance
   };
 
 }
