@@ -43,11 +43,22 @@ function cartFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  const loyaltyPointsAmount = {
+    get({ token, jwtToken, cartId, query = {} }) {
+      return client({
+        url: `/carts/${cartId}/loyalty-points-amount`,
+        params: query,
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+      });
+    }
+  };
+
   return { 
     get,
     create,
     add,
-    deleteItems
+    deleteItems,
+    loyaltyPointsAmount
   };
 }
 
