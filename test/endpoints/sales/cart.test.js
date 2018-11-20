@@ -43,4 +43,10 @@ describe('sales/cart', function() {
 
     return api.sales.cart.deleteItems({ jwtToken, token, cartId, params: { operationId: 1234, providerId: 123 } });
   });
+
+  it("should get loyalty points amount of a cart", function() {
+    const cartId = "cartId1";
+    axiosMock.onGet(`/carts/${cartId}/loyalty-points-amount`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    return api.sales.cart.loyaltyPointsAmount.get({ token, jwtToken, cartId });
+  });
 });
