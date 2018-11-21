@@ -53,12 +53,23 @@ function cartFactory({ client, internalAuthTokenProvider }) {
     }
   };
 
-  return { 
+
+  function patch({ token, jwtToken, cartId, data }) {
+    return client({
+      url: `/cart/${cartId}`,
+      method: "patch",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      data
+    });
+  }
+
+  return {
     get,
     create,
     add,
     deleteItems,
-    loyaltyPointsAmount
+    loyaltyPointsAmount,
+    patch
   };
 }
 

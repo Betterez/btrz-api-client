@@ -49,4 +49,12 @@ describe('sales/cart', function() {
     axiosMock.onGet(`/carts/${cartId}/loyalty-points-amount`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
     return api.sales.cart.loyaltyPointsAmount.get({ token, jwtToken, cartId });
   });
+
+  it("should update a cart", function() {
+    const cartId = "someCartId",
+      providerId = "someProviderId",
+      op = "overrideFees";
+    axiosMock.onPatch(`/cart/${cartId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    return api.sales.cart.patch({ jwtToken, token, cartId, data: {providerId, operations: [{op}]} });
+  });
 });

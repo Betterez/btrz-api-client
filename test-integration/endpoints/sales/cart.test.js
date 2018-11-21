@@ -69,4 +69,12 @@ describe("sales/cart", function() {
       });
   });
 
+  it("should update a cart", function() {
+    const cartId = "5bf579620ac672a52db14a88",
+      data = {
+        providerId: "595f9c7007ee12686d000032",
+        operations: [{op: "overrideFees"}]
+      };
+    return apiSales.sales.cart.patch({token, jwtToken, cartId, data});
+  });
 });
