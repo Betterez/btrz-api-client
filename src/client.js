@@ -43,7 +43,8 @@ function createApiClient(options) {
     uploads: createUploads({ baseURL, timeout, overrideFn: baseURLOverride.uploads, internalAuthTokenProvider }),
     loyalty: createLoyalty({ baseURL, timeout, overrideFn: baseURLOverride.loyalty, internalAuthTokenProvider }),
     webhooks: createWebhooks({ baseURL, timeout, overrideFn: baseURLOverride.webhooks, internalAuthTokenProvider }),
-    seatmaps: createSeatmaps({ baseURL, timeout, overrideFn: baseURLOverride.seatmaps, internalAuthTokenProvider })
+    seatmaps: createSeatmaps({ baseURL, timeout, overrideFn: baseURLOverride.seatmaps, internalAuthTokenProvider }),
+    btrzpay: createBtrzPay({baseURL, timeout, overrideFn: baseURLOverride.btrzpay, internalAuthTokenProvider })
   };
 }
 
@@ -197,6 +198,17 @@ function createSeatmaps({ baseURL, timeout, overrideFn, internalAuthTokenProvide
 
   return {
     accessTicket: require("./endpoints/seatmaps/access-ticket")({ client, internalAuthTokenProvider }),
+    __test: {
+      client
+    }
+  };
+}
+
+function createBtrzPay({ baseURL, timeout, overrideFn, internalAuthTokenProvider }) {
+  const client = clientFactory({ baseURL, timeout, overrideFn });
+
+  return {
+    paymentMethods: require("./endpoints/btrzpay/payment-methods")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
