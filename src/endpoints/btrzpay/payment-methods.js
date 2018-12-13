@@ -9,8 +9,18 @@ function paymentMethodsFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function create({ token, jwtToken, paymentMethod }) {
+    return client({
+      url: "/payment-methods",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      data: { paymentMethod }
+    });
+  }
+
   return {
-    getByProviderName
+    getByProviderName,
+    create
   };
 }
 

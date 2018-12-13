@@ -18,4 +18,26 @@ describe("btrz-pay/payment-methods", function() {
         expect(result.data.paymentMethods).to.be.eql([]);
       });
   });
+
+  it("should create a payment method", () => {
+    const paymentMethod = {
+      "method": "method_name",
+      "providerName": "referencedPayments",
+      "displayName": "Method name",
+      "ord": 900
+    };
+
+    return api.btrzpay.paymentMethods.create({
+      jwtToken,
+      token,
+      paymentMethod
+    })
+    .then(({status, data}) => {
+      expect(status).to.equal(200);
+      expect(data.paymentMethod.method).to.eql(paymentMethod.method);
+      expect(data.paymentMethod.displayName).to.eql(paymentMethod.displayName);
+      expect(data.paymentMethod.ord).to.eql(paymentMethod.ord);
+      expect(data.paymentMethod.provider).to.eql(paymentMethod.providerName);
+    });
+  });
 });
