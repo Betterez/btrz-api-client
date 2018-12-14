@@ -18,9 +18,17 @@ function paymentMethodsFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function get({ token, jwtToken, paymentMethodId }) {
+    return client.get(`/payment-methods/${paymentMethodId}`, {
+      params: {},
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+    });
+  }
+
   return {
     getByProviderName,
-    create
+    create,
+    get
   };
 }
 

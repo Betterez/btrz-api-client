@@ -2,6 +2,7 @@ const { expect } = require("chai"),
   port = process.env.BTRZPAY_API_PORT,
   token = process.env.API_TOKEN,
   jwtToken = process.env.JWT_TOKEN,
+  paymentMethodId = process.env.PAYMENT_METHOD_ID,
   api = require("./../../../src/client").createApiClient({
     baseURL: `http://localhost:${port}`,
     baseURLOverride: {
@@ -38,6 +39,18 @@ describe("btrz-pay/payment-methods", function() {
       expect(data.paymentMethod.displayName).to.eql(paymentMethod.displayName);
       expect(data.paymentMethod.ord).to.eql(paymentMethod.ord);
       expect(data.paymentMethod.provider).to.eql(paymentMethod.providerName);
+    });
+  });
+
+  it("should get a payment method", () => {
+    return api.btrzpay.paymentMethods.get({
+      jwtToken,
+      token,
+      paymentMethodId
+    })
+    .then(({status, data}) => {
+      expect(status).to.equal(200);
+      expect(data.paymentMethod._id).to.eql(paymentMethodId);
     });
   });
 });

@@ -26,4 +26,13 @@ describe("btrzpay/payment-methods", () => {
       }
     });
   });
+
+  it("should get a payment method", () => {
+    const paymentMethodId = "5ad7804216b426412c19f06f";
+    axiosMock.onGet(`/payment-methods/${paymentMethodId}`).reply(expectRequest({ statusCode: 200, token }));
+    return api.btrzpay.paymentMethods.get({
+      token,
+      paymentMethodId
+    });
+  });
 });
