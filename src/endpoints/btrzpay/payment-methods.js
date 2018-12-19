@@ -25,10 +25,20 @@ function paymentMethodsFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function update({ token, jwtToken, paymentMethodId, paymentMethod }) {
+    return client({
+      url: `/payment-methods/${paymentMethodId}`,
+      method: "put",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      data: { paymentMethod }
+    });
+  }
+
   return {
     getByProviderName,
     create,
-    get
+    get,
+    update
   };
 }
 

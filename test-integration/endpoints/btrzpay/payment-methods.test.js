@@ -53,4 +53,21 @@ describe("btrz-pay/payment-methods", function() {
       expect(data.paymentMethod._id).to.eql(paymentMethodId);
     });
   });
+
+  it("should update a payment method", () => {
+    return api.btrzpay.paymentMethods.update({
+      jwtToken,
+      token,
+      paymentMethodId,
+      "paymentMethod": {
+        "displayName": "Changed name",
+        "ord": 1500,
+        "enabled": true
+      }
+    })
+      .then(({status, data}) => {
+        expect(status).to.equal(200);
+        expect(data.updated).to.be.eql(true);
+      });
+  });
 });
