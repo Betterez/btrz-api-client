@@ -209,6 +209,7 @@ function createBtrzPay({ baseURL, timeout, overrideFn, internalAuthTokenProvider
 
   return {
     paymentMethods: require("./endpoints/btrzpay/payment-methods")({client, internalAuthTokenProvider}),
+    referenceNumbers: require("./endpoints/btrzpay/reference-numbers")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
