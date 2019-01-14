@@ -198,6 +198,7 @@ function createSeatmaps({ baseURL, timeout, overrideFn, internalAuthTokenProvide
 
   return {
     accessTicket: require("./endpoints/seatmaps/access-ticket")({ client, internalAuthTokenProvider }),
+    seat: require("./endpoints/seatmaps/seat")({ client, internalAuthTokenProvider }),
     __test: {
       client
     }
