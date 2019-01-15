@@ -12,8 +12,8 @@ describe("seatmaps/seat", () => {
   it("should perform a seat update", () => {
     const params = {
       "op": "",
-      "seatmap-id": "123",
-      "seat": {}
+      "seatmap_id": "123",
+      "seat_id": "555"
     };
     axiosMock.onPost(`/seat`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
     return api.seatmaps.seat.update({
