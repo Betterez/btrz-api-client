@@ -2,12 +2,12 @@ const { authorizationHeaders } = require("./../endpoints_helpers");
 
 function operationMessagesFactory({ client, internalAuthTokenProvider }) {
 
-  function all({ token, jwtToken, query = {} }) {
+  function all({ token, query = {} }) {
     return client({
       url: "/operation-messages",
       method: "get",
       params: query,
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      headers: authorizationHeaders({token, internalAuthTokenProvider}),
     });
   }
 
@@ -29,11 +29,11 @@ function operationMessagesFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  function get({token, operationMessageId, jwtToken}) {
+  function get({token, operationMessageId}) {
     return client({
       url: `/operation-messages/${operationMessageId}`,
       method: "get",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      headers: authorizationHeaders({token, internalAuthTokenProvider}),
     });
   }
 
