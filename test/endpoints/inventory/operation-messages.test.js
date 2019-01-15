@@ -23,9 +23,8 @@ describe('inventory/operation-messages', () => {
   });
 
   it("should define a get method for listing all operation messages", () => {
-    axiosMock.onGet(`/operation-messages`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onGet(`/operation-messages`).reply(expectRequest({ statusCode: 200, token }));
     return api.inventory.operationMessages.all({
-      jwtToken,
       token
     });
   });
@@ -56,9 +55,8 @@ describe('inventory/operation-messages', () => {
 
   it("should define a get method for an operation message", () => {
     const operationMessageId = "1234";
-    axiosMock.onGet(`/operation-messages/${operationMessageId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onGet(`/operation-messages/${operationMessageId}`).reply(expectRequest({ statusCode: 200, token }));
     return api.inventory.operationMessages.get({
-      jwtToken,
       token,
       operationMessageId
     });
