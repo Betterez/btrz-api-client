@@ -2,6 +2,7 @@ const { expect } = require("chai"),
   port = process.env.BTRZPAY_API_PORT,
   token = process.env.API_TOKEN,
   jwtToken = process.env.JWT_TOKEN,
+  transactionId = process.env.TRANSACTION_ID,
   api = require("./../../../src/client").createApiClient({
     baseURL: `http://localhost:${port}`,
     baseURLOverride: {
@@ -31,6 +32,18 @@ describe("btrz-pay/payments", () => {
       expect(data.payments[0].transactionId).to.eql(payments.items[0].transactionId);
       expect(data.payments[0].status).to.eql("pending");
       expect(data.payments[0].result).to.eql("{}");
+    });
+  });
+
+  it("should get the payments for the transaction Id", () => {
+    return api.btrzpay.payments.get({
+      jwtToken,
+      token,
+      transactionId
+    })
+    .then(({status, data}) => {
+      expect(status).to.equal(200);
+      expect(data.payments[0].transactionId).to.eql(transactionId);
     });
   });
 });

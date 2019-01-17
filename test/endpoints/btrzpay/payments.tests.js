@@ -20,4 +20,13 @@ describe("btrzpay/payments", () => {
       }]
     });
   });
+
+  it("should get the payments", () => {
+    const transactionId = "5ad7804216b426412c19f06f";
+    axiosMock.onGet(`/transactions/${transactionId}`).reply(expectRequest({ statusCode: 200, token }));
+    return api.btrzpay.payments.get({
+      token,
+      transactionId
+    });
+  });
 });

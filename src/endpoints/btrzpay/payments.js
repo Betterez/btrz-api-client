@@ -11,8 +11,16 @@ function paymentsFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function get({ token, jwtToken, transactionId }) {
+    return client.get(`/transactions/${transactionId}`, {
+      params: {},
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+    });
+  }
+
   return {
-    create
+    create,
+    get
   };
 }
 
