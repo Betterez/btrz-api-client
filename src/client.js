@@ -89,6 +89,7 @@ function createAccounts({ baseURL, timeout, overrideFn, internalAuthTokenProvide
   return {
     lexicons: require("./endpoints/accounts/lexicons")({ client, internalAuthTokenProvider }),
     shifts: require("./endpoints/accounts/shifts")({ client, internalAuthTokenProvider }),
+    currentShifts: require("./endpoints/accounts/current-shifts")({ client, internalAuthTokenProvider }),
     customers: require("./endpoints/accounts/customers")({ client, internalAuthTokenProvider }),
     __test: {
       client
