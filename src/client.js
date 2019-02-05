@@ -126,6 +126,7 @@ function createOperations({ baseURL, timeout, overrideFn, internalAuthTokenProvi
     transactions: require("./endpoints/operations/transactions")({ client, internalAuthTokenProvider }),
     tickets: require("./endpoints/operations/tickets")({ client, internalAuthTokenProvider }),
     manifest: require("./endpoints/operations/manifest")({ client, internalAuthTokenProvider }),
+    calendarEntries: require("./endpoints/operations/calendar_entries")({ client, internalAuthTokenProvider }),
     redemption: require("./endpoints/operations/redemption")({ client, internalAuthTokenProvider }),
     tripChangeInfo: require("./endpoints/operations/trip_change_info")({ client, internalAuthTokenProvider }),
     segments: require("./endpoints/operations/segments")({ client, internalAuthTokenProvider }),
