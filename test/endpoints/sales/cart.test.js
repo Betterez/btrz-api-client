@@ -1,5 +1,5 @@
 const { axiosMock, expectRequest } = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({ baseURL: "http://test.com" });
+const api = require("./../../../src/client").createApiClient({ baseURL: "" });
 const expect = require("chai").expect;
 
 describe('sales/cart', function() {
