@@ -1,7 +1,6 @@
 const { authorizationHeaders } = require("./../endpoints_helpers");
 
 function tripsFactory({ client, internalAuthTokenProvider }) {
-  
   function all({ token, query = {} }) {
     return client({
       url: "/trips",
@@ -10,10 +9,9 @@ function tripsFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  return { 
-    all 
+  return {
+    all
   };
-
 }
 
 module.exports = tripsFactory;

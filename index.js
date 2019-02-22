@@ -3,5 +3,5 @@
 const createApiClient = require("./lib/client").createApiClient;
 
 module.exports = {
-  createApiClient: createApiClient
-}
+  createApiClient
+};
