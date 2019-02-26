@@ -27,6 +27,10 @@ describe("client", function() {
     expect(api.inventory.__test.client.defaults.timeout).to.eql(0);
   });
 
+  it("should expose a INTERNAL_AUTH_TOKEN constant", () => {
+    const api = createApiClient({ baseURL });
+    expect(api.constants.INTERNAL_AUTH_TOKEN_SYMBOL).to.be.eql("internal_auth_token");
+  });
 
   it("should allow to override baseUrl for custom endpoints", function() {
     const api = createApiClient({ baseURL, timeout: 10, baseURLOverride: { inventory: (url) => `${url}/somePath` } });

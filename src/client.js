@@ -33,6 +33,7 @@ function createApiClient(options) {
   const { baseURL, timeout = 0, baseURLOverride = {}, internalAuthTokenProvider } = options || productionOptions;
 
   return {
+    constants: require("./constants"),
     _cleanClient: clientFactory({ baseURL, timeout }),
     inventory: createInventory({ baseURL, timeout, overrideFn: baseURLOverride.inventory, internalAuthTokenProvider }),
     accounts: createAccounts({ baseURL, timeout, overrideFn: baseURLOverride.accounts, internalAuthTokenProvider }),
