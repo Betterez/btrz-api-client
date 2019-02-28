@@ -27,6 +27,18 @@ describe("operations/manifest", () => {
     return api.operations.manifest.getById({ token, jwtToken, manifestId });
   });
 
+  it("should get many manifests", () => {
+    const data = {
+      query: [{
+        routeId: "2349283409238429348",
+        scheduleId: "abc",
+        date: "2019-10-10"
+      }]
+    };
+    axiosMock.onPost(`/manifests`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    return api.operations.manifest.getMany({ token, jwtToken, providerId, data });
+  });
+
   it("should get outlook manifests", () => {
     const query = {
       providerId,
