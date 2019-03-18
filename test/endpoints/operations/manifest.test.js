@@ -35,8 +35,8 @@ describe("operations/manifest", () => {
         date: "2019-10-10"
       }]
     };
-    axiosMock.onPost(`/manifests`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
-    return api.operations.manifest.getMany({ token, jwtToken, providerId, data });
+    axiosMock.onPost("/all-manifests").reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.operations.manifest.getAll({token, jwtToken, providerId, data});
   });
 
   it("should get outlook manifests", () => {

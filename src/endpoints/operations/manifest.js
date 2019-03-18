@@ -2,12 +2,12 @@ const { authorizationHeaders } = require("./../endpoints_helpers");
 
 function manifestFactory({ client, internalAuthTokenProvider }) {
 
-  function get({ token, jwtToken, query = {} }) {
+  function get({token, jwtToken, query = {}}) {
     return client({
       url: "/manifests",
       method: "get",
       params: query,
-      headers: authorizationHeaders({ token, jwtToken, internalAuthTokenProvider })
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
     });
   }
 
@@ -19,13 +19,13 @@ function manifestFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  function getMany({ token, jwtToken, providerId, data }) {
+  function getAll({token, jwtToken, providerId, data}) {
     // an HTTP POST request is used to send the query data in the request body because the query may be very large.
     return client({
-      url: "/manifests",
+      url: "/all-manifests",
       method: "post",
       params: {providerId},
-      headers: authorizationHeaders({ token, jwtToken, internalAuthTokenProvider }),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
       data
     });
   }
@@ -61,8 +61,8 @@ function manifestFactory({ client, internalAuthTokenProvider }) {
 
   return {
     get,
+    getAll,
     getById,
-    getMany,
     outlook,
     patch,
     save
