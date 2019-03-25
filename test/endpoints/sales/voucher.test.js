@@ -4,24 +4,36 @@ const expect = require("chai").expect;
 
 describe('sales/voucher', function() {
   const token = 'I owe you a token';
-  
-  afterEach(function() {
-    axiosMock.reset();
-  });
 
-  it("should get a voucher", function() {
-    const voucher = {
+  beforeEach(function() {
+  voucher = {
       number: "1234",
       firstName: "joe",
       lastName: "joe",
       cartId: "9876"
     };
+  });
+
+  afterEach(function() {
+    axiosMock.reset();
+  });
+
+  it("should get a voucher", function() {
     axiosMock
-      .onGet(`/vouchers/${voucher.number}?cartId=${voucher.cartId}&firstName=${voucher.firstName}&lastName=${voucher.lastName}`)
+      .onGet(`/vouchers/${voucher.number}?cartId=${voucher.cartId}&firstName=${voucher.firstName}&lastName=${voucher.lastName}&displayCurrency=`)
       .reply(
         expectRequest({ statusCode: 200, token })
       );
     return api.sales.voucher.get({ token, voucher });
   });
 
+  it("should get a voucher with displayCurrency", function() {
+    voucher.displayCurrency = "GBP";
+    axiosMock
+      .onGet(`/vouchers/${voucher.number}?cartId=${voucher.cartId}&firstName=${voucher.firstName}&lastName=${voucher.lastName}&displayCurrency=GBP`)
+      .reply(
+        expectRequest({ statusCode: 200, token })
+      );
+    return api.sales.voucher.get({ token, voucher });
+  });
 });
