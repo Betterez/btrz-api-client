@@ -20,17 +20,17 @@ describe('sales/voucher', function() {
 
   it("should get a voucher", function() {
     axiosMock
-      .onGet(`/vouchers/${voucher.number}?cartId=${voucher.cartId}&firstName=${voucher.firstName}&lastName=${voucher.lastName}&displayCurrency=`)
+      .onGet(`/vouchers/${voucher.number}?cartId=${voucher.cartId}&firstName=${voucher.firstName}&lastName=${voucher.lastName}&displayCurrencyCode=`)
       .reply(
         expectRequest({ statusCode: 200, token })
       );
     return api.sales.voucher.get({ token, voucher });
   });
 
-  it("should get a voucher with displayCurrency", function() {
-    voucher.displayCurrency = "GBP";
+  it("should get a voucher with displayCurrencyCode", function() {
+    voucher.displayCurrencyCode = "GBP";
     axiosMock
-      .onGet(`/vouchers/${voucher.number}?cartId=${voucher.cartId}&firstName=${voucher.firstName}&lastName=${voucher.lastName}&displayCurrency=GBP`)
+      .onGet(`/vouchers/${voucher.number}?cartId=${voucher.cartId}&firstName=${voucher.firstName}&lastName=${voucher.lastName}&displayCurrencyCode=GBP`)
       .reply(
         expectRequest({ statusCode: 200, token })
       );

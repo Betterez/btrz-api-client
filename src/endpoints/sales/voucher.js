@@ -5,7 +5,7 @@ function voucherFactory({ client, internalAuthTokenProvider }) {
 
   function get({ token, voucher }) {
     return client({
-      url: `/vouchers/${voucher.number}?cartId=${voucher.cartId}&firstName=${voucher.firstName}&lastName=${voucher.lastName}&displayCurrency=${voucher.displayCurrency || ""}`,
+      url: `/vouchers/${voucher.number}?cartId=${voucher.cartId}&firstName=${voucher.firstName}&lastName=${voucher.lastName}&displayCurrencyCode=${voucher.displayCurrencyCode || ""}`,
       headers: authorizationHeaders({token, internalAuthTokenProvider})
     });
   }
