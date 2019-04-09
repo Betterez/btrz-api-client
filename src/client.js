@@ -60,6 +60,7 @@ function createAccounts({baseURL, timeout, overrideFn, internalAuthTokenProvider
     shifts: require("./endpoints/accounts/shifts")({client, internalAuthTokenProvider}),
     currentShifts: require("./endpoints/accounts/current-shifts")({client, internalAuthTokenProvider}),
     customers: require("./endpoints/accounts/customers")({client, internalAuthTokenProvider}),
+    users: require("./endpoints/accounts/users")({client, internalAuthTokenProvider}),
     accounts: require("./endpoints/accounts/accounts")({client, internalAuthTokenProvider}),
     __test: {
       client
