@@ -1,11 +1,11 @@
 const {authorizationHeaders} = require("./../endpoints_helpers");
 
 function flexpassesEndpointsFactory({client, internalAuthTokenProvider}) {
-  function get({token, flexpassId, query = {}}) {
+  function get({token, jwtToken, flexpassId, query = {}}) {
     return client({
       url: `/flexpasses/${flexpassId}`,
       params: query,
-      headers: authorizationHeaders({token, internalAuthTokenProvider})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
     });
   }
 
