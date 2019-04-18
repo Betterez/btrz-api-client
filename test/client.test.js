@@ -6,6 +6,7 @@ const { createApiClient } = require("./../src/client");
 function expectKnownEndpoints(api) {
   expect(api.inventory.products).to.exists;
   expect(api.inventory.insurances).to.exists;
+  expect(api.inventory.trips).to.exists;
 }
 
 describe("client", function() {
@@ -40,6 +41,17 @@ describe("client", function() {
     expectKnownEndpoints(api);
     expect(api.inventory.__test.client.defaults.baseURL).to.eql(`${baseURL}/somePath`);
     expect(api.inventory.__test.client.defaults.timeout).to.eql(10);
+  });
+
+  it("should allow a different baseUrl to be specified for trip search endpoints", () => {
+    const api = createApiClient({ baseURL, timeout: 10, baseURLOverride: {
+      inventory: () => "http://localhost:3010/inventory",
+      trips: () => "http://localhost:3090/inventory"
+    } });
+
+    expectKnownEndpoints(api);
+    expect(api.inventory.__test.client.defaults.baseURL).to.eql("http://localhost:3010/inventory");
+    expect(api.inventory.__test_trips.client.defaults.baseURL).to.eql("http://localhost:3090/inventory");
   });
 
   it("should allow to perform custom request on clean client", function() {

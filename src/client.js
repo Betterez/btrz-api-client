@@ -31,7 +31,6 @@ function createInventory({baseURL, timeout, overrideFn, internalAuthTokenProvide
     promos: require("./endpoints/inventory/promos")({client, internalAuthTokenProvider}),
     fees: require("./endpoints/inventory/fees")({client, internalAuthTokenProvider}),
     items: require("./endpoints/inventory/items")({client, internalAuthTokenProvider}),
-    trips: require("./endpoints/inventory/trips")({client, internalAuthTokenProvider}),
     filteredTrips: require("./endpoints/inventory/filtered-trips")({client, internalAuthTokenProvider}),
     ssrs: require("./endpoints/inventory/ssrs")({client, internalAuthTokenProvider}),
     fareClasses: require("./endpoints/inventory/fare-classes")({client, internalAuthTokenProvider}),
@@ -47,6 +46,17 @@ function createInventory({baseURL, timeout, overrideFn, internalAuthTokenProvide
     amenities: require("./endpoints/inventory/amenities")({client, internalAuthTokenProvider}),
     amenityGroups: require("./endpoints/inventory/amenity-groups")({client, internalAuthTokenProvider}),
     __test: {
+      client
+    }
+  };
+}
+
+function createTrips({baseURL, timeout, overrideFn, internalAuthTokenProvider}) {
+  const client = clientFactory({baseURL, timeout, overrideFn});
+
+  return {
+    trips: require("./endpoints/inventory/trips")({client, internalAuthTokenProvider}),
+    __test_trips: {
       client
     }
   };
@@ -213,7 +223,10 @@ function createApiClient(options) {
   return {
     constants: require("./constants"),
     _cleanClient: clientFactory({baseURL, timeout}),
-    inventory: createInventory({baseURL, timeout, overrideFn: baseURLOverride.inventory, internalAuthTokenProvider}),
+    inventory: {
+      ...createInventory({baseURL, timeout, overrideFn: baseURLOverride.inventory, internalAuthTokenProvider}),
+      ...createTrips({baseURL, timeout, overrideFn: baseURLOverride.trips, internalAuthTokenProvider})
+    },
     accounts: createAccounts({baseURL, timeout, overrideFn: baseURLOverride.accounts, internalAuthTokenProvider}),
     sales: createSales({baseURL, timeout, overrideFn: baseURLOverride.sales, internalAuthTokenProvider}),
     operations: createOperations({baseURL, timeout, overrideFn: baseURLOverride.operations, internalAuthTokenProvider}),
