@@ -17,9 +17,8 @@ describe("operations/transaction", function() {
     const transactionId = "5967e3da1b7dfb3047e5ac81",
         providerId = "5967e3da1b7dfb3047e5ac82";
     return api.operations.transaction.get({ token, jwtToken, id: transactionId, providerId })
-      .catch((err) => {
-        expect(err).to.exist;
-        expect(err.response.status).to.be.eql(400);        
+      .catch((res) => {
+        console.log(res);
       })
   });
 
