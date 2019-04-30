@@ -1,7 +1,6 @@
 const {authorizationHeaders} = require("./../endpoints_helpers");
 
 function ticketsFactory({client, internalAuthTokenProvider}) {
-
   function get({token, jwtToken, id}) {
     return client({
       url: `/tickets/${id}`,
@@ -19,9 +18,17 @@ function ticketsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function companionTickets({token, jwtToken, ticketId}) {
+    return client({
+      url: `/tickets/${ticketId}/companion-tickets`,
+      headers: authorizationHeaders({token, jwtToken})
+    });
+  }
+
   return {
     get,
-    patch
+    patch,
+    companionTickets
   };
 }
 

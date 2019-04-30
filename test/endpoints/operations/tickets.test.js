@@ -1,3 +1,7 @@
+/* eslint-disable func-names */
+/* eslint-disable prefer-arrow-callback */
+
+const {expect} = require("chai");
 const {axiosMock, expectRequest} = require("./../../test-helpers");
 const api = require("./../../../src/client").createApiClient({baseURL: "http://test.com"});
 
@@ -21,5 +25,14 @@ describe("operations/tickets", () => {
     const ticketId = "myTicket";
     axiosMock.onGet(`/tickets/${ticketId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.operations.tickets.get({token, jwtToken, id: ticketId});
+  });
+
+  it("should get an array of tickets on a given transaction", function () {
+    const ticketId = "ticketId2";
+    axiosMock.onGet(`/tickets/${ticketId}/companion-tickets`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.operations.tickets.companionTickets({jwtToken, token, ticketId})
+      .then((response) => {
+        expect(response.status).to.equals(200);
+      });
   });
 });
