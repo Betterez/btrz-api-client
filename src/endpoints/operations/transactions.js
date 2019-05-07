@@ -15,9 +15,20 @@ function transactionsFactory({client}) {
     });
   }
 
+  function companionTickets({token, jwtToken, transactionId, ticketIds}) {
+    return client({
+      url: `/transactions/${transactionId}/companion-tickets`,
+      params: {
+        ticketIds: ticketIds.join(",")
+      },
+      headers: authorizationHeaders({token, jwtToken})
+    });
+  }
+
   return {
     get,
-    appliedInsurance
+    appliedInsurance,
+    companionTickets
   };
 }
 

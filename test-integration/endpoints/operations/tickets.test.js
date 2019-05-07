@@ -19,7 +19,7 @@ const api = require("./../../../src/client").createApiClient({
 
 describe("operations/tickets", function () {
   describe("companion", function () {
-    it.only("should return companion tickets for transaction", function () {
+    it("should return companion tickets for transaction", function () {
       const ticketId = "5cc8414fcbce0b1503fa7528";
 
       return api.operations.tickets.companionTickets({token, jwtToken, ticketId})

@@ -31,4 +31,14 @@ describe("operations/transactions", function () {
         expect(response.status).to.equals(200);
       });
   });
+
+  it("should get an array of tickets on a given transaction", function () {
+    const transactionId = "transactionId2";
+    const ticketIds = ["someTicket", "someTicket2"];
+    axiosMock.onGet(`/transactions/${transactionId}/companion-tickets`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.operations.transactions.companionTickets({jwtToken, token, transactionId, ticketIds})
+      .then((response) => {
+        expect(response.status).to.equals(200);
+      });
+  });
 });
