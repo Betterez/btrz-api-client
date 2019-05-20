@@ -14,6 +14,7 @@ const api = require("./../../../src/client").createApiClient({
     }
   }
 });
+const {expect} = require("chai");
 
 describe("operations/transactions", function () {
   describe("companion", function () {
@@ -24,6 +25,16 @@ describe("operations/transactions", function () {
       return api.operations.transactions.companionTickets({token, jwtToken, ticketIds, transactionId})
         .then((res) => {
           console.log(res.data.tickets);
+        });
+    });
+  });
+
+  describe("expireAll", () => {
+    it("should expire all", () => {
+      const transactionId = "5ce2d7d4c16f0e5827069f13";
+      return api.operations.transactions.expireAll({token, jwtToken, transactionId})
+        .then((res) => {
+          expect(res.data.transactionIds).to.have.length(1);
         });
     });
   });

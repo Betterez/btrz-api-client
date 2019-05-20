@@ -41,4 +41,14 @@ describe("operations/transactions", function () {
         expect(response.status).to.equals(200);
       });
   });
+
+  it("should expire all", () => {
+    const transactionId = "transactionX";
+    axiosMock.onPatch("/transactions/status").reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.operations.transactions.expireAll({
+      token,
+      jwtToken,
+      transactionId
+    });
+  });
 });

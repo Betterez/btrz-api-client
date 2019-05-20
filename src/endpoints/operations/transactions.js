@@ -25,10 +25,26 @@ function transactionsFactory({client}) {
     });
   }
 
+  function expireAll({token, jwtToken, transactionId}) {
+    return client({
+      url: "/transactions/status",
+      method: "patch",
+      params: {},
+      headers: authorizationHeaders({token, jwtToken}),
+      data: {
+        operation: {
+          name: "expire_payment",
+          transactionIds: [transactionId]
+        }
+      }
+    });
+  }
+
   return {
     get,
     appliedInsurance,
-    companionTickets
+    companionTickets,
+    expireAll
   };
 }
 
