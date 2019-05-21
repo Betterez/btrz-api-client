@@ -45,6 +45,7 @@ function createInventory({baseURL, timeout, overrideFn, internalAuthTokenProvide
     giftCertificateDefinitions: require("./endpoints/inventory/gift-certificate-definitions")({client, internalAuthTokenProvider}),
     amenities: require("./endpoints/inventory/amenities")({client, internalAuthTokenProvider}),
     amenityGroups: require("./endpoints/inventory/amenity-groups")({client, internalAuthTokenProvider}),
+    bundles: require("./endpoints/inventory/bundles")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
