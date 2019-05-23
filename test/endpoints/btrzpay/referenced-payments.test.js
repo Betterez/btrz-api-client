@@ -11,13 +11,15 @@ describe("btrzpay/referenced-payments", () => {
 
   it("should get the referenced payment status", () => {
     const transactionId = "5ad7804216b426412c19f06f";
-    axiosMock.onGet(`/referenced-payments/${transactionId}/status`).reply(expectRequest({
+    const referenceNumber = "1234asdf";
+    axiosMock.onGet(`/referenced-payments/${transactionId}/${referenceNumber}/status`).reply(expectRequest({
       statusCode: 200, token
     }));
     return api.btrzpay.referencedPayments.getStatus({
       jwtToken,
       token,
-      transactionId
+      transactionId,
+      referenceNumber
     });
   });
 });
