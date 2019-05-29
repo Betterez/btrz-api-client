@@ -9,8 +9,15 @@ function tripsFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function get({token, id}) {
+    return client.get(`/trip/${id}`, {
+      headers: authorizationHeaders({token, internalAuthTokenProvider})
+    });
+  }
+
   return {
-    all
+    all,
+    get
   };
 }
 

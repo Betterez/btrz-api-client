@@ -13,4 +13,9 @@ describe('inventory/trips', function() {
     return api.inventory.trips.all({ token });
   });
 
+  it("should get trip by id", function() {
+    axiosMock.onGet(`/trip/1`).reply(expectRequest({ statusCode: 200, token }));
+    return api.inventory.trips.get({ token, id: 1 });
+  });
+
 });
