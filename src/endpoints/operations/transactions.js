@@ -8,6 +8,13 @@ function transactionsFactory({client}) {
     });
   }
 
+  function getTickets({token, jwtToken, trxId}) {
+    return client({
+      url: `/transactions/${trxId}/tickets`,
+      headers: authorizationHeaders({token, jwtToken})
+    });
+  }
+
   function appliedInsurance({token, jwtToken, trxId}) {
     return client({
       url: `/transactions/${trxId}/applied-insurance`,
@@ -42,6 +49,7 @@ function transactionsFactory({client}) {
 
   return {
     get,
+    getTickets,
     appliedInsurance,
     companionTickets,
     expireAll

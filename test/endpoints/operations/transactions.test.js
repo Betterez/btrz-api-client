@@ -23,6 +23,15 @@ describe("operations/transactions", function () {
       });
   });
 
+  it("should get a all tickets of a transaction by id", function () {
+    const transactionId = "transactionId1";
+    axiosMock.onGet(`/transactions/${transactionId}/tickets`).reply(expectRequest({statusCode: 200, token}));
+    return api.operations.transactions.getTickets({jwtToken, token, trxId: transactionId})
+      .then((response) => {
+        expect(response.status).to.equals(200);
+      });
+  });
+
   it("should get an array of applied insurance on a given transaction", function () {
     const transactionId = "transactionId2";
     axiosMock.onGet(`/transactions/${transactionId}/applied-insurance`).reply(expectRequest({statusCode: 200, token, jwtToken}));
