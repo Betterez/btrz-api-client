@@ -20,12 +20,11 @@ function undeliveredFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  function resend({ token, jwtToken, id, subscription }) {
+  function resend({ token, jwtToken, id }) {
     return client({
       url: `/undelivered/${id}/retry`,
       method: "put",
-      headers: authorizationHeaders({ token, jwtToken, internalAuthTokenProvider }),
-      data: subscription
+      headers: authorizationHeaders({ token, jwtToken, internalAuthTokenProvider })
     });
   }
 

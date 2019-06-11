@@ -21,17 +21,8 @@ describe("webhooks/undelivered", () => {
   });
 
   it("should resend an undelivered", function() {
-    const id = "123123123123",
-      undelivered =  {
-        accumulateOn: "redemption",
-        disabled: false,
-        expirationDays: 20,
-        name: "An updated undelivered",
-        terms: "Updated webhooks undelivered terms",
-        paymentMethods: ["cash"],
-        products: ["123123123"]
-      };
+    const id = "123123123123";
     axiosMock.onPut(`/undelivered/${id}/retry`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
-    return api.webhooks.undelivered.resend({ jwtToken, token, id, undelivered });
+    return api.webhooks.undelivered.resend({ jwtToken, token, id });
   });
 });
