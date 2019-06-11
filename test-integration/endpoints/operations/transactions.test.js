@@ -32,7 +32,12 @@ describe("operations/transactions", function () {
   describe("expireAll", () => {
     it("should expire all", () => {
       const transactionId = "5ce2d7d4c16f0e5827069f13";
-      return api.operations.transactions.expireAll({token, jwtToken, transactionId})
+      const internalAuthTokenProvider = {
+        getToken: () => {
+          return process.env.INTERNAL_TOKEN;
+        }
+      };
+      return api.operations.transactions.expireAll({jwtToken, internalAuthTokenProvider, transactionId})
         .then((res) => {
           expect(res.data.transactionIds).to.have.length(1);
         });

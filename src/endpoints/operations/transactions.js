@@ -32,12 +32,12 @@ function transactionsFactory({client}) {
     });
   }
 
-  function expireAll({token, jwtToken, transactionId}) {
+  function expireAll({internalAuthTokenProvider, jwtToken, transactionId}) {
     return client({
       url: "/transactions/status",
       method: "patch",
       params: {},
-      headers: authorizationHeaders({token, jwtToken}),
+      headers: authorizationHeaders({internalAuthTokenProvider, jwtToken}),
       data: {
         operation: {
           name: "expire_payment",

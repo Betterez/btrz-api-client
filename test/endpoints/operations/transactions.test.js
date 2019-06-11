@@ -9,6 +9,11 @@ const expect = require("chai").expect;
 describe("operations/transactions", function () {
   const token = "validToken";
   const jwtToken = "validJWTtoken";
+  const internalAuthTokenProvider = {
+    getToken: () => {
+      return "internalToken";
+    }
+  };
 
   afterEach(function () {
     axiosMock.reset();
@@ -53,11 +58,16 @@ describe("operations/transactions", function () {
 
   it("should expire all", () => {
     const transactionId = "transactionX";
-    axiosMock.onPatch("/transactions/status").reply(expectRequest({statusCode: 200, token, jwtToken}));
+    axiosMock.onPatch("/transactions/status").reply(expectRequest({
+      statusCode: 200,
+      internalAuthTokenProvider,
+      withoutApiKey: true,
+      jwtToken: "internal_auth_token"
+    }));
     return api.operations.transactions.expireAll({
-      token,
-      jwtToken,
-      transactionId
+      internalAuthTokenProvider,
+      transactionId,
+      jwtToken: "internal_auth_token"
     });
   });
 });
