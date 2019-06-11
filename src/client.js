@@ -173,6 +173,7 @@ function createWebhooks({baseURL, timeout, overrideFn, internalAuthTokenProvider
   return {
     subscriptions: require("./endpoints/webhooks/subscriptions")({client, internalAuthTokenProvider}),
     events: require("./endpoints/webhooks/events")({client, internalAuthTokenProvider}),
+    undelivered: require("./endpoints/webhooks/undelivered")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
