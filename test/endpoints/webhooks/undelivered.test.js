@@ -25,4 +25,9 @@ describe("webhooks/undelivered", () => {
     axiosMock.onPut(`/undelivered/${id}/retry`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
     return api.webhooks.undelivered.resend({ jwtToken, token, id });
   });
+
+  it("should resend all the undelivered", function() {
+    axiosMock.onPut(`/undelivered/retry-all`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    return api.webhooks.undelivered.resendAll({ jwtToken, token });
+  });
 });

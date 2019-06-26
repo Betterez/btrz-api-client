@@ -28,10 +28,19 @@ function undeliveredFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function resendAll({ token, jwtToken }) {
+    return client({
+      url: `/undelivered/retry-all`,
+      method: "put",
+      headers: authorizationHeaders({ token, jwtToken, internalAuthTokenProvider })
+    });
+  }
+
   return {
     all,
     getById,
-    resend
+    resend,
+    resendAll
   };
 
 }
