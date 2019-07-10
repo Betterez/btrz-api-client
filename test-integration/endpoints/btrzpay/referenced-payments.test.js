@@ -4,6 +4,7 @@ const token = process.env.API_TOKEN;
 const jwtToken = process.env.JWT_TOKEN;
 const transactionId = process.env.TRANSACTION_ID;
 const referenceNumber = process.env.REFERENCE_NUMBER;
+const externalType = process.env.EXTERNAL_TYPE;
 const api = require("./../../../src/client").createApiClient({
   baseURL: `http://localhost:${port}`,
   baseURLOverride: {
@@ -24,6 +25,24 @@ describe("btrz-pay/referenced-payments", () => {
       .then(({status, data}) => {
         expect(status).to.equal(200);
         expect(data.paymentResult).to.eql(null);
+      });
+  });
+
+  it("should update a referenced payment", () => {
+    return api.btrzpay.referencedPayments.update({
+      jwtToken,
+      token,
+      externalType,
+      referenceNumber,
+      "paymentResult": {
+        "status": "success",
+        "result": {
+          message: "paid manually"
+        }
+      }
+    })
+      .then(({status}) => {
+        expect(status).to.equal(200);
       });
   });
 });

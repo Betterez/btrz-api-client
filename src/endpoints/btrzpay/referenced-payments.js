@@ -8,8 +8,18 @@ function referencedPaymentsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function update({token, jwtToken, externalType, referenceNumber, paymentResult}) {
+    return client({
+      url: `/referenced-payments/${externalType}/${referenceNumber}/results`,
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken}),
+      data: {paymentResult}
+    });
+  }
+
   return {
-    getStatus
+    getStatus,
+    update
   };
 }
 

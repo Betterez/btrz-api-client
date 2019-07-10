@@ -22,4 +22,27 @@ describe("btrzpay/referenced-payments", () => {
       referenceNumber
     });
   });
+
+  it("should update a referenced payment", () => {
+    const externalType = "some_type";
+    const referenceNumber = "asdf1234";
+    axiosMock.onPost(`/referenced-payments/${externalType}/${referenceNumber}/results`).reply(expectRequest({
+      statusCode: 200,
+      token,
+      jwtToken
+    }));
+
+    return api.btrzpay.referencedPayments.update({
+      jwtToken,
+      token,
+      externalType,
+      referenceNumber,
+      paymentResult: {
+        "status": "success",
+        "result": {
+          "message": "paid manually"
+        }
+      }
+    });
+  });
 });
