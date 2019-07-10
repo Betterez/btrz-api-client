@@ -8,8 +8,17 @@ function usersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function all({token, jwtToken, query = {}}) {
+    return client({
+      url: `/users`,
+      params: query,
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+    });
+  }
+
   return {
-    get
+    get,
+    all
   };
 }
 
