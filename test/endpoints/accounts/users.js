@@ -15,7 +15,7 @@ describe("accounts/user/{id}", () => {
   });
 
   it("should return all the users", () => {
-    axiosMock.onGet(`/users`).reply(expectRequest({statusCode: 200, token}));
+    axiosMock.onGet("/users").reply(expectRequest({statusCode: 200, token}));
     return api.accounts.users.all({token});
   });
 });
