@@ -10,6 +10,15 @@ function journeyPricesFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function get({id, token, jwtToken, query = {}}) {
+    return client({
+      url: `/journey-prices/${id}`,
+      params: query,
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+    });
+  }
+
+
   function deleteById({ token, jwtToken, id }) {
     return client({
       url: `/journey-prices/${id}`,
@@ -21,6 +30,7 @@ function journeyPricesFactory({ client, internalAuthTokenProvider }) {
   return {
     all,
     deleteById,
+    get
   };
 }
 

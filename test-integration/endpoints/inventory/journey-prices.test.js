@@ -23,6 +23,16 @@ describe("inventory/journey-prices", () => {
       });
   });
 
+  it("should get journey price by id", () => {
+    return api.inventory.journeyPrices.get({id: journeyPriceId, token, jwtToken})
+      .then(({status, data}) => {
+        expect(status).to.eql(200);
+        expect(data.journeyPrices).to.be.an.instanceOf(Array);
+        expect(data.journeyPrices[0].id).to.eql(journeyPriceId);
+      });
+  });
+
+
   it("should delete the journey price with the specified ID", () => {
     return api.inventory.journeyPrices.deleteById({token, jwtToken, id: journeyPriceId})
       .then(({status, data}) => {

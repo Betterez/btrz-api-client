@@ -21,6 +21,15 @@ describe('inventory/journey-prices', () => {
     });
   });
 
+  it("should get journey price by id", () => {
+    axiosMock.onGet("/journey-prices/1").reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.inventory.journeyPrices.get({
+      jwtToken,
+      token,
+      id: 1
+    });
+  });
+
   it("should delete the journey price with the specified ID", () => {
     const id = "1234567890";
     axiosMock.onDelete(`/journey-prices/${id}`).reply(expectRequest({ statusCode: 204, token, jwtToken }));
