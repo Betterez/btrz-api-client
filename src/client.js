@@ -93,6 +93,7 @@ function createSales({baseURL, timeout, overrideFn, internalAuthTokenProvider}) 
     bundles: require("./endpoints/sales/bundles")({client, internalAuthTokenProvider}),
     redeemableItems: require("./endpoints/sales/redeemable-items")({client, internalAuthTokenProvider}),
     flexpasses: require("./endpoints/sales/flexpasses")({client, internalAuthTokenProvider}),
+    syncEntry: require("./endpoints/sales/sync-entry")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
