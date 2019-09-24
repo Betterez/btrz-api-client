@@ -2,17 +2,17 @@ const { authorizationHeaders } = require("./../endpoints_helpers");
 
 function syncEntryFactory({ client, internalAuthTokenProvider }) {
 
-  function add({ token, data, jwtToken }) {
+  function patch({ token, data, jwtToken }) {
     return client({
       url: "/sync-entry",
-      method: "post",
+      method: "patch",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
       data
     });
   }
 
   return {
-    add
+    patch
   };
 
 }

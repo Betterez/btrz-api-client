@@ -10,10 +10,10 @@ describe('sales/sync-entry', function() {
     axiosMock.reset();
   });
 
-  it("should add an entry in synchrotron", function() {
+  it("should call patch for entries in synchrotron", function() {
     const data = {};
-    axiosMock.onPost("/sync-entry").reply(expectRequest({ statusCode: 200, token, jwtToken }));
-    return api.sales.syncEntry.add({ jwtToken, token, data});
+    axiosMock.onPatch("/sync-entry").reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    return api.sales.syncEntry.patch({ jwtToken, token, data});
   });
 
 });
