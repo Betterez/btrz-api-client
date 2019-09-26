@@ -20,6 +20,11 @@ describe("webhooks/undelivered", () => {
     return api.webhooks.undelivered.getById({ token, id });
   });
 
+  it("should patch an undelivered", function() {
+    axiosMock.onPatch("/undelivered").reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    return api.webhooks.undelivered.patch({ jwtToken, token, operation: {} });
+  });
+
   it("should resend an undelivered", function() {
     const id = "123123123123";
     axiosMock.onPut(`/undelivered/${id}/retry`).reply(expectRequest({ statusCode: 200, token, jwtToken }));

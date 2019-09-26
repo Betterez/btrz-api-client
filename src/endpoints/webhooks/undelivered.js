@@ -20,6 +20,15 @@ function undeliveredFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function patch({ token, jwtToken, operation }) {
+    return client({
+      url: "/undelivered",
+      method: "patch",
+      headers: authorizationHeaders({ token, jwtToken, internalAuthTokenProvider }),
+      data: operation
+    });
+  }
+
   function resend({ token, jwtToken, id }) {
     return client({
       url: `/undelivered/${id}/retry`,
@@ -39,6 +48,7 @@ function undeliveredFactory({ client, internalAuthTokenProvider }) {
   return {
     all,
     getById,
+    patch,
     resend,
     resendAll
   };
