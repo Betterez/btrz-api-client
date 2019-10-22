@@ -9,8 +9,7 @@ function promosFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function get({ promoId, accountId, token, query = {} }) {
-    query.accountId = accountId;
+  function get({ promoId, token, query = {} }) {
     return client.get(`/promos/${promoId}`, {
       params: query,
       headers: authorizationHeaders({token, internalAuthTokenProvider})
