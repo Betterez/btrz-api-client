@@ -63,6 +63,17 @@ function createTrips({baseURL, timeout, overrideFn, internalAuthTokenProvider}) 
   };
 }
 
+function createColtrane({baseURL, timeout, overrideFn, internalAuthTokenProvider}) {
+  const client = clientFactory({baseURL, timeout, overrideFn});
+
+  return {
+    paths: require("./endpoints/coltrane/paths")({client, internalAuthTokenProvider}),
+    __test: {
+      client
+    }
+  };
+}
+
 function createAccounts({baseURL, timeout, overrideFn, internalAuthTokenProvider}) {
   const client = clientFactory({baseURL, timeout, overrideFn});
 
@@ -231,6 +242,7 @@ function createApiClient(options) {
       ...createInventory({baseURL, timeout, overrideFn: baseURLOverride.inventory, internalAuthTokenProvider}),
       ...createTrips({baseURL, timeout, overrideFn: baseURLOverride.trips, internalAuthTokenProvider})
     },
+    coltrane: createColtrane({baseURL, timeout, overrideFn: baseURLOverride.coltrane, internalAuthTokenProvider}),
     accounts: createAccounts({baseURL, timeout, overrideFn: baseURLOverride.accounts, internalAuthTokenProvider}),
     sales: createSales({baseURL, timeout, overrideFn: baseURLOverride.sales, internalAuthTokenProvider}),
     operations: createOperations({baseURL, timeout, overrideFn: baseURLOverride.operations, internalAuthTokenProvider}),
