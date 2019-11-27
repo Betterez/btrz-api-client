@@ -46,6 +46,7 @@ function createInventory({baseURL, timeout, overrideFn, internalAuthTokenProvide
     amenities: require("./endpoints/inventory/amenities")({client, internalAuthTokenProvider}),
     amenityGroups: require("./endpoints/inventory/amenity-groups")({client, internalAuthTokenProvider}),
     bundles: require("./endpoints/inventory/bundles")({client, internalAuthTokenProvider}),
+    stationGroups: require("./endpoints/inventory/station-groups")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
