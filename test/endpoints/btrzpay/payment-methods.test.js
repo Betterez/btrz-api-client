@@ -54,4 +54,14 @@ describe("btrzpay/payment-methods", () => {
       }
     });
   });
+
+  it("should delete a payment method", () => {
+    const paymentMethodId = "5ad7804216b426412c19f06f";
+    axiosMock.onDelete(`/payment-methods/${paymentMethodId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.btrzpay.paymentMethods.remove({
+      jwtToken,
+      token,
+      paymentMethodId
+    });
+  });
 });
