@@ -45,12 +45,23 @@ function operationMessagesFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  // it's being used post to get the ability to use a complex json payload
+  function getByStation({token, jwtToken, opMsgData}) {
+    return client({
+      url: "/operation-messages-stations",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      data: opMsgData
+    });
+  }
+
   return {
     get,
     all,
     create,
     update,
-    remove
+    remove,
+    getByStation
   };
 }
 
