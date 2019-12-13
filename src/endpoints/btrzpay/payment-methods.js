@@ -18,14 +18,6 @@ function paymentMethodsFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  function remove({token, jwtToken, paymentMethodId}) {
-    return client({
-      url: `/payment-methods/${paymentMethodId}`,
-      method: "delete",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
-    });
-  }
-
   function get({ token, jwtToken, paymentMethodId }) {
     return client.get(`/payment-methods/${paymentMethodId}`, {
       params: {},
@@ -45,7 +37,6 @@ function paymentMethodsFactory({ client, internalAuthTokenProvider }) {
   return {
     getByProviderName,
     create,
-    remove,
     get,
     update
   };
