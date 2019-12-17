@@ -3,10 +3,10 @@ const { authorizationHeaders } = require("./../endpoints_helpers");
 
 function printedTicketsFactory({ client, internalAuthTokenProvider }) {
 
-  function get({ token, jwtToken, responseType = "json", trxId, lang}) {
+  function get({ token, jwtToken, responseType = "json", trxId, lang, date}) {
     return client({
       url: "/printed-tickets",
-      params: {trxId, lang},
+      params: {trxId, lang, date},
       responseType,
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
     });
