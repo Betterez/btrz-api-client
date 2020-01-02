@@ -32,6 +32,7 @@ function createInventory({baseURL, timeout, overrideFn, internalAuthTokenProvide
     fees: require("./endpoints/inventory/fees")({client, internalAuthTokenProvider}),
     items: require("./endpoints/inventory/items")({client, internalAuthTokenProvider}),
     filteredTrips: require("./endpoints/inventory/filtered-trips")({client, internalAuthTokenProvider}),
+    filteredTripsV2: require("./endpoints/inventory/filtered-trips-v2")({client, internalAuthTokenProvider}),
     ssrs: require("./endpoints/inventory/ssrs")({client, internalAuthTokenProvider}),
     fareClasses: require("./endpoints/inventory/fare-classes")({client, internalAuthTokenProvider}),
     journeyPrices: require("./endpoints/inventory/journey-prices")({client, internalAuthTokenProvider}),
