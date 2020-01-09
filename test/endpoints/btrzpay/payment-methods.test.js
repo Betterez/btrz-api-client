@@ -1,9 +1,9 @@
-const { axiosMock, expectRequest } = require("./../../test-helpers"),
-  api = require("./../../../src/client").createApiClient({ baseURL: "http://test.com" });
+const {axiosMock, expectRequest} = require("./../../test-helpers");
+const api = require("./../../../src/client").createApiClient({baseURL: "http://test.com"});
 
 describe("btrzpay/payment-methods", () => {
-  const token = "token",
-    jwtToken = 'I owe you a JWT token';
+  const token = "token";
+  const jwtToken = "I owe you a JWT token";
 
   afterEach(() => {
     axiosMock.reset();
@@ -11,17 +11,17 @@ describe("btrzpay/payment-methods", () => {
 
   it("should get a payment method by provider name", () => {
     const providerName = "providerName";
-    axiosMock.onGet(`/payment-methods?providerName=${providerName}`).reply(expectRequest({ statusCode: 200, token }));
-    return api.btrzpay.paymentMethods.getByProviderName({ token, providerName });
+    axiosMock.onGet(`/payment-methods?providerName=${providerName}`).reply(expectRequest({statusCode: 200, token}));
+    return api.btrzpay.paymentMethods.getByProviderName({token, providerName});
   });
 
   it("should create a payment method", () => {
-    axiosMock.onPost("/payment-methods").reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onPost("/payment-methods").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.btrzpay.paymentMethods.create({
       jwtToken,
       token,
       paymentMethod: {
-        providerName: 'provider',
+        providerName: "provider",
         displayName: "display name"
       }
     });
@@ -29,7 +29,7 @@ describe("btrzpay/payment-methods", () => {
 
   it("should get a payment method", () => {
     const paymentMethodId = "5ad7804216b426412c19f06f";
-    axiosMock.onGet(`/payment-methods/${paymentMethodId}`).reply(expectRequest({ statusCode: 200, token }));
+    axiosMock.onGet(`/payment-methods/${paymentMethodId}`).reply(expectRequest({statusCode: 200, token}));
     return api.btrzpay.paymentMethods.get({
       token,
       paymentMethodId
@@ -52,6 +52,22 @@ describe("btrzpay/payment-methods", () => {
         "id": "id",
         "providerId": "providerId"
       }
+    });
+  });
+
+  it("should add payment methods to agency", () => {
+    axiosMock.onPost("/payment-methods-to-agencies").reply(expectRequest({
+      statusCode: 200,
+      token,
+      jwtToken
+    }));
+
+    return api.btrzpay.paymentMethods.setToAgency({
+      jwtToken,
+      token,
+      providerId: "providerId",
+      agencyId: "agencyId",
+      paymentMethodNames: ["cash", "ivr"]
     });
   });
 });

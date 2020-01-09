@@ -34,10 +34,20 @@ function paymentMethodsFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function setToAgency({token, jwtToken, agencyId, providerId, paymentMethodNames}) {
+    return client({
+      url: "/payment-methods-to-agencies",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      data: {providerId, agencyId, paymentMethodNames}
+    });
+  }
+
   return {
     getByProviderName,
     create,
     get,
+    setToAgency,
     update
   };
 }
