@@ -127,6 +127,7 @@ function createOperations({baseURL, timeout, overrideFn, internalAuthTokenProvid
     redemption: require("./endpoints/operations/redemption")({client, internalAuthTokenProvider}),
     tripChangeInfo: require("./endpoints/operations/trip_change_info")({client, internalAuthTokenProvider}),
     segments: require("./endpoints/operations/segments")({client, internalAuthTokenProvider}),
+    movements: require("./endpoints/operations/movements")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
