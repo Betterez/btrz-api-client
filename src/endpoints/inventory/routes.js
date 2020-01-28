@@ -1,7 +1,6 @@
 const { authorizationHeaders } = require("./../endpoints_helpers");
 
 function routesFactory({ client, internalAuthTokenProvider }) {
-  
   function get({ routeId, token, query = {} }) {
     return client({
       url: `/route/${routeId}`,
@@ -20,11 +19,18 @@ function routesFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function all({token, query = {}}) {
+    return client.get("/routes", {
+      params: query,
+      headers: authorizationHeaders({token, internalAuthTokenProvider})
+    });
+  }
+
   return {
     get,
-    prices
+    prices,
+    all
   };
-
 }
 
 module.exports = routesFactory;
