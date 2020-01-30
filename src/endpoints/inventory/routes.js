@@ -26,10 +26,18 @@ function routesFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function stations({token, routeId}) {
+    return client({
+      url: `/routes/${routeId}/stations`,
+      headers: authorizationHeaders({token, internalAuthTokenProvider})
+    });
+  }
+
   return {
     get,
     prices,
-    all
+    all,
+    stations
   };
 }
 

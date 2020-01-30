@@ -22,4 +22,10 @@ describe("inventory/route", () => {
     axiosMock.onGet("/routes").reply(expectRequest({statusCode: 200, token}));
     return api.inventory.routes.all({token});
   });
+
+  it("should get prices", () => {
+    const routeId = "1";
+    axiosMock.onGet(`/routes/${routeId}/stations`).reply(expectRequest({statusCode: 200, token}));
+    return api.inventory.routes.stations({token, routeId});
+  });
 });
