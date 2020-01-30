@@ -2,7 +2,7 @@ const { expect } = require("chai");
 const MockAdapter = require('axios-mock-adapter');
 
 const { createApiClient } = require("./../src/client");
-  
+
 function expectKnownEndpoints(api) {
   expect(api.inventory.products).to.exists;
   expect(api.inventory.insurances).to.exists;
@@ -26,6 +26,16 @@ describe("client", function() {
     expectKnownEndpoints(api);
     expect(api.inventory.__test.client.defaults.baseURL).to.eql(baseURL);
     expect(api.inventory.__test.client.defaults.timeout).to.eql(0);
+  });
+
+  it("should create a client that uses the provided default request headers when making a request to any subsystem", () => {
+    const api = createApiClient({headers: {"x-test-header": "some_value"}});
+
+    const ignoredApiProperties = ["constants", "_cleanClient"];
+    const propertyIsRelevant = (property) => !ignoredApiProperties.includes(property);
+    for (const subsystem of Object.keys(api).filter(propertyIsRelevant)) {
+      expect(api[subsystem].__test.client.defaults.headers).to.include({"x-test-header": "some_value"});
+    }
   });
 
   it("should expose a INTERNAL_AUTH_TOKEN constant", () => {
@@ -66,7 +76,7 @@ describe("client", function() {
     const mock =  new MockAdapter(api._cleanClient);
     mock.onPost(`/custom/endpoint`).reply(200);
     const promise = api._cleanClient({ url: '/custom/endpoint', method: 'post' });
-    
+
     mock.restore();
     return promise;
   });
