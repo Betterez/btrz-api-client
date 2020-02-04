@@ -9,6 +9,16 @@ describe("btrzpay/payment-methods", () => {
     axiosMock.reset();
   });
 
+  it("should list payment methods", () => {
+    axiosMock.onGet("/payment-methods").reply(expectRequest({statusCode: 200, token }));
+    return api.btrzpay.paymentMethods.all({token});
+  });
+
+  it("should list payment methods when request include jwtToken", () => {
+    axiosMock.onGet("/payment-methods").reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.btrzpay.paymentMethods.all({token, jwtToken});
+  });
+
   it("should get a payment method by provider name", () => {
     const providerName = "providerName";
     axiosMock.onGet(`/payment-methods?providerName=${providerName}`).reply(expectRequest({statusCode: 200, token}));

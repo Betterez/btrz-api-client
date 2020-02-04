@@ -1,6 +1,12 @@
 const { authorizationHeaders } = require("./../endpoints_helpers");
 
 function paymentMethodsFactory({ client, internalAuthTokenProvider }) {
+  function all({token, jwtToken, query = {}}) {
+    return client.get("/payment-methods", {
+      params: query,
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+    });
+  }
 
   function getByProviderName({ token, jwtToken, providerName }) { //deprecated
     return client({
@@ -44,6 +50,7 @@ function paymentMethodsFactory({ client, internalAuthTokenProvider }) {
   }
 
   return {
+    all,
     getByProviderName,
     create,
     get,
