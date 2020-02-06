@@ -18,8 +18,22 @@ function manifestNotificationsFactory({
     });
   }
 
+  function all({
+    token,
+    query = {}
+  }) {
+    return client.get("/manifest-notifications", {
+      params: query,
+      headers: authorizationHeaders({
+        token,
+        internalAuthTokenProvider
+      })
+    });
+  }
+
   return {
-    create
+    create,
+    all
   };
 }
 

@@ -1,5 +1,6 @@
 const {
-  axiosMock
+  axiosMock,
+  expectRequest
 } = require("./../../test-helpers");
 const api = require("./../../../src/client").createApiClient({
   baseURL: "http://test.com"
@@ -27,5 +28,13 @@ describe("notifications/manifest-notifications", () => {
     return api.notifications.manifestNotifications.create({
       token, jwtToken, query
     });
+  });
+
+  it("should list manifest notification", () => {
+    axiosMock.onGet("/manifest-notifications")
+      .reply(expectRequest({
+        statusCode: 200, token
+      }));
+    return api.notifications.manifestNotifications.all({token });
   });
 });
