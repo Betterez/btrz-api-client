@@ -1,8 +1,13 @@
-const { authorizationHeaders } = require("./../endpoints_helpers");
+const {
+  authorizationHeaders
+} = require("./../endpoints_helpers");
 
-function emailFactory({ client, internalAuthTokenProvider }) {
-
-  function create({ token, jwtToken, query = {} }) {
+function emailFactory({
+  client, internalAuthTokenProvider
+}) {
+  function create({
+    token, jwtToken, query = {}
+  }) {
     return client({
       url: "/email",
       method: "post",
