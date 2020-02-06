@@ -5,7 +5,7 @@ const api = require("./../../../src/client").createApiClient({
   baseURL: "http://test.com"
 });
 
-describe.only("notifications/manifest-notifications", () => {
+describe("notifications/manifest-notifications", () => {
   const token = "my-api-key";
   const jwtToken = "my-jwt";
 
