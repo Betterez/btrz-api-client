@@ -81,6 +81,7 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
   const client = clientFactory({baseURL, headers, timeout, overrideFn});
 
   return {
+    trustedMachines: require("./endpoints/accounts/trusted-machines")({client, internalAuthTokenProvider}),
     lexicons: require("./endpoints/accounts/lexicons")({client, internalAuthTokenProvider}),
     shifts: require("./endpoints/accounts/shifts")({client, internalAuthTokenProvider}),
     currentShifts: require("./endpoints/accounts/current-shifts")({client, internalAuthTokenProvider}),
