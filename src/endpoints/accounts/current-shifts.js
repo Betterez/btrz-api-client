@@ -2,9 +2,10 @@ const { authorizationHeaders } = require("./../endpoints_helpers");
 
 function currentShiftsFactory({client, internalAuthTokenProvider}) {
 
-  function get({ token, userId }) {
+  function get({token, userId, query = {}}) {
     return client.get(`/users/${userId}/current-shift`, {
-      headers: authorizationHeaders({token, internalAuthTokenProvider})
+      headers: authorizationHeaders({token, internalAuthTokenProvider}),
+      params: query
     });
   }
 
