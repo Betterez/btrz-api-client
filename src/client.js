@@ -119,6 +119,7 @@ function createOperations({baseURL, headers, timeout, overrideFn, internalAuthTo
   const client = clientFactory({baseURL, headers, timeout, overrideFn});
 
   return {
+    flexpasses: require("./endpoints/operations/flexpasses")({client, internalAuthTokenProvider}),
     parcel: require("./endpoints/operations/parcels")({client, internalAuthTokenProvider}),
     appliedInsurance: require("./endpoints/operations/applied_insurance")({client, internalAuthTokenProvider}),
     transaction: require("./endpoints/operations/transaction")({client, internalAuthTokenProvider}),
