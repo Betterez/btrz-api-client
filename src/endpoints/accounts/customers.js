@@ -19,9 +19,19 @@ function customersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function create({customer, token, jwtToken}) {
+    return client({
+      url: "/customer",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      data: {customer}
+    });
+  }
+
   return {
     put,
-    all
+    all,
+    create
   };
 }
 

@@ -26,4 +26,13 @@ describe('accounts/customers', () => {
     axiosMock.onGet("/customers", {params: query}).reply(expectRequest({ statusCode: 200, token, jwtToken }));
     return api.accounts.customers.all({ jwtToken, token, query });
   });
+
+  it("should POST a customer", () => {
+    const customer = {
+      firstName: "someFirstName",
+      lastName: "someLastName"
+    };
+    axiosMock.onPost("/customer").reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.accounts.customers.create({jwtToken, token, customer});
+  });
 });
