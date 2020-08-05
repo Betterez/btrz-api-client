@@ -1,7 +1,7 @@
 const {
   axiosMock, expectRequest
 } = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({ baseURL: "http://test.com" });
+const api = require("./../../../src/client").createApiClient({baseURL: "http://test.com"});
 
 describe("inventory/service-numbers", () => {
   const token = "I owe you a token";
@@ -23,8 +23,8 @@ describe("inventory/service-numbers", () => {
     });
   });
 
-  it("should get all brands", () => {
-    axiosMock.onGet("/service-numbers").reply(expectRequest({ statusCode: 200, token, jwtToken }));
+  it("should get all service numbers", () => {
+    axiosMock.onGet("/service-numbers").reply(expectRequest({statusCode: 200, token, jwtToken }));
     return api.inventory.serviceNumbers.all({
       jwtToken,
       token,
