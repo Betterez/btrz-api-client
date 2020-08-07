@@ -21,6 +21,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
   const client = clientFactory({baseURL, headers, timeout, overrideFn});
 
   return {
+    docs: require("./endpoints/inventory/docs")({client}),
     products: require("./endpoints/inventory/products")({client, internalAuthTokenProvider}),
     insurances: require("./endpoints/inventory/insurances")({client, internalAuthTokenProvider}),
     stations: require("./endpoints/inventory/stations")({client, internalAuthTokenProvider}),
@@ -71,6 +72,7 @@ function createColtrane({baseURL, headers, timeout, overrideFn, internalAuthToke
   const client = clientFactory({baseURL, headers, timeout, overrideFn});
 
   return {
+    docs: require("./endpoints/coltrane/docs")({ client }),
     paths: require("./endpoints/coltrane/paths")({client, internalAuthTokenProvider}),
     __test: {
       client
@@ -82,6 +84,7 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
   const client = clientFactory({baseURL, headers, timeout, overrideFn});
 
   return {
+    docs: require("./endpoints/accounts/docs")({ client }),
     trustedMachines: require("./endpoints/accounts/trusted-machines")({client, internalAuthTokenProvider}),
     lexicons: require("./endpoints/accounts/lexicons")({client, internalAuthTokenProvider}),
     shifts: require("./endpoints/accounts/shifts")({client, internalAuthTokenProvider}),
@@ -99,6 +102,7 @@ function createSales({baseURL, headers, timeout, overrideFn, internalAuthTokenPr
   const client = clientFactory({baseURL, headers, timeout, overrideFn});
 
   return {
+    docs: require("./endpoints/sales/docs")({ client }),
     paymentProviders: require("./endpoints/sales/payment-providers")({client, internalAuthTokenProvider}),
     cart: require("./endpoints/sales/cart")({client, internalAuthTokenProvider}),
     giftCertificates: require("./endpoints/sales/gift-certificates")({client, internalAuthTokenProvider}),
@@ -120,6 +124,7 @@ function createOperations({baseURL, headers, timeout, overrideFn, internalAuthTo
   const client = clientFactory({baseURL, headers, timeout, overrideFn});
 
   return {
+    docs: require("./endpoints/operations/docs")({ client }),
     flexpasses: require("./endpoints/operations/flexpasses")({client, internalAuthTokenProvider}),
     parcel: require("./endpoints/operations/parcels")({client, internalAuthTokenProvider}),
     appliedInsurance: require("./endpoints/operations/applied_insurance")({client, internalAuthTokenProvider}),
@@ -217,6 +222,7 @@ function createBtrzPay({baseURL, headers, timeout, overrideFn, internalAuthToken
   const client = clientFactory({baseURL, headers, timeout, overrideFn});
 
   return {
+    docs: require("./endpoints/btrzpay/docs")({ client }),
     paymentMethods: require("./endpoints/btrzpay/payment-methods")({client, internalAuthTokenProvider}),
     referenceNumbers: require("./endpoints/btrzpay/reference-numbers")({client, internalAuthTokenProvider}),
     payments: require("./endpoints/btrzpay/payments")({client, internalAuthTokenProvider}),
