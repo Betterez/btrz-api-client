@@ -1,4 +1,4 @@
-describe.only("inventory/docs", () => {
+describe("inventory/docs", () => {
   const {
     expect
   } = require("chai");

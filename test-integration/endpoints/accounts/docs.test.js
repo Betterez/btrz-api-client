@@ -1,4 +1,4 @@
-describe.only("accounts/docs", () => {
+describe("accounts/docs", () => {
   const { expect } = require("chai");
   const port = process.env.ACCOUNTS_API_PORT;
 
