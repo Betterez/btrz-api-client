@@ -1,3 +1,4 @@
+const base64 = require("base-64");
 const { authorizationHeaders } = require("./../endpoints_helpers");
 
 function customersFactory({client, internalAuthTokenProvider}) {
@@ -28,10 +29,27 @@ function customersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function signIn({email, password, apiKey}) {
+    const encodedCredentials = base64.encode(`${email}:${password}`);
+    const headers = {
+      Authorization: `Basic ${encodedCredentials}`
+    };
+    const params = {};
+    params["x-api-key"] = apiKey;
+    return client({
+      url: "/customers",
+      method: "post",
+      params,
+      headers,
+      data: {}
+    });
+  }
+
   return {
     put,
     all,
-    create
+    create,
+    signIn
   };
 }
 

@@ -1,3 +1,5 @@
+const { expect } = require("chai");
+const base64 = require("base-64");
 const { axiosMock, expectRequest } = require("./../../test-helpers");
 const api = require("./../../../src/client").createApiClient({ baseURL: "http://test.com" });
 
@@ -34,5 +36,33 @@ describe('accounts/customers', () => {
     };
     axiosMock.onPost("/customer").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.accounts.customers.create({jwtToken, token, customer});
+  });
+
+  it("should sign in a customer", () => {
+    const email = "coolCustomer@betterez.com";
+    const password = "abc123";
+    const apiKey = "customerApiKey";
+    const encodedCredentials = base64.encode(`${email}:${password}`);
+    const response = {
+      customer: {
+        foo: "bar"
+      },
+      token: "someToken",
+      shortToken: "someShortToken"
+    };
+
+    axiosMock.onPost("/customers",).reply((config) => {
+      expect(config.params).eql({
+        "x-api-key": apiKey
+      });
+      expect(config.headers.Authorization).eql(`Basic ${encodedCredentials}`);
+      return [200, response];
+    });
+
+    return api.accounts.customers.signIn({email, password, apiKey})
+      .then((httpResponse) => {
+        expect(httpResponse.status).eql(200);
+        expect(httpResponse.data).eql(response);
+      });
   });
 });
