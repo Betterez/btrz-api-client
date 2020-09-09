@@ -1,6 +1,4 @@
-const url = require("url");
 const { authorizationHeaders } = require("./../endpoints_helpers");
-const querystring = require("querystring");
 
 function appliedInsuranceFactory({ client, internalAuthTokenProvider }) {
 

@@ -1,36 +1,46 @@
-const url = require("url");
-const { authorizationHeaders } = require("./../endpoints_helpers");
+const {
+  authorizationHeaders
+} = require("./../endpoints_helpers");
 
-function insurancesFactory({ client, internalAuthTokenProvider }) {
-  
-  function all({ token, query = {} }) {
+function insurancesFactory({
+  client, internalAuthTokenProvider
+}) {
+  function all({
+    token, query = {}
+  }) {
     return client.get("/insurances", {
       params: query,
       headers: authorizationHeaders({token, internalAuthTokenProvider})
-    });    
+    });
   }
 
-  function create({ token, insurance, jwtToken }) {
-    return client({ 
+  function create({
+    token, insurance, jwtToken
+  }) {
+    return client({
       url: "/insurances",
       method: "post",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
-      data: { insurance }
+      data: {
+        insurance
+      }
     });
   }
 
-  function enabled({ token, insurance, jwtToken }) {
-    const one = url.resolve("/insurance/", insurance._id);
-    
+  function enabled({
+    token, insurance, jwtToken
+  }) {
     return client({
-      url: one,
+      url: `/insurance/${insurance._id}`,
       method: "put",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
-      data: { insurance }
+      data: {
+        insurance
+      }
     });
   }
 
-  return { 
+  return {
     all,
     create,
     enabled

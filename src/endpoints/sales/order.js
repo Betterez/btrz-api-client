@@ -1,8 +1,6 @@
-const url = require("url");
 const { authorizationHeaders } = require("./../endpoints_helpers");
 
 function orderFactory({ client, internalAuthTokenProvider }) {
-
   function create({ token, order, jwtToken }) {
     return client({ 
       url: "/order",
