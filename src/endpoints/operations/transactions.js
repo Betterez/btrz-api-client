@@ -1,24 +1,24 @@
 const {authorizationHeaders} = require("./../endpoints_helpers");
 
-function transactionsFactory({client}) {
+function transactionsFactory({client, internalAuthTokenProvider}) {
   function get({token, jwtToken, trxId}) {
     return client({
       url: `/transactions/${trxId}`,
-      headers: authorizationHeaders({token, jwtToken})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
     });
   }
 
   function getTickets({token, jwtToken, trxId}) {
     return client({
       url: `/transactions/${trxId}/tickets`,
-      headers: authorizationHeaders({token, jwtToken})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
     });
   }
 
   function appliedInsurance({token, jwtToken, trxId}) {
     return client({
       url: `/transactions/${trxId}/applied-insurance`,
-      headers: authorizationHeaders({token, jwtToken})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
     });
   }
 
@@ -28,7 +28,7 @@ function transactionsFactory({client}) {
       params: {
         ticketIds: ticketIds.join(",")
       },
-      headers: authorizationHeaders({token, jwtToken})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
     });
   }
 
