@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 const base64 = require("base-64");
-const { axiosMock, expectRequest } = require("./../../test-helpers");
+const {axiosMock, expectRequest} = require("./../../test-helpers");
 const api = require("./../../../src/client").createApiClient({ baseURL: "http://test.com" });
 
 describe('accounts/customers', () => {
@@ -36,6 +36,23 @@ describe('accounts/customers', () => {
     };
     axiosMock.onPost("/customer").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.accounts.customers.create({jwtToken, token, customer});
+  });
+
+
+  it("should authenticate a customer/cas", () => {
+    const service = "http://something.example.com";
+    const ticket = "ST-1234";
+    axiosMock.onPost("/customers/cas", {
+      service, ticket
+    }).reply((response) => {
+      expect(response.data).to.be.eql(`{"service":"${service}","ticket":"${ticket}"}`);
+      expect(response.headers["x-api-key"]).to.be.eql(token);
+      return [200];
+    });
+
+    return api.accounts.customers.signInCas({
+      token, service, ticket
+    });
   });
 
   it("should sign in a customer", () => {

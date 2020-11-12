@@ -1,9 +1,10 @@
 const base64 = require("base-64");
-const { authorizationHeaders } = require("./../endpoints_helpers");
+const {
+  authorizationHeaders
+} = require("./../endpoints_helpers");
 
 function customersFactory({client, internalAuthTokenProvider}) {
-
-  function put({ customerId, customer, token, jwtToken }) {
+  function put({customerId, customer, token, jwtToken}) {
     return client({
       url: `/customers/${customerId}`,
       method: "put",
@@ -12,9 +13,9 @@ function customersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function all({ token, jwtToken, query = {} }) {
+  function all({token, jwtToken, query = {}}) {
     return client({
-      url: `/customers`,
+      url: "/customers",
       params: query,
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
     });
@@ -45,11 +46,26 @@ function customersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function signInCas({service, ticket, token}) {
+    return client({
+      url: "/customers/cas",
+      headers: authorizationHeaders({
+        token, internalAuthTokenProvider
+      }),
+      method: "post",
+      data: {
+        service,
+        ticket
+      }
+    });
+  }
+
   return {
     put,
     all,
     create,
-    signIn
+    signIn,
+    signInCas
   };
 }
 
