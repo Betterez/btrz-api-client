@@ -165,6 +165,7 @@ function createNotifications({baseURL, headers, timeout, overrideFn, internalAut
     manifestNotifications: require("./endpoints/notifications/manifest-notifications")({client, internalAuthTokenProvider}),
     printedTickets: require("./endpoints/notifications/printed-tickets")({client, internalAuthTokenProvider}),
     email: require("./endpoints/notifications/email")({client, internalAuthTokenProvider}),
+    customers: require("./endpoints/notifications/customers")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
