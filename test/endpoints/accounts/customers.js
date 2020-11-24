@@ -1,32 +1,32 @@
-const { expect } = require("chai");
+const {expect} = require("chai");
 const base64 = require("base-64");
 const {axiosMock, expectRequest} = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({ baseURL: "http://test.com" });
+const api = require("./../../../src/client").createApiClient({baseURL: "http://test.com"});
 
-describe('accounts/customers', () => {
-  const token = 'I owe you a token',
-    jwtToken = 'I owe you a JWT token';
+describe("accounts/customers", () => {
+  const token = "I owe you a token";
+  const jwtToken = "I owe you a JWT token";
 
   afterEach(() => {
     axiosMock.reset();
   });
 
   it("should PUT a customer", () => {
-    const customerId = "123123123123",
-      customer = {firstName: "new name!"};
-    axiosMock.onPut(`/customers/${customerId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
-    return api.accounts.customers.put({ jwtToken, token, customerId, customer });
+    const customerId = "123123123123";
+    const customer = {firstName: "new name!"};
+    axiosMock.onPut(`/customers/${customerId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.accounts.customers.put({jwtToken, token, customerId, customer});
   });
 
   it("should GET a list of customers", () => {
-    axiosMock.onGet("/customers").reply(expectRequest({ statusCode: 200, token, jwtToken }));
-    return api.accounts.customers.all({ jwtToken, token });
+    axiosMock.onGet("/customers").reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.accounts.customers.all({jwtToken, token});
   });
 
   it("should GET a list of customers by customerNumber", () => {
     const query = {customerNumber: "123-123-123"};
-    axiosMock.onGet("/customers", {params: query}).reply(expectRequest({ statusCode: 200, token, jwtToken }));
-    return api.accounts.customers.all({ jwtToken, token, query });
+    axiosMock.onGet("/customers", {params: query}).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.accounts.customers.all({jwtToken, token, query});
   });
 
   it("should POST a customer", () => {
@@ -68,7 +68,7 @@ describe('accounts/customers', () => {
       shortToken: "someShortToken"
     };
 
-    axiosMock.onPost("/customers",).reply((config) => {
+    axiosMock.onPost("/customers").reply((config) => {
       expect(config.params).eql({
         "x-api-key": apiKey
       });
@@ -77,6 +77,36 @@ describe('accounts/customers', () => {
     });
 
     return api.accounts.customers.signIn({email, password, apiKey})
+      .then((httpResponse) => {
+        expect(httpResponse.status).eql(200);
+        expect(httpResponse.data).eql(response);
+      });
+  });
+
+  it("should update a customer", () => {
+    const customerId = "customer123";
+    const passwordResetToken = "thisWillLast6Hours";
+    const newPassword = "myNewPass";
+    const data = {
+      operations: [{
+        op: "reset",
+        path: "/resetPassword",
+        value: passwordResetToken,
+        data: {password: newPassword}
+      }]
+    };
+
+    const response = {
+      foo: "bar"
+    };
+
+    axiosMock.onPatch(`/customers/${customerId}`).reply((config) => {
+      expect(config.headers.authorization).eql(`Bearer ${jwtToken}`);
+      expect(config.headers["x-api-key"]).eql(token);
+      return [200, response];
+    });
+
+    return api.accounts.customers.update({customerId, token, jwtToken, data})
       .then((httpResponse) => {
         expect(httpResponse.status).eql(200);
         expect(httpResponse.data).eql(response);

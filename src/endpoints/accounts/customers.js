@@ -60,12 +60,23 @@ function customersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function update({customerId, token, jwtToken, data, query}) {
+    return client({
+      url: `/customers/${customerId}`,
+      method: "patch",
+      params: query,
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      data
+    });
+  }
+
   return {
     put,
     all,
     create,
     signIn,
-    signInCas
+    signInCas,
+    update
   };
 }
 
