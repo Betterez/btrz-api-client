@@ -8,6 +8,14 @@ function transactionsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function all({token, jwtToken, query}) {
+    return client({
+      url: "/transactions",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      params: query
+    });
+  }
+
   function getTickets({token, jwtToken, trxId}) {
     return client({
       url: `/transactions/${trxId}/tickets`,
@@ -49,6 +57,7 @@ function transactionsFactory({client, internalAuthTokenProvider}) {
   }
 
   return {
+    all,
     get,
     getTickets,
     appliedInsurance,

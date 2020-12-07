@@ -28,6 +28,15 @@ describe("operations/transactions", function () {
       });
   });
 
+  it("should get all transactions that match the query", function () {
+    const transactionId = "transactionId1";
+    axiosMock.onGet("/transactions").reply(expectRequest({statusCode: 200, token}));
+    return api.operations.transactions.all({jwtToken, token, trxId: transactionId})
+      .then((response) => {
+        expect(response.status).to.equals(200);
+      });
+  });
+
   it("should get a all tickets of a transaction by id", function () {
     const transactionId = "transactionId1";
     axiosMock.onGet(`/transactions/${transactionId}/tickets`).reply(expectRequest({statusCode: 200, token}));
