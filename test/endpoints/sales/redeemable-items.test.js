@@ -15,4 +15,11 @@ describe('sales/redeemable-items', function() {
     return api.sales.redeemableItems.get({ token, redeemableItemId, query: {providerId} });
   });
 
+  it("should get all the valid redeemable items", function() {
+    const providerId = "providerId1";
+    const ids = "RIDisplayId1,RIDisplayId2"
+    axiosMock.onGet("/redeemable-items").reply(expectRequest({ statusCode: 200, token }));
+    return api.sales.redeemableItems.getValid({ token, query: {providerId} });
+  });
+
 });

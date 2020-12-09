@@ -10,8 +10,17 @@ function redeemableItemsFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function getValid({token, query = {}}) {
+    return client({
+      url: "/redeemable-items",
+      params: query,
+      headers: authorizationHeaders({token, internalAuthTokenProvider})
+    });
+  }
+
   return {
-    get
+    get,
+    getValid
   };
 }
 
