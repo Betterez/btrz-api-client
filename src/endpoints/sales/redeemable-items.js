@@ -10,11 +10,11 @@ function redeemableItemsFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  function getValid({token, query = {}}) {
+  function getValid({token, jwtToken, query = {}}) {
     return client({
       url: "/redeemable-items",
       params: query,
-      headers: authorizationHeaders({token, internalAuthTokenProvider})
+      headers: authorizationHeaders({token, jwtToken})
     });
   }
 

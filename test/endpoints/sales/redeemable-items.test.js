@@ -3,6 +3,7 @@ const api = require("./../../../src/client").createApiClient({ baseURL: "http://
 
 describe('sales/redeemable-items', function() {
   const token = 'I owe you a token';
+  const jwtToken = "I owe you a JWT token";
 
   afterEach(function() {
     axiosMock.reset();
@@ -18,8 +19,8 @@ describe('sales/redeemable-items', function() {
   it("should get all the valid redeemable items", function() {
     const providerId = "providerId1";
     const ids = "RIDisplayId1,RIDisplayId2"
-    axiosMock.onGet("/redeemable-items").reply(expectRequest({ statusCode: 200, token }));
-    return api.sales.redeemableItems.getValid({ token, query: {providerId} });
+    axiosMock.onGet("/redeemable-items").reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    return api.sales.redeemableItems.getValid({ token, jwtToken, query: {providerId, ids} });
   });
 
 });
