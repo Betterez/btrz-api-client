@@ -21,12 +21,13 @@ function customersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function create({customer, token, jwtToken}) {
+  function create({customer, token, jwtToken, query}) {
     return client({
       url: "/customer",
       method: "post",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
-      data: {customer}
+      data: {customer},
+      params: query,
     });
   }
 

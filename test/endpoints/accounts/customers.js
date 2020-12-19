@@ -38,6 +38,18 @@ describe("accounts/customers", () => {
     return api.accounts.customers.create({jwtToken, token, customer});
   });
 
+  it("should allow query params", () => {
+    const customer = {
+      firstName: "someFirstName",
+      lastName: "someLastName"
+    };
+    const query = {
+      channel: "mobileapp",
+      platform: "android"
+    };
+    axiosMock.onPost("/customer").reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.accounts.customers.create({jwtToken, token, customer, query});
+  });
 
   it("should authenticate a customer/cas", () => {
     const service = "http://something.example.com";
