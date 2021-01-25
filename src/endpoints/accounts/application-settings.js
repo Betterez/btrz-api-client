@@ -1,9 +1,9 @@
 const {authorizationHeaders} = require("./../endpoints_helpers");
 
 function applicationSettingsFactory({client, internalAuthTokenProvider}) {
-  function get({token, providerId, query = {}}) {
+  function get({token, providerId, jwtToken, query = {}}) {
     return client.get(`/application-settings/${providerId}`, {
-      headers: authorizationHeaders({token, internalAuthTokenProvider}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
       params: query
     });
   }

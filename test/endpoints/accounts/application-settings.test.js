@@ -3,6 +3,7 @@ const api = require("./../../../src/client").createApiClient({baseURL: "http://t
 
 describe("accounts/application-settings/:providerId", () => {
   const token = "I owe you a token";
+  const jwtToken = "secret";
 
   afterEach(() => {
     axiosMock.reset();
@@ -14,6 +15,6 @@ describe("accounts/application-settings/:providerId", () => {
 
     axiosMock.onGet(`/application-settings/${providerId}`, {params: query})
       .reply(expectRequest({statusCode: 200, token}));
-    return api.accounts.applicationSettings.get({token, providerId, query});
+    return api.accounts.applicationSettings.get({token, jwtToken, providerId, query});
   });
 });
