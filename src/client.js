@@ -92,6 +92,7 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
     lexicons: require("./endpoints/accounts/lexicons")({client, internalAuthTokenProvider}),
     shifts: require("./endpoints/accounts/shifts")({client, internalAuthTokenProvider}),
     currentShifts: require("./endpoints/accounts/current-shifts")({client, internalAuthTokenProvider}),
+    applications: require("./endpoints/accounts/applications")({client, internalAuthTokenProvider}),
     applicationSettings: require("./endpoints/accounts/application-settings")({client, internalAuthTokenProvider}),
     customers: require("./endpoints/accounts/customers")({client, internalAuthTokenProvider}),
     users: require("./endpoints/accounts/users")({client, internalAuthTokenProvider}),
