@@ -4,9 +4,9 @@ const MockAdapter = require('axios-mock-adapter');
 const { createApiClient } = require("./../src/client");
 
 function expectKnownEndpoints(api) {
-  expect(api.inventory.products).to.exists;
-  expect(api.inventory.insurances).to.exists;
-  expect(api.inventory.trips).to.exists;
+  expect(api.inventory.products).to.exist;
+  expect(api.inventory.insurances).to.exist;
+  expect(api.inventory.trips).to.exist;
 }
 
 describe("client", function() {
@@ -45,8 +45,8 @@ describe("client", function() {
 
   it("should allow to override baseUrl for custom endpoints", function() {
     const api = createApiClient({ baseURL, timeout: 10, baseURLOverride: { inventory: (url) => `${url}/somePath` } });
-    expect(api.inventory.products).to.exists;
-    expect(api.inventory.insurances).to.exists;
+    expect(api.inventory.products).to.exist;
+    expect(api.inventory.insurances).to.exist;
 
     expectKnownEndpoints(api);
     expect(api.inventory.__test.client.defaults.baseURL).to.eql(`${baseURL}/somePath`);
@@ -66,8 +66,8 @@ describe("client", function() {
 
   it("should allow to perform custom request on clean client", function() {
     const api = createApiClient({ baseURL, timeout: 0 });
-    expect(api.inventory.products).to.exists;
-    expect(api.inventory.insurances).to.exists;
+    expect(api.inventory.products).to.exist;
+    expect(api.inventory.insurances).to.exist;
 
     expectKnownEndpoints(api);
     expect(api._cleanClient.defaults.baseURL).to.eql(baseURL);
