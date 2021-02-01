@@ -8,8 +8,18 @@ function applicationSettingsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function update({jwtToken, token, id, application}) {
+    return client({
+      url: `/application-settings/${id}`,
+      method: "put",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      data: {application}
+    });
+  }
+
   return {
-    get
+    get,
+    update
   };
 }
 

@@ -17,4 +17,15 @@ describe("accounts/application-settings/:providerId", () => {
       .reply(expectRequest({statusCode: 200, token}));
     return api.accounts.applicationSettings.get({token, jwtToken, providerId, query});
   });
+
+  it("should update existing promo", () => {
+    const application = {
+      name: "A"
+    };
+    const id = "someId";
+
+    axiosMock.onPut(`/application-settings/${id}`)
+      .reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.accounts.applicationSettings.update({token, jwtToken, id, application});
+  });
 });
