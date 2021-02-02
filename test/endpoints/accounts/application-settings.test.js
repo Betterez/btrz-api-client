@@ -40,7 +40,7 @@ describe("accounts/application-settings/:providerId", () => {
   it("should regenerate the application keys", () => {
     const id = "someId";
 
-    axiosMock.onPost(`/application-settings/${id}`)
+    axiosMock.onPost(`/application-settings/${id}/keys`)
       .reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.accounts.applicationSettings.regenerateKeys({token, jwtToken, id});
   });
