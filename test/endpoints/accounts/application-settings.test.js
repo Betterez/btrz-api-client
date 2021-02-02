@@ -18,7 +18,7 @@ describe("accounts/application-settings/:providerId", () => {
     return api.accounts.applicationSettings.get({token, jwtToken, providerId, query});
   });
 
-  it("should update existing promo", () => {
+  it("should update an existing application setting", () => {
     const application = {
       name: "A"
     };
@@ -27,5 +27,13 @@ describe("accounts/application-settings/:providerId", () => {
     axiosMock.onPut(`/application-settings/${id}`)
       .reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.accounts.applicationSettings.update({token, jwtToken, id, application});
+  });
+
+  it("should remove an application setting", () => {
+    const id = "someId";
+
+    axiosMock.onDelete(`/application-settings/${id}`)
+      .reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.accounts.applicationSettings.remove({token, jwtToken, id});
   });
 });

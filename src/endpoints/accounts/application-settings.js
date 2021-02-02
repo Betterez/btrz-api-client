@@ -17,9 +17,18 @@ function applicationSettingsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function remove({jwtToken, token, id}) {
+    return client({
+      url: `/application-settings/${id}`,
+      method: "delete",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+    });
+  }
+
   return {
     get,
-    update
+    update,
+    remove
   };
 }
 
