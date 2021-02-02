@@ -36,4 +36,12 @@ describe("accounts/application-settings/:providerId", () => {
       .reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.accounts.applicationSettings.remove({token, jwtToken, id});
   });
+
+  it("should regenerate the application keys", () => {
+    const id = "someId";
+
+    axiosMock.onPost(`/application-settings/${id}`)
+      .reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.accounts.applicationSettings.regenerateKeys({token, jwtToken, id});
+  });
 });
