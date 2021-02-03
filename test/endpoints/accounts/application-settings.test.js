@@ -44,4 +44,14 @@ describe("accounts/application-settings/:providerId", () => {
       .reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.accounts.applicationSettings.regenerateKeys({token, jwtToken, id});
   });
+
+  it("should create an application", () => {
+    const application = {
+      name: "A"
+    };
+
+    axiosMock.onPost("/application-settings")
+      .reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.accounts.applicationSettings.create({token, jwtToken, application});
+  });
 });

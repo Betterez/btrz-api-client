@@ -33,11 +33,21 @@ function applicationSettingsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function create({jwtToken, token, application}) {
+    return client({
+      url: "/application-settings",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      data: {application}
+    });
+  }
+
   return {
     get,
     update,
     remove,
-    regenerateKeys
+    regenerateKeys,
+    create
   };
 }
 
