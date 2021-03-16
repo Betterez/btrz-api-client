@@ -235,6 +235,8 @@ function createBtrzPay({baseURL, headers, timeout, overrideFn, internalAuthToken
     referencedPayments: require("./endpoints/btrzpay/referenced-payments")({client, internalAuthTokenProvider}),
     customers: require("./endpoints/btrzpay/customers")({client, internalAuthTokenProvider}),
     customerCards: require("./endpoints/btrzpay/customerCards")({client, internalAuthTokenProvider}),
+    squareTerminals: require("./endpoints/btrzpay/square").squareTerminalsFactory({client, internalAuthTokenProvider}),
+    squareWebhooks: require("./endpoints/btrzpay/square").squareWebhooksFactory({client, internalAuthTokenProvider}),
     __test: {
       client
     }
