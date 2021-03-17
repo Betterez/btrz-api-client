@@ -63,4 +63,23 @@ describe("operations/manifest", () => {
     axiosMock.onPut("/manifests").reply(expectRequest({ statusCode: 200, token, jwtToken }));
     return api.operations.manifest.save({ token, jwtToken, providerId, data });
   });
+
+  it("should add user to the manifest", () => {
+    const manifestId = "theId";
+    const data = {
+      user: {
+        userId: "theUserId"
+      }
+    };
+    axiosMock.onPost(`/manifests/${manifestId}/users`).reply(expectRequest({ statusCode: 201, token, jwtToken }));
+    return api.operations.manifest.addUser({ token, jwtToken, manifestId, data });
+  });
+
+  it("should remove a user from manifest", () => {
+    const manifestId = "theId";
+    const userId = "theUserId";
+
+    axiosMock.onDelete(`/manifests/${manifestId}/users/${userId}`).reply(expectRequest({ statusCode: 201, token, jwtToken }));
+    return api.operations.manifest.removeUser({ token, jwtToken, manifestId, userId });
+  });
 });

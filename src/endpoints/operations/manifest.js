@@ -59,13 +59,32 @@ function manifestFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function addUser({ token, jwtToken, manifestId, data }) {
+    return client({
+      url: `/manifests/${manifestId}/users`,
+      method: "post",
+      headers: authorizationHeaders({ token, jwtToken, internalAuthTokenProvider }),
+      data
+    });
+  }
+
+  function removeUser({ token, jwtToken, manifestId, userId }) {
+    return client({
+      url: `/manifests/${manifestId}/users/${userId}`,
+      method: "delete",
+      headers: authorizationHeaders({ token, jwtToken, internalAuthTokenProvider })
+    });
+  }
+
   return {
     get,
     getAll,
     getById,
     outlook,
     patch,
-    save
+    save,
+    addUser,
+    removeUser
   };
 }
 
