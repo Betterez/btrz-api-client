@@ -42,6 +42,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
     operatingCompanies: require("./endpoints/inventory/operating-companies")({client, internalAuthTokenProvider}),
     operationMessages: require("./endpoints/inventory/operation-messages")({ client, internalAuthTokenProvider }),
     paymentTerminals: require("./endpoints/inventory/payment-terminals")({ client, internalAuthTokenProvider }),
+    serviceTypes: require("./endpoints/inventory/service-types")({ client, internalAuthTokenProvider }),
     customContent: require("./endpoints/inventory/custom-content")({ client, internalAuthTokenProvider }),
     seatfees: require("./endpoints/inventory/seatfees")({ client, internalAuthTokenProvider }),
     routes: require("./endpoints/inventory/routes")({client, internalAuthTokenProvider}),

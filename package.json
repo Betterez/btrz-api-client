@@ -4,6 +4,7 @@
   "description": "Api client for Betterez endpoints",
   "main": "index.js",
   "scripts": {
+    "tdd": "mocha --recursive test/ -w",
     "test": "mocha --recursive  test/",
     "test:integration": "mocha --recursive -r test-integration/ports.js  test-integration/",
     "commit-transpile": "git add lib/ && (git diff-index --quiet HEAD || git commit -m \"transpiled src\")",
