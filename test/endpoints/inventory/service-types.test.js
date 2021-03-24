@@ -11,18 +11,18 @@ describe("inventory/service-types", () => {
     axiosMock.reset();
   });
 
-  it("should create a payment terminal", () => {
+  it("should create a service type", () => {
     axiosMock.onPost("/service-types").reply(expectRequest({ statusCode: 200, token, jwtToken }));
     return api.inventory.serviceTypes.create({
       jwtToken,
       token,
       serviceType: {
-        name: "My payment terminal"
+        name: "My service type"
       }
     });
   });
 
-  it("should get all payment terminals", () => {
+  it("should get all service types", () => {
     axiosMock.onGet("/service-types").reply(expectRequest({statusCode: 200, token, jwtToken }));
     return api.inventory.serviceTypes.all({
       jwtToken,
@@ -31,7 +31,7 @@ describe("inventory/service-types", () => {
     });
   });
 
-  it("should update a payment terminal", () => {
+  it("should update a service type", () => {
     const serviceTypeId = "1234";
     axiosMock.onPut(`/service-types/${serviceTypeId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
     return api.inventory.serviceTypes.update({
@@ -39,12 +39,12 @@ describe("inventory/service-types", () => {
       token,
       serviceTypeId,
       serviceType: {
-        name: "My Updated payment terminal it"
+        name: "My Updated service type it"
       }
     });
   });
 
-  it("should get a payment terminal", () => {
+  it("should get a service type", () => {
     const serviceTypeId = "1234";
     axiosMock.onGet(`/service-types/${serviceTypeId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
     return api.inventory.serviceTypes.get({
@@ -54,7 +54,7 @@ describe("inventory/service-types", () => {
     });
   });
 
-  it("should delete a payment terminal", () => {
+  it("should delete a service type", () => {
     const serviceTypeId = "1234";
     axiosMock.onDelete(`/service-types/${serviceTypeId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
     return api.inventory.serviceTypes.remove({
