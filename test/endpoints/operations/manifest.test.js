@@ -1,3 +1,4 @@
+const {expect} = require("chai");
 const { axiosMock, expectRequest } = require("./../../test-helpers"),
   api = require("./../../../src/client").createApiClient({ baseURL: "http://test.com" });
 
@@ -64,15 +65,25 @@ describe("operations/manifest", () => {
     return api.operations.manifest.save({ token, jwtToken, providerId, data });
   });
 
-  it("should add user to the manifest", () => {
+  it("should add user to the manifest", async () => {
     const manifestId = "theId";
     const data = {
       user: {
         userId: "theUserId"
       }
     };
-    axiosMock.onPost(`/manifests/${manifestId}/users`).reply(expectRequest({ statusCode: 201, token, jwtToken }));
-    return api.operations.manifest.addUser({ token, jwtToken, manifestId, data });
+
+    // optional query
+    const query = {
+      accountId: providerId,
+      routeId: "2349283409238429348",
+      scheduleId: "abc",
+      date: "2017-10-10"
+    };
+    axiosMock.onPost(`/manifests/${manifestId}/users`).reply(expectRequest({statusCode: 201, token, jwtToken}));
+    const call = await api.operations.manifest.addUser({token, jwtToken, manifestId, data, query});
+    expect(call.config.params).to.be.eql(query);
+    return call;
   });
 
   it("should remove a user from manifest", () => {

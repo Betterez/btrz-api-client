@@ -59,11 +59,12 @@ function manifestFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  function addUser({ token, jwtToken, manifestId, data }) {
+  function addUser({ token, jwtToken, manifestId, query = {}, data }) {  
     return client({
       url: `/manifests/${manifestId}/users`,
       method: "post",
       headers: authorizationHeaders({ token, jwtToken, internalAuthTokenProvider }),
+      params: query,
       data
     });
   }
