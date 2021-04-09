@@ -54,7 +54,8 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
     amenities: require("./endpoints/inventory/amenities")({client, internalAuthTokenProvider}),
     amenityGroups: require("./endpoints/inventory/amenity-groups")({client, internalAuthTokenProvider}),
     bundles: require("./endpoints/inventory/bundles")({client, internalAuthTokenProvider}),
-    stationGroups: require("./endpoints/inventory/station-groups")({client, internalAuthTokenProvider}),
+    stationGroups: require("./endpoints/inventory/station-groups")({ client, internalAuthTokenProvider }),
+    zonePrices: require("./endpoints/inventory/zone-prices")({ client, internalAuthTokenProvider }),
     __test: {
       client
     }
