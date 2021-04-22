@@ -24,6 +24,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
     docs: require("./endpoints/inventory/docs")({client}),
     products: require("./endpoints/inventory/products")({client, internalAuthTokenProvider}),
     insurances: require("./endpoints/inventory/insurances")({client, internalAuthTokenProvider}),
+    insurancesCost: require("./endpoints/inventory/insurancesCost")({client, internalAuthTokenProvider}),
     stations: require("./endpoints/inventory/stations")({client, internalAuthTokenProvider}),
     stationsZones: require("./endpoints/inventory/stations-zones")({client, internalAuthTokenProvider}),
     parcelZones: require("./endpoints/inventory/parcel-zones")({client, internalAuthTokenProvider}),
