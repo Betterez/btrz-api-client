@@ -16,7 +16,7 @@ describe("client", function() {
     const api = createApiClient();
 
     expectKnownEndpoints(api);
-    expect(api.inventory.__test.client.defaults.baseURL).to.eql("http://betterez.com/inventory");
+    expect(api.inventory.__test.client.defaults.baseURL).to.eql("https://api.betterez.com/inventory");
     expect(api.inventory.__test.client.defaults.timeout).to.eql(15000);
   });
 
