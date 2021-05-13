@@ -148,6 +148,7 @@ function createOperations({baseURL, headers, timeout, overrideFn, internalAuthTo
     tripChangeInfo: require("./endpoints/operations/trip_change_info")({client, internalAuthTokenProvider}),
     segments: require("./endpoints/operations/segments")({client, internalAuthTokenProvider}),
     movements: require("./endpoints/operations/movements")({client, internalAuthTokenProvider}),
+    scheduledNotifications: require("./endpoints/operations/scheduled_notifications")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
