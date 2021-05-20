@@ -65,6 +65,19 @@ describe("operations/transactions", function () {
       });
   });
 
+
+  it("should update transaction payments", function () {
+    const transactionId = "transactionId2";
+    const paymentResult = {};
+    axiosMock.onPut(`/transactions/${transactionId}/payments`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.operations.transactions.payments.update({
+      jwtToken, token, trxId: transactionId, paymentResult
+    })
+      .then((response) => {
+        expect(response.status).to.equals(200);
+      });
+  });
+
   it("should expire all", () => {
     const transactionId = "transactionX";
     axiosMock.onPatch("/transactions/status").reply(expectRequest({

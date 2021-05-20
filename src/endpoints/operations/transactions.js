@@ -56,13 +56,29 @@ function transactionsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  const payments = {
+    update({token, jwtToken, trxId, paymentResult}) {
+      return client({
+        url: `/transactions/${trxId}/payments`,
+        method: "put",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider
+        }),
+        data: {
+          paymentResult
+        }
+      });
+    }
+  };
+
   return {
     all,
     get,
     getTickets,
     appliedInsurance,
     companionTickets,
-    expireAll
+    expireAll,
+    payments
   };
 }
 
