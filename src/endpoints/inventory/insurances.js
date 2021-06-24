@@ -10,7 +10,19 @@ function insurancesFactory({
   }) {
     return client.get("/insurances", {
       params: query,
-      headers: authorizationHeaders({token, internalAuthTokenProvider})
+      headers: authorizationHeaders({
+        token, internalAuthTokenProvider
+      })
+    });
+  }
+
+  function get({
+    token, insuranceId
+  }) {
+    return client.get(`/insurances/${insuranceId}`, {
+      headers: authorizationHeaders({
+        token, internalAuthTokenProvider
+      })
     });
   }
 
@@ -31,7 +43,7 @@ function insurancesFactory({
     token, insurance, jwtToken
   }) {
     return client({
-      url: `/insurance/${insurance._id}`,
+      url: `/insurances/${insurance._id}`,
       method: "put",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
       data: {
@@ -43,6 +55,7 @@ function insurancesFactory({
   return {
     all,
     create,
+    get,
     enabled
   };
 }
