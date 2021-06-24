@@ -39,7 +39,7 @@ function insurancesFactory({
     });
   }
 
-  function enabled({
+  function put({
     token, insurance, jwtToken
   }) {
     return client({
@@ -56,7 +56,7 @@ function insurancesFactory({
     all,
     create,
     get,
-    enabled
+    put
   };
 }
 

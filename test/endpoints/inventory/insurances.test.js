@@ -55,16 +55,17 @@ describe("inventory/insurances", () => {
     });
   });
 
-  it("should enabled insurance", () => {
+  it("should update insurance", () => {
     axiosMock.onPut("/insurances/1").reply(expectRequest({
       statusCode: 200, token, jwtToken
     }));
-    return api.inventory.insurances.enabled({
+    return api.inventory.insurances.put({
       jwtToken,
       token,
       insurance: {
         _id: "1",
-        enabled: true
+        enabled: true,
+        minimun: 100
       }
     });
   });
