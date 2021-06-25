@@ -59,14 +59,25 @@ describe("inventory/insurances", () => {
     axiosMock.onPut("/insurances/1").reply(expectRequest({
       statusCode: 200, token, jwtToken
     }));
-    return api.inventory.insurances.put({
+    return api.inventory.insurances.update({
       jwtToken,
       token,
+      insuranceId: 1,
       insurance: {
-        _id: "1",
         enabled: true,
         minimun: 100
       }
+    });
+  });
+
+  it("should remove the insurance", () => {
+    axiosMock.onDelete("/insurances/1").reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.inventory.insurances.remove({
+      jwtToken,
+      token,
+      insuranceId: 1
     });
   });
 });

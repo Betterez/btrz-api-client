@@ -39,11 +39,11 @@ function insurancesFactory({
     });
   }
 
-  function put({
-    token, insurance, jwtToken
+  function update({
+    token, insurance, jwtToken, insuranceId
   }) {
     return client({
-      url: `/insurances/${insurance._id}`,
+      url: `/insurances/${insuranceId}`,
       method: "put",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
       data: {
@@ -52,11 +52,24 @@ function insurancesFactory({
     });
   }
 
+  function remove({
+    token, jwtToken, insuranceId
+  }) {
+    return client({
+      url: `/insurances/${insuranceId}`,
+      method: "delete",
+      headers: authorizationHeaders({
+        token, jwtToken, internalAuthTokenProvider
+      })
+    });
+  }
+
   return {
     all,
     create,
     get,
-    put
+    update,
+    remove
   };
 }
 
