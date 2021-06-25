@@ -28,6 +28,28 @@ describe("operations/transactions", function () {
       });
   });
 
+  it("should get a transaction by id with a given providerId", function () {
+    const transactionId = "transactionId1";
+    axiosMock.onGet(`/transactions/${transactionId}`, {
+      params: {
+        providerId: "123"
+      }
+    }).reply(expectRequest({
+      statusCode: 200, token
+    }));
+    return api.operations.transactions.get({
+      jwtToken,
+      token,
+      trxId: transactionId,
+      query: {
+        providerId: "123"
+      }
+    })
+      .then((response) => {
+        expect(response.status).to.equals(200);
+      });
+  });
+
   it("should get all transactions that match the query", function () {
     const transactionId = "transactionId1";
     axiosMock.onGet("/transactions").reply(expectRequest({statusCode: 200, token}));

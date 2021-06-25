@@ -1,10 +1,11 @@
 const {authorizationHeaders} = require("./../endpoints_helpers");
 
 function transactionsFactory({client, internalAuthTokenProvider}) {
-  function get({token, jwtToken, trxId}) {
+  function get({token, jwtToken, trxId, query}) {
     return client({
       url: `/transactions/${trxId}`,
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      params: query
     });
   }
 
