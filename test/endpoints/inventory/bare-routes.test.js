@@ -8,6 +8,22 @@ describe("inventory/bare-routes", () => {
     axiosMock.reset();
   });
 
+  it("should get bare-routes", () => {
+    axiosMock.onGet("/bare-routes", {
+      params: {
+        productIds: "1,2,3"
+      }
+    }).reply(expectRequest({
+      statusCode: 200, token
+    }));
+    return api.inventory.bareRoutes.all({
+      token,
+      query: {
+        productIds: "1,2,3"
+      }
+    });
+  });
+
   it("should get route by id", () => {
     axiosMock.onGet("/bare-routes/1").reply(expectRequest({statusCode: 200, token}));
     return api.inventory.bareRoutes.get({token, routeId: 1});
