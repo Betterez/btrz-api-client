@@ -1,6 +1,6 @@
 {
   "name": "btrz-api-client",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "description": "Api client for Betterez endpoints",
   "main": "index.js",
   "scripts": {
