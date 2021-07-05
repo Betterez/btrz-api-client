@@ -71,13 +71,61 @@ function customersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  // travellers
+  function travellersAll({customerId, token}) {
+    return client({
+      url: `/customers/${customerId}/travellers`,
+      method: "get",
+      headers: authorizationHeaders({token, internalAuthTokenProvider})
+    });
+  }
+
+  function travellersGet({customerId, travellerId, token}) {
+    return client({
+      url: `/customers/${customerId}/travellers/${travellerId}`,
+      method: "get",
+      headers: authorizationHeaders({token, internalAuthTokenProvider})
+    });
+  }
+
+  function travellersAdd({customerId, token, jwtToken, data}) {
+    return client({
+      url: `/customers/${customerId}/travellers`,
+      method: "post",
+      data,
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+    });
+  }
+
+  function travellersUpdate({customerId, travellerId, token, jwtToken, data}) {
+    return client({
+      url: `/customers/${customerId}/travellers/${travellerId}`,
+      method: "put",
+      data,
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+    });
+  }
+
+  function travellersRemove({customerId, travellerId, token, jwtToken}) {
+    return client({
+      url: `/customers/${customerId}/travellers/${travellerId}`,
+      method: "delete",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+    });
+  }
+
   return {
     put,
     all,
     create,
     signIn,
     signInCas,
-    update
+    update,
+    travellersAll,
+    travellersGet,
+    travellersAdd,
+    travellersUpdate,
+    travellersRemove
   };
 }
 
