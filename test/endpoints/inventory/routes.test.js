@@ -3,6 +3,7 @@ const api = require("./../../../src/client").createApiClient({baseURL: "http://t
 
 describe("inventory/route", () => {
   const token = "I owe you a token";
+  const jwtToken = "I owe you a JWT token";
 
   afterEach(() => {
     axiosMock.reset();
@@ -27,5 +28,28 @@ describe("inventory/route", () => {
     const routeId = "1";
     axiosMock.onGet(`/routes/${routeId}/stations`).reply(expectRequest({statusCode: 200, token}));
     return api.inventory.routes.stations({token, routeId});
+  });
+
+  it("should get a fare-table", () => {
+    const routeId = "1";
+    const fareTableId = "2";
+    axiosMock.onGet(`/routes/${routeId}/fare-tables/${fareTableId}`).reply(expectRequest({
+      statusCode: 200, token
+    }));
+    return api.inventory.routes.fareTables.get({
+      token, routeId, fareTableId
+    });
+  });
+
+  it("should update a fare-table", () => {
+    const routeId = "1";
+    const fareTableId = "2";
+    const fareTable = {};
+    axiosMock.onPut(`/routes/${routeId}/fare-tables/${fareTableId}`).reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.inventory.routes.fareTables.update({
+      jwtToken, token, routeId, fareTableId, fareTable
+    });
   });
 });

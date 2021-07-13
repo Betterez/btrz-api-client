@@ -33,11 +33,39 @@ function routesFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  const fareTables = {
+    get({
+      routeId, fareTableId, token
+    }) {
+      return client({
+        url: `/routes/${routeId}/fare-tables/${fareTableId}`,
+        headers: authorizationHeaders({
+          token, internalAuthTokenProvider
+        })
+      });
+    },
+    update({
+      token, jwtToken, routeId, fareTableId, fareTable
+    }) {
+      return client({
+        url: `/routes/${routeId}/fare-tables/${fareTableId}`,
+        method: "put",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider
+        }),
+        data: {
+          fareTable
+        }
+      });
+    }
+  };
+
   return {
     get,
     prices,
     all,
-    stations
+    stations,
+    fareTables
   };
 }
 
