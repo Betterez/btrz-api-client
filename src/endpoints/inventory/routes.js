@@ -34,11 +34,12 @@ function routesFactory({ client, internalAuthTokenProvider }) {
   }
 
   const fareTables = {
-    get({
-      routeId, fareTableId, token
+    all({
+      token, query = {}
     }) {
       return client({
-        url: `/routes/${routeId}/fare-tables/${fareTableId}`,
+        url: "/routes/fare-tables",
+        params: query,
         headers: authorizationHeaders({
           token, internalAuthTokenProvider
         })

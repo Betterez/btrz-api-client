@@ -31,13 +31,11 @@ describe("inventory/route", () => {
   });
 
   it("should get a fare-table", () => {
-    const routeId = "1";
-    const fareTableId = "2";
-    axiosMock.onGet(`/routes/${routeId}/fare-tables/${fareTableId}`).reply(expectRequest({
+    axiosMock.onGet("/routes/fare-tables").reply(expectRequest({
       statusCode: 200, token
     }));
-    return api.inventory.routes.fareTables.get({
-      token, routeId, fareTableId
+    return api.inventory.routes.fareTables.all({
+      token
     });
   });
 
