@@ -152,6 +152,7 @@ function createOperations({baseURL, headers, timeout, overrideFn, internalAuthTo
     loans: require("./endpoints/operations/loans")({client, internalAuthTokenProvider}),
     movements: require("./endpoints/operations/movements")({client, internalAuthTokenProvider}),
     scheduledNotifications: require("./endpoints/operations/scheduled_notifications")({client, internalAuthTokenProvider}),
+    waitlists: require("./endpoints/operations/waitlists")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
