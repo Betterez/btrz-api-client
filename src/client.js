@@ -105,6 +105,7 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
     users: require("./endpoints/accounts/users")({client, internalAuthTokenProvider}),
     accounts: require("./endpoints/accounts/accounts")({client, internalAuthTokenProvider}),
     application: require("./endpoints/accounts/application")({client, internalAuthTokenProvider}),
+    travellers: require("./endpoints/accounts/travellers")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
