@@ -45,6 +45,20 @@ function routesFactory({ client, internalAuthTokenProvider }) {
         })
       });
     },
+    create({
+      token, jwtToken, routeId, fareTable
+    }) {
+      return client({
+        url: `/routes/${routeId}/fare-tables`,
+        method: "post",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider
+        }),
+        data: {
+          fareTable
+        }
+      });
+    },
     update({
       token, jwtToken, routeId, fareTableId, fareTable
     }) {
