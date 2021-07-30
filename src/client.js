@@ -58,6 +58,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
     bundles: require("./endpoints/inventory/bundles")({client, internalAuthTokenProvider}),
     stationGroups: require("./endpoints/inventory/station-groups")({ client, internalAuthTokenProvider }),
     zonePrices: require("./endpoints/inventory/zone-prices")({ client, internalAuthTokenProvider }),
+    zonePriceOverages: require("./endpoints/inventory/zone-price-overages")({ client, internalAuthTokenProvider }),
     travellerCardProviders: require("./endpoints/inventory/traveller-card-providers")({client, internalAuthTokenProvider}),
     travellerCardProvidersTypes: require("./endpoints/inventory/traveller-card-providers-types")({client, internalAuthTokenProvider}),
     travellerCardTypes: require("./endpoints/inventory/traveller-card-types")({client, internalAuthTokenProvider}),
