@@ -14,38 +14,38 @@ function zonePriceOverageFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function get({zonePriceId, token}) {
-    return client.get(`/zone-price-overages/${zonePriceId}`, {
+  function get({zonePriceOverageId, token}) {
+    return client.get(`/zone-price-overages/${zonePriceOverageId}`, {
       headers: authorizationHeaders({token, internalAuthTokenProvider})
     });
   }
 
-  function create({jwtToken, token, zonePrice}) {
+  function create({jwtToken, token, zonePriceOverages}) {
     return client({
       url: "/zone-price-overages",
       method: "post",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
       data: {
-        zonePrice
+        zonePriceOverages
       }
     });
   }
 
-  function remove({jwtToken, zonePriceId, token}) {
+  function remove({jwtToken, zonePriceOverageId, token}) {
     return client({
-      url: `/zone-price-overages/${zonePriceId}`,
+      url: `/zone-price-overages/${zonePriceOverageId}`,
       method: "delete",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
     });
   }
 
-  function update({jwtToken, token, zonePriceId, zonePrice}) {
+  function update({jwtToken, token, zonePriceOverageId, zonePriceOverages}) {
     return client({
-      url: `/zone-price-overages/${zonePriceId}`,
+      url: `/zone-price-overages/${zonePriceOverageId}`,
       method: "put",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
       data: {
-        zonePrice
+        zonePriceOverages
       }
     });
   }

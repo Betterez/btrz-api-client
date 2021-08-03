@@ -11,20 +11,20 @@ describe("inventory/zone-price-overages", () => {
     axiosMock.reset();
   });
 
-  it("should create a zone price", () => {
+  it("should create a zone price overage", () => {
     axiosMock.onPost("/zone-price-overages").reply(expectRequest({
       statusCode: 200, token, jwtToken
     }));
     return api.inventory.zonePriceOverages.create({
       jwtToken,
       token,
-      zonePrice: {
+      zonePriceOverages: {
         name: "My zone price"
       }
     });
   });
 
-  it("should get all zone prices", () => {
+  it("should get all zone price overages", () => {
     axiosMock.onGet("/zone-price-overages").reply(expectRequest({
       statusCode: 200, token, jwtToken
     }));
@@ -35,42 +35,42 @@ describe("inventory/zone-price-overages", () => {
     });
   });
 
-  it("should update a zone price", () => {
-    const zonePriceId = "1234";
-    axiosMock.onPut(`/zone-price-overages/${zonePriceId}`).reply(expectRequest({
+  it("should update a zone price overage", () => {
+    const zonePriceOverageId = "1234";
+    axiosMock.onPut(`/zone-price-overages/${zonePriceOverageId}`).reply(expectRequest({
       statusCode: 200, token, jwtToken
     }));
     return api.inventory.zonePriceOverages.update({
       jwtToken,
       token,
-      zonePriceId,
-      zonePrice: {
+      zonePriceOverageId,
+      zonePriceOverages: {
         name: "My Updated zone price it"
       }
     });
   });
 
-  it("should get a zone price", () => {
-    const zonePriceId = "1234";
-    axiosMock.onGet(`/zone-price-overages/${zonePriceId}`).reply(expectRequest({
+  it("should get a zone price overages", () => {
+    const zonePriceOverageId = "1234";
+    axiosMock.onGet(`/zone-price-overages/${zonePriceOverageId}`).reply(expectRequest({
       statusCode: 200, token, jwtToken
     }));
     return api.inventory.zonePriceOverages.get({
       jwtToken,
       token,
-      zonePriceId
+      zonePriceOverageId
     });
   });
 
-  it("should delete a zone price", () => {
-    const zonePriceId = "1234";
-    axiosMock.onDelete(`/zone-price-overages/${zonePriceId}`).reply(expectRequest({
+  it("should delete a zone price overages", () => {
+    const zonePriceOverageId = "1234";
+    axiosMock.onDelete(`/zone-price-overages/${zonePriceOverageId}`).reply(expectRequest({
       statusCode: 200, token, jwtToken
     }));
     return api.inventory.zonePriceOverages.remove({
       jwtToken,
       token,
-      zonePriceId
+      zonePriceOverageId
     });
   });
 });
