@@ -9,7 +9,7 @@ describe('inventory/bundles', () => {
     axiosMock.reset();
   });
 
-  it("should get all brands", () => {
+  it("should get all bundles", () => {
     axiosMock.onGet("/bundles").reply(expectRequest({ statusCode: 200, token, jwtToken }));
     return api.inventory.bundles.all({
       jwtToken,
@@ -17,6 +17,16 @@ describe('inventory/bundles', () => {
       query: {
         providerId: "4eb9990bf7885e0100000001"
       }
+    });
+  });
+
+  it("should get a bundle by ID", () => {
+    const bundleId = "bundleId"
+    axiosMock.onGet(`/bundles/${bundleId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    return api.inventory.bundles.get({
+      jwtToken,
+      token,
+      bundleId
     });
   });
 });

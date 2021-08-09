@@ -10,8 +10,17 @@ function bundlesFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function get({token, jwtToken, bundleId}) {
+    return client({
+      url: `/bundles/${bundleId}`,
+      method: "get",
+      headers: authorizationHeaders({token, internalAuthTokenProvider, jwtToken})
+    });
+  }
+
   return {
     all,
+    get
   };
 }
 
