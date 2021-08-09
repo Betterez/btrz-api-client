@@ -58,6 +58,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
     bundles: require("./endpoints/inventory/bundles")({client, internalAuthTokenProvider}),
     stationGroups: require("./endpoints/inventory/station-groups")({ client, internalAuthTokenProvider }),
     zonePrices: require("./endpoints/inventory/zone-prices")({ client, internalAuthTokenProvider }),
+    zonePriceOverages: require("./endpoints/inventory/zone-price-overages")({ client, internalAuthTokenProvider }),
     travellerCardProviders: require("./endpoints/inventory/traveller-card-providers")({client, internalAuthTokenProvider}),
     travellerCardProvidersTypes: require("./endpoints/inventory/traveller-card-providers-types")({client, internalAuthTokenProvider}),
     travellerCardTypes: require("./endpoints/inventory/traveller-card-types")({client, internalAuthTokenProvider}),
@@ -105,6 +106,7 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
     users: require("./endpoints/accounts/users")({client, internalAuthTokenProvider}),
     accounts: require("./endpoints/accounts/accounts")({client, internalAuthTokenProvider}),
     application: require("./endpoints/accounts/application")({client, internalAuthTokenProvider}),
+    travellers: require("./endpoints/accounts/travellers")({client, internalAuthTokenProvider}),
     interline: require("./endpoints/accounts/interline")({client, internalAuthTokenProvider}),
     __test: {
       client
@@ -153,6 +155,7 @@ function createOperations({baseURL, headers, timeout, overrideFn, internalAuthTo
     loans: require("./endpoints/operations/loans")({client, internalAuthTokenProvider}),
     movements: require("./endpoints/operations/movements")({client, internalAuthTokenProvider}),
     scheduledNotifications: require("./endpoints/operations/scheduled_notifications")({client, internalAuthTokenProvider}),
+    waitlists: require("./endpoints/operations/waitlists")({client, internalAuthTokenProvider}),
     __test: {
       client
     }

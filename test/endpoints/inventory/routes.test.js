@@ -39,6 +39,17 @@ describe("inventory/route", () => {
     });
   });
 
+  it("should create a fare-table", () => {
+    const routeId = "1";
+    const fareTable = {};
+    axiosMock.onPost(`/routes/${routeId}/fare-tables`).reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.inventory.routes.fareTables.create({
+      jwtToken, token, routeId, fareTable
+    });
+  });
+
   it("should update a fare-table", () => {
     const routeId = "1";
     const fareTableId = "2";
