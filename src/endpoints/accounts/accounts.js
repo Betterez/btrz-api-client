@@ -1,8 +1,9 @@
-const { authorizationHeaders } = require("./../endpoints_helpers");
+const {
+  authorizationHeaders
+} = require("./../endpoints_helpers");
 
 function accountsFactory({client, internalAuthTokenProvider}) {
-
-  function get({ jwtToken, accountId }) {
+  function get({jwtToken, accountId}) {
     return client({
       url: `/accounts/${accountId}`,
       headers: authorizationHeaders({jwtToken, internalAuthTokenProvider})
@@ -10,7 +11,7 @@ function accountsFactory({client, internalAuthTokenProvider}) {
   }
 
   return {
-    get,
+    get
   };
 }
 

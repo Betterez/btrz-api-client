@@ -95,19 +95,29 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
   const client = clientFactory({baseURL, headers, timeout, overrideFn});
 
   return {
-    docs: require("./endpoints/accounts/docs")({ client }),
-    trustedMachines: require("./endpoints/accounts/trusted-machines")({client, internalAuthTokenProvider}),
-    lexicons: require("./endpoints/accounts/lexicons")({client, internalAuthTokenProvider}),
-    shifts: require("./endpoints/accounts/shifts")({client, internalAuthTokenProvider}),
-    currentShifts: require("./endpoints/accounts/current-shifts")({client, internalAuthTokenProvider}),
+    accounts: require("./endpoints/accounts/accounts")({client, internalAuthTokenProvider}),
+    application: require("./endpoints/accounts/application")({client, internalAuthTokenProvider}),
     applications: require("./endpoints/accounts/applications")({client, internalAuthTokenProvider}),
     applicationSettings: require("./endpoints/accounts/application-settings")({client, internalAuthTokenProvider}),
     customers: require("./endpoints/accounts/customers")({client, internalAuthTokenProvider}),
-    users: require("./endpoints/accounts/users")({client, internalAuthTokenProvider}),
-    accounts: require("./endpoints/accounts/accounts")({client, internalAuthTokenProvider}),
-    application: require("./endpoints/accounts/application")({client, internalAuthTokenProvider}),
-    travellers: require("./endpoints/accounts/travellers")({client, internalAuthTokenProvider}),
+    currentShifts: require("./endpoints/accounts/current-shifts")({client, internalAuthTokenProvider}),
+    docs: require("./endpoints/accounts/docs")({
+      client
+    }),
     interline: require("./endpoints/accounts/interline")({client, internalAuthTokenProvider}),
+    lexicons: require("./endpoints/accounts/lexicons")({client, internalAuthTokenProvider}),
+    printers: require("./endpoints/accounts/printers")({
+      client, internalAuthTokenProvider
+    }),
+    printSettings: require("./endpoints/accounts/print-settings")({
+      client, internalAuthTokenProvider
+    }),
+    shifts: require("./endpoints/accounts/shifts")({client, internalAuthTokenProvider}),
+    travellers: require("./endpoints/accounts/travellers")({
+      client, internalAuthTokenProvider
+    }),
+    trustedMachines: require("./endpoints/accounts/trusted-machines")({client, internalAuthTokenProvider}),
+    users: require("./endpoints/accounts/users")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
