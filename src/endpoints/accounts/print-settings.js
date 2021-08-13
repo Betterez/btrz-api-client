@@ -23,10 +23,34 @@ function printSettingsFactory({client, internalAuthTokenProvider}) {
       }
     });
   }
+  const productTemplates = {
+    create({jwtToken, token, productTemplate}) {
+      return client({
+        url: "/print-settings/product-templates",
+        method: "post",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider
+        }),
+        data: {
+          productTemplate
+        }
+      });
+    },
+    remove({productTemplateId, token, jwtToken}) {
+      return client({
+        url: `/print-settings/product-templates/${productTemplateId}`,
+        method: "delete",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider
+        })
+      });
+    }
+  };
 
   return {
     all,
-    update
+    update,
+    productTemplates
   };
 }
 
