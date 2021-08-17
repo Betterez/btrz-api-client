@@ -4,8 +4,8 @@ const {
 const {
   axiosMock,
   expectRequest
-} = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({baseURL: "http://test.com"});
+} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
 describe("accounts/interline", () => {
   const token = "I owe you a token";
@@ -16,14 +16,14 @@ describe("accounts/interline", () => {
   });
 
   it("should GET an interline invitation", () => {
-    const interlineId = "interline123";
+    const invitationId = "invitation123";
 
-    axiosMock.onGet(`/interline/invitations/${interlineId}`).reply(expectRequest({
+    axiosMock.onGet(`/interline/invitations/${invitationId}`).reply(expectRequest({
       statusCode: 200,
       token
     }));
-    return api.accounts.interline.getInvitation({
-      interlineId,
+    return api.accounts.interline.invitations.get({
+      invitationId,
       token
     }).then((httpResponse) => {
       expect(httpResponse.status).eql(200);
@@ -39,7 +39,7 @@ describe("accounts/interline", () => {
       token,
       jwtToken
     }));
-    return api.accounts.interline.createInvitation({
+    return api.accounts.interline.invitations.create({
       token,
       jwtToken,
       data
@@ -49,17 +49,17 @@ describe("accounts/interline", () => {
   });
 
   it("should PUT and update the invitation", () => {
-    const interlineId = "interlineId123123";
+    const invitationId = "invitation12312123";
     const data = {
       status: "approved"
     };
-    axiosMock.onPut(`/interline/invitations/${interlineId}`).reply(expectRequest({
+    axiosMock.onPut(`/interline/invitations/${invitationId}`).reply(expectRequest({
       statusCode: 200,
       token,
       jwtToken
     }));
-    return api.accounts.interline.updateInvitation({
-      interlineId,
+    return api.accounts.interline.invitations.update({
+      invitationId,
       token,
       jwtToken,
       data
@@ -68,16 +68,16 @@ describe("accounts/interline", () => {
     });
   });
 
-  it("should DELETE the interline relationship", () => {
-    const interlineId = "interlineId123123";
+  it("should DELETE the network & interline relationship", () => {
+    const networkId = "networkId123123";
 
-    axiosMock.onDelete(`/interline/${interlineId}`).reply(expectRequest({
+    axiosMock.onDelete(`/interline/${networkId}`).reply(expectRequest({
       statusCode: 204,
       token,
       jwtToken
     }));
-    return api.accounts.interline.removeInterline({
-      interlineId,
+    return api.accounts.interline.network.remove({
+      networkId,
       token,
       jwtToken
     }).then((httpResponse) => {
@@ -90,7 +90,7 @@ describe("accounts/interline", () => {
       statusCode: 200,
       token
     }));
-    return api.accounts.interline.allProviders({
+    return api.accounts.interline.providers.all({
       token
     }).then((httpResponse) => {
       expect(httpResponse.status).eql(200);
@@ -102,27 +102,27 @@ describe("accounts/interline", () => {
       statusCode: 200,
       token
     }));
-    return api.accounts.interline.allConsumers({
+    return api.accounts.interline.consumers.all({
       token
     }).then((httpResponse) => {
       expect(httpResponse.status).eql(200);
     });
   });
 
-  it("should PUT and update a consumer/provider network", () => {
+  it("should PUT and update a network", () => {
     const networkId = "network123";
     const data = {
       productIds: ["product ids", "multiple", "times"],
       fares: ["fare ids", "also multiple", "times"]
     };
 
-    axiosMock.onPut(`/interline/consumers/${networkId}`).reply(expectRequest({
+    axiosMock.onPut(`/interline/${networkId}`).reply(expectRequest({
       statusCode: 200,
       token,
       jwtToken
     }));
 
-    return api.accounts.interline.updateConsumer({networkId, token, jwtToken, data})
+    return api.accounts.interline.network.update({networkId, token, jwtToken, data})
       .then((httpResponse) => {
         expect(httpResponse.status).eql(200);
       });
@@ -131,11 +131,11 @@ describe("accounts/interline", () => {
   it("should GET an interline network", () => {
     const networkId = "network123";
 
-    axiosMock.onGet(`/interline/network/${networkId}`).reply(expectRequest({
+    axiosMock.onGet(`/interline/${networkId}`).reply(expectRequest({
       statusCode: 200,
       token
     }));
-    return api.accounts.interline.getNetwork({
+    return api.accounts.interline.network.get({
       networkId,
       token
     }).then((httpResponse) => {

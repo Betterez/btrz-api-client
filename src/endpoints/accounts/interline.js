@@ -1,80 +1,80 @@
 const {
   authorizationHeaders
-} = require("../endpoints_helpers");
+} = require("../endpoints_helpers.js");
 
 function interlineFactory({client, internalAuthTokenProvider}) {
-  function getInvitation({token, interlineId}) {
-    return client.get(`/interline/invitations/${interlineId}`, {
-      headers: authorizationHeaders({token, internalAuthTokenProvider})
-    });
-  }
+  const invitations = {
+    get({token, invitationId}) {
+      return client.get(`/interline/invitations/${invitationId}`, {
+        headers: authorizationHeaders({token, internalAuthTokenProvider})
+      });
+    },
+    create({data, token, jwtToken}) {
+      return client({
+        url: "/interline/invitations",
+        method: "post",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+        data
+      });
+    },
+    update({invitationId, data, token, jwtToken}) {
+      return client({
+        url: `/interline/invitations/${invitationId}`,
+        method: "put",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+        data
+      });
+    }
+  };
 
-  function createInvitation({data, token, jwtToken}) {
-    return client({
-      url: "/interline/invitations",
-      method: "post",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
-      data
-    });
-  }
+  const consumers = {
+    all({token, jwtToken, query = {}}) {
+      return client({
+        url: "/interline/consumers",
+        params: query,
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+      });
+    }
+  };
 
-  function updateInvitation({interlineId, data, token, jwtToken}) {
-    return client({
-      url: `/interline/invitations/${interlineId}`,
-      method: "put",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
-      data
-    });
-  }
+  const providers = {
+    all({token, jwtToken, query = {}}) {
+      return client({
+        url: "/interline/providers",
+        params: query,
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+      });
+    }
+  };
 
-  function allConsumers({token, jwtToken, query = {}}) {
-    return client({
-      url: "/interline/consumers",
-      params: query,
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
-    });
-  }
-
-  function updateConsumer({networkId, data, token, jwtToken}) {
-    return client({
-      url: `/interline/consumers/${networkId}`,
-      method: "put",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
-      data
-    });
-  }
-
-  function allProviders({token, jwtToken, query = {}}) {
-    return client({
-      url: "/interline/providers",
-      params: query,
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
-    });
-  }
-
-  function getNetwork({token, networkId}) {
-    return client.get(`/interline/network/${networkId}`, {
-      headers: authorizationHeaders({token, internalAuthTokenProvider})
-    });
-  }
-
-  function removeInterline({interlineId, token, jwtToken}) {
-    return client({
-      url: `/interline/${interlineId}`,
-      method: "delete",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
-    });
-  }
+  const network = {
+    get({token, networkId}) {
+      return client.get(`/interline/${networkId}`, {
+        headers: authorizationHeaders({token, internalAuthTokenProvider})
+      });
+    },
+    update({networkId, data, token, jwtToken}) {
+      return client({
+        url: `/interline/${networkId}`,
+        method: "put",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+        data
+      });
+    },
+    remove({networkId, token, jwtToken}) {
+      return client({
+        url: `/interline/${networkId}`,
+        method: "delete",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+      });
+    }
+  };
 
   return {
-    getInvitation,
-    updateInvitation,
-    createInvitation,
-    removeInterline,
-    allConsumers,
-    updateConsumer,
-    allProviders,
-    getNetwork
+    invitations,
+    consumers,
+    providers,
+    network
   };
 }
 
