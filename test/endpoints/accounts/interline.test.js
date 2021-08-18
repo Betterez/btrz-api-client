@@ -15,6 +15,18 @@ describe("accounts/interline", () => {
     axiosMock.reset();
   });
 
+  it("should GET a list of interline invitations", () => {
+    axiosMock.onGet("/interline/invitations").reply(expectRequest({
+      statusCode: 200,
+      token
+    }));
+    return api.accounts.interline.invitations.all({
+      token
+    }).then((httpResponse) => {
+      expect(httpResponse.status).eql(200);
+    });
+  });
+
   it("should GET an interline invitation", () => {
     const invitationId = "invitation123";
 

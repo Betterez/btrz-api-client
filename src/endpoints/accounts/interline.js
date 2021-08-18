@@ -4,6 +4,13 @@ const {
 
 function interlineFactory({client, internalAuthTokenProvider}) {
   const invitations = {
+    all({token, jwtToken, query = {}}) {
+      return client({
+        url: "/interline/invitations",
+        params: query,
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+      });
+    },
     get({token, invitationId}) {
       return client.get(`/interline/invitations/${invitationId}`, {
         headers: authorizationHeaders({token, internalAuthTokenProvider})
