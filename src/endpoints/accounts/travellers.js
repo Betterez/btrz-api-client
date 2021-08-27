@@ -9,28 +9,30 @@ function travellersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function get({token, jwtToken, id}) {
+  function get({token, jwtToken, id, query = {}}) {
     return client({
       url: `/travellers/${id}`,
       method: "get",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      params: query
     });
   }
 
-  function update({token, jwtToken, id, data}) {
+  function update({token, jwtToken, id, data, query = {}}) {
     return client({
       url: `/travellers/${id}`,
       method: "put",
-      params: data,
+      params: query,
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
       data
     });
   }
 
-  function remove({token, jwtToken, id}) {
+  function remove({token, jwtToken, id, query = {}}) {
     return client({
       url: `/travellers/${id}`,
       method: "delete",
+      params: query,
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
     });
   }
