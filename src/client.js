@@ -31,6 +31,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
     countries: require("./endpoints/inventory/countries")({client, internalAuthTokenProvider}),
     fares: require("./endpoints/inventory/fares")({client, internalAuthTokenProvider}),
     promos: require("./endpoints/inventory/promos")({client, internalAuthTokenProvider}),
+    taxes: require("./endpoints/inventory/taxes")({client, internalAuthTokenProvider}),
     seatmaps: require("./endpoints/inventory/seatmaps")({client, internalAuthTokenProvider}),
     fees: require("./endpoints/inventory/fees")({client, internalAuthTokenProvider}),
     items: require("./endpoints/inventory/items")({client, internalAuthTokenProvider}),
