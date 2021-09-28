@@ -19,7 +19,7 @@ describe("inventory/zone-prices", () => {
       jwtToken,
       token,
       zonePrice: {
-        name: "My zone price"
+        name: "My zone price here"
       }
     });
   });
