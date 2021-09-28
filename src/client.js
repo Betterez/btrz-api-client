@@ -63,6 +63,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
     travellerCardProviders: require("./endpoints/inventory/traveller-card-providers")({client, internalAuthTokenProvider}),
     travellerCardProvidersTypes: require("./endpoints/inventory/traveller-card-providers-types")({client, internalAuthTokenProvider}),
     travellerCardTypes: require("./endpoints/inventory/traveller-card-types")({client, internalAuthTokenProvider}),
+    marketplaceModifiers: require("./endpoints/inventory/marketplace-modifiers")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
