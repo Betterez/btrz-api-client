@@ -106,6 +106,7 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
     docs: require("./endpoints/accounts/docs")({
       client
     }),
+    exchangeRates: require("./endpoints/accounts/exchange-rates")({client, internalAuthTokenProvider}),
     interline: require("./endpoints/accounts/interline")({client, internalAuthTokenProvider}),
     lexicons: require("./endpoints/accounts/lexicons")({client, internalAuthTokenProvider}),
     printers: require("./endpoints/accounts/printers")({
