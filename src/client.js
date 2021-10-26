@@ -275,6 +275,7 @@ function createInvoices({baseURL, headers, timeout, overrideFn, internalAuthToke
   const client = clientFactory({baseURL, headers, timeout, overrideFn});
 
   return {
+    docs: require("./endpoints/invoices/docs")({client}),
     providers: require("./endpoints/invoices/providers")({client, internalAuthTokenProvider}),
     infile: require("./endpoints/invoices/infile")({client, internalAuthTokenProvider}),
     __test: {
