@@ -6,10 +6,17 @@ function applicationsFactory({client, internalAuthTokenProvider}) {
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
     });
   }
+  function getByName({token, appName, jwtToken}) {
+    return client.get(`/applications/name/${appName}`, {
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+    });
+  }
 
   return {
-    get
+    get,
+    getByName
   };
 }
+
 
 module.exports = applicationsFactory;
