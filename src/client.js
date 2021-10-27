@@ -169,6 +169,7 @@ function createOperations({baseURL, headers, timeout, overrideFn, internalAuthTo
     movements: require("./endpoints/operations/movements")({client, internalAuthTokenProvider}),
     scheduledNotifications: require("./endpoints/operations/scheduled_notifications")({client, internalAuthTokenProvider}),
     waitlists: require("./endpoints/operations/waitlists")({client, internalAuthTokenProvider}),
+    accountingItems: require("./endpoints/operations/accounting_items.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
@@ -270,6 +271,19 @@ function createBtrzPay({baseURL, headers, timeout, overrideFn, internalAuthToken
   };
 }
 
+function createInvoices({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider}) {
+  const client = clientFactory({baseURL, headers, timeout, overrideFn});
+
+  return {
+    docs: require("./endpoints/invoices/docs")({client}),
+    providers: require("./endpoints/invoices/providers")({client, internalAuthTokenProvider}),
+    infile: require("./endpoints/invoices/infile")({client, internalAuthTokenProvider}),
+    __test: {
+      client
+    }
+  };
+}
+
 /**
  * @description
  * Returns the apiClient object with defaults set
@@ -303,7 +317,8 @@ function createApiClient(options) {
     loyalty: createLoyalty({baseURL, headers, timeout, overrideFn: baseURLOverride.loyalty, internalAuthTokenProvider}),
     webhooks: createWebhooks({baseURL, headers, timeout, overrideFn: baseURLOverride.webhooks, internalAuthTokenProvider}),
     seatmaps: createSeatmaps({baseURL, headers, timeout, overrideFn: baseURLOverride.seatmaps, internalAuthTokenProvider}),
-    btrzpay: createBtrzPay({baseURL, headers, timeout, overrideFn: baseURLOverride.btrzpay, internalAuthTokenProvider})
+    btrzpay: createBtrzPay({baseURL, headers, timeout, overrideFn: baseURLOverride.btrzpay, internalAuthTokenProvider}),
+    invoices: createInvoices({baseURL, headers, timeout, overrideFn: baseURLOverride.invoices, internalAuthTokenProvider})
   };
 }
 
