@@ -278,6 +278,7 @@ function createInvoices({baseURL, headers, timeout, overrideFn, internalAuthToke
     docs: require("./endpoints/invoices/docs")({client}),
     providers: require("./endpoints/invoices/providers")({client, internalAuthTokenProvider}),
     infile: require("./endpoints/invoices/infile")({client, internalAuthTokenProvider}),
+    pdfs: require("./endpoints/invoices/pdfs")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
