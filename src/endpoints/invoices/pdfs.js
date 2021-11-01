@@ -1,10 +1,11 @@
 const {authorizationHeaders} = require("./../endpoints_helpers");
 
-function providersFactory({client, internalAuthTokenProvider}) {
-  function all({token, jwtToken, query = {}}) {
+function pdfsFactory({client, internalAuthTokenProvider}) {
+  function all({token, jwtToken, query = {}, responseType = "json"}) {
     return client({
       url: "/pdfs",
       method: "get",
+      responseType,
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
       params: query
     });
@@ -15,4 +16,4 @@ function providersFactory({client, internalAuthTokenProvider}) {
   };
 }
 
-module.exports = providersFactory;
+module.exports = pdfsFactory;
