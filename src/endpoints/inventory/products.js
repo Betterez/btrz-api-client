@@ -1,8 +1,7 @@
-const { authorizationHeaders } = require("./../endpoints_helpers");
+const {authorizationHeaders} = require("./../endpoints_helpers");
 
-function productsFactory({ client, internalAuthTokenProvider }) {
-  
-  function all({ token, query = {} }) {
+function productsFactory({client, internalAuthTokenProvider}) {
+  function all({token, query = {}}) {
     return client({
       url: "/products",
       params: query,
@@ -10,19 +9,18 @@ function productsFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  function get({ productId, token, query = {} }) {
+  function get({productId, token, jwtToken, query = {}}) {
     return client({
       url: `/products/${productId}`,
       params: query,
-      headers: authorizationHeaders({token, internalAuthTokenProvider})
+      headers: authorizationHeaders({token, internalAuthTokenProvider, jwtToken})
     });
   }
 
-  return { 
+  return {
     all,
     get
   };
-
 }
 
 module.exports = productsFactory;
