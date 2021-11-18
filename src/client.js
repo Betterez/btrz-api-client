@@ -1,5 +1,5 @@
 const axios = require("axios");
-const productionOptions = require("./productionDefaults");
+const productionOptions = require("./productionDefaults.js");
 
 /**
  * @description
@@ -12,7 +12,13 @@ const productionOptions = require("./productionDefaults");
 
 function clientFactory({baseURL, headers, timeout, overrideFn}) {
   const url = overrideFn ? overrideFn(baseURL) : baseURL;
-  return axios.create({baseURL: url, timeout, headers: {"Accept": "application/json", ...headers}});
+  return axios.create({
+    baseURL: url,
+    timeout,
+    headers: {
+      "Accept": "application/json", ...headers
+    }
+  });
 }
 
 /** MODULES */
@@ -21,49 +27,49 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
   const client = clientFactory({baseURL, headers, timeout, overrideFn});
 
   return {
-    docs: require("./endpoints/inventory/docs")({client}),
-    products: require("./endpoints/inventory/products")({client, internalAuthTokenProvider}),
-    insurances: require("./endpoints/inventory/insurances")({client, internalAuthTokenProvider}),
-    insurancesCost: require("./endpoints/inventory/insurancesCost")({client, internalAuthTokenProvider}),
-    stations: require("./endpoints/inventory/stations")({client, internalAuthTokenProvider}),
-    stationsZones: require("./endpoints/inventory/stations-zones")({client, internalAuthTokenProvider}),
-    parcelZones: require("./endpoints/inventory/parcel-zones")({client, internalAuthTokenProvider}),
-    countries: require("./endpoints/inventory/countries")({client, internalAuthTokenProvider}),
-    fares: require("./endpoints/inventory/fares")({client, internalAuthTokenProvider}),
-    promos: require("./endpoints/inventory/promos")({client, internalAuthTokenProvider}),
-    taxes: require("./endpoints/inventory/taxes")({client, internalAuthTokenProvider}),
-    seatmaps: require("./endpoints/inventory/seatmaps")({client, internalAuthTokenProvider}),
-    fees: require("./endpoints/inventory/fees")({client, internalAuthTokenProvider}),
-    items: require("./endpoints/inventory/items")({client, internalAuthTokenProvider}),
-    filteredTrips: require("./endpoints/inventory/filtered-trips")({client, internalAuthTokenProvider}),
-    filteredTripsV2: require("./endpoints/inventory/filtered-trips-v2")({client, internalAuthTokenProvider}),
-    ssrs: require("./endpoints/inventory/ssrs")({client, internalAuthTokenProvider}),
-    fareClasses: require("./endpoints/inventory/fare-classes")({client, internalAuthTokenProvider}),
-    journeyPrices: require("./endpoints/inventory/journey-prices")({client, internalAuthTokenProvider}),
-    brands: require("./endpoints/inventory/brands")({client, internalAuthTokenProvider}),
-    operatingCompanies: require("./endpoints/inventory/operating-companies")({client, internalAuthTokenProvider}),
-    operationMessages: require("./endpoints/inventory/operation-messages")({ client, internalAuthTokenProvider }),
-    paymentTerminals: require("./endpoints/inventory/payment-terminals")({ client, internalAuthTokenProvider }),
-    serviceTypes: require("./endpoints/inventory/service-types")({ client, internalAuthTokenProvider }),
-    customContent: require("./endpoints/inventory/custom-content")({ client, internalAuthTokenProvider }),
-    seatfees: require("./endpoints/inventory/seatfees")({ client, internalAuthTokenProvider }),
-    routes: require("./endpoints/inventory/routes")({ client, internalAuthTokenProvider }),
-    bareRoutes: require("./endpoints/inventory/bare-routes")({ client, internalAuthTokenProvider }),
-    schedules: require("./endpoints/inventory/schedules")({client, internalAuthTokenProvider}),
-    serviceNumbers: require("./endpoints/inventory/service-numbers")({client, internalAuthTokenProvider}),
-    companies: require("./endpoints/inventory/companies")({client, internalAuthTokenProvider}),
-    bundleFares: require("./endpoints/inventory/bundle-fares")({client, internalAuthTokenProvider}),
-    giftCertificateDefinitions: require("./endpoints/inventory/gift-certificate-definitions")({client, internalAuthTokenProvider}),
-    amenities: require("./endpoints/inventory/amenities")({client, internalAuthTokenProvider}),
-    amenityGroups: require("./endpoints/inventory/amenity-groups")({client, internalAuthTokenProvider}),
-    bundles: require("./endpoints/inventory/bundles")({client, internalAuthTokenProvider}),
-    stationGroups: require("./endpoints/inventory/station-groups")({ client, internalAuthTokenProvider }),
-    zonePrices: require("./endpoints/inventory/zone-prices")({ client, internalAuthTokenProvider }),
-    zonePriceOverages: require("./endpoints/inventory/zone-price-overages")({ client, internalAuthTokenProvider }),
-    travellerCardProviders: require("./endpoints/inventory/traveller-card-providers")({client, internalAuthTokenProvider}),
-    travellerCardProvidersTypes: require("./endpoints/inventory/traveller-card-providers-types")({client, internalAuthTokenProvider}),
-    travellerCardTypes: require("./endpoints/inventory/traveller-card-types")({client, internalAuthTokenProvider}),
-    marketplaceModifiers: require("./endpoints/inventory/marketplace-modifiers")({client, internalAuthTokenProvider}),
+    docs: require("./endpoints/inventory/docs.js")({client}),
+    products: require("./endpoints/inventory/products.js")({client, internalAuthTokenProvider}),
+    insurances: require("./endpoints/inventory/insurances.js")({client, internalAuthTokenProvider}),
+    insurancesCost: require("./endpoints/inventory/insurancesCost.js")({client, internalAuthTokenProvider}),
+    stations: require("./endpoints/inventory/stations.js")({client, internalAuthTokenProvider}),
+    stationsZones: require("./endpoints/inventory/stations-zones.js")({client, internalAuthTokenProvider}),
+    parcelZones: require("./endpoints/inventory/parcel-zones.js")({client, internalAuthTokenProvider}),
+    countries: require("./endpoints/inventory/countries.js")({client, internalAuthTokenProvider}),
+    fares: require("./endpoints/inventory/fares.js")({client, internalAuthTokenProvider}),
+    promos: require("./endpoints/inventory/promos.js")({client, internalAuthTokenProvider}),
+    taxes: require("./endpoints/inventory/taxes.js")({client, internalAuthTokenProvider}),
+    seatmaps: require("./endpoints/inventory/seatmaps.js")({client, internalAuthTokenProvider}),
+    fees: require("./endpoints/inventory/fees.js")({client, internalAuthTokenProvider}),
+    items: require("./endpoints/inventory/items.js")({client, internalAuthTokenProvider}),
+    filteredTrips: require("./endpoints/inventory/filtered-trips.js")({client, internalAuthTokenProvider}),
+    filteredTripsV2: require("./endpoints/inventory/filtered-trips-v2.js")({client, internalAuthTokenProvider}),
+    ssrs: require("./endpoints/inventory/ssrs.js")({client, internalAuthTokenProvider}),
+    fareClasses: require("./endpoints/inventory/fare-classes.js")({client, internalAuthTokenProvider}),
+    journeyPrices: require("./endpoints/inventory/journey-prices.js")({client, internalAuthTokenProvider}),
+    brands: require("./endpoints/inventory/brands.js")({client, internalAuthTokenProvider}),
+    operatingCompanies: require("./endpoints/inventory/operating-companies.js")({client, internalAuthTokenProvider}),
+    operationMessages: require("./endpoints/inventory/operation-messages.js")({client, internalAuthTokenProvider}),
+    paymentTerminals: require("./endpoints/inventory/payment-terminals.js")({client, internalAuthTokenProvider}),
+    serviceTypes: require("./endpoints/inventory/service-types.js")({client, internalAuthTokenProvider}),
+    customContent: require("./endpoints/inventory/custom-content.js")({client, internalAuthTokenProvider}),
+    seatfees: require("./endpoints/inventory/seatfees.js")({client, internalAuthTokenProvider}),
+    routes: require("./endpoints/inventory/routes.js")({client, internalAuthTokenProvider}),
+    bareRoutes: require("./endpoints/inventory/bare-routes.js")({client, internalAuthTokenProvider}),
+    schedules: require("./endpoints/inventory/schedules.js")({client, internalAuthTokenProvider}),
+    serviceNumbers: require("./endpoints/inventory/service-numbers.js")({client, internalAuthTokenProvider}),
+    companies: require("./endpoints/inventory/companies.js")({client, internalAuthTokenProvider}),
+    bundleFares: require("./endpoints/inventory/bundle-fares.js")({client, internalAuthTokenProvider}),
+    giftCertificateDefinitions: require("./endpoints/inventory/gift-certificate-definitions.js")({client, internalAuthTokenProvider}),
+    amenities: require("./endpoints/inventory/amenities.js")({client, internalAuthTokenProvider}),
+    amenityGroups: require("./endpoints/inventory/amenity-groups.js")({client, internalAuthTokenProvider}),
+    bundles: require("./endpoints/inventory/bundles.js")({client, internalAuthTokenProvider}),
+    stationGroups: require("./endpoints/inventory/station-groups.js")({client, internalAuthTokenProvider}),
+    zonePrices: require("./endpoints/inventory/zone-prices.js")({client, internalAuthTokenProvider}),
+    zonePriceOverages: require("./endpoints/inventory/zone-price-overages.js")({client, internalAuthTokenProvider}),
+    travellerCardProviders: require("./endpoints/inventory/traveller-card-providers.js")({client, internalAuthTokenProvider}),
+    travellerCardProvidersTypes: require("./endpoints/inventory/traveller-card-providers-types.js")({client, internalAuthTokenProvider}),
+    travellerCardTypes: require("./endpoints/inventory/traveller-card-types.js")({client, internalAuthTokenProvider}),
+    marketplaceModifiers: require("./endpoints/inventory/marketplace-modifiers.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
@@ -74,7 +80,7 @@ function createTrips({baseURL, headers, timeout, overrideFn, internalAuthTokenPr
   const client = clientFactory({baseURL, headers, timeout, overrideFn});
 
   return {
-    trips: require("./endpoints/inventory/trips")({client, internalAuthTokenProvider}),
+    trips: require("./endpoints/inventory/trips.js")({client, internalAuthTokenProvider}),
     __test_trips: {
       client
     }
@@ -85,8 +91,8 @@ function createColtrane({baseURL, headers, timeout, overrideFn, internalAuthToke
   const client = clientFactory({baseURL, headers, timeout, overrideFn});
 
   return {
-    docs: require("./endpoints/coltrane/docs")({ client }),
-    paths: require("./endpoints/coltrane/paths")({client, internalAuthTokenProvider}),
+    docs: require("./endpoints/coltrane/docs.js")({client}),
+    paths: require("./endpoints/coltrane/paths.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
@@ -97,31 +103,31 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
   const client = clientFactory({baseURL, headers, timeout, overrideFn});
 
   return {
-    accounts: require("./endpoints/accounts/accounts")({client, internalAuthTokenProvider}),
-    application: require("./endpoints/accounts/application")({client, internalAuthTokenProvider}),
-    applications: require("./endpoints/accounts/applications")({client, internalAuthTokenProvider}),
-    applicationSettings: require("./endpoints/accounts/application-settings")({client, internalAuthTokenProvider}),
-    customers: require("./endpoints/accounts/customers")({client, internalAuthTokenProvider}),
-    currentShifts: require("./endpoints/accounts/current-shifts")({client, internalAuthTokenProvider}),
-    docs: require("./endpoints/accounts/docs")({
+    accounts: require("./endpoints/accounts/accounts.js")({client, internalAuthTokenProvider}),
+    application: require("./endpoints/accounts/application.js")({client, internalAuthTokenProvider}),
+    applications: require("./endpoints/accounts/applications.js")({client, internalAuthTokenProvider}),
+    applicationSettings: require("./endpoints/accounts/application-settings.js")({client, internalAuthTokenProvider}),
+    customers: require("./endpoints/accounts/customers.js")({client, internalAuthTokenProvider}),
+    currentShifts: require("./endpoints/accounts/current-shifts.js")({client, internalAuthTokenProvider}),
+    docs: require("./endpoints/accounts/docs.js")({
       client
     }),
-    emailSettings: require("./endpoints/accounts/email-settings")({client, internalAuthTokenProvider}),
-    exchangeRates: require("./endpoints/accounts/exchange-rates")({client, internalAuthTokenProvider}),
-    interline: require("./endpoints/accounts/interline")({client, internalAuthTokenProvider}),
-    lexicons: require("./endpoints/accounts/lexicons")({client, internalAuthTokenProvider}),
-    printers: require("./endpoints/accounts/printers")({
+    emailSettings: require("./endpoints/accounts/email-settings.js")({client, internalAuthTokenProvider}),
+    exchangeRates: require("./endpoints/accounts/exchange-rates.js")({client, internalAuthTokenProvider}),
+    interline: require("./endpoints/accounts/interline.js")({client, internalAuthTokenProvider}),
+    lexicons: require("./endpoints/accounts/lexicons.js")({client, internalAuthTokenProvider}),
+    printers: require("./endpoints/accounts/printers.js")({
       client, internalAuthTokenProvider
     }),
-    printSettings: require("./endpoints/accounts/print-settings")({
+    printSettings: require("./endpoints/accounts/print-settings.js")({
       client, internalAuthTokenProvider
     }),
-    shifts: require("./endpoints/accounts/shifts")({client, internalAuthTokenProvider}),
-    travellers: require("./endpoints/accounts/travellers")({
+    shifts: require("./endpoints/accounts/shifts.js")({client, internalAuthTokenProvider}),
+    travellers: require("./endpoints/accounts/travellers.js")({
       client, internalAuthTokenProvider
     }),
-    trustedMachines: require("./endpoints/accounts/trusted-machines")({client, internalAuthTokenProvider}),
-    users: require("./endpoints/accounts/users")({client, internalAuthTokenProvider}),
+    trustedMachines: require("./endpoints/accounts/trusted-machines.js")({client, internalAuthTokenProvider}),
+    users: require("./endpoints/accounts/users.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
@@ -132,18 +138,18 @@ function createSales({baseURL, headers, timeout, overrideFn, internalAuthTokenPr
   const client = clientFactory({baseURL, headers, timeout, overrideFn});
 
   return {
-    docs: require("./endpoints/sales/docs")({ client }),
-    paymentProviders: require("./endpoints/sales/payment-providers")({client, internalAuthTokenProvider}),
-    cart: require("./endpoints/sales/cart")({client, internalAuthTokenProvider}),
-    giftCertificates: require("./endpoints/sales/gift-certificates")({client, internalAuthTokenProvider}),
-    customFields: require("./endpoints/sales/custom-fields")({client, internalAuthTokenProvider}),
-    order: require("./endpoints/sales/order")({client, internalAuthTokenProvider}),
-    voucher: require("./endpoints/sales/voucher")({client, internalAuthTokenProvider}),
-    cartPromo: require("./endpoints/sales/cart-promo")({client, internalAuthTokenProvider}),
-    bundles: require("./endpoints/sales/bundles")({client, internalAuthTokenProvider}),
-    redeemableItems: require("./endpoints/sales/redeemable-items")({client, internalAuthTokenProvider}),
-    flexpasses: require("./endpoints/sales/flexpasses")({client, internalAuthTokenProvider}),
-    syncEntry: require("./endpoints/sales/sync-entry")({client, internalAuthTokenProvider}),
+    docs: require("./endpoints/sales/docs.js")({client}),
+    paymentProviders: require("./endpoints/sales/payment-providers.js")({client, internalAuthTokenProvider}),
+    cart: require("./endpoints/sales/cart.js")({client, internalAuthTokenProvider}),
+    giftCertificates: require("./endpoints/sales/gift-certificates.js")({client, internalAuthTokenProvider}),
+    customFields: require("./endpoints/sales/custom-fields.js")({client, internalAuthTokenProvider}),
+    order: require("./endpoints/sales/order.js")({client, internalAuthTokenProvider}),
+    voucher: require("./endpoints/sales/voucher.js")({client, internalAuthTokenProvider}),
+    cartPromo: require("./endpoints/sales/cart-promo.js")({client, internalAuthTokenProvider}),
+    bundles: require("./endpoints/sales/bundles.js")({client, internalAuthTokenProvider}),
+    redeemableItems: require("./endpoints/sales/redeemable-items.js")({client, internalAuthTokenProvider}),
+    flexpasses: require("./endpoints/sales/flexpasses.js")({client, internalAuthTokenProvider}),
+    syncEntry: require("./endpoints/sales/sync-entry.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
@@ -154,22 +160,22 @@ function createOperations({baseURL, headers, timeout, overrideFn, internalAuthTo
   const client = clientFactory({baseURL, headers, timeout, overrideFn});
 
   return {
-    docs: require("./endpoints/operations/docs")({ client }),
-    flexpasses: require("./endpoints/operations/flexpasses")({client, internalAuthTokenProvider}),
-    parcel: require("./endpoints/operations/parcels")({client, internalAuthTokenProvider}),
-    appliedInsurance: require("./endpoints/operations/applied_insurance")({client, internalAuthTokenProvider}),
-    transaction: require("./endpoints/operations/transaction")({client, internalAuthTokenProvider}),
-    transactions: require("./endpoints/operations/transactions")({client, internalAuthTokenProvider}),
-    tickets: require("./endpoints/operations/tickets")({client, internalAuthTokenProvider}),
-    manifest: require("./endpoints/operations/manifest")({client, internalAuthTokenProvider}),
-    calendarEntries: require("./endpoints/operations/calendar_entries")({client, internalAuthTokenProvider}),
-    redemption: require("./endpoints/operations/redemption")({client, internalAuthTokenProvider}),
-    tripChangeInfo: require("./endpoints/operations/trip_change_info")({client, internalAuthTokenProvider}),
-    segments: require("./endpoints/operations/segments")({client, internalAuthTokenProvider}),
-    loans: require("./endpoints/operations/loans")({client, internalAuthTokenProvider}),
-    movements: require("./endpoints/operations/movements")({client, internalAuthTokenProvider}),
-    scheduledNotifications: require("./endpoints/operations/scheduled_notifications")({client, internalAuthTokenProvider}),
-    waitlists: require("./endpoints/operations/waitlists")({client, internalAuthTokenProvider}),
+    docs: require("./endpoints/operations/docs.js")({client}),
+    flexpasses: require("./endpoints/operations/flexpasses.js")({client, internalAuthTokenProvider}),
+    parcel: require("./endpoints/operations/parcels.js")({client, internalAuthTokenProvider}),
+    appliedInsurance: require("./endpoints/operations/applied_insurance.js")({client, internalAuthTokenProvider}),
+    transaction: require("./endpoints/operations/transaction.js")({client, internalAuthTokenProvider}),
+    transactions: require("./endpoints/operations/transactions.js")({client, internalAuthTokenProvider}),
+    tickets: require("./endpoints/operations/tickets.js")({client, internalAuthTokenProvider}),
+    manifest: require("./endpoints/operations/manifest.js")({client, internalAuthTokenProvider}),
+    calendarEntries: require("./endpoints/operations/calendar_entries.js")({client, internalAuthTokenProvider}),
+    redemption: require("./endpoints/operations/redemption.js")({client, internalAuthTokenProvider}),
+    tripChangeInfo: require("./endpoints/operations/trip_change_info.js")({client, internalAuthTokenProvider}),
+    segments: require("./endpoints/operations/segments.js")({client, internalAuthTokenProvider}),
+    loans: require("./endpoints/operations/loans.js")({client, internalAuthTokenProvider}),
+    movements: require("./endpoints/operations/movements.js")({client, internalAuthTokenProvider}),
+    scheduledNotifications: require("./endpoints/operations/scheduled_notifications.js")({client, internalAuthTokenProvider}),
+    waitlists: require("./endpoints/operations/waitlists.js")({client, internalAuthTokenProvider}),
     accountingItems: require("./endpoints/operations/accounting_items.js")({client, internalAuthTokenProvider}),
     __test: {
       client
@@ -181,8 +187,8 @@ function createReports({baseURL, headers, timeout, overrideFn, internalAuthToken
   const client = clientFactory({baseURL, headers, timeout, overrideFn});
 
   return {
-    reportTypes: require("./endpoints/reports/report-types")({client, internalAuthTokenProvider}),
-    customReports: require("./endpoints/reports/custom-reports")({client, internalAuthTokenProvider}),
+    reportTypes: require("./endpoints/reports/report-types.js")({client, internalAuthTokenProvider}),
+    customReports: require("./endpoints/reports/custom-reports.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
@@ -193,10 +199,10 @@ function createNotifications({baseURL, headers, timeout, overrideFn, internalAut
   const client = clientFactory({baseURL, headers, timeout, overrideFn});
 
   return {
-    manifestNotifications: require("./endpoints/notifications/manifest-notifications")({client, internalAuthTokenProvider}),
-    printedTickets: require("./endpoints/notifications/printed-tickets")({client, internalAuthTokenProvider}),
-    email: require("./endpoints/notifications/email")({client, internalAuthTokenProvider}),
-    customers: require("./endpoints/notifications/customers")({client, internalAuthTokenProvider}),
+    manifestNotifications: require("./endpoints/notifications/manifest-notifications.js")({client, internalAuthTokenProvider}),
+    printedTickets: require("./endpoints/notifications/printed-tickets.js")({client, internalAuthTokenProvider}),
+    email: require("./endpoints/notifications/email.js")({client, internalAuthTokenProvider}),
+    customers: require("./endpoints/notifications/customers.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
@@ -207,8 +213,8 @@ function createUploads({baseURL, headers, timeout, overrideFn, internalAuthToken
   const client = clientFactory({baseURL, headers, timeout, overrideFn});
 
   return {
-    files: require("./endpoints/uploads/files")({client, internalAuthTokenProvider}),
-    images: require("./endpoints/uploads/images")({client, internalAuthTokenProvider}),
+    files: require("./endpoints/uploads/files.js")({client, internalAuthTokenProvider}),
+    images: require("./endpoints/uploads/images.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
@@ -219,8 +225,8 @@ function createLoyalty({baseURL, headers, timeout, overrideFn, internalAuthToken
   const client = clientFactory({baseURL, headers, timeout, overrideFn});
 
   return {
-    programs: require("./endpoints/loyalty/programs")({client, internalAuthTokenProvider}),
-    movements: require("./endpoints/loyalty/movements")({client, internalAuthTokenProvider}),
+    programs: require("./endpoints/loyalty/programs.js")({client, internalAuthTokenProvider}),
+    movements: require("./endpoints/loyalty/movements.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
@@ -231,10 +237,10 @@ function createWebhooks({baseURL, headers, timeout, overrideFn, internalAuthToke
   const client = clientFactory({baseURL, headers, timeout, overrideFn});
 
   return {
-    subscriptions: require("./endpoints/webhooks/subscriptions")({client, internalAuthTokenProvider}),
-    events: require("./endpoints/webhooks/events")({client, internalAuthTokenProvider}),
-    undelivered: require("./endpoints/webhooks/undelivered")({client, internalAuthTokenProvider}),
-    webhooks: require("./endpoints/webhooks/webhooks")({client, internalAuthTokenProvider}),
+    subscriptions: require("./endpoints/webhooks/subscriptions.js")({client, internalAuthTokenProvider}),
+    events: require("./endpoints/webhooks/events.js")({client, internalAuthTokenProvider}),
+    undelivered: require("./endpoints/webhooks/undelivered.js")({client, internalAuthTokenProvider}),
+    webhooks: require("./endpoints/webhooks/webhooks.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
@@ -245,8 +251,8 @@ function createSeatmaps({baseURL, headers, timeout, overrideFn, internalAuthToke
   const client = clientFactory({baseURL, headers, timeout, overrideFn});
 
   return {
-    accessTicket: require("./endpoints/seatmaps/access-ticket")({client, internalAuthTokenProvider}),
-    seat: require("./endpoints/seatmaps/seat")({client, internalAuthTokenProvider}),
+    accessTicket: require("./endpoints/seatmaps/access-ticket.js")({client, internalAuthTokenProvider}),
+    seat: require("./endpoints/seatmaps/seat.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
@@ -257,15 +263,15 @@ function createBtrzPay({baseURL, headers, timeout, overrideFn, internalAuthToken
   const client = clientFactory({baseURL, headers, timeout, overrideFn});
 
   return {
-    docs: require("./endpoints/btrzpay/docs")({ client }),
-    paymentMethods: require("./endpoints/btrzpay/payment-methods")({client, internalAuthTokenProvider}),
-    referenceNumbers: require("./endpoints/btrzpay/reference-numbers")({client, internalAuthTokenProvider}),
-    payments: require("./endpoints/btrzpay/payments")({client, internalAuthTokenProvider}),
-    referencedPayments: require("./endpoints/btrzpay/referenced-payments")({client, internalAuthTokenProvider}),
-    customers: require("./endpoints/btrzpay/customers")({client, internalAuthTokenProvider}),
-    customerCards: require("./endpoints/btrzpay/customerCards")({client, internalAuthTokenProvider}),
-    squareTerminals: require("./endpoints/btrzpay/square").squareTerminalsFactory({client, internalAuthTokenProvider}),
-    squareWebhooks: require("./endpoints/btrzpay/square").squareWebhooksFactory({client, internalAuthTokenProvider}),
+    docs: require("./endpoints/btrzpay/docs.js")({client}),
+    paymentMethods: require("./endpoints/btrzpay/payment-methods.js")({client, internalAuthTokenProvider}),
+    referenceNumbers: require("./endpoints/btrzpay/reference-numbers.js")({client, internalAuthTokenProvider}),
+    payments: require("./endpoints/btrzpay/payments.js")({client, internalAuthTokenProvider}),
+    referencedPayments: require("./endpoints/btrzpay/referenced-payments.js")({client, internalAuthTokenProvider}),
+    customers: require("./endpoints/btrzpay/customers.js")({client, internalAuthTokenProvider}),
+    customerCards: require("./endpoints/btrzpay/customerCards.js")({client, internalAuthTokenProvider}),
+    squareTerminals: require("./endpoints/btrzpay/square.js").squareTerminalsFactory({client, internalAuthTokenProvider}),
+    squareWebhooks: require("./endpoints/btrzpay/square.js").squareWebhooksFactory({client, internalAuthTokenProvider}),
     __test: {
       client
     }
@@ -276,10 +282,10 @@ function createInvoices({baseURL, headers, timeout, overrideFn, internalAuthToke
   const client = clientFactory({baseURL, headers, timeout, overrideFn});
 
   return {
-    docs: require("./endpoints/invoices/docs")({client}),
-    providers: require("./endpoints/invoices/providers")({client, internalAuthTokenProvider}),
-    infile: require("./endpoints/invoices/infile")({client, internalAuthTokenProvider}),
-    pdfs: require("./endpoints/invoices/pdfs")({client, internalAuthTokenProvider}),
+    docs: require("./endpoints/invoices/docs.js")({client}),
+    providers: require("./endpoints/invoices/providers.js")({client, internalAuthTokenProvider}),
+    infile: require("./endpoints/invoices/infile.js")({client, internalAuthTokenProvider}),
+    pdfs: require("./endpoints/invoices/pdfs.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
@@ -303,7 +309,7 @@ function createApiClient(options) {
   const {baseURL, baseURLOverride = {}, headers, timeout = 0, internalAuthTokenProvider} = options || productionOptions;
 
   return {
-    constants: require("./constants"),
+    constants: require("./constants.js"),
     _cleanClient: clientFactory({baseURL, headers, timeout}),
     inventory: {
       ...createInventory({baseURL, headers, timeout, overrideFn: baseURLOverride.inventory, internalAuthTokenProvider}),
