@@ -2,23 +2,36 @@ const axios = require("axios");
 const productionOptions = require("./productionDefaults.js");
 
 /**
- * @description
  * Creates a new axios client
- *
- * @param {String}   baseUrl - the base url use for all endpoints by default
- * @param {String}   timeout
- * @param {Function} overrideFn - allows to override the baseUrl
- */
-
-function clientFactory({baseURL, headers, timeout, overrideFn}) {
+ * @param {Object} opts - Axios configuration
+ * @param {string} opts.baseURL - the base url use for all endpoints by default
+ * @param {Object} opts.headers - an object of http headers
+ * @param {string} opts.timeout - timeout in milliseconds
+ * @param {Function} opts.overrideFn - allows to override the baseUrl
+ * @param {{httpAgent: import("http").Agent, httpsAgent: import("https").Agent}} opts.agents - An object containg one or both http agents
+ * @returns {axios.AxiosInstance} Returns a configured axios instance
+*/
+function clientFactory(opts) {
+  const {baseURL, headers, timeout, overrideFn, agents} = opts;
   const url = overrideFn ? overrideFn(baseURL) : baseURL;
-  return axios.create({
+
+  /** @type {import("axios").AxiosRequestConfig} */
+  let options = {
     baseURL: url,
     timeout,
     headers: {
-      "Accept": "application/json", ...headers
+      "Accept": "application/json",
+      ...headers
     }
-  });
+  };
+
+  if (agents && (agents.httpAgent || agents.httpsAgent)) {
+    options = {
+      ...options,
+      ...agents
+    };
+  }
+  return axios.create(options);
 }
 
 /** MODULES */
@@ -293,16 +306,16 @@ function createInvoices({baseURL, headers, timeout, overrideFn, internalAuthToke
 }
 
 /**
- * @description
  * Returns the apiClient object with defaults set
  *
- * @param {String}   baseUrl - the base url use for all endpoints by default
- * @param {String}   timeout
- * @param {Object}   baseURLOverride - options object allowing to override baseUrl for some endpoints
- * @param {Function} baseURLOverride.someEndpoint
- * @param {Object}   internalAuthTokenProvider - an object containing a getToken() function that, when called, returns an authorization
- *                                               token that's valid for making service-to-service API calls.
- * @param {Function} internalAuthTokenProvider.getToken
+ * @param {Object}   options
+ * @param {string}   options.baseURL - the base url use for all endpoints by default
+ * @param {string}   options.timeout
+ * @param {Object}   options.baseURLOverride - options object allowing to override baseUrl for some endpoints
+ * @param {Function} options.baseURLOverride.someEndpoint
+ * @param {Object}   options.internalAuthTokenProvider - an object containing a getToken() function that, when called,
+ *                                              returns an authorization token that's valid for making service-to-service API calls.
+ * @param {Function} options.internalAuthTokenProvider.getToken
  * @returns {Object} An object with a client for every "module" (needed to override baseURL)
  */
 function createApiClient(options) {
