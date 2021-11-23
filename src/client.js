@@ -305,6 +305,17 @@ function createInvoices({baseURL, headers, timeout, overrideFn, internalAuthToke
   };
 }
 
+function createGPS({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
+  const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
+
+  return {
+    scannerAppLocation: require("./endpoints/gps/scanner-app-location.js")({client, internalAuthTokenProvider}),
+    __test: {
+      client
+    }
+  };
+}
+
 /**
  * Returns the apiClient object with defaults set
  *
@@ -341,7 +352,8 @@ function createApiClient(options) {
     webhooks: createWebhooks({baseURL, headers, timeout, overrideFn: baseURLOverride.webhooks, internalAuthTokenProvider, agents}),
     seatmaps: createSeatmaps({baseURL, headers, timeout, overrideFn: baseURLOverride.seatmaps, internalAuthTokenProvider, agents}),
     btrzpay: createBtrzPay({baseURL, headers, timeout, overrideFn: baseURLOverride.btrzpay, internalAuthTokenProvider, agents}),
-    invoices: createInvoices({baseURL, headers, timeout, overrideFn: baseURLOverride.invoices, internalAuthTokenProvider, agents})
+    invoices: createInvoices({baseURL, headers, timeout, overrideFn: baseURLOverride.invoices, internalAuthTokenProvider, agents}),
+    gps: createGPS({baseURL, headers, timeout, overrideFn: baseURLOverride.invoices, internalAuthTokenProvider, agents})
   };
 }
 
