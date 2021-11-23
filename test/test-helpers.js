@@ -35,9 +35,6 @@ module.exports = {
 
     mockServer.on("connection", (socket) => {
       sockets.add(socket);
-      mockServer.once("close", () => {
-        sockets.delete(socket);
-      });
       if (config.maxSockets) {
         expect(sockets.size).to.be.lessThanOrEqual(config.maxSockets);
       }
@@ -55,6 +52,7 @@ module.exports = {
           socket.destroy();
           sockets.delete(socket);
         }
+        sockets.clear();
         mockServer.close(callback);
       }
     };

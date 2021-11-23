@@ -97,7 +97,7 @@ describe("client", () => {
   });
 
   describe("http networking", () => {
-    describe("with keepAlive enabled", () => {
+    describe("with keepAlive enabled in a custom endpoint", () => {
       let mockServer = null;
 
       before((done) => {
@@ -132,8 +132,50 @@ describe("client", () => {
         const api = createApiClient({baseURL: "http://localhost:8888", timeout: 0, agents});
         const mock = new MockAdapter(api._cleanClient);
         mock.restore();
-        const promises = new Array(500).fill().map((i) => {
+        const promises = new Array(100).fill().map((i) => {
           return api._cleanClient({url: `/test/${i}`, method: "get"});
+        });
+        return Promise.all(promises);
+      });
+    });
+
+    describe("with keepAlive enabled in a known endpoint", () => {
+      let mockServer = null;
+
+      before((done) => {
+        axiosMock.restore();
+        mockServer = createTestServer({
+          host: "localhost",
+          port: 8888,
+          maxSockets: 10
+        }, (req) => {
+          expect(req.headers.connection).to.equal("keep-alive");
+        });
+        mockServer.create((err) => {
+          if (err) return done(err);
+          return done();
+        });
+      });
+
+      after((done) => {
+        mockServer.close(() => {
+          done();
+        });
+      });
+
+      it("should use at least 10 sockets to perform 100 concurrent product requests", async () => {
+        const http = require("http");
+        const https = require("https");
+
+        const agents = {
+          httpAgent: new http.Agent({keepAlive: true, maxSockets: 10}),
+          httpsAgent: new https.Agent({keepAlive: true})
+        };
+        const api = createApiClient({baseURL: "http://localhost:8888", timeout: 0, agents});
+        const mock = new MockAdapter(api._cleanClient);
+        mock.restore();
+        const promises = new Array(100).fill().map(() => {
+          return api.inventory.products.all({token: "I owe you a token"});
         });
         return Promise.all(promises);
       });
@@ -146,7 +188,7 @@ describe("client", () => {
         axiosMock.restore();
         mockServer = createTestServer({
           host: "localhost",
-          port: 8889,
+          port: 8888,
           maxSockets: 100
         }, (req) => {
           expect(req.headers.connection).to.equal("close");
@@ -163,8 +205,8 @@ describe("client", () => {
         });
       });
 
-      it("should create a socket for each request to perform 100 concurrent requests", async () => {
-        const api = createApiClient({baseURL: "http://localhost:8889", timeout: 0});
+      it("should socket no more than 100 sockets to perform 100 concurrent requests", async () => {
+        const api = createApiClient({baseURL: "http://localhost:8888", timeout: 0});
         const mock = new MockAdapter(api._cleanClient);
         mock.restore();
         const promises = new Array(100).fill().map((i) => {
