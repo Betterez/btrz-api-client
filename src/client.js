@@ -36,8 +36,8 @@ function clientFactory(opts) {
 
 /** MODULES */
 
-function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider}) {
-  const client = clientFactory({baseURL, headers, timeout, overrideFn});
+function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
+  const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
   return {
     docs: require("./endpoints/inventory/docs.js")({client}),
@@ -89,8 +89,8 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
   };
 }
 
-function createTrips({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider}) {
-  const client = clientFactory({baseURL, headers, timeout, overrideFn});
+function createTrips({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
+  const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
   return {
     trips: require("./endpoints/inventory/trips.js")({client, internalAuthTokenProvider}),
@@ -100,8 +100,8 @@ function createTrips({baseURL, headers, timeout, overrideFn, internalAuthTokenPr
   };
 }
 
-function createColtrane({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider}) {
-  const client = clientFactory({baseURL, headers, timeout, overrideFn});
+function createColtrane({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
+  const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
   return {
     docs: require("./endpoints/coltrane/docs.js")({client}),
@@ -112,8 +112,8 @@ function createColtrane({baseURL, headers, timeout, overrideFn, internalAuthToke
   };
 }
 
-function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider}) {
-  const client = clientFactory({baseURL, headers, timeout, overrideFn});
+function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
+  const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
   return {
     accounts: require("./endpoints/accounts/accounts.js")({client, internalAuthTokenProvider}),
@@ -147,8 +147,8 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
   };
 }
 
-function createSales({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider}) {
-  const client = clientFactory({baseURL, headers, timeout, overrideFn});
+function createSales({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
+  const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
   return {
     docs: require("./endpoints/sales/docs.js")({client}),
@@ -169,8 +169,8 @@ function createSales({baseURL, headers, timeout, overrideFn, internalAuthTokenPr
   };
 }
 
-function createOperations({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider}) {
-  const client = clientFactory({baseURL, headers, timeout, overrideFn});
+function createOperations({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
+  const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
   return {
     docs: require("./endpoints/operations/docs.js")({client}),
@@ -196,8 +196,8 @@ function createOperations({baseURL, headers, timeout, overrideFn, internalAuthTo
   };
 }
 
-function createReports({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider}) {
-  const client = clientFactory({baseURL, headers, timeout, overrideFn});
+function createReports({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
+  const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
   return {
     reportTypes: require("./endpoints/reports/report-types.js")({client, internalAuthTokenProvider}),
@@ -208,8 +208,8 @@ function createReports({baseURL, headers, timeout, overrideFn, internalAuthToken
   };
 }
 
-function createNotifications({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider}) {
-  const client = clientFactory({baseURL, headers, timeout, overrideFn});
+function createNotifications({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
+  const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
   return {
     manifestNotifications: require("./endpoints/notifications/manifest-notifications.js")({client, internalAuthTokenProvider}),
@@ -222,8 +222,8 @@ function createNotifications({baseURL, headers, timeout, overrideFn, internalAut
   };
 }
 
-function createUploads({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider}) {
-  const client = clientFactory({baseURL, headers, timeout, overrideFn});
+function createUploads({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
+  const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
   return {
     files: require("./endpoints/uploads/files.js")({client, internalAuthTokenProvider}),
@@ -234,8 +234,8 @@ function createUploads({baseURL, headers, timeout, overrideFn, internalAuthToken
   };
 }
 
-function createLoyalty({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider}) {
-  const client = clientFactory({baseURL, headers, timeout, overrideFn});
+function createLoyalty({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
+  const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
   return {
     programs: require("./endpoints/loyalty/programs.js")({client, internalAuthTokenProvider}),
@@ -246,8 +246,8 @@ function createLoyalty({baseURL, headers, timeout, overrideFn, internalAuthToken
   };
 }
 
-function createWebhooks({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider}) {
-  const client = clientFactory({baseURL, headers, timeout, overrideFn});
+function createWebhooks({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
+  const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
   return {
     subscriptions: require("./endpoints/webhooks/subscriptions.js")({client, internalAuthTokenProvider}),
@@ -260,8 +260,8 @@ function createWebhooks({baseURL, headers, timeout, overrideFn, internalAuthToke
   };
 }
 
-function createSeatmaps({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider}) {
-  const client = clientFactory({baseURL, headers, timeout, overrideFn});
+function createSeatmaps({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
+  const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
   return {
     accessTicket: require("./endpoints/seatmaps/access-ticket.js")({client, internalAuthTokenProvider}),
@@ -272,8 +272,8 @@ function createSeatmaps({baseURL, headers, timeout, overrideFn, internalAuthToke
   };
 }
 
-function createBtrzPay({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider}) {
-  const client = clientFactory({baseURL, headers, timeout, overrideFn});
+function createBtrzPay({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
+  const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
   return {
     docs: require("./endpoints/btrzpay/docs.js")({client}),
@@ -291,8 +291,8 @@ function createBtrzPay({baseURL, headers, timeout, overrideFn, internalAuthToken
   };
 }
 
-function createInvoices({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider}) {
-  const client = clientFactory({baseURL, headers, timeout, overrideFn});
+function createInvoices({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
+  const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
   return {
     docs: require("./endpoints/invoices/docs.js")({client}),
@@ -316,30 +316,32 @@ function createInvoices({baseURL, headers, timeout, overrideFn, internalAuthToke
  * @param {Object}   options.internalAuthTokenProvider - an object containing a getToken() function that, when called,
  *                                              returns an authorization token that's valid for making service-to-service API calls.
  * @param {Function} options.internalAuthTokenProvider.getToken
+ * @param {{httpAgent: import("http").Agent, httpsAgent: import("https").Agent}} options.agents - An object containg one or both http agents
  * @returns {Object} An object with a client for every "module" (needed to override baseURL)
  */
 function createApiClient(options) {
-  const {baseURL, baseURLOverride = {}, headers, timeout = 0, internalAuthTokenProvider} = options || productionOptions;
+  const {baseURL, baseURLOverride = {}, headers, timeout = 0, internalAuthTokenProvider, agents} = options || productionOptions;
 
   return {
     constants: require("./constants.js"),
-    _cleanClient: clientFactory({baseURL, headers, timeout}),
+    _cleanClient: clientFactory({baseURL, headers, timeout, agents}),
     inventory: {
-      ...createInventory({baseURL, headers, timeout, overrideFn: baseURLOverride.inventory, internalAuthTokenProvider}),
-      ...createTrips({baseURL, headers, timeout, overrideFn: baseURLOverride.trips, internalAuthTokenProvider})
+      ...createInventory({baseURL, headers, timeout, overrideFn: baseURLOverride.inventory, internalAuthTokenProvider, agents}),
+      ...createTrips({baseURL, headers, timeout, overrideFn: baseURLOverride.trips, internalAuthTokenProvider, agents})
     },
-    coltrane: createColtrane({baseURL, headers, timeout, overrideFn: baseURLOverride.coltrane, internalAuthTokenProvider}),
-    accounts: createAccounts({baseURL, headers, timeout, overrideFn: baseURLOverride.accounts, internalAuthTokenProvider}),
-    sales: createSales({baseURL, headers, timeout, overrideFn: baseURLOverride.sales, internalAuthTokenProvider}),
-    operations: createOperations({baseURL, headers, timeout, overrideFn: baseURLOverride.operations, internalAuthTokenProvider}),
-    reports: createReports({baseURL, headers, timeout, overrideFn: baseURLOverride.reports, internalAuthTokenProvider}),
-    notifications: createNotifications({baseURL, headers, timeout, overrideFn: baseURLOverride.notifications, internalAuthTokenProvider}),
-    uploads: createUploads({baseURL, headers, timeout, overrideFn: baseURLOverride.uploads, internalAuthTokenProvider}),
-    loyalty: createLoyalty({baseURL, headers, timeout, overrideFn: baseURLOverride.loyalty, internalAuthTokenProvider}),
-    webhooks: createWebhooks({baseURL, headers, timeout, overrideFn: baseURLOverride.webhooks, internalAuthTokenProvider}),
-    seatmaps: createSeatmaps({baseURL, headers, timeout, overrideFn: baseURLOverride.seatmaps, internalAuthTokenProvider}),
-    btrzpay: createBtrzPay({baseURL, headers, timeout, overrideFn: baseURLOverride.btrzpay, internalAuthTokenProvider}),
-    invoices: createInvoices({baseURL, headers, timeout, overrideFn: baseURLOverride.invoices, internalAuthTokenProvider})
+    coltrane: createColtrane({baseURL, headers, timeout, overrideFn: baseURLOverride.coltrane, internalAuthTokenProvider, agents}),
+    accounts: createAccounts({baseURL, headers, timeout, overrideFn: baseURLOverride.accounts, internalAuthTokenProvider, agents}),
+    sales: createSales({baseURL, headers, timeout, overrideFn: baseURLOverride.sales, internalAuthTokenProvider, agents}),
+    operations: createOperations({baseURL, headers, timeout, overrideFn: baseURLOverride.operations, internalAuthTokenProvider, agents}),
+    reports: createReports({baseURL, headers, timeout, overrideFn: baseURLOverride.reports, internalAuthTokenProvider, agents}),
+    // eslint-disable-next-line max-len
+    notifications: createNotifications({baseURL, headers, timeout, overrideFn: baseURLOverride.notifications, internalAuthTokenProvider, agents}),
+    uploads: createUploads({baseURL, headers, timeout, overrideFn: baseURLOverride.uploads, internalAuthTokenProvider, agents}),
+    loyalty: createLoyalty({baseURL, headers, timeout, overrideFn: baseURLOverride.loyalty, internalAuthTokenProvider, agents}),
+    webhooks: createWebhooks({baseURL, headers, timeout, overrideFn: baseURLOverride.webhooks, internalAuthTokenProvider, agents}),
+    seatmaps: createSeatmaps({baseURL, headers, timeout, overrideFn: baseURLOverride.seatmaps, internalAuthTokenProvider, agents}),
+    btrzpay: createBtrzPay({baseURL, headers, timeout, overrideFn: baseURLOverride.btrzpay, internalAuthTokenProvider, agents}),
+    invoices: createInvoices({baseURL, headers, timeout, overrideFn: baseURLOverride.invoices, internalAuthTokenProvider, agents})
   };
 }
 

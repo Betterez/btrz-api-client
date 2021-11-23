@@ -1,5 +1,7 @@
-const axios = require('axios');
-const MockAdapter = require('axios-mock-adapter');
+const axios = require("axios");
+const MockAdapter = require("axios-mock-adapter");
+const http = require("http");
+const {expect} = require("chai");
 
 module.exports = {
   axiosMock: new MockAdapter(axios),
@@ -21,6 +23,40 @@ module.exports = {
         return [statusCode];
       }
       return [403];
+    };
+  },
+  createTestServer: (config = {}, reqCallback = () => {}) => {
+    const sockets = new Set();
+    const mockServer = http.createServer((req, res) => {
+      reqCallback(req, res);
+      res.writeHead(200, {"Content-Type": "text/plain"});
+      res.end("OK");
+    });
+
+    mockServer.on("connection", (socket) => {
+      sockets.add(socket);
+      mockServer.once("close", () => {
+        sockets.delete(socket);
+      });
+      if (config.maxSockets) {
+        expect(sockets.size).to.be.lessThanOrEqual(config.maxSockets);
+      }
+    });
+
+    return {
+      create: (callback) => {
+        mockServer.listen(config.port || 8888, config.host || "localhost", callback);
+      },
+      getSockets: () => {
+        return sockets.size;
+      },
+      close: (callback) => {
+        for (const socket of sockets) {
+          socket.destroy();
+          sockets.delete(socket);
+        }
+        mockServer.close(callback);
+      }
     };
   }
 };
