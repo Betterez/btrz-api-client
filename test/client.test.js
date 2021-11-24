@@ -130,8 +130,6 @@ describe("client", () => {
           httpsAgent: new https.Agent({keepAlive: true})
         };
         const api = createApiClient({baseURL: "http://localhost:8888", timeout: 0, agents});
-        const mock = new MockAdapter(api._cleanClient);
-        mock.restore();
         const promises = new Array(100).fill().map((i) => {
           return api._cleanClient({url: `/test/${i}`, method: "get"});
         });
@@ -172,8 +170,6 @@ describe("client", () => {
           httpsAgent: new https.Agent({keepAlive: true})
         };
         const api = createApiClient({baseURL: "http://localhost:8888", timeout: 0, agents});
-        const mock = new MockAdapter(api._cleanClient);
-        mock.restore();
         const promises = new Array(100).fill().map(() => {
           return api.inventory.products.all({token: "I owe you a token"});
         });
@@ -207,8 +203,6 @@ describe("client", () => {
 
       it("should socket no more than 100 sockets to perform 100 concurrent requests", async () => {
         const api = createApiClient({baseURL: "http://localhost:8888", timeout: 0});
-        const mock = new MockAdapter(api._cleanClient);
-        mock.restore();
         const promises = new Array(100).fill().map((i) => {
           return api._cleanClient({url: `/test/${i}`, method: "get"});
         });
