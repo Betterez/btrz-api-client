@@ -125,11 +125,12 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
     docs: require("./endpoints/accounts/docs.js")({
       client
     }),
-    emailSettings: require("./endpoints/accounts/email-settings.js")({client, internalAuthTokenProvider}),
-    exchangeRates: require("./endpoints/accounts/exchange-rates.js")({client, internalAuthTokenProvider}),
-    interline: require("./endpoints/accounts/interline.js")({client, internalAuthTokenProvider}),
-    lexicons: require("./endpoints/accounts/lexicons.js")({client, internalAuthTokenProvider}),
-    printers: require("./endpoints/accounts/printers.js")({
+    domains: require("./endpoints/accounts/domains")({client, internalAuthTokenProvider}),
+    emailSettings: require("./endpoints/accounts/email-settings")({client, internalAuthTokenProvider}),
+    exchangeRates: require("./endpoints/accounts/exchange-rates")({client, internalAuthTokenProvider}),
+    interline: require("./endpoints/accounts/interline")({client, internalAuthTokenProvider}),
+    lexicons: require("./endpoints/accounts/lexicons")({client, internalAuthTokenProvider}),
+    printers: require("./endpoints/accounts/printers")({
       client, internalAuthTokenProvider
     }),
     printSettings: require("./endpoints/accounts/print-settings.js")({
