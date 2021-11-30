@@ -56,5 +56,59 @@ describe("endpoints helpers", () => {
         "x-api-key": token
       });
     });
+
+    describe("specifing new headers with an object", () => {
+      it("should not override the provided 'token' in the 'x-api-key' field when provided in the headers object", () => {
+        const token = "E7excc6eXRKarIONB2gA";
+        const newHeaders = {
+          "test-header": "123",
+          "x-api-key": "overwritten?"
+        };
+
+        const headers = authorizationHeaders({token, headers: newHeaders});
+
+        expect(headers).to.deep.equal({
+          "x-api-key": token,
+          "test-header": "123"
+        });
+      });
+
+      it("should add the arbitrary headers passed by argument", () => {
+        const newHeaders = {
+          "test-header": "123",
+          "x-amzn-trace-id": "25342352"
+        };
+
+        const headers = authorizationHeaders({headers: newHeaders});
+
+        expect(headers).to.deep.equal({
+          "test-header": "123",
+          "x-amzn-trace-id": "25342352"
+        });
+      });
+
+      it("should not add anything if headers is not an object", () => {
+        const token = "E7excc6eXRKarIONB2gA";
+        const headers = authorizationHeaders({token, headers: 123});
+
+        expect(headers).to.deep.equal({
+          "x-api-key": token
+        });
+      });
+
+      it("should ignore x-amzn-trace-id if empty", () => {
+        const newHeaders = {
+          "test-header": "123",
+          "x-amzn-trace-id": ""
+        };
+
+        const headers = authorizationHeaders({headers: newHeaders});
+
+        expect(headers).to.not.haveOwnProperty("x-amzn-trace-id");
+        expect(headers).to.deep.equal({
+          "test-header": "123"
+        });
+      });
+    });
   });
 });

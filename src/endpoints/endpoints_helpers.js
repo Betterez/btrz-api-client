@@ -1,12 +1,12 @@
 const constants = require("../constants");
 
 function authorizationHeaders({
-  token, jwtToken, internalAuthTokenProvider
+  token, jwtToken, internalAuthTokenProvider, headers
 }) {
-  const headers = {};
+  const _headers = {};
 
   if (token) {
-    headers["x-api-key"] = `${token}`;
+    _headers["x-api-key"] = `${token}`;
   }
 
   if (jwtToken && jwtToken === constants.INTERNAL_AUTH_TOKEN_SYMBOL) {
@@ -14,12 +14,31 @@ function authorizationHeaders({
       throw new Error("Tried to make an internal API request, but no 'internalAuthTokenProvider' with a 'getToken' function " +
         "was supplied to the API client");
     }
-    headers.authorization = `Bearer ${internalAuthTokenProvider.getToken()}`;
+    _headers.authorization = `Bearer ${internalAuthTokenProvider.getToken()}`;
   } else if (jwtToken) {
-    headers.authorization = `Bearer ${jwtToken}`;
+    _headers.authorization = `Bearer ${jwtToken}`;
   }
 
-  return headers;
+  try {
+    if (headers && typeof headers === "object" && !Array.isArray(headers)) {
+      Object.keys(headers).forEach((key) => {
+        if (_headers[key]) {
+          return;
+        }
+        if (key === "x-amzn-trace-id") {
+          if (headers[key]) {
+            _headers[key] = headers[key];
+          }
+        } else {
+          _headers[key] = headers[key];
+        }
+      });
+    }
+  } catch (e) {
+    console.log(e);
+  }
+
+  return _headers;
 }
 
 module.exports = {
