@@ -4,28 +4,28 @@ const {
 } = require("./../endpoints_helpers");
 
 function customersFactory({client, internalAuthTokenProvider}) {
-  function put({customerId, customer, token, jwtToken}) {
+  function put({customerId, customer, token, jwtToken, headers}) {
     return client({
       url: `/customers/${customerId}`,
       method: "put",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: customer
     });
   }
 
-  function all({token, jwtToken, query = {}}) {
+  function all({token, jwtToken, query = {}, headers}) {
     return client({
       url: "/customers",
       params: query,
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
-  function create({customer, token, jwtToken, query}) {
+  function create({customer, token, jwtToken, query, headers}) {
     return client({
       url: "/customer",
       method: "post",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: {customer},
       params: query,
     });
@@ -47,11 +47,11 @@ function customersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function signInCas({service, ticket, token}) {
+  function signInCas({service, ticket, token, headers}) {
     return client({
       url: "/customers/cas",
       headers: authorizationHeaders({
-        token, internalAuthTokenProvider
+        token, internalAuthTokenProvider, headers
       }),
       method: "post",
       data: {
@@ -61,12 +61,12 @@ function customersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function update({customerId, token, jwtToken, data, query}) {
+  function update({customerId, token, jwtToken, data, query, headers}) {
     return client({
       url: `/customers/${customerId}`,
       method: "patch",
       params: query,
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data
     });
   }

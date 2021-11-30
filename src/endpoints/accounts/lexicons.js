@@ -8,26 +8,28 @@ function lexiconsFactory({
   function all({
     token,
     context,
-    query = {}
+    query = {},
+    headers
   }) {
     const queryObj = Object.assign({}, query, {context});
 
     return client({
       url: "lexicons/buscompany",
       params: queryObj,
-      headers: authorizationHeaders({token, internalAuthTokenProvider})
+      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
     });
   }
 
   function create({
     token,
     jwtToken,
-    lexiconEntries
+    lexiconEntries,
+    headers
   }) {
     return client({
       url: "/lexicons",
       method: "post",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: {
         entries: lexiconEntries
       }
@@ -37,13 +39,14 @@ function lexiconsFactory({
   function createOrUpdateMany({
     token,
     jwtToken,
-    entries
+    entries,
+    headers
   }) {
     return client({
       url: "/lexicons",
       method: "put",
       headers: authorizationHeaders({
-        token, jwtToken, internalAuthTokenProvider
+        token, jwtToken, internalAuthTokenProvider, headers
       }),
       data: {
         entries
@@ -54,12 +57,13 @@ function lexiconsFactory({
   function updateMany({
     token,
     jwtToken,
-    updates
+    updates,
+    headers
   }) {
     return client({
       url: "/lexicons",
       method: "patch",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: {
         updates
       }
