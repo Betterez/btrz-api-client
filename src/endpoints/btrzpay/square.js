@@ -3,11 +3,11 @@ const {
 } = require("./../endpoints_helpers");
 
 function squareWebhooksFactory({client, internalAuthTokenProvider}) {
-  function create({token, jwtToken, data, providerId}) {
+  function create({token, jwtToken, data, providerId, headers}) {
     return client({
       url: `/square-webhooks/${providerId}`,
       method: "post",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data
     });
   }
@@ -18,11 +18,11 @@ function squareWebhooksFactory({client, internalAuthTokenProvider}) {
 }
 
 function squareTerminalsFactory({client, internalAuthTokenProvider}) {
-  function get({token, jwtToken}) {
+  function get({token, jwtToken, headers}) {
     return client.get("/square-terminals", {
       params: {},
       headers: authorizationHeaders({
-        token, jwtToken, internalAuthTokenProvider
+        token, jwtToken, internalAuthTokenProvider, headers
       })
     });
   }
