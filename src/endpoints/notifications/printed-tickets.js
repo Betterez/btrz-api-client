@@ -6,13 +6,13 @@ function printedTicketsFactory({
   client, internalAuthTokenProvider
 }) {
   function get({
-    token, jwtToken, responseType = "json", trxId, lang, date
+    token, jwtToken, responseType = "json", trxId, lang, date, headers
   }) {
     return client({
       url: "/printed-tickets",
       params: {trxId, lang, date},
       responseType,
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 

@@ -7,26 +7,28 @@ function manifestNotificationsFactory({
   internalAuthTokenProvider
 }) {
   function create({
-    token, jwtToken, query = {}, data
+    token, jwtToken, query = {}, data, headers
   }) {
     return client({
       url: "/manifest-notifications",
       method: "post",
       params: query,
       data,
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
   function all({
     token,
-    query = {}
+    query = {},
+    headers
   }) {
     return client.get("/manifest-notifications", {
       params: query,
       headers: authorizationHeaders({
         token,
-        internalAuthTokenProvider
+        internalAuthTokenProvider,
+        headers
       })
     });
   }

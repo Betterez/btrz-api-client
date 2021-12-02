@@ -7,24 +7,27 @@ function accountingItemsFactory({
 }) {
   function all({
     token,
-    query = {}
+    query = {},
+    headers
   }) {
     return client.get("/accounting-items", {
       params: query,
       headers: authorizationHeaders({
         token,
-        internalAuthTokenProvider
+        internalAuthTokenProvider,
+        headers
       })
     });
   }
 
   function get({
-    accountingItemId, token
+    accountingItemId, token, headers
   }) {
     return client.get(`/accounting-items/${accountingItemId}`, {
       headers: authorizationHeaders({
         token,
-        internalAuthTokenProvider
+        internalAuthTokenProvider,
+        headers
       })
     });
   }

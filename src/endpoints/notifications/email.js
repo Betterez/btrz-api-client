@@ -6,13 +6,13 @@ function emailFactory({
   client, internalAuthTokenProvider
 }) {
   function create({
-    token, jwtToken, query = {}
+    token, jwtToken, query = {}, headers
   }) {
     return client({
       url: "/email",
       method: "post",
       params: query,
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 

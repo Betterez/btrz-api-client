@@ -6,13 +6,13 @@ function customersFactory({
   client, internalAuthTokenProvider
 }) {
   function sendResetPasswordEmail({
-    token, jwtToken, query = {}
+    token, jwtToken, query = {}, headers
   }) {
     return client({
       url: "/customers/reset",
       method: "post",
       params: query,
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
