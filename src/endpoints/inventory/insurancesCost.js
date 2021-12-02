@@ -6,11 +6,11 @@ function insurancesCostFactory({
   client, internalAuthTokenProvider
 }) {
   function get({
-    token, productId, declaredValue, query = {}
+    token, productId, declaredValue, query = {}, headers
   }) {
     return client.get(`/insurances/${productId}/cost`, {
       params: Object.assign(query, {declaredValue}),
-      headers: authorizationHeaders({token, internalAuthTokenProvider})
+      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
     });
   }
 

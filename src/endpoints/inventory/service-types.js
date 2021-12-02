@@ -6,44 +6,45 @@ function serviceTypesFactory({client, internalAuthTokenProvider}) {
 
   function all({
     token,
-    query = {}
+    query = {},
+    headers
   }) {
     return client.get("/service-types", {
       params: query,
-      headers: authorizationHeaders({token, internalAuthTokenProvider})
+      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
     });
   }
 
-  function get({serviceTypeId, token}) {
+  function get({serviceTypeId, token, headers}) {
     return client.get(`/service-types/${serviceTypeId}`, {
-      headers: authorizationHeaders({token, internalAuthTokenProvider})
+      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
     });
   }
 
-  function create({jwtToken, token, serviceType}) {
+  function create({jwtToken, token, serviceType, headers}) {
     return client({
       url: "/service-types",
       method: "post",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: {
         serviceType
       }
     });
   }
 
-  function remove({ jwtToken, serviceTypeId, token }) {
+  function remove({ jwtToken, serviceTypeId, token, headers }) {
     return client({
       url: `/service-types/${serviceTypeId}`,
       method: "delete",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
-  function update({jwtToken, token, serviceTypeId, serviceType}) {
+  function update({jwtToken, token, serviceTypeId, serviceType, headers}) {
     return client({
       url: `/service-types/${serviceTypeId}`,
       method: "put",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: {
         serviceType
       }

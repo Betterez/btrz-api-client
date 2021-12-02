@@ -6,33 +6,33 @@ function insurancesFactory({
   client, internalAuthTokenProvider
 }) {
   function all({
-    token, query = {}
+    token, query = {}, headers
   }) {
     return client.get("/insurances", {
       params: query,
       headers: authorizationHeaders({
-        token, internalAuthTokenProvider
+        token, internalAuthTokenProvider, headers
       })
     });
   }
 
   function get({
-    token, insuranceId
+    token, insuranceId, headers
   }) {
     return client.get(`/insurances/${insuranceId}`, {
       headers: authorizationHeaders({
-        token, internalAuthTokenProvider
+        token, internalAuthTokenProvider, headers
       })
     });
   }
 
   function create({
-    token, insurance, jwtToken
+    token, insurance, jwtToken, headers
   }) {
     return client({
       url: "/insurances",
       method: "post",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: {
         insurance
       }
@@ -40,12 +40,12 @@ function insurancesFactory({
   }
 
   function update({
-    token, insurance, jwtToken, insuranceId
+    token, insurance, jwtToken, insuranceId, headers
   }) {
     return client({
       url: `/insurances/${insuranceId}`,
       method: "put",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: {
         insurance
       }
@@ -53,13 +53,13 @@ function insurancesFactory({
   }
 
   function remove({
-    token, jwtToken, insuranceId
+    token, jwtToken, insuranceId, headers
   }) {
     return client({
       url: `/insurances/${insuranceId}`,
       method: "delete",
       headers: authorizationHeaders({
-        token, jwtToken, internalAuthTokenProvider
+        token, jwtToken, internalAuthTokenProvider, headers
       })
     });
   }

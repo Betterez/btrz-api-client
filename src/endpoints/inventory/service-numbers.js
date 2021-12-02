@@ -7,22 +7,22 @@ function serviceNumbersFactory({
   internalAuthTokenProvider
 }) {
   function all({
-    token, jwtToken, query = {}
+    token, jwtToken, query = {}, headers
   }) {
     return client({
       url: "/service-numbers",
       params: query,
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
     });
   }
 
   function create({
-    token, jwtToken, serviceNumber
+    token, jwtToken, serviceNumber, headers
   }) {
     return client({
       url: "/service-numbers",
       method: "post",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: {
         serviceNumber
       }
@@ -30,23 +30,23 @@ function serviceNumbersFactory({
   }
 
   function update({
-    jwtToken, token, serviceNumberId, serviceNumber
+    jwtToken, token, serviceNumberId, serviceNumber, headers
   }) {
     return client({
       url: `/service-numbers/${serviceNumberId}`,
       method: "put",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: {
         serviceNumber
       }
     });
   }
 
-  function get({token, serviceNumberId, jwtToken}) {
+  function get({token, serviceNumberId, jwtToken, headers}) {
     return client({
       url: `/service-numbers/${serviceNumberId}`,
       method: "get",
-      headers: authorizationHeaders({token, internalAuthTokenProvider, jwtToken}),
+      headers: authorizationHeaders({token, internalAuthTokenProvider, jwtToken, headers}),
     });
   }
 

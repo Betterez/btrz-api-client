@@ -1,45 +1,45 @@
 const {authorizationHeaders} = require("./../endpoints_helpers");
 
 function travellerCardTypesFactory({client, internalAuthTokenProvider}) {
-  function all({token, jwtToken, query = {}}) {
+  function all({token, jwtToken, query = {}, headers}) {
     return client({
       url: "/traveller-card-types",
       params: query,
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
-  function create({token, jwtToken, travellerCardType}) {
+  function create({token, jwtToken, travellerCardType, headers}) {
     return client({
       url: "/traveller-card-types",
       method: "post",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: {travellerCardType}
     });
   }
 
-  function update({jwtToken, token, travellerCardTypeId, travellerCardType}) {
+  function update({jwtToken, token, travellerCardTypeId, travellerCardType, headers}) {
     return client({
       url: `/traveller-card-types/${travellerCardTypeId}`,
       method: "put",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: {travellerCardType}
     });
   }
 
-  function get({token, travellerCardTypeId, jwtToken}) {
+  function get({token, travellerCardTypeId, jwtToken, headers}) {
     return client({
       url: `/traveller-card-types/${travellerCardTypeId}`,
       method: "get",
-      headers: authorizationHeaders({token, internalAuthTokenProvider, jwtToken})
+      headers: authorizationHeaders({token, internalAuthTokenProvider, jwtToken, headers})
     });
   }
 
-  function remove({token, travellerCardTypeId, jwtToken}) {
+  function remove({token, travellerCardTypeId, jwtToken, headers}) {
     return client({
       url: `/traveller-card-types/${travellerCardTypeId}`,
       method: "delete",
-      headers: authorizationHeaders({token, internalAuthTokenProvider, jwtToken})
+      headers: authorizationHeaders({token, internalAuthTokenProvider, jwtToken, headers})
     });
   }
 
