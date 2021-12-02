@@ -7,24 +7,27 @@ function loansFactory({
 }) {
   function all({
     token,
-    query = {}
+    query = {},
+    headers
   }) {
     return client.get("/loans", {
       params: query,
       headers: authorizationHeaders({
         token,
-        internalAuthTokenProvider
+        internalAuthTokenProvider,
+        headers
       })
     });
   }
 
   function get({
-    loanId, token
+    loanId, token, headers
   }) {
     return client.get(`/loans/${loanId}`, {
       headers: authorizationHeaders({
         token,
-        internalAuthTokenProvider
+        internalAuthTokenProvider,
+        headers
       })
     });
   }
