@@ -1,7 +1,10 @@
-const { authorizationHeaders } = require("./../endpoints_helpers");
+const {
+  authorizationHeaders
+} = require("./../endpoints_helpers.js");
 
-function manifestFactory({ client, internalAuthTokenProvider }) {
-
+function manifestFactory({
+  client, internalAuthTokenProvider
+}) {
   function get({token, jwtToken, query = {}, headers}) {
     return client({
       url: "/manifests",
@@ -11,11 +14,15 @@ function manifestFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  function getById({ token, jwtToken, manifestId, headers }) {
+  function getById({
+    token, jwtToken, manifestId, headers
+  }) {
     return client({
       url: `/manifests/${manifestId}`,
       method: "get",
-      headers: authorizationHeaders({ token, jwtToken, internalAuthTokenProvider, headers })
+      headers: authorizationHeaders({
+        token, jwtToken, internalAuthTokenProvider, headers
+      })
     });
   }
 
@@ -30,28 +37,38 @@ function manifestFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  function outlook({ token, jwtToken, query = {}, headers }) {
+  function outlook({
+    token, jwtToken, query = {}, headers
+  }) {
     return client({
       url: "/outlook-manifests",
       method: "get",
       params: query,
-      headers: authorizationHeaders({ token, jwtToken, internalAuthTokenProvider, headers })
+      headers: authorizationHeaders({
+        token, jwtToken, internalAuthTokenProvider, headers
+      })
     });
   }
 
-  function patch({ token, jwtToken, query = {}, operations, headers }) {
+  function patch({
+    token, jwtToken, query = {}, operations, headers
+  }) {
     return client({
       url: "/manifests",
       method: "patch",
       params: query,
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
-      data: { operations }
+      data: {
+        operations
+      }
     });
   }
 
-  function save({ token, jwtToken, providerId, data, headers }) {
+  function save({
+    token, jwtToken, providerId, data, headers
+  }) {
     return client({
-      url: `/manifests`,
+      url: "/manifests",
       method: "put",
       params: {providerId, manifestId: data.manifestId},
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
@@ -59,21 +76,43 @@ function manifestFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  function addUser({ token, jwtToken, manifestId, query = {}, data, headers }) {  
+  function addUser({
+    token, jwtToken, manifestId, query = {}, data, headers
+  }) {
     return client({
       url: `/manifests/${manifestId}/users`,
       method: "post",
-      headers: authorizationHeaders({ token, jwtToken, internalAuthTokenProvider, headers }),
+      headers: authorizationHeaders({
+        token, jwtToken, internalAuthTokenProvider, headers
+      }),
       params: query,
       data
     });
   }
 
-  function removeUser({ token, jwtToken, manifestId, userId, headers }) {
+  function removeUser({
+    token, jwtToken, manifestId, userId, headers
+  }) {
     return client({
       url: `/manifests/${manifestId}/users/${userId}`,
       method: "delete",
-      headers: authorizationHeaders({ token, jwtToken, internalAuthTokenProvider, headers })
+      headers: authorizationHeaders({
+        token, jwtToken, internalAuthTokenProvider, headers
+      })
+    });
+  }
+
+  function updateComment({
+    token, jwtToken, manifestId, query = {}, data, headers
+  }) {
+    return client({
+      url: `/manifests/${manifestId}/comments`,
+      method: "put",
+      headers: authorizationHeaders({
+        token, jwtToken, internalAuthTokenProvider, headers
+      }),
+      params: query,
+      data
     });
   }
 
@@ -85,7 +124,8 @@ function manifestFactory({ client, internalAuthTokenProvider }) {
     patch,
     save,
     addUser,
-    removeUser
+    removeUser,
+    updateComment
   };
 }
 

@@ -1,11 +1,15 @@
 const {expect} = require("chai");
-const { axiosMock, expectRequest } = require("./../../test-helpers"),
-  api = require("./../../../src/client").createApiClient({ baseURL: "http://test.com" });
+const {
+  axiosMock, expectRequest
+} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({
+  baseURL: "http://test.com"
+});
 
 describe("operations/manifest", () => {
-  const token = "I owe you a token",
-    jwtToken = "I owe you a JWT token",
-    providerId = "providerId";
+  const token = "I owe you a token";
+  const jwtToken = "I owe you a JWT token";
+  const providerId = "providerId";
 
   afterEach(() => {
     axiosMock.reset();
@@ -18,14 +22,22 @@ describe("operations/manifest", () => {
       scheduleId: "abc",
       date: "2017-10-10"
     };
-    axiosMock.onGet("/manifests").reply(expectRequest({ statusCode: 200, token }));
-    return api.operations.manifest.get({ token, jwtToken, query });
+    axiosMock.onGet("/manifests").reply(expectRequest({
+      statusCode: 200, token
+    }));
+    return api.operations.manifest.get({
+      token, jwtToken, query
+    });
   });
 
   it("should get a manifest by manifestId", () => {
     const manifestId = "manifestId";
-    axiosMock.onGet(`/manifests/${manifestId}`).reply(expectRequest({ statusCode: 200, token }));
-    return api.operations.manifest.getById({ token, jwtToken, manifestId });
+    axiosMock.onGet(`/manifests/${manifestId}`).reply(expectRequest({
+      statusCode: 200, token
+    }));
+    return api.operations.manifest.getById({
+      token, jwtToken, manifestId
+    });
   });
 
   it("should get many manifests", () => {
@@ -46,13 +58,21 @@ describe("operations/manifest", () => {
       productId: "productId",
       date: "2018-01-01"
     };
-    axiosMock.onGet("/outlook-manifests").reply(expectRequest({ statusCode: 200, token, jwtToken }));
-    return api.operations.manifest.outlook({ token, jwtToken, query });
+    axiosMock.onGet("/outlook-manifests").reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.operations.manifest.outlook({
+      token, jwtToken, query
+    });
   });
 
   it("should patch a manifest", () => {
-    axiosMock.onPatch("/manifests").reply(expectRequest({ statusCode: 200, token, jwtToken }));
-    return api.operations.manifest.patch({ token, jwtToken, query: {providerId}, operations: {op: "add_tickets", tickets: []} });
+    axiosMock.onPatch("/manifests").reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.operations.manifest.patch({
+      token, jwtToken, query: {providerId}, operations: {op: "add_tickets", tickets: []}
+    });
   });
 
   it("should save a manifest", () => {
@@ -61,8 +81,33 @@ describe("operations/manifest", () => {
       comments: "This is a comment!",
       capacity: 22
     };
-    axiosMock.onPut("/manifests").reply(expectRequest({ statusCode: 200, token, jwtToken }));
-    return api.operations.manifest.save({ token, jwtToken, providerId, data });
+    axiosMock.onPut("/manifests").reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.operations.manifest.save({
+      token, jwtToken, providerId, data
+    });
+  });
+
+  it("should add comment to the manifest", async () => {
+    const manifestId = "theId";
+    const data = {
+      comment: {
+        test: "The comment"
+      }
+    };
+
+    // optional query
+    const query = {
+      accountId: providerId,
+      routeId: "2349283409238429348",
+      scheduleId: "abc",
+      date: "2017-10-10"
+    };
+    axiosMock.onPut(`/manifests/${manifestId}/comments`).reply(expectRequest({statusCode: 201, token, jwtToken}));
+    const call = await api.operations.manifest.updateComment({token, jwtToken, manifestId, data, query});
+    expect(call.config.params).to.be.eql(query);
+    return call;
   });
 
   it("should add user to the manifest", async () => {
@@ -90,7 +135,11 @@ describe("operations/manifest", () => {
     const manifestId = "theId";
     const userId = "theUserId";
 
-    axiosMock.onDelete(`/manifests/${manifestId}/users/${userId}`).reply(expectRequest({ statusCode: 201, token, jwtToken }));
-    return api.operations.manifest.removeUser({ token, jwtToken, manifestId, userId });
+    axiosMock.onDelete(`/manifests/${manifestId}/users/${userId}`).reply(expectRequest({
+      statusCode: 201, token, jwtToken
+    }));
+    return api.operations.manifest.removeUser({
+      token, jwtToken, manifestId, userId
+    });
   });
 });
