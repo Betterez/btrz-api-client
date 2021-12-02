@@ -2,7 +2,7 @@ const { authorizationHeaders } = require("./../endpoints_helpers");
 
 function cartFactory({ client, internalAuthTokenProvider }) {
 
-  function get({ token, id, providerId }) {
+  function get({ token, id, providerId, headers }) {
     let url = `/cart/${id}`;
 
     if(providerId) {
@@ -11,53 +11,53 @@ function cartFactory({ client, internalAuthTokenProvider }) {
 
     return client({
       url,
-      headers: authorizationHeaders({token, internalAuthTokenProvider})
+      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
     });
   }
 
-  function create({ token, cart, jwtToken }) {
+  function create({ token, cart, jwtToken, headers }) {
     return client({ 
       url: "/cart",
       method: "post",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: cart
     });
   }
 
-  function add({ token, cartId, cart, jwtToken }) {
+  function add({ token, cartId, cart, jwtToken, headers }) {
     return client({ 
       url: `/cart/${cartId}/items`,
       method: "post",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: cart
     });
   }
 
-  function deleteItems({ token, cartId, params, jwtToken }) {
+  function deleteItems({ token, cartId, params, jwtToken, headers }) {
     return client({ 
       url: `/cart/${cartId}/items`,
       method: "delete",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       params
     });
   }
 
   const loyaltyPointsAmount = {
-    get({ token, jwtToken, cartId, query = {} }) {
+    get({ token, jwtToken, cartId, query = {}, headers }) {
       return client({
         url: `/carts/${cartId}/loyalty-points-amount`,
         params: query,
-        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
       });
     }
   };
 
 
-  function patch({ token, jwtToken, cartId, data }) {
+  function patch({ token, jwtToken, cartId, data, headers }) {
     return client({
       url: `/cart/${cartId}`,
       method: "patch",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data
     });
   }

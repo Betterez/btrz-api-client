@@ -5,11 +5,11 @@ const {
 function giftCertificatesFactory({
   client, internalAuthTokenProvider
 }) {
-  function get({token, GCNumber, query = {}}) {
+  function get({token, GCNumber, query = {}, headers}) {
     return client({
       url: `/gift-certificates/${GCNumber}`,
       params: query,
-      headers: authorizationHeaders({token, internalAuthTokenProvider})
+      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
     });
   }
 

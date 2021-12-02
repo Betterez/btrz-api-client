@@ -6,12 +6,12 @@ function voucherFactory({
   client, internalAuthTokenProvider
 }) {
   function get({
-    token, voucher
+    token, voucher, headers
   }) {
     return client({
       // eslint-disable-next-line max-len
       url: `/vouchers/${voucher.number}?cartId=${voucher.cartId}&firstName=${voucher.firstName}&lastName=${voucher.lastName}&displayCurrencyCode=${voucher.displayCurrencyCode || ""}`,
-      headers: authorizationHeaders({token, internalAuthTokenProvider})
+      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
     });
   }
 
