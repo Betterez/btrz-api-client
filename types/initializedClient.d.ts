@@ -1597,6 +1597,21 @@ declare const _exports: {
                 data: any;
                 headers: any;
             }) => any;
+            addCapacityException: ({ token, jwtToken, manifestId, query, data, headers }: {
+                token: any;
+                jwtToken: any;
+                manifestId: any;
+                query?: {};
+                data: any;
+                headers: any;
+            }) => any;
+            removeCapacityException: ({ token, jwtToken, manifestId, exceptionId, headers }: {
+                token: any;
+                jwtToken: any;
+                manifestId: any;
+                exceptionId: any;
+                headers: any;
+            }) => any;
         };
         calendarEntries: {
             all: ({ token, query, headers }: {
