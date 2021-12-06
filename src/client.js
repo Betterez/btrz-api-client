@@ -333,7 +333,6 @@ function createGPS({baseURL, headers, timeout, overrideFn, internalAuthTokenProv
  *                                              returns an authorization token that's valid for making service-to-service API calls.
  * @param {Function} options.internalAuthTokenProvider.getToken
  * @param {{httpAgent: import("http").Agent, httpsAgent: import("https").Agent}} options.agents - An object containg one or both http agents
- * @returns {Object} An object with a client for every "module" (needed to override baseURL)
  */
 function createApiClient(options) {
   const {baseURL, baseURLOverride = {}, headers, timeout = 0, internalAuthTokenProvider, agents} = options || productionOptions;
