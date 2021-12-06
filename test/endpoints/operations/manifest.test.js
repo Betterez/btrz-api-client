@@ -110,6 +110,41 @@ describe("operations/manifest", () => {
     return call;
   });
 
+  it("should add capacity exception to the manifest", async () => {
+    const manifestId = "theId";
+    const data = {
+      capacityException: {
+        fromId: "fromId",
+        toId: "toId",
+        capacity: 22
+      }
+    };
+
+    // optional query
+    const query = {
+      accountId: providerId,
+      routeId: "2349283409238429348",
+      scheduleId: "abc",
+      date: "2017-10-10"
+    };
+    axiosMock.onPost(`/manifests/${manifestId}/capacity-exceptions`).reply(expectRequest({statusCode: 201, token, jwtToken}));
+    const call = await api.operations.manifest.addCapacityException({token, jwtToken, manifestId, data, query});
+    expect(call.config.params).to.be.eql(query);
+    return call;
+  });
+
+  it("should add capacity exception to the manifest", async () => {
+    const manifestId = "theId";
+    const exceptionId = "exceptionId";
+
+    axiosMock.onDelete(`/manifests/${manifestId}/capacity-exceptions/${exceptionId}`).reply(expectRequest({
+      statusCode: 201, token, jwtToken
+    }));
+    return api.operations.manifest.removeCapacityException({
+      token, jwtToken, manifestId, exceptionId
+    });
+  });
+
   it("should add user to the manifest", async () => {
     const manifestId = "theId";
     const data = {

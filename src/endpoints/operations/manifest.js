@@ -102,6 +102,33 @@ function manifestFactory({
     });
   }
 
+  function addCapacityException({
+    token, jwtToken, manifestId, query = {}, data, headers
+  }) {
+    return client({
+      url: `/manifests/${manifestId}/capacity-exceptions`,
+      method: "post",
+      headers: authorizationHeaders({
+        token, jwtToken, internalAuthTokenProvider, headers
+      }),
+      params: query,
+      data
+    });
+  }
+
+
+  function removeCapacityException({
+    token, jwtToken, manifestId, exceptionId, headers
+  }) {
+    return client({
+      url: `/manifests/${manifestId}/capacity-exceptions/${exceptionId}`,
+      method: "delete",
+      headers: authorizationHeaders({
+        token, jwtToken, internalAuthTokenProvider, headers
+      })
+    });
+  }
+
   function updateComment({
     token, jwtToken, manifestId, query = {}, data, headers
   }) {
@@ -125,7 +152,9 @@ function manifestFactory({
     save,
     addUser,
     removeUser,
-    updateComment
+    updateComment,
+    addCapacityException,
+    removeCapacityException
   };
 }
 
