@@ -12,7 +12,7 @@
     "pretranspile": "rm -rf lib/",
     "types": "npx -p typescript tsc src/**.js --declaration --allowJs --emitDeclarationOnly --outDir types",
     "transpile": "babel --presets es2015 -d lib/ src/",
-    "preversion": "npm test && npm run transpile && npm run browserify && npm run commit-transpile",
+    "preversion": "npm test && npm run transpile && npm run browserify && npm run types && npm run commit-transpile",
     "postversion": "git push origin master && git push --tags",
     "version": "git tag $1"
   },
