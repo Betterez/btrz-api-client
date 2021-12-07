@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 const { authorizationHeaders } = require("./../endpoints_helpers");
 
 function paymentMethodsFactory({ client, internalAuthTokenProvider }) {
@@ -49,13 +50,23 @@ function paymentMethodsFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function createDefaultPaymentMethods({token, jwtToken, accountId}) {
+    return client({
+      url: "/default-payment-methods",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      data: {accountId}
+    });
+  }
+
   return {
     all,
     getByProviderName,
     create,
     get,
     setToAgency,
-    update
+    update,
+    createDefaultPaymentMethods
   };
 }
 

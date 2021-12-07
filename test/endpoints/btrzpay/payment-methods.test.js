@@ -80,4 +80,19 @@ describe("btrzpay/payment-methods", () => {
       paymentMethodNames: ["cash", "ivr"]
     });
   });
+
+  it("should return the default payment methods", () => {
+    const data = [];
+    axiosMock.onPost("/default-payment-methods").reply(expectRequest({
+      statusCode: 200,
+      token,
+      jwtToken,
+      data
+    }));
+
+    return api.btrzpay.paymentMethods.createDefaultPaymentMethods({
+      jwtToken,
+      token
+    });
+  });
 });
