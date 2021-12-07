@@ -2113,6 +2113,11 @@ export function createApiClient(options: {
                 paymentMethod: any;
                 headers: any;
             }) => any;
+            createDefaultPaymentMethods: ({ token, jwtToken, accountId }: {
+                token: any;
+                jwtToken: any;
+                accountId: any;
+            }) => any;
         };
         referenceNumbers: {
             create: ({ token, jwtToken, referenceNumberRequest, headers }: {

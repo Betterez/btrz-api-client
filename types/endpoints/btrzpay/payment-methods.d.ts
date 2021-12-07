@@ -42,4 +42,9 @@ declare function paymentMethodsFactory({ client, internalAuthTokenProvider }: {
         paymentMethod: any;
         headers: any;
     }) => any;
+    createDefaultPaymentMethods: ({ token, jwtToken, accountId }: {
+        token: any;
+        jwtToken: any;
+        accountId: any;
+    }) => any;
 };
