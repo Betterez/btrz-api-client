@@ -2118,6 +2118,11 @@ export function createApiClient(options: {
                 jwtToken: any;
                 accountId: any;
             }) => any;
+            deleteCustomersCreditCardInfo: ({ token, jwtToken, paymentMethodId }: {
+                token: any;
+                jwtToken: any;
+                paymentMethodId: any;
+            }) => any;
         };
         referenceNumbers: {
             create: ({ token, jwtToken, referenceNumberRequest, headers }: {

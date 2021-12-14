@@ -47,4 +47,9 @@ declare function paymentMethodsFactory({ client, internalAuthTokenProvider }: {
         jwtToken: any;
         accountId: any;
     }) => any;
+    deleteCustomersCreditCardInfo: ({ token, jwtToken, paymentMethodId }: {
+        token: any;
+        jwtToken: any;
+        paymentMethodId: any;
+    }) => any;
 };
