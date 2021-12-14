@@ -95,4 +95,19 @@ describe("btrzpay/payment-methods", () => {
       token
     });
   });
+
+  it("should delete all the customers and cards asocciated with a payment method ", () => {
+    const paymentMethodId = "c7fe2c51-178b-4ae3-bbe8-0c606f3e0117";
+    axiosMock.onDelete(`/payment-methods/${paymentMethodId}/customers`).reply(expectRequest({
+      statusCode: 202,
+      token,
+      jwtToken
+    }));
+
+    return api.btrzpay.paymentMethods.deleteCustomersCreditCardInfo({
+      jwtToken,
+      token,
+      paymentMethodId
+    });
+  });
 });
