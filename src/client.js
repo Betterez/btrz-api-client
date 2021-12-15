@@ -137,6 +137,9 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
     printSettings: require("./endpoints/accounts/print-settings.js")({
       client, internalAuthTokenProvider
     }),
+    printTemplates: require("./endpoints/accounts/print-templates.js")({
+      client, internalAuthTokenProvider
+    }),
     shifts: require("./endpoints/accounts/shifts.js")({client, internalAuthTokenProvider}),
     travellers: require("./endpoints/accounts/travellers.js")({
       client, internalAuthTokenProvider
