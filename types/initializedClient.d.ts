@@ -1855,6 +1855,14 @@ declare const _exports: {
                 headers: any;
             }) => any;
         };
+        pdfData: {
+            get: ({ token, query, itemId, headers }: {
+                token: any;
+                query?: {};
+                itemId: any;
+                headers: any;
+            }) => any;
+        };
         email: {
             create: ({ token, jwtToken, query, headers }: {
                 token: any;
