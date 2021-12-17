@@ -220,6 +220,7 @@ function createNotifications({baseURL, headers, timeout, overrideFn, internalAut
   return {
     manifestNotifications: require("./endpoints/notifications/manifest-notifications.js")({client, internalAuthTokenProvider}),
     printedTickets: require("./endpoints/notifications/printed-tickets.js")({client, internalAuthTokenProvider}),
+    pdfData: require("./endpoints/notifications/pdf-data.js")({client, internalAuthTokenProvider}),
     email: require("./endpoints/notifications/email.js")({client, internalAuthTokenProvider}),
     customers: require("./endpoints/notifications/customers.js")({client, internalAuthTokenProvider}),
     __test: {
