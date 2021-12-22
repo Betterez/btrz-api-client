@@ -17,9 +17,18 @@ function productsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function deleteProductsDomain({token, jwtToken, domain}) {
+    return client({
+      url: `/products/domains/${domain}`,
+      method: "delete",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+    });
+  }
+
   return {
     all,
-    get
+    get,
+    deleteProductsDomain
   };
 }
 

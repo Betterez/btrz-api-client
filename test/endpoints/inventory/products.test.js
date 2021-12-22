@@ -24,4 +24,19 @@ describe('inventory/products', function() {
     return api.inventory.products.get({ token, productId: 1, jwtToken });
   });
 
+  it("should delete domain for all products from account", () => {
+    const domain = "domain1";
+    axiosMock.onDelete(`/products/domains/${domain}`).reply(expectRequest({
+      statusCode: 200,
+      token,
+      jwtToken
+    }));
+
+    return api.inventory.products.deleteProductsDomain({
+      jwtToken,
+      token,
+      domain
+    });
+  });
+
 });

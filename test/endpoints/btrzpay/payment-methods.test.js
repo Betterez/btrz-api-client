@@ -110,4 +110,19 @@ describe("btrzpay/payment-methods", () => {
       paymentMethodId
     });
   });
+
+  it("should delete domain for all payments methods from account", () => {
+    const domain = "domain1";
+    axiosMock.onDelete(`/payment-methods/domains/${domain}`).reply(expectRequest({
+      statusCode: 200,
+      token,
+      jwtToken
+    }));
+
+    return api.btrzpay.paymentMethods.deletePaymentMethodsDomain({
+      jwtToken,
+      token,
+      domain
+    });
+  });
 });

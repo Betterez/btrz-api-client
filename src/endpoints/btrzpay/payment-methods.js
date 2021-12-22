@@ -67,6 +67,14 @@ function paymentMethodsFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function deletePaymentMethodsDomain({token, jwtToken, domain}) {
+    return client({
+      url: `/payment-methods/domains/${domain}`,
+      method: "delete",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
+    });
+  }
+
   return {
     all,
     getByProviderName,
@@ -75,7 +83,8 @@ function paymentMethodsFactory({ client, internalAuthTokenProvider }) {
     setToAgency,
     update,
     createDefaultPaymentMethods,
-    deleteCustomersCreditCardInfo
+    deleteCustomersCreditCardInfo,
+    deletePaymentMethodsDomain
   };
 }
 
