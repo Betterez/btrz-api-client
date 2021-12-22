@@ -36,6 +36,11 @@ declare const _exports: {
                 query?: {};
                 headers: any;
             }) => any;
+            deleteProductsDomain: ({ token, jwtToken, domain }: {
+                token: any;
+                jwtToken: any;
+                domain: any;
+            }) => any;
         };
         insurances: {
             all: ({ token, query, headers }: {
@@ -2116,6 +2121,11 @@ declare const _exports: {
                 token: any;
                 jwtToken: any;
                 paymentMethodId: any;
+            }) => any;
+            deletePaymentMethodsDomain: ({ token, jwtToken, domain }: {
+                token: any;
+                jwtToken: any;
+                domain: any;
             }) => any;
         };
         referenceNumbers: {

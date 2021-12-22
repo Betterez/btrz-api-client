@@ -52,4 +52,9 @@ declare function paymentMethodsFactory({ client, internalAuthTokenProvider }: {
         jwtToken: any;
         paymentMethodId: any;
     }) => any;
+    deletePaymentMethodsDomain: ({ token, jwtToken, domain }: {
+        token: any;
+        jwtToken: any;
+        domain: any;
+    }) => any;
 };
