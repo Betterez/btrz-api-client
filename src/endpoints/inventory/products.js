@@ -17,18 +17,31 @@ function productsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function deleteProductsDomain({token, jwtToken, domain}) {
-    return client({
-      url: `/products/domains/${domain}`,
-      method: "delete",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
-    });
-  }
+  const domains = {
+    remove: ({token, jwtToken, domain, headers}) =>{
+      return client({
+        url: `/products/domains/${domain}`,
+        method: "delete",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+
+  const families = {
+    all: ({token, query = {}, headers}) => {
+      return client({
+        url: "/products/families",
+        params: query,
+        headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+      });
+    }
+  };
 
   return {
     all,
     get,
-    deleteProductsDomain
+    families,
+    domains
   };
 }
 

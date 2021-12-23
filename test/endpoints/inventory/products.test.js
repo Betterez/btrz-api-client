@@ -24,6 +24,11 @@ describe('inventory/products', function() {
     return api.inventory.products.get({ token, productId: 1, jwtToken });
   });
 
+  it("should get the product families", () => {
+    axiosMock.onGet(`/products/families`).reply(expectRequest({ statusCode: 200, token }));
+    return api.inventory.products.families.all({ token });
+  });
+
   it("should delete domain for all products from account", () => {
     const domain = "domain1";
     axiosMock.onDelete(`/products/domains/${domain}`).reply(expectRequest({
@@ -32,7 +37,7 @@ describe('inventory/products', function() {
       jwtToken
     }));
 
-    return api.inventory.products.deleteProductsDomain({
+    return api.inventory.products.domains.remove({
       jwtToken,
       token,
       domain
