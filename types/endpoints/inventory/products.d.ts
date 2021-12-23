@@ -15,9 +15,19 @@ declare function productsFactory({ client, internalAuthTokenProvider }: {
         query?: {};
         headers: any;
     }) => any;
-    deleteProductsDomain: ({ token, jwtToken, domain }: {
-        token: any;
-        jwtToken: any;
-        domain: any;
-    }) => any;
+    families: {
+        all: ({ token, query, headers }: {
+            token: any;
+            query?: {};
+            headers: any;
+        }) => any;
+    };
+    domains: {
+        remove: ({ token, jwtToken, domain, headers }: {
+            token: any;
+            jwtToken: any;
+            domain: any;
+            headers: any;
+        }) => any;
+    };
 };
