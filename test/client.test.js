@@ -30,14 +30,14 @@ describe("client", () => {
   });
 
   it("should create a client that uses the provided default request headers when making a request to any subsystem", () => {
-    const api = createApiClient({headers: {"x-test-header": "some_value"}});
+    const api = createApiClient({headers: {"x-amzn-trace-id": "some_value"}});
 
     const ignoredApiProperties = ["constants", "_cleanClient"];
     function propertyIsRelevant(property) {
       return !ignoredApiProperties.includes(property);
     }
     for (const subsystem of Object.keys(api).filter(propertyIsRelevant)) {
-      expect(api[subsystem].__test.client.defaults.headers).to.include({"x-test-header": "some_value"});
+      expect(api[subsystem].__test.client.defaults.headers).to.include({"x-amzn-trace-id": "some_value"});
     }
   });
 

@@ -21,9 +21,11 @@ function clientFactory(opts) {
     timeout,
     headers: {
       "Accept": "application/json",
-      ...headers
     }
   };
+  if (headers && headers["x-amzn-trace-id"]) {
+    options.headers["x-amzn-trace-id"] = headers["x-amzn-trace-id"];
+  }
 
   if (agents && (agents.httpAgent || agents.httpsAgent)) {
     options = {
