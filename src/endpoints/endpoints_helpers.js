@@ -29,8 +29,6 @@ function authorizationHeaders({
           if (headers[key]) {
             _headers[key] = headers[key];
           }
-        } else {
-          _headers[key] = headers[key];
         }
       });
     }

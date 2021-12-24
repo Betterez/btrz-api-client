@@ -68,12 +68,11 @@ describe("endpoints helpers", () => {
         const headers = authorizationHeaders({token, headers: newHeaders});
 
         expect(headers).to.deep.equal({
-          "x-api-key": token,
-          "test-header": "123"
+          "x-api-key": token
         });
       });
 
-      it("should add the arbitrary headers passed by argument", () => {
+      it("should add the x-amzn-trace-id passed by argument", () => {
         const newHeaders = {
           "test-header": "123",
           "x-amzn-trace-id": "25342352"
@@ -82,7 +81,6 @@ describe("endpoints helpers", () => {
         const headers = authorizationHeaders({headers: newHeaders});
 
         expect(headers).to.deep.equal({
-          "test-header": "123",
           "x-amzn-trace-id": "25342352"
         });
       });
@@ -105,9 +103,7 @@ describe("endpoints helpers", () => {
         const headers = authorizationHeaders({headers: newHeaders});
 
         expect(headers).to.not.haveOwnProperty("x-amzn-trace-id");
-        expect(headers).to.deep.equal({
-          "test-header": "123"
-        });
+        expect(headers).to.deep.equal({});
       });
     });
   });
