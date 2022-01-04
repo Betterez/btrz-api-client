@@ -20,6 +20,12 @@ describe("webhooks/undelivered", () => {
     return api.webhooks.undelivered.getById({ token, id });
   });
 
+  it("should delete an undelivered by id", function () {
+    const id = "undeliveredId";
+    axiosMock.onDelete(`/undelivered/${id}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    return api.webhooks.undelivered.deleteById({ token, jwtToken, id });
+  });
+
   it("should patch an undelivered", function() {
     axiosMock.onPatch("/undelivered").reply(expectRequest({ statusCode: 200, token, jwtToken }));
     return api.webhooks.undelivered.patch({ jwtToken, token, operation: {} });

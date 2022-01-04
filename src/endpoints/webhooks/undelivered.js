@@ -45,12 +45,21 @@ function undeliveredFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function deleteById({ token, jwtToken, id, headers }) {
+    return client({
+      url: `/undelivered/${id}`,
+      method: "delete",
+      headers: authorizationHeaders({ token, jwtToken, internalAuthTokenProvider, headers }),
+    });
+  }
+
   return {
     all,
     getById,
     patch,
     resend,
-    resendAll
+    resendAll,
+    deleteById
   };
 
 }
