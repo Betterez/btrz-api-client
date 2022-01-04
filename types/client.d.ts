@@ -2173,6 +2173,12 @@ export function createApiClient(options: {
                 jwtToken: any;
                 headers: any;
             }) => any;
+            deleteById: ({ token, jwtToken, id, headers }: {
+                token: any;
+                jwtToken: any;
+                id: any;
+                headers: any;
+            }) => any;
         };
         webhooks: {
             emit: ({ token, jwtToken, webhook, headers }: {

@@ -33,4 +33,10 @@ declare function undeliveredFactory({ client, internalAuthTokenProvider }: {
         jwtToken: any;
         headers: any;
     }) => any;
+    deleteById: ({ token, jwtToken, id, headers }: {
+        token: any;
+        jwtToken: any;
+        id: any;
+        headers: any;
+    }) => any;
 };
