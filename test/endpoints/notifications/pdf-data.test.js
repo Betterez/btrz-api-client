@@ -68,6 +68,19 @@ describe("notifications/pdf-data", () => {
       token, query, itemId});
   });
 
+  it("should return the proper data for an order", () => {
+    const itemId = "12345";
+    const query = {
+      type: "order"
+    }
+    axiosMock.onGet(`/pdf-orders/${itemId}`)
+      .reply(expectRequest({
+        statusCode: 200, token
+      }));
+    return api.notifications.pdfData.get({
+      token, query, itemId});
+  });
+
   it("should return the proper data for a ssr", () => {
     const itemId = "12345";
     const query = {

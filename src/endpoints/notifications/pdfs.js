@@ -52,6 +52,9 @@ function pdfFactory({
     if (query.type === "manifest") {
       url = `/pdf-manifests/${itemId}`;
     }
+    if (query.type === "order") {
+      url = `/pdf-orders/${itemId}`;
+    }
     if (query.type === "shift") {
       url = `/pdf-shifts/${itemId}`;
     }
