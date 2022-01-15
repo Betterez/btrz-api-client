@@ -29,7 +29,7 @@ function printSettingsFactory({client, internalAuthTokenProvider}) {
       data: {
         printTemplate
       },
-      query
+      params: query
     });
   }
 
