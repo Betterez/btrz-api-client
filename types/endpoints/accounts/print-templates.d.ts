@@ -14,12 +14,13 @@ declare function printSettingsFactory({ client, internalAuthTokenProvider }: {
         headers: any;
         printTemplateId: any;
     }) => any;
-    update: ({ jwtToken, token, printTemplateId, printTemplate, headers }: {
+    update: ({ jwtToken, token, printTemplateId, printTemplate, headers, query }: {
         jwtToken: any;
         token: any;
         printTemplateId: any;
         printTemplate: any;
         headers: any;
+        query: any;
     }) => any;
     create: ({ jwtToken, token, printTemplate, headers }: {
         jwtToken: any;

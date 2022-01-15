@@ -14,18 +14,4 @@ declare function printSettingsFactory({ client, internalAuthTokenProvider }: {
         printSettings: any;
         headers: any;
     }) => any;
-    productTemplates: {
-        create({ jwtToken, token, productTemplate, headers }: {
-            jwtToken: any;
-            token: any;
-            productTemplate: any;
-            headers: any;
-        }): any;
-        remove({ productTemplateId, token, jwtToken, headers }: {
-            productTemplateId: any;
-            token: any;
-            jwtToken: any;
-            headers: any;
-        }): any;
-    };
 };

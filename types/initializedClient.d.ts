@@ -1263,20 +1263,6 @@ declare const _exports: {
                 printSettings: any;
                 headers: any;
             }) => any;
-            productTemplates: {
-                create({ jwtToken, token, productTemplate, headers }: {
-                    jwtToken: any;
-                    token: any;
-                    productTemplate: any;
-                    headers: any;
-                }): any;
-                remove({ productTemplateId, token, jwtToken, headers }: {
-                    productTemplateId: any;
-                    token: any;
-                    jwtToken: any;
-                    headers: any;
-                }): any;
-            };
         };
         printTemplates: {
             all: ({ token, query, headers }: {
@@ -1290,12 +1276,13 @@ declare const _exports: {
                 headers: any;
                 printTemplateId: any;
             }) => any;
-            update: ({ jwtToken, token, printTemplateId, printTemplate, headers }: {
+            update: ({ jwtToken, token, printTemplateId, printTemplate, headers, query }: {
                 jwtToken: any;
                 token: any;
                 printTemplateId: any;
                 printTemplate: any;
                 headers: any;
+                query: any;
             }) => any;
             create: ({ jwtToken, token, printTemplate, headers }: {
                 jwtToken: any;
