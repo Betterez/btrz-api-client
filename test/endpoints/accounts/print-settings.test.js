@@ -32,33 +32,4 @@ describe("accounts/accounts/print-settings", () => {
       token, jwtToken, printSettings
     });
   });
-
-  it("should create a productTemplate", () => {
-    const productTemplate = {
-      name: "A"
-    };
-
-    axiosMock.onPost("/print-settings/product-templates")
-      .reply(expectRequest({
-        statusCode: 200,
-        token,
-        jwtToken
-      }));
-    return api.accounts.printSettings.productTemplates.create({
-      token, jwtToken, productTemplate
-    });
-  });
-
-  it("should delete the productTemplate by id", () => {
-    const productTemplateId = "A";
-    axiosMock.onDelete(`/print-settings/product-templates/${productTemplateId}`)
-      .reply(expectRequest({
-        statusCode: 200,
-        token,
-        jwtToken
-      }));
-    return api.accounts.printSettings.productTemplates.remove({
-      token, jwtToken, productTemplateId
-    });
-  });
 });

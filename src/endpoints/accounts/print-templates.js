@@ -19,7 +19,7 @@ function printSettingsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function update({jwtToken, token, printTemplateId, printTemplate, headers}) {
+  function update({jwtToken, token, printTemplateId, printTemplate, headers, query}) {
     return client({
       url: `/print-templates/${printTemplateId}`,
       method: "put",
@@ -28,7 +28,8 @@ function printSettingsFactory({client, internalAuthTokenProvider}) {
       }),
       data: {
         printTemplate
-      }
+      },
+      query
     });
   }
 
