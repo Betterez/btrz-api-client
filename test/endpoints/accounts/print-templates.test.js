@@ -29,6 +29,10 @@ describe("accounts/accounts/print-templates", () => {
     const printTemplate = {
       name: "A"
     };
+    const query = {
+      superUserId: "superUserId",
+      superUserHash: "superUserHash"
+    };
     const printTemplateId = "A";
     axiosMock.onPut(`/print-templates/${printTemplateId}`)
       .reply(expectRequest({
@@ -37,7 +41,26 @@ describe("accounts/accounts/print-templates", () => {
         jwtToken
       }));
     return api.accounts.printTemplates.update({
-      token, jwtToken, printTemplate, printTemplateId
+      token, jwtToken, printTemplate, printTemplateId, query
+    });
+  });
+
+
+  it("should update a print template version", () => {
+    const query = {
+      superUserId: "superUserId",
+      superUserHash: "superUserHash"
+    };
+    const printTemplateId = "A";
+    const versionId = "2";
+    axiosMock.onPut(`/print-templates/${printTemplateId}/versions/${versionId}`)
+      .reply(expectRequest({
+        statusCode: 200,
+        token,
+        jwtToken
+      }));
+    return api.accounts.printTemplates.versions.update({
+      token, jwtToken, query, versionId, printTemplateId, query
     });
   });
 

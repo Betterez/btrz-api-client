@@ -56,12 +56,26 @@ function printSettingsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  const versions = {
+    update({printTemplateId, token, jwtToken, headers, query, versionId}) {
+      return client({
+        url: "/print-templates/" + printTemplateId + "/versions/" + versionId,
+        method: "put",
+        headers: authorizationHeaders({
+          token: token, jwtToken: jwtToken, internalAuthTokenProvider: internalAuthTokenProvider, headers: headers
+        }),
+        params: query
+      });
+    }
+  };
+
   return {
     all,
     get,
     update,
     create,
-    remove
+    remove,
+    versions
   };
 }
 
