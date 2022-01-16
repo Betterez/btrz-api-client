@@ -34,4 +34,14 @@ declare function printSettingsFactory({ client, internalAuthTokenProvider }: {
         jwtToken: any;
         headers: any;
     }) => any;
+    versions: {
+        update({ printTemplateId, token, jwtToken, headers, query, versionId }: {
+            printTemplateId: any;
+            token: any;
+            jwtToken: any;
+            headers: any;
+            query: any;
+            versionId: any;
+        }): any;
+    };
 };
