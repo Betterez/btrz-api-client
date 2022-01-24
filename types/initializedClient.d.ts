@@ -1730,6 +1730,17 @@ declare const _exports: {
                 exceptionId: any;
                 headers: any;
             }) => any;
+            checkIn: {
+                create({ token, jwtToken, query, headers, data, manifestId, legFromId }: {
+                    token: any;
+                    jwtToken: any;
+                    query?: {};
+                    headers: any;
+                    data: any;
+                    manifestId: any;
+                    legFromId: any;
+                }): any;
+            };
         };
         calendarEntries: {
             all: ({ token, query, headers }: {
