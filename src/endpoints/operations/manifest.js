@@ -143,6 +143,20 @@ function manifestFactory({
     });
   }
 
+  const checkIn = {
+    create({token, jwtToken, query = {}, headers, data, manifestId, legFromId}) {
+      return client({
+        url: `/manifests/${manifestId}/checkin/${legFromId}`,
+        method: "post",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        }),
+        params: query,
+        data
+      });
+    }
+  };
+
   return {
     get,
     getAll,
@@ -154,7 +168,8 @@ function manifestFactory({
     removeUser,
     updateComment,
     addCapacityException,
-    removeCapacityException
+    removeCapacityException,
+    checkIn
   };
 }
 
