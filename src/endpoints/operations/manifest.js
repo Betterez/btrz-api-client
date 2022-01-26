@@ -154,6 +154,36 @@ function manifestFactory({
         params: query,
         data
       });
+    },
+    open({token, jwtToken, query = {}, headers, manifestId, legFromId}) {
+      return client({
+        url: `/manifests/${manifestId}/checkin/${legFromId}`,
+        method: "patch",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        }),
+        params: query,
+        data: {
+          operation: {
+            name: "open_check_in"
+          }
+        }
+      });
+    },
+    close({token, jwtToken, query = {}, headers, manifestId, legFromId}) {
+      return client({
+        url: `/manifests/${manifestId}/checkin/${legFromId}`,
+        method: "patch",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        }),
+        params: query,
+        data: {
+          operation: {
+            name: "close_check_in"
+          }
+        }
+      });
     }
   };
 
