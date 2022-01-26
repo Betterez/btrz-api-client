@@ -1786,6 +1786,22 @@ export function createApiClient(options: {
                     manifestId: any;
                     legFromId: any;
                 }): any;
+                open({ token, jwtToken, query, headers, manifestId, legFromId }: {
+                    token: any;
+                    jwtToken: any;
+                    query?: {};
+                    headers: any;
+                    manifestId: any;
+                    legFromId: any;
+                }): any;
+                close({ token, jwtToken, query, headers, manifestId, legFromId }: {
+                    token: any;
+                    jwtToken: any;
+                    query?: {};
+                    headers: any;
+                    manifestId: any;
+                    legFromId: any;
+                }): any;
             };
         };
         calendarEntries: {
