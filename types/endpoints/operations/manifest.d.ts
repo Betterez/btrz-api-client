@@ -107,4 +107,27 @@ declare function manifestFactory({ client, internalAuthTokenProvider }: {
             legFromId: any;
         }): any;
     };
+    legs: {
+        update({ token, jwtToken, data, query, headers, manifestId, legFromId }: {
+            token: any;
+            jwtToken: any;
+            data: any;
+            query?: {};
+            headers: any;
+            manifestId: any;
+            legFromId: any;
+        }): any;
+        tickets: {
+            update({ token, jwtToken, data, query, headers, manifestId, legFromId, ticketId }: {
+                token: any;
+                jwtToken: any;
+                data: any;
+                query?: {};
+                headers: any;
+                manifestId: any;
+                legFromId: any;
+                ticketId: any;
+            }): any;
+        };
+    };
 };
