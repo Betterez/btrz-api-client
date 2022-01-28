@@ -187,6 +187,29 @@ function manifestFactory({
     }
   };
 
+  const legs = {
+    update({token, jwtToken, data, query = {}, headers, manifestId, legFromId}) {
+      return client({
+        url: `/manifests/${manifestId}/legs/${legFromId}`,
+        method: "put",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        params: query,
+        data
+      });
+    },
+    tickets: {
+      update({token, jwtToken, data, query = {}, headers, manifestId, legFromId, ticketId}) {
+        return client({
+          url: `/manifests/${manifestId}/legs/${legFromId}/tickets/${ticketId}`,
+          method: "put",
+          headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+          params: query,
+          data
+        });
+      }
+    }
+  }
+
   return {
     get,
     getAll,
@@ -199,7 +222,8 @@ function manifestFactory({
     updateComment,
     addCapacityException,
     removeCapacityException,
-    checkIn
+    checkIn,
+    legs
   };
 }
 
