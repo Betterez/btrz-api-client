@@ -1968,6 +1968,15 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        manifestLegForTickets: {
+            get: ({ token, jwtToken, ticketId, params, headers }: {
+                token: any;
+                jwtToken: any;
+                ticketId: any;
+                params: any;
+                headers: any;
+            }) => any;
+        };
         __test: {
             client: axios.AxiosInstance;
         };
