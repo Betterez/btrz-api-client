@@ -200,6 +200,7 @@ function createOperations({baseURL, headers, timeout, overrideFn, internalAuthTo
     waitlists: require("./endpoints/operations/waitlists.js")({client, internalAuthTokenProvider}),
     accountingItems: require("./endpoints/operations/accounting_items.js")({client, internalAuthTokenProvider}),
     outlookTrips: require("./endpoints/operations/outlook-trips.js")({client, internalAuthTokenProvider}),
+    manifestLegForTickets: require("./endpoints/operations/manifest_leg_for_tickets.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
