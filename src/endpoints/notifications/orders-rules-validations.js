@@ -13,7 +13,9 @@ function ordersRulesValidations({
       url: "/orders-rules-validations",
       method: "post",
       params: query,
-      orderRulesValidation,
+      data: {
+        orderRulesValidation
+      },
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
