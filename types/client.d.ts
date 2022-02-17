@@ -2069,6 +2069,15 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        ordersRulesValidations: {
+            create: ({ token, jwtToken, query, orderRulesValidation, headers }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                orderRulesValidation: any;
+                headers: any;
+            }) => any;
+        };
         __test: {
             client: axios.AxiosInstance;
         };
