@@ -22,4 +22,17 @@ declare function journeyPricesFactory({ client, internalAuthTokenProvider }: {
         query?: {};
         headers: any;
     }) => any;
+    create: ({ token, jwtToken, journeyPrice, headers }: {
+        token: any;
+        jwtToken: any;
+        journeyPrice: any;
+        headers: any;
+    }) => any;
+    update: ({ token, jwtToken, journeyPriceId, journeyPrice, headers }: {
+        token: any;
+        jwtToken: any;
+        journeyPriceId: any;
+        journeyPrice: any;
+        headers: any;
+    }) => any;
 };
