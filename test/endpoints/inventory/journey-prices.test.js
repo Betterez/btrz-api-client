@@ -39,4 +39,35 @@ describe('inventory/journey-prices', () => {
       id
     });
   });
+
+
+  it("should create a Journey Pricing rule", () => {
+    axiosMock.onPost(`/journey-prices`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    return api.inventory.journeyPrices.create({
+      jwtToken,
+      token,
+      journeyPrice: {
+        price: '75000000',
+        originId: '112312-123123-121321-13123',
+        destinationId: '112312-123123-121321-13123'
+
+      }
+    });
+  });
+
+  it("should update a Journey Pricing rule", () => {
+    const journeyPriceId = "5ad7804216b426412c19f06f";
+    axiosMock.onPatch(`/journey-prices/${journeyPriceId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+
+    return api.inventory.journeyPrices.update({
+      jwtToken,
+      token,
+      journeyPriceId,
+      "journeyPrice": {
+        "price": "englishName",
+      }
+    });
+  });
+
+
 });

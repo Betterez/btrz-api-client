@@ -27,10 +27,30 @@ function journeyPricesFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function create({ token, jwtToken, journeyPrice, headers }) {
+    return client({
+      url: "/journey-prices",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data: { journeyPrice }
+    });
+  }
+
+  function update({ token, jwtToken, journeyPriceId, journeyPrice, headers }) {
+    return client({
+      url: `/journey-prices/${journeyPriceId}`,
+      method: "patch",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data: { journeyPrice }
+    });
+  }  
+
   return {
     all,
     deleteById,
-    get
+    get,
+    create,
+    update
   };
 }
 
