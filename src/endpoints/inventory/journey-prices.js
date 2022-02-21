@@ -41,7 +41,7 @@ function journeyPricesFactory({ client, internalAuthTokenProvider }) {
       url: `/journey-prices/${journeyPriceId}`,
       method: "patch",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
-      data: { journeyPrice }
+      data: { update: journeyPrice }
     });
   }  
 
