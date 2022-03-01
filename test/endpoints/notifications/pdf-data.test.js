@@ -207,10 +207,22 @@ describe("notifications/pdf-data", () => {
   it("should return the proper data for a gift-certificates", () => {
     const itemId = "12345";
     const query = {
-      type: "product",
-      family: "gift certificate"
+      type: "giftCertificate",
     }
     axiosMock.onGet(`/pdf-gift-certificates/${itemId}`)
+      .reply(expectRequest({
+        statusCode: 200, token
+      }));
+    return api.notifications.pdfData.get({
+      token, query, itemId});
+  });
+
+  it("should return the proper data for a voucher", () => {
+    const itemId = "12345";
+    const query = {
+      type: "voucher",
+    }
+    axiosMock.onGet(`/pdf-vouchers/${itemId}`)
       .reply(expectRequest({
         statusCode: 200, token
       }));

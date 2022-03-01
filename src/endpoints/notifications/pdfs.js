@@ -21,9 +21,6 @@ function pdfFactory({
         case "reservation":
           url = `/pdf-reservations/${itemId}`;
           break;
-        case "gift certificate":
-          url = `/pdf-gift-certificates/${itemId}`;
-          break;
         case "paid in":
           url = `/pdf-paid-ins/${itemId}`;
           break;
@@ -42,6 +39,15 @@ function pdfFactory({
         default:
           break;
       }
+    }
+    if (query.type === "giftCertificate") {
+      url = `/pdf-gift-certificates/${itemId}`;
+    }
+    if (query.type === "voucher") {
+      url = `/pdf-vouchers/${itemId}`;
+    }
+    if (query.type === "transaction") {
+      url = `/pdf-transactions/${itemId}`;
     }
     if (query.type === "transaction") {
       url = `/pdf-transactions/${itemId}`;
