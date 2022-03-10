@@ -22,7 +22,7 @@
     "url": "git+https://github.com/Betterez/btrz-api-client.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Betterez/btrz-api-client/issues"
   },
