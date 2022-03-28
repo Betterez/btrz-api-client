@@ -1303,6 +1303,16 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        network: {
+            agencies: {
+                all({ token, jwtToken, query, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    query?: {};
+                    headers: any;
+                }): any;
+            };
+        };
         printers: {
             all: ({ token, query, headers }: {
                 token: any;
