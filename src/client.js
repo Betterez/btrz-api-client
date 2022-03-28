@@ -135,6 +135,7 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
     exchangeRates: require("./endpoints/accounts/exchange-rates")({client, internalAuthTokenProvider}),
     interline: require("./endpoints/accounts/interline")({client, internalAuthTokenProvider}),
     lexicons: require("./endpoints/accounts/lexicons")({client, internalAuthTokenProvider}),
+    network: require("./endpoints/accounts/network")({ client, internalAuthTokenProvider }),
     printers: require("./endpoints/accounts/printers")({
       client, internalAuthTokenProvider
     }),
