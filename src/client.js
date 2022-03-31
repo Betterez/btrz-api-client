@@ -292,6 +292,7 @@ function createBtrzPay({baseURL, headers, timeout, overrideFn, internalAuthToken
 
   return {
     docs: require("./endpoints/btrzpay/docs.js")({client}),
+    cardpointeTerminals: require("./endpoints/btrzpay/cardpointe.js").cardpointeTerminalsFactory({client, internalAuthTokenProvider}),
     paymentMethods: require("./endpoints/btrzpay/payment-methods.js")({client, internalAuthTokenProvider}),
     referenceNumbers: require("./endpoints/btrzpay/reference-numbers.js")({client, internalAuthTokenProvider}),
     payments: require("./endpoints/btrzpay/payments.js")({client, internalAuthTokenProvider}),
