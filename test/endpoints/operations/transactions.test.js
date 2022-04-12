@@ -87,6 +87,15 @@ describe("operations/transactions", function () {
       });
   });
 
+  it("should return an object with arrays of cancellable items on a given transaction", function () {
+    const transactionId = "transactionId2";
+    axiosMock.onGet(`/transactions/${transactionId}/cancellable-items`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.operations.transactions.cancellableItems({jwtToken, token, transactionId})
+      .then((response) => {
+        expect(response.status).to.equals(200);
+      });
+  });
+
 
   it("should update transaction payments", function () {
     const transactionId = "transactionId2";

@@ -57,6 +57,13 @@ function transactionsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function cancellableItems({token, jwtToken, transactionId, headers}) {
+    return client({
+      url: `/transactions/${transactionId}/cancellable-items`,
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+    });
+  }
+
   const payments = {
     update({token, jwtToken, trxId, paymentResult, headers}) {
       return client({
@@ -79,6 +86,7 @@ function transactionsFactory({client, internalAuthTokenProvider}) {
     appliedInsurance,
     companionTickets,
     expireAll,
+    cancellableItems,
     payments
   };
 }
