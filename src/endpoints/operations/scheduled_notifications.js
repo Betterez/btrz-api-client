@@ -17,11 +17,11 @@ function scheduledNotificationsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function update({ token, jwtToken, id, data, headers }) {
+  function update({ token, jwtToken, id, data, headers, query }) {
     return client({
       url: `/scheduled-notifications/${id}`,
       method: "put",
-      params: data,
+      params: query,
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data
     });
