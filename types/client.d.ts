@@ -1931,12 +1931,13 @@ export function createApiClient(options: {
                 id: any;
                 headers: any;
             }) => any;
-            update: ({ token, jwtToken, id, data, headers }: {
+            update: ({ token, jwtToken, id, data, headers, query }: {
                 token: any;
                 jwtToken: any;
                 id: any;
                 data: any;
                 headers: any;
+                query: any;
             }) => any;
             remove: ({ token, jwtToken, id, headers }: {
                 token: any;
