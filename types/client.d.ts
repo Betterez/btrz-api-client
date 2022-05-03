@@ -1445,6 +1445,21 @@ export function createApiClient(options: {
         __test: {
             client: axios.AxiosInstance;
         };
+        websalesConfig: {
+            get: ({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            update: ({ token, jwtToken, websalesConfigId, websalesConfig, headers }: {
+                token: any;
+                jwtToken: any;
+                websalesConfigId: any;
+                websalesConfig: any;
+                headers: any;
+            }) => any;
+        };
     };
     sales: {
         docs: {
