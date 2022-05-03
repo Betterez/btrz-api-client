@@ -153,7 +153,8 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
     users: require("./endpoints/accounts/users.js")({client, internalAuthTokenProvider}),
     __test: {
       client
-    }
+    },
+    websalesConfig: require("./endpoints/accounts/websales-config.js")({client, internalAuthTokenProvider}),
   };
 }
 
