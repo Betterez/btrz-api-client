@@ -1311,6 +1311,26 @@ export function createApiClient(options: {
                     query?: {};
                     headers: any;
                 }): any;
+                get({ token, query, headers, sellerId }: {
+                    token: any;
+                    query: any;
+                    headers: any;
+                    sellerId: any;
+                }): any;
+                update({ jwtToken, token, sellerId, agency, headers, query }: {
+                    jwtToken: any;
+                    token: any;
+                    sellerId: any;
+                    agency: any;
+                    headers: any;
+                    query: any;
+                }): any;
+                create({ jwtToken, token, agency, headers }: {
+                    jwtToken: any;
+                    token: any;
+                    agency: any;
+                    headers: any;
+                }): any;
             };
         };
         printers: {
