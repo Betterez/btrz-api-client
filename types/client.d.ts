@@ -1627,6 +1627,15 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        checkInInfo: {
+            get: ({ token, jwtToken, id, headers, query }: {
+                token: any;
+                jwtToken: any;
+                id: any;
+                headers: any;
+                query?: {};
+            }) => any;
+        };
         __test: {
             client: axios.AxiosInstance;
         };
