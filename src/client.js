@@ -174,6 +174,7 @@ function createSales({baseURL, headers, timeout, overrideFn, internalAuthTokenPr
     redeemableItems: require("./endpoints/sales/redeemable-items.js")({client, internalAuthTokenProvider}),
     flexpasses: require("./endpoints/sales/flexpasses.js")({client, internalAuthTokenProvider}),
     syncEntry: require("./endpoints/sales/sync-entry.js")({client, internalAuthTokenProvider}),
+    checkInInfo: require("./endpoints/sales/check-in-info.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
