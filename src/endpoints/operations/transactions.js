@@ -57,9 +57,12 @@ function transactionsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function cancellableItems({token, jwtToken, transactionId, headers}) {
+  function cancellableItems({token, jwtToken, transactionId, headers, displayAll}) {
     return client({
       url: `/transactions/${transactionId}/cancellable-items`,
+      params: {
+        displayAll: displayAll ? true : false
+      },
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
