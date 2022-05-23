@@ -1687,11 +1687,12 @@ declare const _exports: {
                 token: any;
                 headers: any;
             }) => any;
-            cancellableItems: ({ token, jwtToken, transactionId, headers }: {
+            cancellableItems: ({ token, jwtToken, transactionId, headers, displayAll }: {
                 token: any;
                 jwtToken: any;
                 transactionId: any;
                 headers: any;
+                displayAll: any;
             }) => any;
             payments: {
                 update({ token, jwtToken, trxId, paymentResult, headers }: {
