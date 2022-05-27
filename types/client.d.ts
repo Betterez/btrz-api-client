@@ -286,6 +286,25 @@ export function createApiClient(options: {
                 query?: {};
                 headers: any;
             }) => any;
+            get: ({ token, jwtToken, feeId, headers }: {
+                token: any;
+                jwtToken: any;
+                feeId: any;
+                headers: any;
+            }) => any;
+            create: ({ token, jwtToken, fee, headers }: {
+                token: any;
+                jwtToken: any;
+                fee: any;
+                headers: any;
+            }) => any;
+            update: ({ token, jwtToken, feeId, fee, headers }: {
+                token: any;
+                jwtToken: any;
+                feeId: any;
+                fee: any;
+                headers: any;
+            }) => any;
         };
         items: {
             all: ({ token, query, headers }: {
