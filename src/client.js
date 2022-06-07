@@ -175,6 +175,7 @@ function createSales({baseURL, headers, timeout, overrideFn, internalAuthTokenPr
     flexpasses: require("./endpoints/sales/flexpasses.js")({client, internalAuthTokenProvider}),
     syncEntry: require("./endpoints/sales/sync-entry.js")({client, internalAuthTokenProvider}),
     checkInInfo: require("./endpoints/sales/check-in-info.js")({client, internalAuthTokenProvider}),
+    cancellations: require("./endpoints/sales/cancellations.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
