@@ -1609,6 +1609,24 @@ declare const _exports: {
                 query?: {};
             }) => any;
         };
+        cancellations: {
+            sets: {
+                create: ({ token, jwtToken, cancelData, headers }: {
+                    token: string;
+                    jwtToken: string;
+                    cancelData: import("./endpoints/sales/cancellations.js").CancelSetData;
+                    headers: any;
+                }) => Promise<any>;
+            };
+            refunds: {
+                create: ({ token, jwtToken, cancelSet, headers }: {
+                    token: string;
+                    jwtToken: string;
+                    cancelSet: any;
+                    headers: any;
+                }) => Promise<any>;
+            };
+        };
         __test: {
             client: import("axios").AxiosInstance;
         };
