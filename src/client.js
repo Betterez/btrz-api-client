@@ -320,6 +320,7 @@ function createInvoices({baseURL, headers, timeout, overrideFn, internalAuthToke
     pdfs: require("./endpoints/invoices/pdfs.js")({client, internalAuthTokenProvider}),
     emails: require("./endpoints/invoices/emails.js")({client, internalAuthTokenProvider}),
     taxIds: require("./endpoints/invoices/tax-ids.js")({client, internalAuthTokenProvider}),
+    invoices: require("./endpoints/invoices/invoices.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
