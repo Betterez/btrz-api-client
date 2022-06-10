@@ -2630,6 +2630,14 @@ declare const _exports: {
                 headers: any;
             }) => any;
         };
+        invoices: {
+            all: ({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                headers: any;
+            }) => any;
+        };
         __test: {
             client: import("axios").AxiosInstance;
         };
