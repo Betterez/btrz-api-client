@@ -82,6 +82,18 @@ function transactionsFactory({client, internalAuthTokenProvider}) {
     }
   };
 
+  const invoices = {
+    create({token, jwtToken, transactionId, query, invoice, headers}) {
+      return client({
+        url: `/transactions/${transactionId}/invoices`,
+        method: "post",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        params: query,
+        data: invoice
+      });
+    }
+  };
+
   return {
     all,
     get,
@@ -90,7 +102,8 @@ function transactionsFactory({client, internalAuthTokenProvider}) {
     companionTickets,
     expireAll,
     cancellableItems,
-    payments
+    payments,
+    invoices
   };
 }
 

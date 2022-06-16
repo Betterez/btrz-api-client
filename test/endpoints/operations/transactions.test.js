@@ -123,4 +123,20 @@ describe("operations/transactions", function () {
       jwtToken: "internal_auth_token"
     });
   });
+
+
+  it("should add transaction invoice informations", function () {
+    const transactionId = "transactionId2";
+    const invoice = {
+      invoiceId: "invoice-1",
+      externalInvoiceId: "external-invoice-1"
+    };
+    axiosMock.onPost(`/transactions/${transactionId}/invoices`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.operations.transactions.invoices.create({
+      jwtToken, token, transactionId, invoice
+    })
+      .then((response) => {
+        expect(response.status).to.equals(200);
+      });
+  });
 });
