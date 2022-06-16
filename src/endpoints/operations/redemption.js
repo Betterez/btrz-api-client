@@ -19,9 +19,19 @@ function redemptionFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function unredeem({token, jwtToken, data, headers}) {
+    return client({
+      url: "/unredeem",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data
+    });
+  }
+
   return {
     create,
-    getValidate
+    getValidate,
+    unredeem
   };
 }
 

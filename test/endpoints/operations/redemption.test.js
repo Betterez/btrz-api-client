@@ -35,4 +35,11 @@ describe("operations/redemptions", () => {
     axiosMock.onGet(`/redemptions/validate/${passId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.operations.redemption.getValidate({jwtToken, token, passId, timezone});
   });
+  it("should unredeem a ticket", () => {
+    const unredeemData = {
+      "ticketId": "62a0dfb205a95168ddba5364"
+    };
+    axiosMock.onPost("/unredeem").reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.operations.redemption.unredeem({jwtToken, token, unredeemData});
+  });
 });
