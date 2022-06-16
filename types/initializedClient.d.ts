@@ -1923,6 +1923,12 @@ declare const _exports: {
                 timezone: any;
                 headers: any;
             }) => any;
+            unredeem: ({ token, jwtToken, data, headers }: {
+                token: any;
+                jwtToken: any;
+                data: any;
+                headers: any;
+            }) => any;
         };
         tripChangeInfo: {
             get: ({ token, jwtToken, productId, params, headers }: {

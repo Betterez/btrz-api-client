@@ -16,4 +16,10 @@ declare function redemptionFactory({ client, internalAuthTokenProvider }: {
         timezone: any;
         headers: any;
     }) => any;
+    unredeem: ({ token, jwtToken, data, headers }: {
+        token: any;
+        jwtToken: any;
+        data: any;
+        headers: any;
+    }) => any;
 };
