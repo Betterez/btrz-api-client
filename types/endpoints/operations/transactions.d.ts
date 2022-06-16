@@ -59,4 +59,14 @@ declare function transactionsFactory({ client, internalAuthTokenProvider }: {
             headers: any;
         }): any;
     };
+    invoices: {
+        create({ token, jwtToken, transactionId, query, invoice, headers }: {
+            token: any;
+            jwtToken: any;
+            transactionId: any;
+            query: any;
+            invoice: any;
+            headers: any;
+        }): any;
+    };
 };

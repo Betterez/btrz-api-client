@@ -1740,6 +1740,16 @@ declare const _exports: {
                     headers: any;
                 }): any;
             };
+            invoices: {
+                create({ token, jwtToken, transactionId, query, invoice, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    transactionId: any;
+                    query: any;
+                    invoice: any;
+                    headers: any;
+                }): any;
+            };
         };
         tickets: {
             get: ({ token, jwtToken, id, headers }: {
