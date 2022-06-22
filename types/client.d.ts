@@ -2700,6 +2700,13 @@ export function createApiClient(options: {
                 query?: {};
                 headers: any;
             }) => any;
+            get: ({ token, jwtToken, id, query, headers }: {
+                token: any;
+                jwtToken: any;
+                id: any;
+                query?: {};
+                headers: any;
+            }) => any;
         };
         __test: {
             client: axios.AxiosInstance;
