@@ -14,6 +14,18 @@ describe("invoices/providers", () => {
     return api.invoices.providers.all({token, jwtToken});
   });
 
+
+  it("should return a single provider", () => {
+    const id = "12312312312312";
+    axiosMock.onGet(`/providers/${id}`)
+      .reply(expectRequest({
+        statusCode: 200, 
+        token, 
+        jwtToken
+      }));
+    return api.invoices.providers.get({token, jwtToken, query: {}, id});
+  });
+
   it("should create a provider", () => {
     axiosMock.onPost("/providers").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.invoices.providers.create({

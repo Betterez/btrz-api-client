@@ -10,8 +10,18 @@ function invoicesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function get({token, jwtToken, id, query = {}, headers}) {
+    return client({
+      url: `/invoices/${id}`,
+      method: "get",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      params: query
+    });
+  }
+
   return {
-    all
+    all,
+    get
   };
 }
 

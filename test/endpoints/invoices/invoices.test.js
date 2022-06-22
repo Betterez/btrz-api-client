@@ -14,4 +14,15 @@ describe("invoices/invoices", () => {
     axiosMock.onGet("/invoices", query).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.invoices.invoices.all({token, jwtToken, query});
   });
+
+  it("should return a single invoices", () => {
+    const id = "12312312312312";
+    axiosMock.onGet(`/invoices/${id}`)
+      .reply(expectRequest({
+        statusCode: 200, 
+        token, 
+        jwtToken
+      }));
+    return api.invoices.invoices.get({token, jwtToken, query: {}, id});
+  });
 });
