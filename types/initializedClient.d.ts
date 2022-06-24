@@ -1369,6 +1369,14 @@ declare const _exports: {
                 }): any;
             };
         };
+        subPrintTemplates: {
+            create: ({ jwtToken, token, subPrintTemplate, headers }: {
+                jwtToken: any;
+                token: any;
+                subPrintTemplate: any;
+                headers: any;
+            }) => any;
+        };
         shifts: {
             get: ({ token, userId, headers }: {
                 token: any;
