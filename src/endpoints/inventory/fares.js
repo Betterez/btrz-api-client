@@ -45,7 +45,7 @@ function faresFactory({client, internalAuthTokenProvider}) {
 
     remove({ token, jwtToken, fareId, adjustmentId, headers}) {
       return client({
-        url: "/fares/" + fareId + "/adjustments-overrides/" + adjustmentId,
+        url: "/fares/" + fareId + "/adjustments-override/" + adjustmentId,
         method: "delete",
         headers: authorizationHeaders({
           token, jwtToken, internalAuthTokenProvider, headers

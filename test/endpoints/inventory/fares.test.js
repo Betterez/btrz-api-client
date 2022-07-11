@@ -61,7 +61,7 @@ describe('inventory/fares', function() {
     const fareId = "123123123123";
     const adjustmentId = "454545454545";
 
-    axiosMock.onDelete(`/fares/${fareId}/adjustments-overrides/${adjustmentId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    axiosMock.onDelete(`/fares/${fareId}/adjustments-override/${adjustmentId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.fares.adjustments.remove({
       jwtToken,
       token,
