@@ -216,8 +216,7 @@ export function createApiClient(options: {
                     adjustmentsOverride: any;
                     headers: any;
                 }): any;
-                remove({ printTemplateId, token, jwtToken, fareId, adjustmentId, headers }: {
-                    printTemplateId: any;
+                remove({ token, jwtToken, fareId, adjustmentId, headers }: {
                     token: any;
                     jwtToken: any;
                     fareId: any;
