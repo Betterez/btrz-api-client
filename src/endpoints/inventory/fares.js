@@ -43,7 +43,7 @@ function faresFactory({client, internalAuthTokenProvider}) {
       });
     },
 
-    remove({printTemplateId, token, jwtToken, fareId, adjustmentId, headers}) {
+    remove({ token, jwtToken, fareId, adjustmentId, headers}) {
       return client({
         url: "/fares/" + fareId + "/adjustments-overrides/" + adjustmentId,
         method: "delete",
