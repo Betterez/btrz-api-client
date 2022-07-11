@@ -15,9 +15,52 @@ function faresFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function create({ token, jwtToken, fare, headers }) {
+    return client({
+      url: "/fares",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data: { fare }
+    });
+  }
+
+  function update({ token, jwtToken, fareId, fare, headers }) {
+    return client({
+      url: "/fare/" + fareId,
+      method: "put",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data: { fare }
+    });
+  }
+
+  const adjustments = {
+    create({ token, jwtToken, fareId, adjustmentsOverride, headers }) {
+      return client({
+        url: "/fares/" + fareId + "/adjustments-overrides",
+        method: "post",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        data: { adjustmentsOverride }
+      });
+    },
+
+    remove({printTemplateId, token, jwtToken, fareId, adjustmentId, headers}) {
+      return client({
+        url: "/fares/" + fareId + "/adjustments-overrides/" + adjustmentId,
+        method: "delete",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        })
+      });
+    }
+
+  };
+
   return {
     all,
-    get
+    get,
+    update,
+    create,
+    adjustments
   };
 
 }
