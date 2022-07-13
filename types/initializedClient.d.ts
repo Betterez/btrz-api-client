@@ -2096,6 +2096,22 @@ declare const _exports: {
                 headers: any;
             }) => any;
         };
+        passengerCheckInInfo: {
+            get: ({ token, jwtToken, id, headers }: {
+                token: any;
+                jwtToken: any;
+                id: any;
+                headers: any;
+            }) => any;
+            update: ({ token, jwtToken, id, data, headers, query }: {
+                token: any;
+                jwtToken: any;
+                id: any;
+                data: any;
+                headers: any;
+                query: any;
+            }) => any;
+        };
         __test: {
             client: import("axios").AxiosInstance;
         };
