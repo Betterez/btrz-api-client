@@ -17,4 +17,11 @@ declare function passengerCheckInInfoFactory({ client, internalAuthTokenProvider
         headers: any;
         query: any;
     }) => any;
+    create: ({ token, jwtToken, query, data, headers }: {
+        token: any;
+        jwtToken: any;
+        query?: {};
+        data: any;
+        headers: any;
+    }) => any;
 };
