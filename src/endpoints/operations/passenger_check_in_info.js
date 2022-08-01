@@ -35,22 +35,22 @@ function passengerCheckInInfoFactory({client, internalAuthTokenProvider}) {
   //   });
   // }
 
-  // function create({token, jwtToken, query = {}, data, headers}) {
-  //   return client({
-  //     url: "/passenger-check-in-info",
-  //     method: "post",
-  //     headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
-  //     params: query,
-  //     data
-  //   });
-  // }
+  function create({token, jwtToken, query = {}, data, headers}) {
+    return client({
+      url: "/passenger-check-in-info",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      params: query,
+      data
+    });
+  }
 
   return {
     // all,
     get,
     update,
     // remove,
-    // create
+    create
   };
 }
 
