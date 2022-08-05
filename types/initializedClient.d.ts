@@ -253,6 +253,11 @@ declare const _exports: {
             }) => any;
         };
         seatmaps: {
+            all: ({ token, query, headers }: {
+                token: any;
+                query?: {};
+                headers: any;
+            }) => any;
             get: ({ seatmapId, routeId, scheduleId, manifestDate, query, token, headers }: {
                 seatmapId: any;
                 routeId: any;
