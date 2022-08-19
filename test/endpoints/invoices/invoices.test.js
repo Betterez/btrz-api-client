@@ -25,4 +25,10 @@ describe("invoices/invoices", () => {
       }));
     return api.invoices.invoices.get({token, jwtToken, query: {}, id});
   });
+
+  it("should list invoice failures", () => {
+    const query = {transactionId: "12312312312312"};
+    axiosMock.onGet("/failures", query).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.invoices.invoices.getInvoiceFailures({token, jwtToken, query});
+  });
 });

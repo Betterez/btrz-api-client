@@ -19,9 +19,19 @@ function invoicesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function getInvoiceFailures({token, jwtToken, query = {}, headers}) {
+    return client({
+      url: "/failures",
+      method: "get",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      params: query
+    });
+  }
+
   return {
     all,
-    get
+    get,
+    getInvoiceFailures
   };
 }
 
