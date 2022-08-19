@@ -2803,6 +2803,12 @@ export function createApiClient(options: {
                 query?: {};
                 headers: any;
             }) => any;
+            getInvoiceFailures: ({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                headers: any;
+            }) => any;
         };
         __test: {
             client: axios.AxiosInstance;
