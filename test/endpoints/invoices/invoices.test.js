@@ -19,16 +19,16 @@ describe("invoices/invoices", () => {
     const id = "12312312312312";
     axiosMock.onGet(`/invoices/${id}`)
       .reply(expectRequest({
-        statusCode: 200, 
-        token, 
+        statusCode: 200,
+        token,
         jwtToken
       }));
     return api.invoices.invoices.get({token, jwtToken, query: {}, id});
   });
 
-  it("should list invoice failures", () => {
+  it("should list invoices failures", () => {
     const query = {transactionId: "12312312312312"};
     axiosMock.onGet("/failures", query).reply(expectRequest({statusCode: 200, token, jwtToken}));
-    return api.invoices.invoices.getInvoiceFailures({token, jwtToken, query});
+    return api.invoices.invoices.getInvoicesFailures({token, jwtToken, query});
   });
 });

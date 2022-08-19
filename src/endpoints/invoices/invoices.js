@@ -19,7 +19,7 @@ function invoicesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function getInvoiceFailures({token, jwtToken, query = {}, headers}) {
+  function getInvoicesFailures({token, jwtToken, query = {}, headers}) {
     return client({
       url: "/failures",
       method: "get",
@@ -31,7 +31,7 @@ function invoicesFactory({client, internalAuthTokenProvider}) {
   return {
     all,
     get,
-    getInvoiceFailures
+    getInvoicesFailures
   };
 }
 
