@@ -2803,7 +2803,7 @@ export function createApiClient(options: {
                 query?: {};
                 headers: any;
             }) => any;
-            getInvoiceFailures: ({ token, jwtToken, query, headers }: {
+            getInvoicesFailures: ({ token, jwtToken, query, headers }: {
                 token: any;
                 jwtToken: any;
                 query?: {};
