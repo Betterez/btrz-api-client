@@ -22,4 +22,11 @@ declare function invoicesFactory({ client, internalAuthTokenProvider }: {
         query?: {};
         headers: any;
     }) => any;
+    retryInvoicing: ({ token, jwtToken, data, query, headers }: {
+        token: any;
+        jwtToken: any;
+        data: any;
+        query?: {};
+        headers: any;
+    }) => any;
 };

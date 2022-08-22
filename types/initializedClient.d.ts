@@ -2762,6 +2762,13 @@ declare const _exports: {
                 query?: {};
                 headers: any;
             }) => any;
+            retryInvoicing: ({ token, jwtToken, data, query, headers }: {
+                token: any;
+                jwtToken: any;
+                data: any;
+                query?: {};
+                headers: any;
+            }) => any;
         };
         __test: {
             client: import("axios").AxiosInstance;
