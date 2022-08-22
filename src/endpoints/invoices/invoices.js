@@ -28,10 +28,21 @@ function invoicesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function retryInvoicing({token, jwtToken, data, query = {}, headers}) {
+    return client({
+      url: "/retry",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      params: query,
+      data
+    });
+  }
+
   return {
     all,
     get,
-    getInvoicesFailures
+    getInvoicesFailures,
+    retryInvoicing
   };
 }
 

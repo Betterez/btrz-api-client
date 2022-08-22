@@ -31,4 +31,15 @@ describe("invoices/invoices", () => {
     axiosMock.onGet("/failures", query).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.invoices.invoices.getInvoicesFailures({token, jwtToken, query});
   });
+
+  it("should retry invoicing", () => {
+    axiosMock.onPost("/retry").reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.invoices.invoices.retryInvoicing({
+      jwtToken,
+      token,
+      data: {
+        transactionId: "123"
+      }
+    });
+  });
 });
