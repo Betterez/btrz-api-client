@@ -1094,6 +1094,22 @@ export function createApiClient(options: {
                 token: any;
                 headers: any;
             }) => any;
+            seatmaps: {
+                create({ jwtToken, token, vehicleId, seatmap, headers }: {
+                    jwtToken: any;
+                    token: any;
+                    vehicleId: any;
+                    seatmap: any;
+                    headers: any;
+                }): any;
+                remove({ jwtToken, vehicleId, seatMapId, token, headers }: {
+                    jwtToken: any;
+                    vehicleId: any;
+                    seatMapId: any;
+                    token: any;
+                    headers: any;
+                }): any;
+            };
         };
         __test: {
             client: axios.AxiosInstance;
