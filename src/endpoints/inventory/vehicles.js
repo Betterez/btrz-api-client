@@ -50,12 +50,33 @@ function vehiclesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  const seatmaps = {
+    create({jwtToken, token, vehicleId, seatmap, headers}) {
+      return client({
+        url: `/vehicles/${vehicleId}/seatmaps`,
+        method: "post",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        data: {
+          seatmap
+        }
+      });
+    },
+    remove({jwtToken, vehicleId, seatMapId, token, headers}) {
+      return client({
+        url: `/vehicles/${vehicleId}/seatmaps/${seatMapId}`,
+        method: "delete",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+
   return {
     all,
     get,
     create,
     update,
-    remove
+    remove,
+    seatmaps
   };
 }
 

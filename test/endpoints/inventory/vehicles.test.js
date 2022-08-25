@@ -16,7 +16,7 @@ describe("inventory/vehicles", () => {
     return api.inventory.vehicles.create({
       jwtToken,
       token,
-      serviceType: {
+      vehicle: {
         name: "My vehicle"
       }
     });
@@ -61,6 +61,31 @@ describe("inventory/vehicles", () => {
       jwtToken,
       token,
       vehicleId
+    });
+  });
+
+  it("should assign a seatmap to a vehicle", () => {
+    const vehicleId = "1234";
+    axiosMock.onPost(`/vehicles/${vehicleId}/seatmaps`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.inventory.vehicles.seatmaps.create({
+      jwtToken,
+      token,
+      vehicleId,
+      seatmap: {
+        seatMapId: "My vehicle"
+      }
+    });
+  });
+
+  it("should delete a seatmap", () => {
+    const vehicleId = "1234";
+    const seatMapId = "1234";
+    axiosMock.onDelete(`/vehicles/${vehicleId}/seatmaps/${seatMapId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.inventory.vehicles.seatmaps.remove({
+      jwtToken,
+      token,
+      vehicleId,
+      seatMapId
     });
   });
 });
