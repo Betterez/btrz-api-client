@@ -208,7 +208,19 @@ function manifestFactory({
         });
       }
     }
-  }
+  };
+
+  const reports = {
+    get({token, jwtToken, query = {}, responseType = "json", id, headers}) {
+      return client({
+        url: `/manifests/${id}/reports`,
+        method: "get",
+        responseType,
+        params: query,
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
 
   return {
     get,
@@ -223,7 +235,8 @@ function manifestFactory({
     addCapacityException,
     removeCapacityException,
     checkIn,
-    legs
+    legs,
+    reports
   };
 }
 

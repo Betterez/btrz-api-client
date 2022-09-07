@@ -177,4 +177,15 @@ describe("operations/manifest", () => {
       token, jwtToken, manifestId, userId
     });
   });
+
+  it("should return a single manifest report", () => {
+    const id = "12312312312312";
+    axiosMock.onGet(`/manifests/${id}/reports`)
+      .reply(expectRequest({
+        statusCode: 200,
+        token,
+        jwtToken
+      }));
+    return api.operations.manifest.reports.get({token, jwtToken, query: {}, id});
+  });
 });
