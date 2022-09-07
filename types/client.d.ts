@@ -2037,6 +2037,16 @@ export function createApiClient(options: {
                     }): any;
                 };
             };
+            reports: {
+                get({ token, jwtToken, query, responseType, id, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    query?: {};
+                    responseType?: string;
+                    id: any;
+                    headers: any;
+                }): any;
+            };
         };
         calendarEntries: {
             all: ({ token, query, headers }: {
