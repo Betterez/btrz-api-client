@@ -134,9 +134,10 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
     domains: require("./endpoints/accounts/domains")({client, internalAuthTokenProvider}),
     emailSettings: require("./endpoints/accounts/email-settings")({client, internalAuthTokenProvider}),
     exchangeRates: require("./endpoints/accounts/exchange-rates")({client, internalAuthTokenProvider}),
+    images: require("./endpoints/accounts/images")({client, internalAuthTokenProvider}),
     interline: require("./endpoints/accounts/interline")({client, internalAuthTokenProvider}),
     lexicons: require("./endpoints/accounts/lexicons")({client, internalAuthTokenProvider}),
-    network: require("./endpoints/accounts/network")({ client, internalAuthTokenProvider }),
+    network: require("./endpoints/accounts/network")({client, internalAuthTokenProvider}),
     printers: require("./endpoints/accounts/printers")({
       client, internalAuthTokenProvider
     }),
