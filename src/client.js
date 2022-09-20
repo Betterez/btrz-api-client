@@ -89,6 +89,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
     maritalStatus: require("./endpoints/inventory/marital-status.js")({client, internalAuthTokenProvider}),
     documentTypes: require("./endpoints/inventory/document-types.js")({client, internalAuthTokenProvider}),
     vehicles: require("./endpoints/inventory/vehicles.js")({client, internalAuthTokenProvider}),
+    seatClasses: require("./endpoints/inventory/seatclasses.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
