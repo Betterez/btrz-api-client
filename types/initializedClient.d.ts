@@ -2362,8 +2362,9 @@ declare const _exports: {
     };
     uploads: {
         files: {
-            upload: ({ token, formData, headers }: {
+            upload: ({ token, jwtToken, formData, headers }: {
                 token: any;
+                jwtToken: any;
                 formData: any;
                 headers: any;
             }) => any;

@@ -2409,8 +2409,9 @@ export function createApiClient(options: {
     };
     uploads: {
         files: {
-            upload: ({ token, formData, headers }: {
+            upload: ({ token, jwtToken, formData, headers }: {
                 token: any;
+                jwtToken: any;
                 formData: any;
                 headers: any;
             }) => any;
