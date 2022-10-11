@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 const FormData = require("form-data");
 const fs = require("fs");
-
+const jwtToken = process.env.JWT_TOKEN;
 const port = process.env.UPLOADS_API_PORT;
 const token = process.env.API_TOKEN;
 
@@ -22,9 +22,9 @@ describe("uploads/files", () => {
     formData.append("type", "journey-prices");
     formData.append("cbType", "email");
     formData.append("cbValue", "noreply@betterez.com");
-
     return api.uploads.files.upload({
       token,
+      jwtToken,
       formData
     })
       .then(({status, data: response}) => {
@@ -34,5 +34,5 @@ describe("uploads/files", () => {
         expect(response.dataMapResults).to.have.length(1);
         expect(response.inQueue).to.be.true;
       })
-  });
+  }).timeout(10000);
 });

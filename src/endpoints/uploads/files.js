@@ -2,7 +2,7 @@ const { authorizationHeaders } = require("./../endpoints_helpers");
 
 function filesFactory({ client, internalAuthTokenProvider }) {
 
-  function upload({ token, formData, headers }) {
+  function upload({ token, jwtToken, formData, headers }) {
     // Only required to support integration tests
     const formHeaders = typeof formData.getHeaders === "function" ? formData.getHeaders() : {};
 
@@ -10,7 +10,7 @@ function filesFactory({ client, internalAuthTokenProvider }) {
       url: "/files",
       method: "post",
       headers: {
-        ...authorizationHeaders({token, internalAuthTokenProvider, headers}),
+        ...authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
         ...formHeaders
       },
       data: formData
