@@ -2833,6 +2833,15 @@ declare const _exports: {
                 headers: any;
             }) => any;
         };
+        system: {
+            create: ({ token, jwtToken, data, query, headers }: {
+                token: any;
+                jwtToken: any;
+                data: any;
+                query?: {};
+                headers: any;
+            }) => any;
+        };
         pdfs: {
             all: ({ token, jwtToken, query, responseType, headers }: {
                 token: any;
