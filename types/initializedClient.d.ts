@@ -2224,6 +2224,12 @@ declare const _exports: {
             }) => any;
         };
         passengerCheckInInfo: {
+            all: ({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query: any;
+                headers: any;
+            }) => any;
             get: ({ token, jwtToken, id, headers }: {
                 token: any;
                 jwtToken: any;
