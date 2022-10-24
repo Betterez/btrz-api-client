@@ -9,10 +9,11 @@ describe("operations/passenger-check-in-info", () => {
     axiosMock.restore();
   });
 
-  // it("should list providers", () => {
-  //   axiosMock.onGet("/passenger-check-in-info").reply(expectRequest({statusCode: 200, token, jwtToken}));
-  //   return api.operations.passengerCheckInInfo.all({token, jwtToken});
-  // });
+  it("should list providers", () => {
+    const query = {documentType: "123123123123", documentNumber: "123123"};
+    axiosMock.onGet("/passenger-check-in-info").reply(expectRequest({statusCode: 200, token, jwtToken, query}));
+    return api.operations.passengerCheckInInfo.all({token, jwtToken, query});
+  });
 
 
   it("should return a single passenger-check-in-info", () => {

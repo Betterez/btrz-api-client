@@ -1,13 +1,13 @@
 const {authorizationHeaders} = require("./../endpoints_helpers");
 
 function passengerCheckInInfoFactory({client, internalAuthTokenProvider}) {
-  // function all({token, jwtToken, query, headers}) {
-  //   return client({
-  //     url: "/passenger-check-in-info",
-  //     headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
-  //     params: query
-  //   });
-  // }
+  function all({token, jwtToken, query, headers}) {
+    return client({
+      url: "/passenger-check-in-info",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      params: query
+    });
+  }
 
   function get({token, jwtToken, id, headers}) {
     return client({
@@ -46,7 +46,7 @@ function passengerCheckInInfoFactory({client, internalAuthTokenProvider}) {
   }
 
   return {
-    // all,
+    all,
     get,
     update,
     // remove,
