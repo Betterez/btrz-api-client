@@ -14,9 +14,7 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
       headers: authorizationHeaders({
         token, jwtToken, internalAuthTokenProvider, headers
       }),
-      data: {
-        shiftData
-      }
+      data: shiftData
     });
   }
 
