@@ -1574,6 +1574,20 @@ export function createApiClient(options: {
                 userId: any;
                 headers: any;
             }) => any;
+            create: ({ jwtToken, token, shiftData, headers }: {
+                jwtToken: any;
+                token: any;
+                shiftData: any;
+                headers: any;
+            }) => any;
+            update: ({ jwtToken, token, shiftId, operations, headers, query }: {
+                jwtToken: any;
+                token: any;
+                shiftId: any;
+                operations: any;
+                headers: any;
+                query: any;
+            }) => any;
         };
         travellers: {
             all: ({ token, jwtToken, query, headers }: {
