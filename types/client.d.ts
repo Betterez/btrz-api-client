@@ -2909,6 +2909,15 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        dlink: {
+            create: ({ token, jwtToken, data, query, headers }: {
+                token: any;
+                jwtToken: any;
+                data: any;
+                query?: {};
+                headers: any;
+            }) => any;
+        };
         pdfs: {
             all: ({ token, jwtToken, query, responseType, headers }: {
                 token: any;
