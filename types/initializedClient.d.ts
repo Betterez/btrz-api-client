@@ -2336,11 +2336,12 @@ declare const _exports: {
             }) => any;
         };
         pdfs: {
-            get: ({ token, query, itemId, headers }: {
+            get: ({ token, query, itemId, headers, responseType }: {
                 token: any;
                 query?: {};
                 itemId: any;
                 headers: any;
+                responseType: any;
             }) => any;
         };
         pdfData: {
