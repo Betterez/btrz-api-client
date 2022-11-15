@@ -10,7 +10,8 @@ function pdfFactory({
     token,
     query = {},
     itemId,
-    headers
+    headers,
+    responseType
   }) {
     let url = `/pdf-tickets/${itemId}`;
     if (query.type === "product") {
@@ -72,7 +73,7 @@ function pdfFactory({
     }
     return client.get(url, {
       params: query,
-      responseType: "blob",
+      responseType: responseType || "blob",
       headers: authorizationHeaders({
         token,
         internalAuthTokenProvider,
