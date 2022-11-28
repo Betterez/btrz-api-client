@@ -43,6 +43,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
 
   return {
     docs: require("./endpoints/inventory/docs.js")({client}),
+    customFields: require("./endpoints/inventory/custom-fields.js")({client, internalAuthTokenProvider}),
     products: require("./endpoints/inventory/products.js")({client, internalAuthTokenProvider}),
     insurances: require("./endpoints/inventory/insurances.js")({client, internalAuthTokenProvider}),
     insurancesCost: require("./endpoints/inventory/insurancesCost.js")({client, internalAuthTokenProvider}),
