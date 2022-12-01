@@ -28,4 +28,10 @@ declare function customFieldsFactory({ client, internalAuthTokenProvider }: {
         field: any;
         headers: any;
     }) => any;
+    types: {
+        all({ token, headers }: {
+            token: any;
+            headers: any;
+        }): any;
+    };
 };

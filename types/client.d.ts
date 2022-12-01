@@ -95,6 +95,12 @@ export function createApiClient(options: {
                 field: any;
                 headers: any;
             }) => any;
+            types: {
+                all({ token, headers }: {
+                    token: any;
+                    headers: any;
+                }): any;
+            };
         };
         products: {
             all: ({ token, query, headers }: {
