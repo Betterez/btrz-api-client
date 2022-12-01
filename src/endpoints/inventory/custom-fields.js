@@ -35,11 +35,21 @@ function customFieldsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  const types = {
+    all({token, headers}) {
+      return client({
+        url: "/custom-fields/types",
+        headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+
   return {
     all,
     get,
     create,
-    update
+    update,
+    types
   };
 }
 
