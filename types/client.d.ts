@@ -2385,6 +2385,14 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        reportEmail: {
+            post: ({ token, jwtToken, report, headers }: {
+                token: any;
+                jwtToken: any;
+                report: any;
+                headers: any;
+            }) => any;
+        };
         __test: {
             client: axios.AxiosInstance;
         };

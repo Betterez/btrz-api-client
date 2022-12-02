@@ -2338,6 +2338,14 @@ declare const _exports: {
                 headers: any;
             }) => any;
         };
+        reportEmail: {
+            post: ({ token, jwtToken, report, headers }: {
+                token: any;
+                jwtToken: any;
+                report: any;
+                headers: any;
+            }) => any;
+        };
         __test: {
             client: import("axios").AxiosInstance;
         };
