@@ -1,6 +1,6 @@
 const {expect} = require("chai");
 const {axiosMock} = require("./../../test-helpers.js");
-const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
+const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com/reports"});
 
 describe("reports/email", () => {
   const token = "my-api-key";
@@ -45,7 +45,7 @@ describe("reports/email", () => {
   });
   describe("sendReportEmail", () => {
     it("should POST a report email", () => {
-      axiosMock.onPost("/reports/email").reply((config) => {
+      axiosMock.onPost("/email").reply((config) => {
         expect(config.data).to.be.eql(JSON.stringify(report));
         expect(config.headers.authorization).to.be.eql(`Bearer ${jwtToken}`);
         const response = {
