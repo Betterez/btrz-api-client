@@ -225,9 +225,11 @@ function createReports({baseURL, headers, timeout, overrideFn, internalAuthToken
   return {
     reportTypes: require("./endpoints/reports/report-types.js")({client, internalAuthTokenProvider}),
     customReports: require("./endpoints/reports/custom-reports.js")({client, internalAuthTokenProvider}),
+    reportEmail: require("./endpoints/reports/email.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
+
   };
 }
 
