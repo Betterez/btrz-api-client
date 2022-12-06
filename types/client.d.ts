@@ -2479,8 +2479,9 @@ export function createApiClient(options: {
             }) => any;
         };
         images: {
-            create: ({ token, formData, headers }: {
+            create: ({ token, jwtToken, formData, headers }: {
                 token: any;
+                jwtToken: any;
                 formData: any;
                 headers: any;
             }) => any;

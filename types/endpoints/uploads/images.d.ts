@@ -3,8 +3,9 @@ declare function imagesFactory({ client, internalAuthTokenProvider }: {
     client: any;
     internalAuthTokenProvider: any;
 }): {
-    create: ({ token, formData, headers }: {
+    create: ({ token, jwtToken, formData, headers }: {
         token: any;
+        jwtToken: any;
         formData: any;
         headers: any;
     }) => any;
