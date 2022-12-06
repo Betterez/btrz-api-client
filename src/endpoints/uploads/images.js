@@ -4,7 +4,7 @@ const { authorizationHeaders } = require("./../endpoints_helpers");
 
 function imagesFactory({ client, internalAuthTokenProvider }) {
 
-  function create({ token, formData, headers }) {
+  function create({ token, jwtToken, formData, headers }) {
     // Only required to support integration tests
     const formHeaders = typeof formData.getHeaders === "function" ? formData.getHeaders() : {};
 
@@ -12,7 +12,7 @@ function imagesFactory({ client, internalAuthTokenProvider }) {
       url: "/images",
       method: "post",
       headers: {
-        ...authorizationHeaders({token, internalAuthTokenProvider, headers}),
+        ...authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
         ...formHeaders
       },
       data: formData
