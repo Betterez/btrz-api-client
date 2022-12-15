@@ -95,6 +95,18 @@ function transactionsFactory({client, internalAuthTokenProvider}) {
     }
   };
 
+  const creditNotes = {
+    create({token, jwtToken, transactionId, query, creditNote, headers}) {
+      return client({
+        url: `/transactions/${transactionId}/credit-notes`,
+        method: "post",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        params: query,
+        data: creditNote
+      });
+    }
+  };
+
   return {
     all,
     get,
@@ -104,7 +116,8 @@ function transactionsFactory({client, internalAuthTokenProvider}) {
     expireAll,
     cancellableItems,
     payments,
-    invoices
+    invoices,
+    creditNotes
   };
 }
 

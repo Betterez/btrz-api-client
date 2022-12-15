@@ -139,4 +139,19 @@ describe("operations/transactions", function () {
         expect(response.status).to.equals(200);
       });
   });
+
+  it("should add transaction credit note informations", function () {
+    const transactionId = "transactionId2";
+    const creditNote = {
+      creditNoteId: "credit-note-1",
+      externalCreditNoteId: "external-credit-note-1"
+    };
+    axiosMock.onPost(`/transactions/${transactionId}/credit-notes`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.operations.transactions.creditNotes.create({
+      jwtToken, token, transactionId, creditNote
+    })
+      .then((response) => {
+        expect(response.status).to.equals(200);
+      });
+  });
 });
