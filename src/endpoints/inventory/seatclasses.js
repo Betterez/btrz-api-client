@@ -4,7 +4,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers");
 function seatClassesFactory({client, internalAuthTokenProvider}) {
   function all({token, jwtToken, query = {}, headers}) {
     return client({
-      url: "/seatclasses",
+      url: "/seat-classes",
       method: "get",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       params: query
@@ -13,7 +13,7 @@ function seatClassesFactory({client, internalAuthTokenProvider}) {
 
   function get({token, jwtToken, id, query = {}, headers}) {
     return client({
-      url: `/seatclasses/${id}`,
+      url: `/seat-classes/${id}`,
       method: "get",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       params: query
@@ -22,7 +22,7 @@ function seatClassesFactory({client, internalAuthTokenProvider}) {
 
   function update({token, jwtToken, id, data, query = {}, headers}) {
     return client({
-      url: `/seatclasses/${id}`,
+      url: `/seat-classes/${id}`,
       method: "put",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       params: query,
@@ -32,7 +32,7 @@ function seatClassesFactory({client, internalAuthTokenProvider}) {
 
   function remove({token, jwtToken, id, query = {}, headers}) {
     return client({
-      url: `/seatclasses/${id}`,
+      url: `/seat-classes/${id}`,
       method: "delete",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       params: query
@@ -41,7 +41,7 @@ function seatClassesFactory({client, internalAuthTokenProvider}) {
 
   function create({token, jwtToken, data, query = {}, headers}) {
     return client({
-      url: "/seatclasses",
+      url: "/seat-classes",
       method: "post",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       params: query,

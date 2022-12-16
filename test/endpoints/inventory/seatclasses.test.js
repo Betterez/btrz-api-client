@@ -11,13 +11,13 @@ describe("inventory/seatclasses", () => {
   });
 
   it("should list seat classes", () => {
-    axiosMock.onGet("/seatclasses").reply(expectRequest({statusCode: 200, token, jwtToken}));
+    axiosMock.onGet("/seat-classes").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.seatClasses.all({token, jwtToken});
   });
 
   it("should get a seat class", () => {
     const seatClassId = "1234";
-    axiosMock.onGet(`/seatclasses/${seatClassId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    axiosMock.onGet(`/seat-classes/${seatClassId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.seatClasses.get({
       jwtToken,
       token,
@@ -26,7 +26,7 @@ describe("inventory/seatclasses", () => {
   });
 
   it("should create a seat class", () => {
-    axiosMock.onPost("/seatclasses").reply(expectRequest({statusCode: 200, token, jwtToken}));
+    axiosMock.onPost("/seat-classes").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.seatClasses.create({
       jwtToken,
       token,
@@ -43,7 +43,7 @@ describe("inventory/seatclasses", () => {
       name: "other",
       description: "An example"
     };
-    axiosMock.onPut(`/seatclasses/${seatClassId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    axiosMock.onPut(`/seat-classes/${seatClassId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.seatClasses.update({jwtToken, token, id: seatClassId, data});
   });
 });
