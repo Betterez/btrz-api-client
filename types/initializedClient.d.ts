@@ -710,6 +710,13 @@ declare const _exports: {
                 scheduleId: any;
                 headers: any;
             }) => any;
+            delete: ({ token, jwtToken, routeId, scheduleId, headers }: {
+                token: any;
+                jwtToken: any;
+                routeId: any;
+                scheduleId: any;
+                headers: any;
+            }) => any;
         };
         serviceNumbers: {
             all: ({ token, jwtToken, query, headers }: {
