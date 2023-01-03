@@ -57,4 +57,9 @@ describe("inventory/routes/shedules", () => {
     axiosMock.onPut(`/routes/${routeId}/schedules/${scheduleId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.schedules.update({token, jwtToken, data, routeId, scheduleId});
   });
+
+  it("should delete a schedule", async () => {
+    axiosMock.onDelete(`/routes/${routeId}/schedules/${scheduleId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.inventory.schedules.delete({token, jwtToken, routeId, scheduleId});
+  });
 });

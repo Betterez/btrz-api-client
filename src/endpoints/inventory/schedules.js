@@ -36,11 +36,22 @@ function schedulesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function deleteSchedule({token, jwtToken, routeId, scheduleId, headers}) {
+    return client({
+      url: `/routes/${routeId}/schedules/${scheduleId}`,
+      method: "delete",
+      headers: authorizationHeaders({
+        token, jwtToken, internalAuthTokenProvider, headers
+      })
+    });
+  }
+
   return {
     all,
     get,
     create,
-    update
+    update,
+    delete: deleteSchedule
   };
 }
 
