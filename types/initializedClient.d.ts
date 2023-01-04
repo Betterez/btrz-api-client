@@ -2167,6 +2167,15 @@ declare const _exports: {
                         legFromId: any;
                         ticketId: any;
                     }): any;
+                    noshow({ token, jwtToken, query, headers, manifestId, legFromId, ticketId }: {
+                        token: any;
+                        jwtToken: any;
+                        query?: {};
+                        headers: any;
+                        manifestId: any;
+                        legFromId: any;
+                        ticketId: any;
+                    }): any;
                 };
             };
             reports: {
