@@ -189,3 +189,30 @@ describe("operations/manifest", () => {
     return api.operations.manifest.reports.get({token, jwtToken, query: {}, id});
   });
 });
+
+describe("operations/manifest/legs/tickets/noshow", () => {
+  const token = "I owe you a token";
+  const jwtToken = "I owe you a JWT token";
+  const headers = {};
+  const query = {};
+
+  afterEach(() => {
+    axiosMock.reset();
+  });
+
+  it("should call the noShow endpoint with proper values", async () => {
+    const manifestId = "1123581321345589144233";
+    const legFromId = "idLeg";
+    const ticketId = "idTicket";
+
+    axiosMock.onPut(`/manifests/${manifestId}/legs/${legFromId}/tickets/${ticketId}/noshow`).reply((config) => {
+      expect(config.url).to.contain.oneOf([manifestId, legFromId, ticketId]);
+      expect(config.headers.authorization).to.be.eql(`Bearer ${jwtToken}`);
+      expect(config.headers["x-api-key"]).to.be.eql(token);  
+      return [200, {}]; 
+    });
+    return api.operations.manifest.legs.tickets.noshow({
+      token, jwtToken, query , headers, manifestId, legFromId, ticketId
+    });
+  });
+});

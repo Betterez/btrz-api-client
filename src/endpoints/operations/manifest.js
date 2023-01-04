@@ -206,6 +206,14 @@ function manifestFactory({
           params: query,
           data
         });
+      },
+      noshow({token, jwtToken, query = {}, headers, manifestId, legFromId, ticketId}) {
+        return client({
+          url: `/manifests/${manifestId}/legs/${legFromId}/tickets/${ticketId}/noshow`,
+          method: "put",
+          headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+          params: query
+        });
       }
     }
   };
