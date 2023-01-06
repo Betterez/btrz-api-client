@@ -29,4 +29,11 @@ declare function invoicesFactory({ client, internalAuthTokenProvider }: {
         query?: {};
         headers: any;
     }) => any;
+    overrideBuyerRetryInvoicing: ({ token, jwtToken, data, query, headers }: {
+        token: any;
+        jwtToken: any;
+        data: any;
+        query?: {};
+        headers: any;
+    }) => any;
 };

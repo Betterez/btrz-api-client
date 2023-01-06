@@ -2223,15 +2223,6 @@ export function createApiClient(options: {
                         legFromId: any;
                         ticketId: any;
                     }): any;
-                    noshow({ token, jwtToken, query, headers, manifestId, legFromId, ticketId }: {
-                        token: any;
-                        jwtToken: any;
-                        query?: {};
-                        headers: any;
-                        manifestId: any;
-                        legFromId: any;
-                        ticketId: any;
-                    }): any;
                 };
             };
             reports: {
@@ -3093,6 +3084,13 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
             retryInvoicing: ({ token, jwtToken, data, query, headers }: {
+                token: any;
+                jwtToken: any;
+                data: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            overrideBuyerRetryInvoicing: ({ token, jwtToken, data, query, headers }: {
                 token: any;
                 jwtToken: any;
                 data: any;
