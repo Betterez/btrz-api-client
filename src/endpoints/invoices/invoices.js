@@ -38,11 +38,22 @@ function invoicesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function overrideBuyerRetryInvoicing({token, jwtToken, data, query = {}, headers}) {
+    return client({
+      url: "/retry",
+      method: "put",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      params: query,
+      data
+    });
+  }
+
   return {
     all,
     get,
     getInvoicesFailures,
-    retryInvoicing
+    retryInvoicing,
+    overrideBuyerRetryInvoicing
   };
 }
 

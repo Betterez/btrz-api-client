@@ -42,4 +42,25 @@ describe("invoices/invoices", () => {
       }
     });
   });
+
+  it("should retry invoicing", () => {
+    axiosMock.onPut("/retry").reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.invoices.invoices.overrideBuyerRetryInvoicing({
+      jwtToken,
+      token,
+      data: {
+        retryData: {
+          transactionId: "123",
+          overrideBuyer: {
+            documentType: "RUC",
+            taxNumber: "20013121",
+            address: "fake adress",
+            name: "fake name",
+            email: "test@test.com",
+            type: "CF"
+          }
+        }
+      }
+    });
+  });
 });
