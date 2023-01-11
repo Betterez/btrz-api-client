@@ -110,6 +110,27 @@ describe("operations/manifest", () => {
     return call;
   });
 
+  it("should update the manifest status", async () => {
+    const manifestId = "theId";
+    const data = {
+      status: {
+        test: "canceled"
+      }
+    };
+
+    // optional query
+    const query = {
+      accountId: providerId,
+      routeId: "2349283409238429348",
+      scheduleId: "abc",
+      date: "2017-10-10"
+    };
+    axiosMock.onPut(`/manifests/${manifestId}/status`).reply(expectRequest({statusCode: 201, token, jwtToken}));
+    const call = await api.operations.manifest.updateStatus({token, jwtToken, manifestId, data, query});
+    expect(call.config.params).to.be.eql(query);
+    return call;
+  });
+
   it("should add capacity exception to the manifest", async () => {
     const manifestId = "theId";
     const data = {

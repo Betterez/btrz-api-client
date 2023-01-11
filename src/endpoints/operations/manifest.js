@@ -143,6 +143,20 @@ function manifestFactory({
     });
   }
 
+  function updateStatus({
+    token, jwtToken, manifestId, query = {}, data, headers
+  }) {
+    return client({
+      url: `/manifests/${manifestId}/status`,
+      method: "put",
+      headers: authorizationHeaders({
+        token, jwtToken, internalAuthTokenProvider, headers
+      }),
+      params: query,
+      data
+    });
+  }
+
   const checkIn = {
     create({token, jwtToken, query = {}, headers, data, manifestId, legFromId}) {
       return client({
@@ -240,6 +254,7 @@ function manifestFactory({
     addUser,
     removeUser,
     updateComment,
+    updateStatus,
     addCapacityException,
     removeCapacityException,
     checkIn,
