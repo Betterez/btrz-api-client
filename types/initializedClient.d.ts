@@ -2104,6 +2104,14 @@ declare const _exports: {
                 data: any;
                 headers: any;
             }) => any;
+            updateStatus: ({ token, jwtToken, manifestId, query, data, headers }: {
+                token: any;
+                jwtToken: any;
+                manifestId: any;
+                query?: {};
+                data: any;
+                headers: any;
+            }) => any;
             addCapacityException: ({ token, jwtToken, manifestId, query, data, headers }: {
                 token: any;
                 jwtToken: any;
