@@ -440,15 +440,17 @@ declare const _exports: {
             }) => any;
         };
         banks: {
-            all: ({ token, query, headers }: {
+            all: ({ token, jwtToken, query, headers }: {
                 token: any;
+                jwtToken: any;
                 query?: {};
                 headers: any;
             }) => any;
-            get: ({ bankId, token, headers }: {
+            get: ({ bankId, token, headers, jwtToken }: {
                 bankId: any;
                 token: any;
                 headers: any;
+                jwtToken: any;
             }) => any;
             create: ({ jwtToken, token, bank, headers }: {
                 jwtToken: any;
