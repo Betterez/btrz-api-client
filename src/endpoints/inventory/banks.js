@@ -5,18 +5,19 @@ const {
 function banksFactory({client, internalAuthTokenProvider}) {
   function all({
     token,
+    jwtToken,
     query = {},
     headers
   }) {
     return client.get("/banks", {
       params: query,
-      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
-  function get({bankId, token, headers}) {
+  function get({bankId, token, headers, jwtToken}) {
     return client.get(`/banks/${bankId}`, {
-      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
