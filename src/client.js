@@ -20,7 +20,7 @@ function clientFactory(opts) {
     baseURL: url,
     timeout,
     headers: {
-      "Accept": "application/json",
+      "Accept": "application/json"
     }
   };
   if (headers && headers["x-amzn-trace-id"]) {
@@ -63,6 +63,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
     fareClasses: require("./endpoints/inventory/fare-classes.js")({client, internalAuthTokenProvider}),
     journeyPrices: require("./endpoints/inventory/journey-prices.js")({client, internalAuthTokenProvider}),
     brands: require("./endpoints/inventory/brands.js")({client, internalAuthTokenProvider}),
+    banks: require("./endpoints/inventory/banks.js")({client, internalAuthTokenProvider}),
     operatingCompanies: require("./endpoints/inventory/operating-companies.js")({client, internalAuthTokenProvider}),
     operationMessages: require("./endpoints/inventory/operation-messages.js")({client, internalAuthTokenProvider}),
     paymentTerminals: require("./endpoints/inventory/payment-terminals.js")({client, internalAuthTokenProvider}),
@@ -133,14 +134,14 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
     docs: require("./endpoints/accounts/docs.js")({
       client
     }),
-    domains: require("./endpoints/accounts/domains")({client, internalAuthTokenProvider}),
-    emailSettings: require("./endpoints/accounts/email-settings")({client, internalAuthTokenProvider}),
-    exchangeRates: require("./endpoints/accounts/exchange-rates")({client, internalAuthTokenProvider}),
-    images: require("./endpoints/accounts/images")({client, internalAuthTokenProvider}),
-    interline: require("./endpoints/accounts/interline")({client, internalAuthTokenProvider}),
-    lexicons: require("./endpoints/accounts/lexicons")({client, internalAuthTokenProvider}),
-    network: require("./endpoints/accounts/network")({client, internalAuthTokenProvider}),
-    printers: require("./endpoints/accounts/printers")({
+    domains: require("./endpoints/accounts/domains.js")({client, internalAuthTokenProvider}),
+    emailSettings: require("./endpoints/accounts/email-settings.js")({client, internalAuthTokenProvider}),
+    exchangeRates: require("./endpoints/accounts/exchange-rates.js")({client, internalAuthTokenProvider}),
+    images: require("./endpoints/accounts/images.js")({client, internalAuthTokenProvider}),
+    interline: require("./endpoints/accounts/interline.js")({client, internalAuthTokenProvider}),
+    lexicons: require("./endpoints/accounts/lexicons.js")({client, internalAuthTokenProvider}),
+    network: require("./endpoints/accounts/network.js")({client, internalAuthTokenProvider}),
+    printers: require("./endpoints/accounts/printers.js")({
       client, internalAuthTokenProvider
     }),
     printSettings: require("./endpoints/accounts/print-settings.js")({
@@ -161,7 +162,7 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
     __test: {
       client
     },
-    websalesConfig: require("./endpoints/accounts/websales-config.js")({client, internalAuthTokenProvider}),
+    websalesConfig: require("./endpoints/accounts/websales-config.js")({client, internalAuthTokenProvider})
   };
 }
 
