@@ -3,11 +3,11 @@ const {
 } = require("./../endpoints_helpers.js");
 
 function shiftSettingsFactory({client, internalAuthTokenProvider}) {
-  function get({token, query, headers}) {
+  function get({token, jwtToken, query, headers}) {
     return client({
       url: "/shift-settings",
       params: query,
-      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
