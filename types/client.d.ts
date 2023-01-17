@@ -1713,8 +1713,9 @@ export function createApiClient(options: {
             }) => any;
         };
         shiftSettings: {
-            get: ({ token, query, headers }: {
+            get: ({ token, jwtToken, query, headers }: {
                 token: any;
+                jwtToken: any;
                 query: any;
                 headers: any;
             }) => any;

@@ -3,8 +3,9 @@ declare function shiftSettingsFactory({ client, internalAuthTokenProvider }: {
     client: any;
     internalAuthTokenProvider: any;
 }): {
-    get: ({ token, query, headers }: {
+    get: ({ token, jwtToken, query, headers }: {
         token: any;
+        jwtToken: any;
         query: any;
         headers: any;
     }) => any;

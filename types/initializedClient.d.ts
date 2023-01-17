@@ -1667,8 +1667,9 @@ declare const _exports: {
             }) => any;
         };
         shiftSettings: {
-            get: ({ token, query, headers }: {
+            get: ({ token, jwtToken, query, headers }: {
                 token: any;
+                jwtToken: any;
                 query: any;
                 headers: any;
             }) => any;
