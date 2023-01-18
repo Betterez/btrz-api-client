@@ -1,7 +1,9 @@
-const {axiosMock, expectRequest} = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({ baseURL: "http://test.com" });
-
 describe("inventory/gift-certificate-definitions", () => {
+  const {axiosMock, expectRequest} = require("./../../test-helpers.js");
+  const api = require("./../../../src/client.js").createApiClient({
+    baseURL: "http://test.com"
+  });
+
   const token = "I owe you a token";
   const jwtToken = "I owe you a JWT token";
   const gcDefinitionId = "gc-def-1";
@@ -15,7 +17,7 @@ describe("inventory/gift-certificate-definitions", () => {
       providerId: "providerId1"
     };
     axiosMock.onGet("/gift-certificate-definitions").reply(expectRequest({statusCode: 200, token, query}));
-    return api.inventory.giftCertificateDefinitions.all({token});
+    return api.inventory.giftCertificateDefinitions.all({token, query});
   });
 
   it("should get a specific gift certificate definition", () => {
@@ -23,30 +25,30 @@ describe("inventory/gift-certificate-definitions", () => {
       providerId: "providerId1"
     };
     axiosMock.onGet(`/gift-certificate-definitions/${gcDefinitionId}`).reply(expectRequest({statusCode: 200, token, query}));
-    return api.inventory.giftCertificateDefinitions.get({token, giftcertificateId: gcDefinitionId});
+    return api.inventory.giftCertificateDefinitions.get({token, giftcertificateId: gcDefinitionId, query});
   });
 
   it("should create a new gift certificate definition", () => {
-    axiosMock.onPost("/gift-certificate-definitions").reply(expectRequest({
-      statusCode: 200, token, jwtToken
-    }));
     const giftcertificate = {name: "new definition"};
+    axiosMock.onPost("/gift-certificate-definitions").reply(expectRequest({
+      statusCode: 200, token, jwtToken, body: {giftcertificate}
+    }));
     return api.inventory.giftCertificateDefinitions.create({
       jwtToken,
       token,
-      data: {giftcertificate}
+      giftcertificate
     });
   });
 
   it("should update an existing gift certificate definition", () => {
-    axiosMock.onPut(`/gift-certificate-definitions/${gcDefinitionId}`).reply(expectRequest({
-      statusCode: 200, token, jwtToken
-    }));
     const giftcertificate = {name: "a different definition name"};
+    axiosMock.onPut(`/gift-certificate-definitions/${gcDefinitionId}`).reply(expectRequest({
+      statusCode: 200, token, jwtToken, body: {giftcertificate}
+    }));
     return api.inventory.giftCertificateDefinitions.update({
       jwtToken,
       token,
-      data: {giftcertificate},
+      giftcertificate,
       giftcertificateId: gcDefinitionId
     });
   });

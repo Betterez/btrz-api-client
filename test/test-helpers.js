@@ -6,8 +6,16 @@ const {expect} = require("chai");
 module.exports = {
   axiosMock: new MockAdapter(axios),
   // eslint-disable-next-line max-len
-  expectRequest: function _expectRequest({statusCode, token, jwtToken, internalAuthTokenProvider, withoutApiKey = false, requireJwtTokenOnGet = false}) {
-    return ({headers, method}) => {
+  expectRequest: function _expectRequest({
+    statusCode, token, jwtToken, internalAuthTokenProvider, withoutApiKey = false, requireJwtTokenOnGet = false, body, query
+  }) {
+    return ({headers, method, data, params}) => {
+      if (body) {
+        expect(data).to.eql(JSON.stringify(body));
+      }
+      if (query) {
+        expect(params).to.eql(query);
+      }
       if ((headers["x-api-key"] && headers["x-api-key"] === token) || withoutApiKey) {
         const methods = ["post", "put", "delete", "patch"];
         if (requireJwtTokenOnGet) {
