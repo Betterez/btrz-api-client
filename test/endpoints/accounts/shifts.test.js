@@ -1,4 +1,4 @@
-describe.only("accounts/shift/user", () => {
+describe("accounts/shift/user", () => {
   const {
     axiosMock,
     expectRequest
