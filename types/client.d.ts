@@ -1692,6 +1692,12 @@ export function createApiClient(options: {
             }) => any;
         };
         shifts: {
+            all: ({ jwtToken, token, query, headers }: {
+                jwtToken: any;
+                token: any;
+                query: any;
+                headers: any;
+            }) => any;
             get: ({ token, userId, headers }: {
                 token: any;
                 userId: any;
