@@ -154,6 +154,7 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
       client, internalAuthTokenProvider
     }),
     shifts: require("./endpoints/accounts/shifts.js")({client, internalAuthTokenProvider}),
+    shiftSettings: require("./endpoints/accounts/shift-settings.js")({client, internalAuthTokenProvider}),
     travellers: require("./endpoints/accounts/travellers.js")({
       client, internalAuthTokenProvider
     }),
