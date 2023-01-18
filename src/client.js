@@ -214,6 +214,7 @@ function createOperations({baseURL, headers, timeout, overrideFn, internalAuthTo
     outlookTrips: require("./endpoints/operations/outlook-trips.js")({client, internalAuthTokenProvider}),
     manifestLegForTickets: require("./endpoints/operations/manifest_leg_for_tickets.js")({client, internalAuthTokenProvider}),
     passengerCheckInInfo: require("./endpoints/operations/passenger_check_in_info.js")({client, internalAuthTokenProvider}),
+    vouchers: require("./endpoints/operations/vouchers.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
