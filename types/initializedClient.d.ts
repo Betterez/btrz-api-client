@@ -1646,6 +1646,12 @@ declare const _exports: {
             }) => any;
         };
         shifts: {
+            all: ({ jwtToken, token, query, headers }: {
+                jwtToken: any;
+                token: any;
+                query: any;
+                headers: any;
+            }) => any;
             get: ({ token, userId, headers }: {
                 token: any;
                 userId: any;

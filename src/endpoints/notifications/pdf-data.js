@@ -52,6 +52,9 @@ function pdfDataFactory({
     if (query.type === "ssr") {
       url = `/pdf-ssrs/${itemId}`;
     }
+    if (query.type === "passengersManifest") {
+      url = `/pdf-passengers-manifests/${itemId}`;
+    }
     if (query.type === "manifest") {
       url = `/pdf-manifests/${itemId}`;
     }
