@@ -1,4 +1,4 @@
-describe("accounts/shift/user", () => {
+describe("accounts/shifts", () => {
   const {
     axiosMock,
     expectRequest
@@ -47,6 +47,28 @@ describe("accounts/shift/user", () => {
       shiftId,
       operations,
       query
+    });
+  });
+
+  it("should get all shifts/location-closures", () => {
+    const query = {status: "closed"};
+    axiosMock.onGet("/shifts/location-closures").reply(expectRequest({statusCode: 200, token, jwtToken, query}));
+    return api.accounts.shifts.locationClosures.all({token, jwtToken, query});
+  });
+
+  it("should get shifts-location-closures", () => {
+    const locationClosureId = "locationClosure1";
+    axiosMock.onGet(`/shifts/location-closures/${locationClosureId}`).reply(expectRequest({statusCode: 200, token}));
+    return api.accounts.shifts.locationClosures.get({token, locationClosureId});
+  });
+
+  it("should create the shift-location-closure", () => {
+    const locationClosure = {};
+    axiosMock.onPost("/shifts/location-closures").reply(expectRequest({statusCode: 200, token, jwtToken, body: locationClosure}));
+    return api.accounts.shifts.locationClosures.create({
+      jwtToken,
+      token,
+      locationClosure
     });
   });
 });

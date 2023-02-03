@@ -41,11 +41,38 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  const locationClosures = {
+    create({jwtToken, token, locationClosure, headers}) {
+      return client({
+        url: "/shifts/location-closures",
+        method: "post",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        }),
+        data: locationClosure
+      });
+    },
+    all({jwtToken, token, query, headers}) {
+      return client.get("/shifts/location-closures", {
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        }),
+        params: query
+      });
+    },
+    get({token, jwtToken, locationClosureId, headers}) {
+      return client.get(`/shifts/location-closures/${locationClosureId}`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+
   return {
     all,
     get,
     create,
-    update
+    update,
+    locationClosures
   };
 }
 
