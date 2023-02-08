@@ -380,6 +380,20 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        externalPasses: {
+            all: ({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            get: ({ externalPassId, token, jwtToken, headers }: {
+                externalPassId: any;
+                token: any;
+                jwtToken: any;
+                headers: any;
+            }) => any;
+        };
         filteredTrips: {
             create: ({ token, jwtToken, tripSegmentsId, headers }: {
                 token: any;
