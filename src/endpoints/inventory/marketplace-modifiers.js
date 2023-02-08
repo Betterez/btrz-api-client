@@ -1,9 +1,8 @@
 const {
   authorizationHeaders
-} = require("../endpoints_helpers");
+} = require("../endpoints_helpers.js");
 
 function marketplaceModifierFactory({client, internalAuthTokenProvider}) {
-
   function all({
     token,
     query = {},

@@ -1,7 +1,7 @@
 const {
   axiosMock, expectRequest
-} = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({baseURL: "http://test.com"});
+} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
 describe("inventory/marketplace-modifiers", () => {
   const token = "I owe you a token";
