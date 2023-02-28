@@ -8,6 +8,7 @@ function pdfFactory({
 }) {
   function get({
     token,
+    jwtToken,
     query = {},
     itemId,
     headers,
@@ -79,6 +80,7 @@ function pdfFactory({
       responseType: responseType || "blob",
       headers: authorizationHeaders({
         token,
+        jwtToken,
         internalAuthTokenProvider,
         headers
       })
