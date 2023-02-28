@@ -2592,8 +2592,9 @@ declare const _exports: {
             }) => any;
         };
         pdfs: {
-            get: ({ token, query, itemId, headers, responseType }: {
+            get: ({ token, jwtToken, query, itemId, headers, responseType }: {
                 token: any;
+                jwtToken: any;
                 query?: {};
                 itemId: any;
                 headers: any;
