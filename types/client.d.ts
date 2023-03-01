@@ -1766,6 +1766,14 @@ export function createApiClient(options: {
                 headers: any;
                 query: any;
             }) => any;
+            payments: {
+                get({ token, jwtToken, shiftId, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    shiftId: any;
+                    headers: any;
+                }): any;
+            };
             locationClosures: {
                 create({ jwtToken, token, locationClosure, headers }: {
                     jwtToken: any;
@@ -1783,14 +1791,6 @@ export function createApiClient(options: {
                     token: any;
                     jwtToken: any;
                     locationClosureId: any;
-                    headers: any;
-                }): any;
-            };
-            payments: {
-                get({ token, jwtToken, shiftId, headers }: {
-                    token: any;
-                    jwtToken: any;
-                    shiftId: any;
                     headers: any;
                 }): any;
             };
