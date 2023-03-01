@@ -1786,6 +1786,14 @@ export function createApiClient(options: {
                     headers: any;
                 }): any;
             };
+            payments: {
+                get({ token, jwtToken, shiftId, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    shiftId: any;
+                    headers: any;
+                }): any;
+            };
         };
         shiftSettings: {
             get: ({ token, jwtToken, query, headers }: {
