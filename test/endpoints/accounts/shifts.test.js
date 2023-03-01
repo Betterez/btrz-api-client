@@ -71,4 +71,10 @@ describe("accounts/shifts", () => {
       locationClosure
     });
   });
+
+  it("should get the shift payments", () => {
+    const shiftId = "shiftId1";
+    axiosMock.onGet(`/shifts/${shiftId}/payments`).reply(expectRequest({statusCode: 200, token}));
+    return api.accounts.shifts.payments.get({token, jwtToken, shiftId});
+  });
 });

@@ -67,12 +67,21 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
     }
   };
 
+  const payments = {
+    get({token, jwtToken, shiftId, headers}) {
+      return client.get(`/shifts/${shiftId}/payments`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+
   return {
     all,
     get,
     create,
     update,
-    locationClosures
+    locationClosures,
+    payments
   };
 }
 
