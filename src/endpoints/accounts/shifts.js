@@ -80,8 +80,8 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
     get,
     create,
     update,
-    locationClosures,
-    payments
+    payments,
+    locationClosures
   };
 }
 
