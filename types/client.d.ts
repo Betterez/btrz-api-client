@@ -1809,6 +1809,20 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        tokens: {
+            get: ({ token, jwtToken, headers, query }: {
+                token: any;
+                jwtToken: any;
+                headers: any;
+                query: any;
+            }) => any;
+            create: ({ data, token, jwtToken, headers }: {
+                data: any;
+                token: any;
+                jwtToken: any;
+                headers: any;
+            }) => any;
+        };
         travellers: {
             all: ({ token, jwtToken, query, headers }: {
                 token: any;
