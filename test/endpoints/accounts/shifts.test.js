@@ -72,6 +72,19 @@ describe("accounts/shifts", () => {
     });
   });
 
+  it("should create the shift-location-closure comment", () => {
+    const locationClosureId = "locationClosure1";
+    const locationClosureComment = {};
+    axiosMock.onPost(`/shifts/location-closures/${locationClosureId}/comments`)
+      .reply(expectRequest({statusCode: 200, token, jwtToken, body: locationClosureComment}));
+    return api.accounts.shifts.locationClosures.comments.create({
+      jwtToken,
+      token,
+      locationClosureId,
+      locationClosureComment
+    });
+  });
+
   it("should get the shift payments", () => {
     const shiftId = "shiftId1";
     axiosMock.onGet(`/shifts/${shiftId}/payments`).reply(expectRequest({statusCode: 200, token}));

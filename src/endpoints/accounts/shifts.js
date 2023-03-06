@@ -41,6 +41,19 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  const locationClosureComments = {
+    create({jwtToken, token, locationClosureId, locationClosureComment, headers}) {
+      return client({
+        url: `/shifts/location-closures/${locationClosureId}/comments`,
+        method: "post",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        }),
+        data: locationClosureComment
+      });
+    }
+  };
+
   const locationClosures = {
     create({jwtToken, token, locationClosure, headers}) {
       return client({
@@ -64,7 +77,8 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
       return client.get(`/shifts/location-closures/${locationClosureId}`, {
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
       });
-    }
+    },
+    comments: locationClosureComments
   };
 
   const payments = {
