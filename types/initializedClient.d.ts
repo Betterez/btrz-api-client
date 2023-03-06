@@ -1747,6 +1747,15 @@ declare const _exports: {
                     locationClosureId: any;
                     headers: any;
                 }): any;
+                comments: {
+                    create({ jwtToken, token, locationClosureId, locationClosureComment, headers }: {
+                        jwtToken: any;
+                        token: any;
+                        locationClosureId: any;
+                        locationClosureComment: any;
+                        headers: any;
+                    }): any;
+                };
             };
         };
         shiftSettings: {
