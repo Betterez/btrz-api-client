@@ -90,4 +90,10 @@ describe("accounts/shifts", () => {
     axiosMock.onGet(`/shifts/${shiftId}/payments`).reply(expectRequest({statusCode: 200, token}));
     return api.accounts.shifts.payments.get({token, jwtToken, shiftId});
   });
+
+  it("should get the shift transactions", () => {
+    const shiftId = "shiftId1";
+    axiosMock.onGet(`/shifts/${shiftId}/transactions`).reply(expectRequest({statusCode: 200, token}));
+    return api.accounts.shifts.transactions.get({token, jwtToken, shiftId});
+  });
 });

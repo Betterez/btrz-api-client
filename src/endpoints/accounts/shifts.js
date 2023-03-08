@@ -88,6 +88,13 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
       });
     }
   };
+  const transactions = {
+    get({token, jwtToken, shiftId, headers}) {
+      return client.get(`/shifts/${shiftId}/transactions`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
 
   return {
     all,
@@ -95,6 +102,7 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
     create,
     update,
     payments,
+    transactions,
     locationClosures
   };
 }
