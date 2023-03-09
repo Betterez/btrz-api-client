@@ -1,14 +1,13 @@
 const {
   axiosMock,
   expectRequest
-} = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({
+} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({
   baseURL: "http://test.com"
 });
 
 describe("notifications/pdfs", () => {
   const token = "my-api-key";
-  const jwtToken = "my-jwt";
 
   afterEach(() => {
     axiosMock.reset();
@@ -19,13 +18,12 @@ describe("notifications/pdfs", () => {
     const query = {
       type: "product",
       family: "ticket"
-    }
+    };
     axiosMock.onGet(`/pdf-tickets/${itemId}`)
       .reply(expectRequest({
         statusCode: 200, token
       }));
-    return api.notifications.pdfs.get({
-      token, query, itemId});
+    return api.notifications.pdfs.get({token, query, itemId});
   });
 
   it("should return the proper data for a reservation", () => {
@@ -33,104 +31,96 @@ describe("notifications/pdfs", () => {
     const query = {
       type: "product",
       family: "reservation"
-    }
+    };
     axiosMock.onGet(`/pdf-reservations/${itemId}`)
       .reply(expectRequest({
         statusCode: 200, token
       }));
-    return api.notifications.pdfs.get({
-      token, query, itemId});
+    return api.notifications.pdfs.get({token, query, itemId});
   });
 
   it("should return the proper data for a shift", () => {
     const itemId = "12345";
     const query = {
       type: "shift"
-    }
+    };
     axiosMock.onGet(`/pdf-shifts/${itemId}`)
       .reply(expectRequest({
         statusCode: 200, token
       }));
-    return api.notifications.pdfs.get({
-      token, query, itemId});
+    return api.notifications.pdfs.get({token, query, itemId});
   });
 
   it("should return the proper data for a manifest", () => {
     const itemId = "12345";
     const query = {
       type: "manifest"
-    }
+    };
     axiosMock.onGet(`/pdf-manifests/${itemId}`)
       .reply(expectRequest({
         statusCode: 200, token
       }));
-    return api.notifications.pdfs.get({
-      token, query, itemId});
+    return api.notifications.pdfs.get({token, query, itemId});
   });
 
   it("should return the proper data for an order", () => {
     const itemId = "12345";
     const query = {
       type: "order"
-    }
+    };
     axiosMock.onGet(`/pdf-orders/${itemId}`)
       .reply(expectRequest({
         statusCode: 200, token
       }));
-    return api.notifications.pdfs.get({
-      token, query, itemId});
+    return api.notifications.pdfs.get({token, query, itemId});
   });
 
   it("should return the proper data for a ssr", () => {
     const itemId = "12345";
     const query = {
       type: "ssr"
-    }
+    };
     axiosMock.onGet(`/pdf-ssrs/${itemId}`)
       .reply(expectRequest({
         statusCode: 200, token
       }));
-    return api.notifications.pdfs.get({
-      token, query, itemId});
+    return api.notifications.pdfs.get({token, query, itemId});
   });
 
   it("should return the proper data for a exchange", () => {
     const itemId = "12345";
     const query = {
       type: "exchange"
-    }
+    };
     axiosMock.onGet(`/pdf-exchanges/${itemId}`)
       .reply(expectRequest({
         statusCode: 200, token
       }));
-    return api.notifications.pdfs.get({
-      token, query, itemId});
+    return api.notifications.pdfs.get({token, query, itemId});
   });
 
   it("should return the proper data for a invoice", () => {
     const itemId = "12345";
     const query = {
       type: "invoice"
-    }
+    };
     axiosMock.onGet(`/pdf-invoices/${itemId}`)
       .reply(expectRequest({
         statusCode: 200, token
       }));
-    return api.notifications.pdfs.get({
-      token, query, itemId});
+    return api.notifications.pdfs.get({token, query, itemId});
   });
 
   it("should return the proper data for a transaction", () => {
     const itemId = "12345";
     const query = {
       type: "transaction"
-    }
+    };
     axiosMock.onGet(`/pdf-transactions/${itemId}`)
       .reply(expectRequest({
         statusCode: 200, token
       }));
-    return api.notifications.pdfs.get({
-      token, query, itemId});
+    return api.notifications.pdfs.get({token, query, itemId});
   });
 
   it("should return the proper data for a paid in", () => {
@@ -138,13 +128,12 @@ describe("notifications/pdfs", () => {
     const query = {
       type: "product",
       family: "paid in"
-    }
+    };
     axiosMock.onGet(`/pdf-paid-ins/${itemId}`)
       .reply(expectRequest({
         statusCode: 200, token
       }));
-    return api.notifications.pdfs.get({
-      token, query, itemId});
+    return api.notifications.pdfs.get({token, query, itemId});
   });
 
   it("should return the proper data for a paid out", () => {
@@ -152,13 +141,12 @@ describe("notifications/pdfs", () => {
     const query = {
       type: "product",
       family: "paid out"
-    }
+    };
     axiosMock.onGet(`/pdf-paid-outs/${itemId}`)
       .reply(expectRequest({
         statusCode: 200, token
       }));
-    return api.notifications.pdfs.get({
-      token, query, itemId});
+    return api.notifications.pdfs.get({token, query, itemId});
   });
 
   it("should return the proper data for a parcel", () => {
@@ -166,13 +154,12 @@ describe("notifications/pdfs", () => {
     const query = {
       type: "product",
       family: "parcel"
-    }
+    };
     axiosMock.onGet(`/pdf-parcels/${itemId}`)
       .reply(expectRequest({
         statusCode: 200, token
       }));
-    return api.notifications.pdfs.get({
-      token, query, itemId});
+    return api.notifications.pdfs.get({token, query, itemId});
   });
 
   it("should return the proper data for a flexpass", () => {
@@ -180,13 +167,12 @@ describe("notifications/pdfs", () => {
     const query = {
       type: "product",
       family: "flexpass"
-    }
+    };
     axiosMock.onGet(`/pdf-flexpasses/${itemId}`)
       .reply(expectRequest({
         statusCode: 200, token
       }));
-    return api.notifications.pdfs.get({
-      token, query, itemId});
+    return api.notifications.pdfs.get({token, query, itemId});
   });
 
 
@@ -195,38 +181,69 @@ describe("notifications/pdfs", () => {
     const query = {
       type: "product",
       family: "bundle"
-    }
+    };
     axiosMock.onGet(`/pdf-redeemable-items/${itemId}`)
       .reply(expectRequest({
         statusCode: 200, token
       }));
     return api.notifications.pdfs.get({
-      token, query, itemId});
+      token, query, itemId
+    });
   });
 
   it("should return the proper data for a gift-certificates", () => {
     const itemId = "12345";
     const query = {
       type: "giftCertificate"
-    }
+    };
     axiosMock.onGet(`/pdf-gift-certificates/${itemId}`)
       .reply(expectRequest({
         statusCode: 200, token
       }));
     return api.notifications.pdfs.get({
-      token, query, itemId});
+      token, query, itemId
+    });
   });
 
   it("should return the proper data for a vouchers", () => {
     const itemId = "12345";
     const query = {
       type: "voucher"
-    }
+    };
     axiosMock.onGet(`/pdf-vouchers/${itemId}`)
       .reply(expectRequest({
         statusCode: 200, token
       }));
     return api.notifications.pdfs.get({
-      token, query, itemId});
+      token, query, itemId
+    });
+  });
+
+  it("should return the proper data for a passengerManifest", () => {
+    const itemId = "12345";
+    const query = {
+      type: "passengersManifest"
+    };
+    axiosMock.onGet(`/pdf-passengers-manifests/${itemId}`)
+      .reply(expectRequest({
+        statusCode: 200, token
+      }));
+    return api.notifications.pdfs.get({
+      token, query, itemId
+    });
+  });
+
+  it("should return the proper data for a locationClosure", () => {
+    const itemId = "12345";
+    const query = {
+      type: "locationClosure"
+    };
+    axiosMock.onGet(`/pdf-location-closures/${itemId}`)
+      .reply(expectRequest({
+        statusCode: 200, token
+      }));
+    return api.notifications.pdfs.get({
+      token, query, itemId
+    });
   });
 });

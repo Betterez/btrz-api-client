@@ -74,6 +74,9 @@ function pdfFactory({
     if (query.type === "invoice") {
       url = `/pdf-invoices/${itemId}`;
     }
+    if (query.type === "locationClosure") {
+      url = `/pdf-location-closures/${itemId}`;
+    }
     return client.get(url, {
       params: query,
       responseType: responseType || "blob",
