@@ -1641,29 +1641,28 @@ export function createApiClient(options: {
                 query: any;
                 headers: any;
             }) => any;
-            getById: ({ token, jwtToken, query, headers, peopleLookupId }: {
+            getById: ({ token, jwtToken, query, headers, personId }: {
                 token: any;
                 jwtToken: any;
                 query: any;
                 headers: any;
-                peopleLookupId: any;
+                personId: any;
             }) => any;
-            update: ({ jwtToken, token, peopleLookupId, peopleLookup, headers, query }: {
+            update: ({ jwtToken, token, personId, person, headers }: {
                 jwtToken: any;
                 token: any;
-                peopleLookupId: any;
-                peopleLookup: any;
+                personId: any;
+                person: any;
                 headers: any;
-                query: any;
             }) => any;
-            create: ({ jwtToken, token, peopleLookup, headers }: {
+            create: ({ jwtToken, token, person, headers }: {
                 jwtToken: any;
                 token: any;
-                peopleLookup: any;
+                person: any;
                 headers: any;
             }) => any;
-            remove: ({ peopleLookupId, token, jwtToken, headers }: {
-                peopleLookupId: any;
+            remove: ({ personId, token, jwtToken, headers }: {
+                personId: any;
                 token: any;
                 jwtToken: any;
                 headers: any;
