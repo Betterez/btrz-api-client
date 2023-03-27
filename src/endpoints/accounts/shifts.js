@@ -95,6 +95,48 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
       });
     }
   };
+  const tickets = {
+    get({token, jwtToken, shiftId, headers}) {
+      return client.get(`/shifts/${shiftId}/tickets`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+  const fees = {
+    get({token, jwtToken, shiftId, headers}) {
+      return client.get(`/shifts/${shiftId}/fees`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+  const refunds = {
+    get({token, jwtToken, shiftId, headers}) {
+      return client.get(`/shifts/${shiftId}/refunds`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+  const items = {
+    get({token, jwtToken, shiftId, headers}) {
+      return client.get(`/shifts/${shiftId}/items`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+  const redeemableItems = {
+    get({token, jwtToken, shiftId, headers}) {
+      return client.get(`/shifts/${shiftId}/redeemable-items`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+  const giftCertificates = {
+    get({token, jwtToken, shiftId, headers}) {
+      return client.get(`/shifts/${shiftId}/gift-certificates`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
 
   return {
     all,
@@ -103,6 +145,12 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
     update,
     payments,
     transactions,
+    tickets,
+    fees,
+    refunds,
+    items,
+    redeemableItems,
+    giftCertificates,
     locationClosures
   };
 }
