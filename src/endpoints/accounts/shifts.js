@@ -137,6 +137,20 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
       });
     }
   };
+  const parcels = {
+    get({token, jwtToken, shiftId, headers}) {
+      return client.get(`/shifts/${shiftId}/parcels`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+  const insurances = {
+    get({token, jwtToken, shiftId, headers}) {
+      return client.get(`/shifts/${shiftId}/insurances`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
 
   return {
     all,
@@ -151,6 +165,8 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
     items,
     redeemableItems,
     giftCertificates,
+    parcels,
+    insurances,
     locationClosures
   };
 }
