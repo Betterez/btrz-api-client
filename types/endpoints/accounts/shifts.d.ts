@@ -92,6 +92,22 @@ declare function shiftsFactory({ client, internalAuthTokenProvider }: {
             headers: any;
         }): any;
     };
+    parcels: {
+        get({ token, jwtToken, shiftId, headers }: {
+            token: any;
+            jwtToken: any;
+            shiftId: any;
+            headers: any;
+        }): any;
+    };
+    insurances: {
+        get({ token, jwtToken, shiftId, headers }: {
+            token: any;
+            jwtToken: any;
+            shiftId: any;
+            headers: any;
+        }): any;
+    };
     locationClosures: {
         create({ jwtToken, token, locationClosure, headers }: {
             jwtToken: any;
