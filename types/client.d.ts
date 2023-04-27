@@ -3233,6 +3233,14 @@ export function createApiClient(options: {
                 query?: {};
                 headers: any;
             }) => any;
+            get: ({ token, jwtToken, invoiceProviderId, invoiceProviderSequenceId, query, headers }: {
+                token: any;
+                jwtToken: any;
+                invoiceProviderId: any;
+                invoiceProviderSequenceId: any;
+                query?: {};
+                headers: any;
+            }) => any;
             remove: ({ token, jwtToken, invoiceProviderId, id, query, headers }: {
                 token: any;
                 jwtToken: any;
@@ -3245,6 +3253,15 @@ export function createApiClient(options: {
                 token: any;
                 jwtToken: any;
                 invoiceProviderId: any;
+                data: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            update: ({ token, jwtToken, invoiceProviderId, invoiceProviderSequenceId, data, query, headers }: {
+                token: any;
+                jwtToken: any;
+                invoiceProviderId: any;
+                invoiceProviderSequenceId: any;
                 data: any;
                 query?: {};
                 headers: any;
