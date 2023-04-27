@@ -10,6 +10,15 @@ function providersSequencesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function get({token, jwtToken, invoiceProviderId, invoiceProviderSequenceId, query = {}, headers}) {
+    return client({
+      url: `/providers/${invoiceProviderId}/sequences/${invoiceProviderSequenceId}`,
+      method: "get",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      params: query
+    });
+  }
+
   function remove({token, jwtToken, invoiceProviderId, id, query = {}, headers}) {
     return client({
       url: `/providers/${invoiceProviderId}/sequences/${id}`,
@@ -29,10 +38,22 @@ function providersSequencesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function update({token, jwtToken, invoiceProviderId, invoiceProviderSequenceId, data, query = {}, headers}) {
+    return client({
+      url: `/providers/${invoiceProviderId}/sequences/${invoiceProviderSequenceId}`,
+      method: "put",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      params: query,
+      data
+    });
+  }
+
   return {
     all,
+    get,
     remove,
-    create
+    create,
+    update
   };
 }
 
