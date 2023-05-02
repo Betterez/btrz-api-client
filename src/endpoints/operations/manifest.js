@@ -15,11 +15,12 @@ function manifestFactory({
   }
 
   function getById({
-    token, jwtToken, manifestId, headers
+    token, jwtToken, manifestId, query = {}, headers
   }) {
     return client({
       url: `/manifests/${manifestId}`,
       method: "get",
+      params: query,
       headers: authorizationHeaders({
         token, jwtToken, internalAuthTokenProvider, headers
       })
