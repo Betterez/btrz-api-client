@@ -71,4 +71,77 @@ describe("accounts/shifts", () => {
       locationClosure
     });
   });
+
+  it("should create the shift-location-closure comment", () => {
+    const locationClosureId = "locationClosure1";
+    const locationClosureComment = {};
+    axiosMock.onPost(`/shifts/location-closures/${locationClosureId}/comments`)
+      .reply(expectRequest({statusCode: 200, token, jwtToken, body: locationClosureComment}));
+    return api.accounts.shifts.locationClosures.comments.create({
+      jwtToken,
+      token,
+      locationClosureId,
+      locationClosureComment
+    });
+  });
+
+  it("should get the shift payments", () => {
+    const shiftId = "shiftId1";
+    axiosMock.onGet(`/shifts/${shiftId}/payments`).reply(expectRequest({statusCode: 200, token}));
+    return api.accounts.shifts.payments.get({token, jwtToken, shiftId});
+  });
+
+  it("should get the shift transactions", () => {
+    const shiftId = "shiftId1";
+    axiosMock.onGet(`/shifts/${shiftId}/transactions`).reply(expectRequest({statusCode: 200, token}));
+    return api.accounts.shifts.transactions.get({token, jwtToken, shiftId});
+  });
+
+  it("should get the shift tickets", () => {
+    const shiftId = "shiftId1";
+    axiosMock.onGet(`/shifts/${shiftId}/tickets`).reply(expectRequest({statusCode: 200, token}));
+    return api.accounts.shifts.tickets.get({token, jwtToken, shiftId});
+  });
+
+  it("should get the shift fees", () => {
+    const shiftId = "shiftId1";
+    axiosMock.onGet(`/shifts/${shiftId}/fees`).reply(expectRequest({statusCode: 200, token}));
+    return api.accounts.shifts.fees.get({token, jwtToken, shiftId});
+  });
+
+  it("should get the shift refunds", () => {
+    const shiftId = "shiftId1";
+    axiosMock.onGet(`/shifts/${shiftId}/refunds`).reply(expectRequest({statusCode: 200, token}));
+    return api.accounts.shifts.refunds.get({token, jwtToken, shiftId});
+  });
+
+  it("should get the shift items", () => {
+    const shiftId = "shiftId1";
+    axiosMock.onGet(`/shifts/${shiftId}/items`).reply(expectRequest({statusCode: 200, token}));
+    return api.accounts.shifts.items.get({token, jwtToken, shiftId});
+  });
+
+  it("should get the shift redeemable items", () => {
+    const shiftId = "shiftId1";
+    axiosMock.onGet(`/shifts/${shiftId}/redeemable-items`).reply(expectRequest({statusCode: 200, token}));
+    return api.accounts.shifts.redeemableItems.get({token, jwtToken, shiftId});
+  });
+
+  it("should get the shift gift certificates", () => {
+    const shiftId = "shiftId1";
+    axiosMock.onGet(`/shifts/${shiftId}/gift-certificates`).reply(expectRequest({statusCode: 200, token}));
+    return api.accounts.shifts.giftCertificates.get({token, jwtToken, shiftId});
+  });
+
+  it("should get the shift parcels", () => {
+    const shiftId = "shiftId1";
+    axiosMock.onGet(`/shifts/${shiftId}/parcels`).reply(expectRequest({statusCode: 200, token}));
+    return api.accounts.shifts.parcels.get({token, jwtToken, shiftId});
+  });
+
+  it("should get the shift insurances", () => {
+    const shiftId = "shiftId1";
+    axiosMock.onGet(`/shifts/${shiftId}/insurances`).reply(expectRequest({statusCode: 200, token}));
+    return api.accounts.shifts.insurances.get({token, jwtToken, shiftId});
+  });
 });

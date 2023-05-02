@@ -11,29 +11,28 @@ function peopleLookupsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function getById({token, jwtToken, query, headers, peopleLookupId}) {
+  function getById({token, jwtToken, query, headers, personId}) {
     return client({
-      url: `/people-lookups/${peopleLookupId}`,
+      url: `/people-lookups/${personId}`,
       params: query,
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
-  function update({jwtToken, token, peopleLookupId, peopleLookup, headers, query}) {
+  function update({jwtToken, token, personId, person, headers}) {
     return client({
-      url: `/people-lookups/${peopleLookupId}`,
+      url: `/people-lookups/${personId}`,
       method: "put",
       headers: authorizationHeaders({
         token, jwtToken, internalAuthTokenProvider, headers
       }),
       data: {
-        peopleLookup
-      },
-      params: query
+        person
+      }
     });
   }
 
-  function create({jwtToken, token, peopleLookup, headers}) {
+  function create({jwtToken, token, person, headers}) {
     return client({
       url: "/people-lookups",
       method: "post",
@@ -41,14 +40,14 @@ function peopleLookupsFactory({client, internalAuthTokenProvider}) {
         token, jwtToken, internalAuthTokenProvider, headers
       }),
       data: {
-        peopleLookup
+        person
       }
     });
   }
 
-  function remove({peopleLookupId, token, jwtToken, headers}) {
+  function remove({personId, token, jwtToken, headers}) {
     return client({
-      url: `/people-lookups/${peopleLookupId}`,
+      url: `/people-lookups/${personId}`,
       method: "delete",
       headers: authorizationHeaders({
         token, jwtToken, internalAuthTokenProvider, headers

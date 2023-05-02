@@ -28,6 +28,86 @@ declare function shiftsFactory({ client, internalAuthTokenProvider }: {
         headers: any;
         query: any;
     }) => any;
+    payments: {
+        get({ token, jwtToken, shiftId, headers }: {
+            token: any;
+            jwtToken: any;
+            shiftId: any;
+            headers: any;
+        }): any;
+    };
+    transactions: {
+        get({ token, jwtToken, shiftId, headers }: {
+            token: any;
+            jwtToken: any;
+            shiftId: any;
+            headers: any;
+        }): any;
+    };
+    tickets: {
+        get({ token, jwtToken, shiftId, headers }: {
+            token: any;
+            jwtToken: any;
+            shiftId: any;
+            headers: any;
+        }): any;
+    };
+    fees: {
+        get({ token, jwtToken, shiftId, headers }: {
+            token: any;
+            jwtToken: any;
+            shiftId: any;
+            headers: any;
+        }): any;
+    };
+    refunds: {
+        get({ token, jwtToken, shiftId, headers }: {
+            token: any;
+            jwtToken: any;
+            shiftId: any;
+            headers: any;
+        }): any;
+    };
+    items: {
+        get({ token, jwtToken, shiftId, headers }: {
+            token: any;
+            jwtToken: any;
+            shiftId: any;
+            headers: any;
+        }): any;
+    };
+    redeemableItems: {
+        get({ token, jwtToken, shiftId, headers }: {
+            token: any;
+            jwtToken: any;
+            shiftId: any;
+            headers: any;
+        }): any;
+    };
+    giftCertificates: {
+        get({ token, jwtToken, shiftId, headers }: {
+            token: any;
+            jwtToken: any;
+            shiftId: any;
+            headers: any;
+        }): any;
+    };
+    parcels: {
+        get({ token, jwtToken, shiftId, headers }: {
+            token: any;
+            jwtToken: any;
+            shiftId: any;
+            headers: any;
+        }): any;
+    };
+    insurances: {
+        get({ token, jwtToken, shiftId, headers }: {
+            token: any;
+            jwtToken: any;
+            shiftId: any;
+            headers: any;
+        }): any;
+    };
     locationClosures: {
         create({ jwtToken, token, locationClosure, headers }: {
             jwtToken: any;
@@ -47,5 +127,14 @@ declare function shiftsFactory({ client, internalAuthTokenProvider }: {
             locationClosureId: any;
             headers: any;
         }): any;
+        comments: {
+            create({ jwtToken, token, locationClosureId, locationClosureComment, headers }: {
+                jwtToken: any;
+                token: any;
+                locationClosureId: any;
+                locationClosureComment: any;
+                headers: any;
+            }): any;
+        };
     };
 };

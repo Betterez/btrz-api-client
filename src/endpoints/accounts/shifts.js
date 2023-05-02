@@ -41,6 +41,19 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  const locationClosureComments = {
+    create({jwtToken, token, locationClosureId, locationClosureComment, headers}) {
+      return client({
+        url: `/shifts/location-closures/${locationClosureId}/comments`,
+        method: "post",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        }),
+        data: locationClosureComment
+      });
+    }
+  };
+
   const locationClosures = {
     create({jwtToken, token, locationClosure, headers}) {
       return client({
@@ -64,6 +77,78 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
       return client.get(`/shifts/location-closures/${locationClosureId}`, {
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
       });
+    },
+    comments: locationClosureComments
+  };
+
+  const payments = {
+    get({token, jwtToken, shiftId, headers}) {
+      return client.get(`/shifts/${shiftId}/payments`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+  const transactions = {
+    get({token, jwtToken, shiftId, headers}) {
+      return client.get(`/shifts/${shiftId}/transactions`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+  const tickets = {
+    get({token, jwtToken, shiftId, headers}) {
+      return client.get(`/shifts/${shiftId}/tickets`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+  const fees = {
+    get({token, jwtToken, shiftId, headers}) {
+      return client.get(`/shifts/${shiftId}/fees`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+  const refunds = {
+    get({token, jwtToken, shiftId, headers}) {
+      return client.get(`/shifts/${shiftId}/refunds`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+  const items = {
+    get({token, jwtToken, shiftId, headers}) {
+      return client.get(`/shifts/${shiftId}/items`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+  const redeemableItems = {
+    get({token, jwtToken, shiftId, headers}) {
+      return client.get(`/shifts/${shiftId}/redeemable-items`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+  const giftCertificates = {
+    get({token, jwtToken, shiftId, headers}) {
+      return client.get(`/shifts/${shiftId}/gift-certificates`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+  const parcels = {
+    get({token, jwtToken, shiftId, headers}) {
+      return client.get(`/shifts/${shiftId}/parcels`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+  const insurances = {
+    get({token, jwtToken, shiftId, headers}) {
+      return client.get(`/shifts/${shiftId}/insurances`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
     }
   };
 
@@ -72,6 +157,16 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
     get,
     create,
     update,
+    payments,
+    transactions,
+    tickets,
+    fees,
+    refunds,
+    items,
+    redeemableItems,
+    giftCertificates,
+    parcels,
+    insurances,
     locationClosures
   };
 }

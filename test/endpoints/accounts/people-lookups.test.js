@@ -21,10 +21,10 @@ describe("accounts/people-lookups", () => {
     const query = {
       phone: "123456"
     };
-    const peopleLookupId = "peopleLookupId";
-    axiosMock.onGet(`/people-lookups/${peopleLookupId}`, {params: query})
+    const personId = "personId";
+    axiosMock.onGet(`/people-lookups/${personId}`, {params: query})
       .reply(expectRequest({statusCode: 200, token}));
-    return api.accounts.peopleLookups.getById({token, jwtToken, query, peopleLookupId});
+    return api.accounts.peopleLookups.getById({token, jwtToken, query, personId});
   });
 
   it("should update a people lookup entry", () => {
@@ -35,15 +35,15 @@ describe("accounts/people-lookups", () => {
     const query = {
       phone: "1234567"
     };
-    const peopleLookupId = "A";
-    axiosMock.onPut(`/people-lookups/${peopleLookupId}`)
+    const personId = "A";
+    axiosMock.onPut(`/people-lookups/${personId}`)
       .reply(expectRequest({
         statusCode: 200,
         token,
         jwtToken
       }));
     return api.accounts.peopleLookups.update({
-      token, jwtToken, peopleLookup, peopleLookupId, query
+      token, jwtToken, peopleLookup, personId, query
     });
   });
 
@@ -65,15 +65,15 @@ describe("accounts/people-lookups", () => {
   });
 
   it("should delete the people lookup entry by id", () => {
-    const peopleLookupId = "A";
-    axiosMock.onDelete(`/people-lookups/${peopleLookupId}`)
+    const personId = "A";
+    axiosMock.onDelete(`/people-lookups/${personId}`)
       .reply(expectRequest({
         statusCode: 200,
         token,
         jwtToken
       }));
     return api.accounts.peopleLookups.remove({
-      token, jwtToken, peopleLookupId
+      token, jwtToken, personId
     });
   });
 });

@@ -1595,29 +1595,28 @@ declare const _exports: {
                 query: any;
                 headers: any;
             }) => any;
-            getById: ({ token, jwtToken, query, headers, peopleLookupId }: {
+            getById: ({ token, jwtToken, query, headers, personId }: {
                 token: any;
                 jwtToken: any;
                 query: any;
                 headers: any;
-                peopleLookupId: any;
+                personId: any;
             }) => any;
-            update: ({ jwtToken, token, peopleLookupId, peopleLookup, headers, query }: {
+            update: ({ jwtToken, token, personId, person, headers }: {
                 jwtToken: any;
                 token: any;
-                peopleLookupId: any;
-                peopleLookup: any;
+                personId: any;
+                person: any;
                 headers: any;
-                query: any;
             }) => any;
-            create: ({ jwtToken, token, peopleLookup, headers }: {
+            create: ({ jwtToken, token, person, headers }: {
                 jwtToken: any;
                 token: any;
-                peopleLookup: any;
+                person: any;
                 headers: any;
             }) => any;
-            remove: ({ peopleLookupId, token, jwtToken, headers }: {
-                peopleLookupId: any;
+            remove: ({ personId, token, jwtToken, headers }: {
+                personId: any;
                 token: any;
                 jwtToken: any;
                 headers: any;
@@ -1720,6 +1719,86 @@ declare const _exports: {
                 headers: any;
                 query: any;
             }) => any;
+            payments: {
+                get({ token, jwtToken, shiftId, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    shiftId: any;
+                    headers: any;
+                }): any;
+            };
+            transactions: {
+                get({ token, jwtToken, shiftId, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    shiftId: any;
+                    headers: any;
+                }): any;
+            };
+            tickets: {
+                get({ token, jwtToken, shiftId, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    shiftId: any;
+                    headers: any;
+                }): any;
+            };
+            fees: {
+                get({ token, jwtToken, shiftId, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    shiftId: any;
+                    headers: any;
+                }): any;
+            };
+            refunds: {
+                get({ token, jwtToken, shiftId, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    shiftId: any;
+                    headers: any;
+                }): any;
+            };
+            items: {
+                get({ token, jwtToken, shiftId, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    shiftId: any;
+                    headers: any;
+                }): any;
+            };
+            redeemableItems: {
+                get({ token, jwtToken, shiftId, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    shiftId: any;
+                    headers: any;
+                }): any;
+            };
+            giftCertificates: {
+                get({ token, jwtToken, shiftId, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    shiftId: any;
+                    headers: any;
+                }): any;
+            };
+            parcels: {
+                get({ token, jwtToken, shiftId, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    shiftId: any;
+                    headers: any;
+                }): any;
+            };
+            insurances: {
+                get({ token, jwtToken, shiftId, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    shiftId: any;
+                    headers: any;
+                }): any;
+            };
             locationClosures: {
                 create({ jwtToken, token, locationClosure, headers }: {
                     jwtToken: any;
@@ -1739,6 +1818,15 @@ declare const _exports: {
                     locationClosureId: any;
                     headers: any;
                 }): any;
+                comments: {
+                    create({ jwtToken, token, locationClosureId, locationClosureComment, headers }: {
+                        jwtToken: any;
+                        token: any;
+                        locationClosureId: any;
+                        locationClosureComment: any;
+                        headers: any;
+                    }): any;
+                };
             };
         };
         shiftSettings: {
@@ -1752,6 +1840,20 @@ declare const _exports: {
                 jwtToken: any;
                 token: any;
                 shiftSettings: any;
+                headers: any;
+            }) => any;
+        };
+        tokens: {
+            get: ({ token, jwtToken, headers, query }: {
+                token: any;
+                jwtToken: any;
+                headers: any;
+                query: any;
+            }) => any;
+            create: ({ data, token, jwtToken, headers }: {
+                data: any;
+                token: any;
+                jwtToken: any;
                 headers: any;
             }) => any;
         };
@@ -3086,6 +3188,14 @@ declare const _exports: {
                 query?: {};
                 headers: any;
             }) => any;
+            get: ({ token, jwtToken, invoiceProviderId, invoiceProviderSequenceId, query, headers }: {
+                token: any;
+                jwtToken: any;
+                invoiceProviderId: any;
+                invoiceProviderSequenceId: any;
+                query?: {};
+                headers: any;
+            }) => any;
             remove: ({ token, jwtToken, invoiceProviderId, id, query, headers }: {
                 token: any;
                 jwtToken: any;
@@ -3098,6 +3208,15 @@ declare const _exports: {
                 token: any;
                 jwtToken: any;
                 invoiceProviderId: any;
+                data: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            update: ({ token, jwtToken, invoiceProviderId, invoiceProviderSequenceId, data, query, headers }: {
+                token: any;
+                jwtToken: any;
+                invoiceProviderId: any;
+                invoiceProviderSequenceId: any;
                 data: any;
                 query?: {};
                 headers: any;
@@ -3122,6 +3241,15 @@ declare const _exports: {
             }) => any;
         };
         dlink: {
+            create: ({ token, jwtToken, data, query, headers }: {
+                token: any;
+                jwtToken: any;
+                data: any;
+                query?: {};
+                headers: any;
+            }) => any;
+        };
+        gti: {
             create: ({ token, jwtToken, data, query, headers }: {
                 token: any;
                 jwtToken: any;

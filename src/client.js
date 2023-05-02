@@ -159,6 +159,7 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
     }),
     shifts: require("./endpoints/accounts/shifts.js")({client, internalAuthTokenProvider}),
     shiftSettings: require("./endpoints/accounts/shift-settings.js")({client, internalAuthTokenProvider}),
+    tokens: require("./endpoints/accounts/tokens.js")({client, internalAuthTokenProvider}),
     travellers: require("./endpoints/accounts/travellers.js")({
       client, internalAuthTokenProvider
     }),
@@ -337,6 +338,7 @@ function createInvoices({baseURL, headers, timeout, overrideFn, internalAuthToke
     infile: require("./endpoints/invoices/infile.js")({client, internalAuthTokenProvider}),
     system: require("./endpoints/invoices/system.js")({client, internalAuthTokenProvider}),
     dlink: require("./endpoints/invoices/dlink.js")({client, internalAuthTokenProvider}),
+    gti: require("./endpoints/invoices/gti.js")({client, internalAuthTokenProvider}),
     pdfs: require("./endpoints/invoices/pdfs.js")({client, internalAuthTokenProvider}),
     emails: require("./endpoints/invoices/emails.js")({client, internalAuthTokenProvider}),
     taxIds: require("./endpoints/invoices/tax-ids.js")({client, internalAuthTokenProvider}),
