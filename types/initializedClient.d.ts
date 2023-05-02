@@ -2279,10 +2279,11 @@ declare const _exports: {
                 data: any;
                 headers: any;
             }) => any;
-            getById: ({ token, jwtToken, manifestId, headers }: {
+            getById: ({ token, jwtToken, manifestId, query, headers }: {
                 token: any;
                 jwtToken: any;
                 manifestId: any;
+                query?: {};
                 headers: any;
             }) => any;
             outlook: ({ token, jwtToken, query, headers }: {
