@@ -1799,6 +1799,21 @@ declare const _exports: {
                     headers: any;
                 }): any;
             };
+            deposits: {
+                get({ token, jwtToken, shiftId, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    shiftId: any;
+                    headers: any;
+                }): any;
+                create({ jwtToken, token, shiftId, deposit, headers }: {
+                    jwtToken: any;
+                    token: any;
+                    shiftId: any;
+                    deposit: any;
+                    headers: any;
+                }): any;
+            };
             locationClosures: {
                 create({ jwtToken, token, locationClosure, headers }: {
                     jwtToken: any;
