@@ -151,6 +151,22 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
       });
     }
   };
+  const deposits = {
+    get({token, jwtToken, shiftId, headers}) {
+      return client.get(`/shifts/${shiftId}/deposits`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    },
+    create({jwtToken, token, shiftId, deposit, headers}) {
+      return client({
+        url: `/shifts/${shiftId}/deposits`,
+        method: "post",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        data: deposit
+      });
+    }
+  };
+
 
   return {
     all,
@@ -167,6 +183,7 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
     giftCertificates,
     parcels,
     insurances,
+    deposits,
     locationClosures
   };
 }

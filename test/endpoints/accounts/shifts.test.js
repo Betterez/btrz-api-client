@@ -144,4 +144,17 @@ describe("accounts/shifts", () => {
     axiosMock.onGet(`/shifts/${shiftId}/insurances`).reply(expectRequest({statusCode: 200, token}));
     return api.accounts.shifts.insurances.get({token, jwtToken, shiftId});
   });
+
+  it("should get the shift deposits", () => {
+    const shiftId = "shiftId1";
+    axiosMock.onGet(`/shifts/${shiftId}/deposits`).reply(expectRequest({statusCode: 200, token}));
+    return api.accounts.shifts.deposits.get({token, jwtToken, shiftId});
+  });
+
+  it("should create the shift deposit", () => {
+    const shiftId = "shiftId1";
+    const deposit = {};
+    axiosMock.onPost(`/shifts/${shiftId}/deposits`).reply(expectRequest({statusCode: 200, token, jwtToken, body: deposit}));
+    return api.accounts.shifts.deposits.create({token, jwtToken, shiftId, deposit});
+  });
 });
