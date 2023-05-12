@@ -10,4 +10,11 @@ declare function gtiFactory({ client, internalAuthTokenProvider }: {
         query?: {};
         headers: any;
     }) => any;
+    validateCreate: ({ token, jwtToken, data, query, headers }: {
+        token: any;
+        jwtToken: any;
+        data: any;
+        query?: {};
+        headers: any;
+    }) => any;
 };

@@ -3252,9 +3252,23 @@ declare const _exports: {
                 query?: {};
                 headers: any;
             }) => any;
+            validateCreate: ({ token, jwtToken, data, query, headers }: {
+                token: any;
+                jwtToken: any;
+                data: any;
+                query?: {};
+                headers: any;
+            }) => any;
         };
         system: {
             create: ({ token, jwtToken, data, query, headers }: {
+                token: any;
+                jwtToken: any;
+                data: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            validateCreate: ({ token, jwtToken, data, query, headers }: {
                 token: any;
                 jwtToken: any;
                 data: any;
@@ -3270,9 +3284,23 @@ declare const _exports: {
                 query?: {};
                 headers: any;
             }) => any;
+            validateCreate: ({ token, jwtToken, data, query, headers }: {
+                token: any;
+                jwtToken: any;
+                data: any;
+                query?: {};
+                headers: any;
+            }) => any;
         };
         gti: {
             create: ({ token, jwtToken, data, query, headers }: {
+                token: any;
+                jwtToken: any;
+                data: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            validateCreate: ({ token, jwtToken, data, query, headers }: {
                 token: any;
                 jwtToken: any;
                 data: any;
