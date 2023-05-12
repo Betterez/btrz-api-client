@@ -13,4 +13,10 @@ declare function stationsFactory({ client, internalAuthTokenProvider }: {
         query?: {};
         headers: any;
     }) => any;
+    create: ({ token, jwtToken, data, headers }: {
+        token: any;
+        jwtToken: any;
+        data: any;
+        headers: any;
+    }) => any;
 };

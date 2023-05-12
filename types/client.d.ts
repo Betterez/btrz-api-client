@@ -182,6 +182,12 @@ export function createApiClient(options: {
                 query?: {};
                 headers: any;
             }) => any;
+            create: ({ token, jwtToken, data, headers }: {
+                token: any;
+                jwtToken: any;
+                data: any;
+                headers: any;
+            }) => any;
         };
         stationsZones: {
             get: ({ token, query, headers }: {
