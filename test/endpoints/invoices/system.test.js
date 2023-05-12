@@ -19,4 +19,13 @@ describe("invoices/system", () => {
       }
     });
   });
+
+  it("should validate the payload for create a system invoice", () => {
+    axiosMock.onPost("/system?onlyValidateRequest=true").reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.invoices.system.validateCreate({
+      jwtToken,
+      token,
+      data: {}
+    });
+  });
 });

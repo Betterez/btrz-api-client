@@ -9,7 +9,7 @@ describe("invoices/dlink", () => {
     axiosMock.restore();
   });
 
-  it("should create an dlink invoice", () => {
+  it("should create a dlink invoice", () => {
     axiosMock.onPost("/dlink").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.invoices.dlink.create({
       jwtToken,
@@ -17,6 +17,15 @@ describe("invoices/dlink", () => {
       data: {
         invoiceProviderId: "example"
       }
+    });
+  });
+
+  it("should validate the payload for create a dlink invoice", () => {
+    axiosMock.onPost("/dlink?onlyValidateRequest=true").reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.invoices.dlink.validateCreate({
+      jwtToken,
+      token,
+      data: {}
     });
   });
 });

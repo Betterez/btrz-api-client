@@ -9,7 +9,7 @@ describe("invoices/gti", () => {
     axiosMock.restore();
   });
 
-  it("should create an gti invoice", () => {
+  it("should create a gti invoice", () => {
     axiosMock.onPost("/gti").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.invoices.gti.create({
       jwtToken,
@@ -17,6 +17,15 @@ describe("invoices/gti", () => {
       data: {
         invoiceProviderId: "example"
       }
+    });
+  });
+
+  it("should validate the payload for create a gti invoice", () => {
+    axiosMock.onPost("/gti?onlyValidateRequest=true").reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.invoices.gti.validateCreate({
+      jwtToken,
+      token,
+      data: {}
     });
   });
 });

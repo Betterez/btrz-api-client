@@ -19,4 +19,13 @@ describe("invoices/infile", () => {
       }
     });
   });
+
+  it("should validate the payload for create a infile invoice", () => {
+    axiosMock.onPost("/infile?onlyValidateRequest=true").reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.invoices.infile.validateCreate({
+      jwtToken,
+      token,
+      data: {}
+    });
+  });
 });

@@ -11,8 +11,21 @@ function gtiFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function validateCreate({token, jwtToken, data, query = {}, headers}) {
+    // eslint-disable-next-line no-param-reassign
+    query.onlyValidateRequest = true;
+    return client({
+      url: "/gti",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      params: query,
+      data
+    });
+  }
+
   return {
-    create
+    create,
+    validateCreate
   };
 }
 

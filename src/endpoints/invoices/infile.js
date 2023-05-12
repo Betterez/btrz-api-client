@@ -11,8 +11,21 @@ function infileFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function validateCreate({token, jwtToken, data, query = {}, headers}) {
+    // eslint-disable-next-line no-param-reassign
+    query.onlyValidateRequest = true;
+    return client({
+      url: "/infile",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      params: query,
+      data
+    });
+  }
+
   return {
-    create
+    create,
+    validateCreate
   };
 }
 
