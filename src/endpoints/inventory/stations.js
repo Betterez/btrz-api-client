@@ -14,9 +14,21 @@ function stationsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function create({token, jwtToken, data, headers}) {
+    return client({
+      url: "/stations",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data: {
+        station: data
+      }
+    });
+  }
+
   return {
     get,
-    all
+    all,
+    create
   };
 }
 
