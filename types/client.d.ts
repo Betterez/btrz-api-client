@@ -2684,6 +2684,21 @@ export function createApiClient(options: {
                 voucher?: {};
             }) => any;
         };
+        parcelManifests: {
+            all: ({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query: any;
+                headers: any;
+            }) => any;
+            create: ({ token, jwtToken, query, data, headers }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                data: any;
+                headers: any;
+            }) => any;
+        };
         __test: {
             client: axios.AxiosInstance;
         };
