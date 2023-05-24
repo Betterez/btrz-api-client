@@ -2645,6 +2645,12 @@ declare const _exports: {
                 query: any;
                 headers: any;
             }) => any;
+            get: ({ token, jwtToken, id, headers }: {
+                token: any;
+                jwtToken: any;
+                id: any;
+                headers: any;
+            }) => any;
             create: ({ token, jwtToken, query, data, headers }: {
                 token: any;
                 jwtToken: any;
@@ -2652,6 +2658,15 @@ declare const _exports: {
                 data: any;
                 headers: any;
             }) => any;
+            parcels: {
+                remove({ token, jwtToken, manifestId, parcelId, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    manifestId: any;
+                    parcelId: any;
+                    headers: any;
+                }): any;
+            };
         };
         __test: {
             client: import("axios").AxiosInstance;

@@ -9,6 +9,12 @@ declare function parcelsManifestsFactory({ client, internalAuthTokenProvider }: 
         query: any;
         headers: any;
     }) => any;
+    get: ({ token, jwtToken, id, headers }: {
+        token: any;
+        jwtToken: any;
+        id: any;
+        headers: any;
+    }) => any;
     create: ({ token, jwtToken, query, data, headers }: {
         token: any;
         jwtToken: any;
@@ -16,4 +22,13 @@ declare function parcelsManifestsFactory({ client, internalAuthTokenProvider }: 
         data: any;
         headers: any;
     }) => any;
+    parcels: {
+        remove({ token, jwtToken, manifestId, parcelId, headers }: {
+            token: any;
+            jwtToken: any;
+            manifestId: any;
+            parcelId: any;
+            headers: any;
+        }): any;
+    };
 };

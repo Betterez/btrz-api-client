@@ -2691,6 +2691,12 @@ export function createApiClient(options: {
                 query: any;
                 headers: any;
             }) => any;
+            get: ({ token, jwtToken, id, headers }: {
+                token: any;
+                jwtToken: any;
+                id: any;
+                headers: any;
+            }) => any;
             create: ({ token, jwtToken, query, data, headers }: {
                 token: any;
                 jwtToken: any;
@@ -2698,6 +2704,15 @@ export function createApiClient(options: {
                 data: any;
                 headers: any;
             }) => any;
+            parcels: {
+                remove({ token, jwtToken, manifestId, parcelId, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    manifestId: any;
+                    parcelId: any;
+                    headers: any;
+                }): any;
+            };
         };
         __test: {
             client: axios.AxiosInstance;
