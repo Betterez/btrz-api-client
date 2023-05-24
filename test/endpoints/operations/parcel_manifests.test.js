@@ -16,16 +16,16 @@ describe("operations/parcels-manifests", () => {
   });
 
 
-  // it("should return a single parcels-manifests", () => {
-  //   const id = "12312312312312";
-  //   axiosMock.onGet(`/parcels-manifests/${id}`)
-  //     .reply(expectRequest({
-  //       statusCode: 200,
-  //       token,
-  //       jwtToken
-  //     }));
-  //   return api.operations.passengerCheckInInfo.get({token, jwtToken, query: {}, id});
-  // });
+  it("should return a single parcels-manifests", () => {
+    const id = "12312312312312";
+    axiosMock.onGet(`/parcels-manifests/${id}`)
+      .reply(expectRequest({
+        statusCode: 200,
+        token,
+        jwtToken
+      }));
+    return api.operations.parcelManifests.get({token, jwtToken, query: {}, id});
+  });
 
   it("should create a parcels-manifests", () => {
     axiosMock.onPost("/parcels-manifests").reply(expectRequest({statusCode: 200, token, jwtToken}));
@@ -46,4 +46,16 @@ describe("operations/parcels-manifests", () => {
   //   axiosMock.onPut(`/parcels-manifests/${passengerCheckInInfoId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
   //   return api.operations.passengerCheckInInfo.update({jwtToken, token, id: passengerCheckInInfoId, data});
   // });
+
+  it("should remove a parcel from a parcel manifest", () => {
+    const manifestId = "123123123213";
+    const parcelId = "123123";
+    axiosMock.onDelete(`/parcels-manifests/${manifestId}/parcels/${parcelId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.operations.parcelManifests.parcels.remove({
+      jwtToken,
+      token,
+      manifestId,
+      parcelId
+    });
+  });
 });

@@ -9,13 +9,13 @@ function parcelsManifestsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  // function get({token, jwtToken, id, headers}) {
-  //   return client({
-  //     url: `/passenger-check-in-info/${id}`,
-  //     method: "get",
-  //     headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
-  //   });
-  // }
+  function get({token, jwtToken, id, headers}) {
+    return client({
+      url: `/parcels-manifests/${id}`,
+      method: "get",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+    });
+  }
 
   // function update({token, jwtToken, id, data, headers, query}) {
   //   return client({
@@ -27,9 +27,9 @@ function parcelsManifestsFactory({client, internalAuthTokenProvider}) {
   //   });
   // }
 
-  // function remove({token, jwtToken, id, headers}) {
+  // function remove({token, jwtToken, manifestId, parcelId, headers}) {
   //   return client({
-  //     url: `/passenger-check-in-info/${id}`,
+  //     url: `/parcels-manifests/${manifestId}`,
   //     method: "delete",
   //     headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
   //   });
@@ -45,12 +45,23 @@ function parcelsManifestsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  const parcels = {
+    remove({token, jwtToken, manifestId, parcelId, headers}) {
+      return client({
+        url: `/parcels-manifests/${manifestId}/parcels/${parcelId}`,
+        method: "delete",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  }
+
   return {
     all,
-    // get,
+    get,
     // update,
     // remove,
-    create
+    create,
+    parcels
   };
 }
 
