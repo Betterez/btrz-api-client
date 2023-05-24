@@ -2809,6 +2809,12 @@ export function createApiClient(options: {
                 query?: {};
                 headers: any;
             }) => any;
+            sendActivationEmail: ({ token, query, data, headers }: {
+                token: any;
+                query?: {};
+                data: any;
+                headers: any;
+            }) => any;
         };
         ordersRulesValidations: {
             create: ({ token, jwtToken, query, orderRulesValidation, headers }: {

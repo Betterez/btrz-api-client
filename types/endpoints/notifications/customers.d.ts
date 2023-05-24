@@ -9,4 +9,10 @@ declare function customersFactory({ client, internalAuthTokenProvider }: {
         query?: {};
         headers: any;
     }) => any;
+    sendActivationEmail: ({ token, query, data, headers }: {
+        token: any;
+        query?: {};
+        data: any;
+        headers: any;
+    }) => any;
 };
