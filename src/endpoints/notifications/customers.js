@@ -16,8 +16,21 @@ function customersFactory({
     });
   }
 
+  function sendActivationEmail({
+    token, query = {}, data, headers
+  }) {
+    return client({
+      url: "/customers/activation",
+      method: "post",
+      params: query,
+      data,
+      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+    });
+  }
+
   return {
-    sendResetPasswordEmail
+    sendResetPasswordEmail,
+    sendActivationEmail
   };
 }
 
