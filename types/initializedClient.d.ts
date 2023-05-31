@@ -2167,6 +2167,13 @@ declare const _exports: {
                 locationData: any;
                 headers: any;
             }) => any;
+            addComment: ({ token, jwtToken, headers, id, comment }: {
+                token: any;
+                jwtToken: any;
+                headers: any;
+                id: any;
+                comment: any;
+            }) => any;
         };
         appliedInsurance: {
             all: ({ token, jwtToken, trxId, headers }: {
