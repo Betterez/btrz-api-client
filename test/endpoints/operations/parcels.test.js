@@ -27,4 +27,10 @@ describe('operations/parcels', function() {
     axiosMock.onPost(`/parcels/${parcelId}/scans`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
     return api.operations.parcel.addScan({ jwtToken, token, id: parcelId, operationType: "deliver", locationData: {latitude: 0, longitude: 0} });
   });
+
+  it("should add a comment to parcel", function() {
+    const parcelId = "parcelId1";
+    axiosMock.onPut(`/parcels/${parcelId}/comments`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    return api.operations.parcel.addComment({ jwtToken, token, id: parcelId, comment: "A comment" });
+  });
 });

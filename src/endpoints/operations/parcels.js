@@ -26,10 +26,20 @@ function parcelFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  return { 
+  function addComment({token, jwtToken, headers, id, comment}) {
+    return client({
+      url: `/parcels/${id}/comments`,
+      method: "put",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data: {comment}
+    });
+  }
+
+  return {
     get,
     all,
-    addScan
+    addScan,
+    addComment
   };
 }
 
