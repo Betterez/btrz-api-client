@@ -29,7 +29,7 @@ function parcelFactory({ client, internalAuthTokenProvider }) {
   function addComment({token, jwtToken, headers, id, comment}) {
     return client({
       url: `/parcels/${id}/comments`,
-      method: "put",
+      method: "post",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: {comment}
     });

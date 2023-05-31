@@ -30,7 +30,7 @@ describe('operations/parcels', function() {
 
   it("should add a comment to parcel", function() {
     const parcelId = "parcelId1";
-    axiosMock.onPut(`/parcels/${parcelId}/comments`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onPost(`/parcels/${parcelId}/comments`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
     return api.operations.parcel.addComment({ jwtToken, token, id: parcelId, comment: "A comment" });
   });
 });

@@ -48,4 +48,15 @@ describe("operations/parcel", function() {
       })
   });
 
+  it("should not add a comment in a parcel that not exists", function() {
+    const parcelId = "596e33cea74c7dd74c2f8552";
+    return api.operations.parcel.addComment({ token, jwtToken, id: parcelId, comment: "A comment" })
+      .catch((err) => {
+        expect(err).to.exist;
+        expect(err.response.status).to.be.eql(404);
+        expect(err.response.data.code).to.be.eql('PARCEL_NOT_FOUND');
+        expect(err.response.data.msg).to.be.eql('We could not found a Parcel with the given ID');
+      })
+  });
+
 });
