@@ -1960,6 +1960,14 @@ declare const _exports: {
         docs: {
             get: () => any;
         };
+        parcelQuotes: {
+            get: ({ token, parcelQuoteData, jwtToken, headers }: {
+                token: any;
+                parcelQuoteData: any;
+                jwtToken: any;
+                headers: any;
+            }) => any;
+        };
         paymentProviders: {
             all: ({ token, jwtToken, query, headers }: {
                 token: any;
