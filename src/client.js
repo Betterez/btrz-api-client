@@ -177,6 +177,7 @@ function createSales({baseURL, headers, timeout, overrideFn, internalAuthTokenPr
 
   return {
     docs: require("./endpoints/sales/docs.js")({client}),
+    parcelQuotes: require("./endpoints/sales/parcel-quotes.js")({client, internalAuthTokenProvider}),
     paymentProviders: require("./endpoints/sales/payment-providers.js")({client, internalAuthTokenProvider}),
     cart: require("./endpoints/sales/cart.js")({client, internalAuthTokenProvider}),
     giftCertificates: require("./endpoints/sales/gift-certificates.js")({client, internalAuthTokenProvider}),
