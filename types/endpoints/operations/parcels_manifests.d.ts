@@ -30,5 +30,13 @@ declare function parcelsManifestsFactory({ client, internalAuthTokenProvider }: 
             parcelId: any;
             headers: any;
         }): any;
+        create({ token, jwtToken, manifestId, query, data, headers }: {
+            token: any;
+            jwtToken: any;
+            manifestId: any;
+            query?: {};
+            data: any;
+            headers: any;
+        }): any;
     };
 };
