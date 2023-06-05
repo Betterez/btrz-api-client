@@ -52,8 +52,17 @@ function parcelsManifestsFactory({client, internalAuthTokenProvider}) {
         method: "delete",
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
       });
+    },
+    create({token, jwtToken, manifestId, query = {}, data, headers}) {
+      return client({
+        url: `/parcels-manifests/${manifestId}/parcels`,
+        method: "post",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        params: query,
+        data
+      });
     }
-  }
+  };
 
   return {
     all,

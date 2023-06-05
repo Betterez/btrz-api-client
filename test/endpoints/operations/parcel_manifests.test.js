@@ -58,4 +58,20 @@ describe("operations/parcels-manifests", () => {
       parcelId
     });
   });
+
+  it("should add a parcel from a parcel manifest", () => {
+    const manifestId = "123123123213";
+    const data = {
+      parcels: [1, 2, 3],
+      overrideOAndD: []
+    };
+
+    axiosMock.onPost(`/parcels-manifests/${manifestId}/parcels`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.operations.parcelManifests.parcels.create({
+      jwtToken,
+      token,
+      manifestId,
+      data
+    });
+  });
 });
