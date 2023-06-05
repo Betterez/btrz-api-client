@@ -28,10 +28,18 @@ function parcelFactory({ client, internalAuthTokenProvider }) {
 
   function addComment({token, jwtToken, headers, id, comment}) {
     return client({
-      url: `/parcels/${id}/comments`,
+      url: `/parcels/${id}/user-comments`,
       method: "post",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: {comment}
+    });
+  }
+
+  function deleteComment({token, jwtToken, headers, id, commentId}) {
+    return client({
+      url: `/parcels/${id}/user-comments/${commentId}`,
+      method: "delete",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
@@ -39,7 +47,8 @@ function parcelFactory({ client, internalAuthTokenProvider }) {
     get,
     all,
     addScan,
-    addComment
+    addComment,
+    deleteComment
   };
 }
 

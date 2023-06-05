@@ -30,7 +30,14 @@ describe('operations/parcels', function() {
 
   it("should add a comment to parcel", function() {
     const parcelId = "parcelId1";
-    axiosMock.onPost(`/parcels/${parcelId}/comments`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onPost(`/parcels/${parcelId}/user-comments`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
     return api.operations.parcel.addComment({ jwtToken, token, id: parcelId, comment: "A comment" });
+  });
+
+  it("should delete a comment from a parcel", () => {
+    const parcelId = "parcelId1";
+    const commentId = "commentId1";
+    axiosMock.onDelete(`/parcels/${parcelId}/user-comments/${commentId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    return api.operations.parcel.deleteComment({ jwtToken, token, id: parcelId, commentId });
   });
 });
