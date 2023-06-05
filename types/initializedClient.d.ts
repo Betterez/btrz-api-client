@@ -2182,6 +2182,13 @@ declare const _exports: {
                 id: any;
                 comment: any;
             }) => any;
+            deleteComment: ({ token, jwtToken, headers, id, commentId }: {
+                token: any;
+                jwtToken: any;
+                headers: any;
+                id: any;
+                commentId: any;
+            }) => any;
         };
         appliedInsurance: {
             all: ({ token, jwtToken, trxId, headers }: {
