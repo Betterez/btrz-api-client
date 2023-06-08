@@ -1594,6 +1594,20 @@ declare const _exports: {
                 }): any;
             };
         };
+        operationSettings: {
+            get: ({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query: any;
+                headers: any;
+            }) => any;
+            update: ({ jwtToken, token, operationSettings, headers }: {
+                jwtToken: any;
+                token: any;
+                operationSettings: any;
+                headers: any;
+            }) => any;
+        };
         peopleLookups: {
             all: ({ token, jwtToken, query, headers }: {
                 token: any;
