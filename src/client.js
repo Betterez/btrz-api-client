@@ -142,6 +142,7 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
     interline: require("./endpoints/accounts/interline.js")({client, internalAuthTokenProvider}),
     lexicons: require("./endpoints/accounts/lexicons.js")({client, internalAuthTokenProvider}),
     network: require("./endpoints/accounts/network.js")({client, internalAuthTokenProvider}),
+    operationSettings: require("./endpoints/accounts/operation-settings.js")({client, internalAuthTokenProvider}),
     peopleLookups: require("./endpoints/accounts/people-lookups.js")({
       client, internalAuthTokenProvider
     }),
