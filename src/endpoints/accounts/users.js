@@ -1,4 +1,4 @@
-const {authorizationHeaders} = require("./../endpoints_helpers");
+const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 function usersFactory({client, internalAuthTokenProvider}) {
   function get({token, jwtToken, id, headers} = {}) {
@@ -16,9 +16,21 @@ function usersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  const sequences = {
+    create({jwtToken, token, userId, sequence, headers}) {
+      return client({
+        url: `/users/${userId}/sequences`,
+        method: "post",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        data: sequence
+      });
+    }
+  };
+
   return {
     get,
-    all
+    all,
+    sequences
   };
 }
 

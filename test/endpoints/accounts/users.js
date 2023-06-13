@@ -1,9 +1,10 @@
-const {axiosMock, expectRequest} = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({baseURL: "http://test.com"});
+const {axiosMock, expectRequest} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 const id = "1234321";
 
 describe("accounts/user/{id}", () => {
   const token = "someToken";
+  const jwtToken = "I owe you a JWT token";
 
   afterEach(() => {
     axiosMock.restore();
@@ -17,5 +18,16 @@ describe("accounts/user/{id}", () => {
   it("should return all the users", () => {
     axiosMock.onGet("/users").reply(expectRequest({statusCode: 200, token}));
     return api.accounts.users.all({token});
+  });
+
+  it("should create user sequence", () => {
+    const userSequenceData = {};
+    axiosMock.onPost(`/users/${id}/sequences`).reply(expectRequest({statusCode: 200, token, jwtToken, body: userSequenceData}));
+    return api.accounts.users.sequences.create({
+      jwtToken,
+      userId: id,
+      token,
+      sequence: userSequenceData
+    });
   });
 });
