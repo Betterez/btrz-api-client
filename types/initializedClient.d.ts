@@ -1954,6 +1954,15 @@ declare const _exports: {
                 query?: {};
                 headers: any;
             }) => any;
+            sequences: {
+                create({ jwtToken, token, userId, sequence, headers }: {
+                    jwtToken: any;
+                    token: any;
+                    userId: any;
+                    sequence: any;
+                    headers: any;
+                }): any;
+            };
         };
         __test: {
             client: import("axios").AxiosInstance;

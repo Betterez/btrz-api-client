@@ -15,4 +15,13 @@ declare function usersFactory({ client, internalAuthTokenProvider }: {
         query?: {};
         headers: any;
     }) => any;
+    sequences: {
+        create({ jwtToken, token, userId, sequence, headers }: {
+            jwtToken: any;
+            token: any;
+            userId: any;
+            sequence: any;
+            headers: any;
+        }): any;
+    };
 };

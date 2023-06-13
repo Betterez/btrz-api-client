@@ -2000,6 +2000,15 @@ export function createApiClient(options: {
                 query?: {};
                 headers: any;
             }) => any;
+            sequences: {
+                create({ jwtToken, token, userId, sequence, headers }: {
+                    jwtToken: any;
+                    token: any;
+                    userId: any;
+                    sequence: any;
+                    headers: any;
+                }): any;
+            };
         };
         __test: {
             client: axios.AxiosInstance;
