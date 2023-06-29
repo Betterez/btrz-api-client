@@ -2320,6 +2320,12 @@ declare const _exports: {
                 id: any;
                 headers: any;
             }) => any;
+            all: ({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                headers: any;
+            }) => any;
             patch: ({ token, jwtToken, id, operations, warningsEnabled, headers }: {
                 token: any;
                 jwtToken: any;
