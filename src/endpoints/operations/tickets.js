@@ -1,4 +1,4 @@
-const {authorizationHeaders} = require("./../endpoints_helpers");
+const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 function ticketsFactory({client, internalAuthTokenProvider}) {
   function get({token, jwtToken, id, headers}) {
@@ -25,8 +25,17 @@ function ticketsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function all({token, jwtToken, query = {}, headers}) {
+    return client({
+      url: "/tickets",
+      params: query,
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+    });
+  }
+
   return {
     get,
+    all,
     patch,
     companionTickets
   };

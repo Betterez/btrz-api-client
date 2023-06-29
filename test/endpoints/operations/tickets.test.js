@@ -2,8 +2,8 @@
 /* eslint-disable prefer-arrow-callback */
 
 const {expect} = require("chai");
-const {axiosMock, expectRequest} = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({baseURL: "http://test.com"});
+const {axiosMock, expectRequest} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
 describe("operations/tickets", () => {
   const token = "I owe you a token";
@@ -34,5 +34,11 @@ describe("operations/tickets", () => {
       .then((response) => {
         expect(response.status).to.equals(200);
       });
+  });
+
+  it("should get all ticket for the given document ID", () => {
+    const lookupSearchParams = "documentTypeId|DNI,documentNumber|33454787";
+    axiosMock.onGet("/tickets").reply(expectRequest({statusCode: 200, token}));
+    return api.operations.tickets.all({token, query: {lookupSearchParams}});
   });
 });

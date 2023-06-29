@@ -16,5 +16,4 @@ describe('operations/segments', function() {
       .reply(expectRequest({ statusCode: 200, token }));
     return api.operations.segments.all({ token, jwtToken, productId, ticketId });
   });
-
 });
