@@ -1,16 +1,16 @@
 const {authorizationHeaders} = require("./../endpoints_helpers");
 
 function garagesFactory({client, internalAuthTokenProvider}) {
-  function all({token, query = {}, headers}) {
+  function all({token, jwtToken, query = {}, headers}) {
     return client.get("/garages", {
       params: query,
-      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
-  function get({token, garageId, headers}) {
+  function get({token, jwtToken, garageId, headers}) {
     return client.get(`/garages/${garageId}`, {
-      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
