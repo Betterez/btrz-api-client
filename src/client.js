@@ -74,6 +74,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
     routes: require("./endpoints/inventory/routes.js")({client, internalAuthTokenProvider}),
     bareRoutes: require("./endpoints/inventory/bare-routes.js")({client, internalAuthTokenProvider}),
     schedules: require("./endpoints/inventory/schedules.js")({client, internalAuthTokenProvider}),
+    garages: require("./endpoints/inventory/garages.js")({client, internalAuthTokenProvider}),
     serviceNumbers: require("./endpoints/inventory/service-numbers.js")({client, internalAuthTokenProvider}),
     companies: require("./endpoints/inventory/companies.js")({client, internalAuthTokenProvider}),
     bundleFares: require("./endpoints/inventory/bundle-fares.js")({client, internalAuthTokenProvider}),
