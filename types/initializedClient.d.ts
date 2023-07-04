@@ -772,13 +772,15 @@ declare const _exports: {
             }) => any;
         };
         garages: {
-            all: ({ token, query, headers }: {
+            all: ({ token, jwtToken, query, headers }: {
                 token: any;
+                jwtToken: any;
                 query?: {};
                 headers: any;
             }) => any;
-            get: ({ token, garageId, headers }: {
+            get: ({ token, jwtToken, garageId, headers }: {
                 token: any;
+                jwtToken: any;
                 garageId: any;
                 headers: any;
             }) => any;
