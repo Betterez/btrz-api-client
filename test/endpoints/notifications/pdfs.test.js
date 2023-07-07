@@ -246,4 +246,18 @@ describe("notifications/pdfs", () => {
       token, query, itemId
     });
   });
+
+  it("should return the proper data for a parcelManifest", () => {
+    const itemId = "12345";
+    const query = {
+      type: "parcelManifest"
+    };
+    axiosMock.onGet(`/pdf-parcels-manifests/${itemId}`)
+      .reply(expectRequest({
+        statusCode: 200, token
+      }));
+    return api.notifications.pdfData.get({
+      token, query, itemId
+    });
+  });
 });
