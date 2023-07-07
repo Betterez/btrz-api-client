@@ -32,4 +32,11 @@ describe("inventory/garages", () => {
     }));
     return api.inventory.garages.create({token, jwtToken, data});
   });
+
+  it("should update a garage", () => {
+    axiosMock.onPut(`/garages/${garageId}`).reply(expectRequest({
+      statusCode: 200, token, jwtToken, data
+    }));
+    return api.inventory.garages.update({token, jwtToken, garageId, data});
+  });
 });

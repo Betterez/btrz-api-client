@@ -25,10 +25,22 @@ function garagesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function update({token, jwtToken, garageId, data, headers}) {
+    return client({
+      url: `/garages/${garageId}`,
+      method: "put",
+      headers: authorizationHeaders({
+        token, jwtToken, internalAuthTokenProvider, headers
+      }),
+      data
+    });
+  }
+
   return {
     all,
     get,
-    create
+    create,
+    update
   };
 }
 
