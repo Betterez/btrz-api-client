@@ -836,6 +836,13 @@ export function createApiClient(options: {
                 data: any;
                 headers: any;
             }) => any;
+            update: ({ token, jwtToken, garageId, data, headers }: {
+                token: any;
+                jwtToken: any;
+                garageId: any;
+                data: any;
+                headers: any;
+            }) => any;
         };
         serviceNumbers: {
             all: ({ token, jwtToken, query, headers }: {

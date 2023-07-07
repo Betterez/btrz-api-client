@@ -21,4 +21,11 @@ declare function garagesFactory({ client, internalAuthTokenProvider }: {
         data: any;
         headers: any;
     }) => any;
+    update: ({ token, jwtToken, garageId, data, headers }: {
+        token: any;
+        jwtToken: any;
+        garageId: any;
+        data: any;
+        headers: any;
+    }) => any;
 };
