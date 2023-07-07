@@ -78,6 +78,10 @@ function pdfFactory({
     if (query.type === "locationClosure") {
       url = `/pdf-location-closures/${itemId}`;
     }
+    if (query.type === "parcelManifest") {
+      url = `/pdf-parcels-manifests/${itemId}`;
+    }
+
     return client.get(url, {
       params: query,
       responseType: responseType || "blob",
