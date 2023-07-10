@@ -11,18 +11,18 @@ describe("inventory/banks", () => {
     axiosMock.reset();
   });
 
-  it("should create a custom content", () => {
+  it("should create a bank", () => {
     axiosMock.onPost("/banks").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.banks.create({
       jwtToken,
       token,
       banks: {
-        name: "My custom contentl"
+        name: "My bankl"
       }
     });
   });
 
-  it("should get all pieces of custom content", () => {
+  it("should get all pieces of bank", () => {
     axiosMock.onGet("/banks").reply(expectRequest({statusCode: 200, token, jwtToken }));
     return api.inventory.banks.all({
       jwtToken,
@@ -31,7 +31,7 @@ describe("inventory/banks", () => {
     });
   });
 
-  it("should update a piece of custom content", () => {
+  it("should update a piece of bank", () => {
     const bankId = "1234";
     axiosMock.onPut(`/banks/${bankId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
     return api.inventory.banks.update({
@@ -39,12 +39,12 @@ describe("inventory/banks", () => {
       token,
       bankId,
       banks: {
-        name: "My Updated custom content"
+        name: "My Updated bank"
       }
     });
   });
 
-  it("should get a piece of custom content", () => {
+  it("should get a piece of bank", () => {
     const bankId = "1234";
     axiosMock.onGet(`/banks/${bankId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.banks.get({
@@ -54,7 +54,7 @@ describe("inventory/banks", () => {
     });
   });
 
-  it("should delete a piece of custom content", () => {
+  it("should delete a piece of bank", () => {
     const bankId = "1234";
     axiosMock.onDelete(`/banks/${bankId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.banks.remove({
