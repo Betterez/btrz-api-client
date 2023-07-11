@@ -797,6 +797,12 @@ declare const _exports: {
                 data: any;
                 headers: any;
             }) => any;
+            remove: ({ token, jwtToken, garageId, headers }: {
+                token: any;
+                jwtToken: any;
+                garageId: any;
+                headers: any;
+            }) => any;
         };
         serviceNumbers: {
             all: ({ token, jwtToken, query, headers }: {

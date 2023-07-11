@@ -28,4 +28,10 @@ declare function garagesFactory({ client, internalAuthTokenProvider }: {
         data: any;
         headers: any;
     }) => any;
+    remove: ({ token, jwtToken, garageId, headers }: {
+        token: any;
+        jwtToken: any;
+        garageId: any;
+        headers: any;
+    }) => any;
 };
