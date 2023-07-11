@@ -36,11 +36,22 @@ function garagesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function remove({token, jwtToken, garageId, headers}) {
+    return client({
+      url: `/garages/${garageId}`,
+      method: "delete",
+      headers: authorizationHeaders({
+        token, jwtToken, internalAuthTokenProvider, headers
+      })
+    });
+  }
+
   return {
     all,
     get,
     create,
-    update
+    update,
+    remove
   };
 }
 

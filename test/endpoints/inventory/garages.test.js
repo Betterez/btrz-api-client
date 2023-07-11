@@ -39,4 +39,11 @@ describe("inventory/garages", () => {
     }));
     return api.inventory.garages.update({token, jwtToken, garageId, data});
   });
+
+  it("should delete a garage", () => {
+    axiosMock.onDelete(`/garages/${garageId}`).reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.inventory.garages.remove({token, jwtToken, garageId});
+  });
 });
