@@ -1904,6 +1904,21 @@ declare const _exports: {
                     headers: any;
                 }): any;
             };
+            manualTickets: {
+                get({ token, jwtToken, shiftId, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    shiftId: any;
+                    headers: any;
+                }): any;
+                create({ jwtToken, token, shiftId, manualTicket, headers }: {
+                    jwtToken: any;
+                    token: any;
+                    shiftId: any;
+                    manualTicket: any;
+                    headers: any;
+                }): any;
+            };
             locationClosures: {
                 create({ jwtToken, token, locationClosure, headers }: {
                     jwtToken: any;
