@@ -166,6 +166,21 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
       });
     }
   };
+  const manualTickets = {
+    get({token, jwtToken, shiftId, headers}) {
+      return client.get(`/shifts/${shiftId}/manual-tickets`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    },
+    create({jwtToken, token, shiftId, manualTicket, headers}) {
+      return client({
+        url: `/shifts/${shiftId}/manual-tickets`,
+        method: "post",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        data: manualTicket
+      });
+    }
+  };
 
 
   return {
@@ -184,6 +199,7 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
     parcels,
     insurances,
     deposits,
+    manualTickets,
     locationClosures
   };
 }
