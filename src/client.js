@@ -95,6 +95,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
     vehicles: require("./endpoints/inventory/vehicles.js")({client, internalAuthTokenProvider}),
     seatClasses: require("./endpoints/inventory/seatclasses.js")({client, internalAuthTokenProvider}),
     segmentsInformation: require("./endpoints/inventory/segments-information.js")({client, internalAuthTokenProvider}),
+    segmentsInformationTables: require("./endpoints/inventory/segments-information-tables.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
