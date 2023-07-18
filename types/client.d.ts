@@ -63,6 +63,15 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        segmentsInformationTables: {
+            get: ({ token, jwtToken, routeId, query, headers }: {
+                token: any;
+                jwtToken: any;
+                routeId: any;
+                query?: {};
+                headers: any;
+            }) => any;
+        };
         __test_trips: {
             client: axios.AxiosInstance;
         };
@@ -1354,15 +1363,6 @@ export function createApiClient(options: {
                 jwtToken: any;
                 segmentInformationId: any;
                 token: any;
-                headers: any;
-            }) => any;
-        };
-        segmentsInformationTables: {
-            get: ({ token, jwtToken, routeId, query, headers }: {
-                token: any;
-                jwtToken: any;
-                routeId: any;
-                query?: {};
                 headers: any;
             }) => any;
         };
