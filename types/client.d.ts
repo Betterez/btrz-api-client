@@ -1357,6 +1357,15 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        segmentsInformationTables: {
+            get: ({ token, jwtToken, routeId, query, headers }: {
+                token: any;
+                jwtToken: any;
+                routeId: any;
+                query?: {};
+                headers: any;
+            }) => any;
+        };
         __test: {
             client: axios.AxiosInstance;
         };
