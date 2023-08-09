@@ -10,11 +10,12 @@ declare function customersFactory({ client, internalAuthTokenProvider }: {
         jwtToken: any;
         headers: any;
     }) => any;
-    all: ({ token, jwtToken, query, headers }: {
+    all: ({ token, jwtToken, query, headers, providerId }: {
         token: any;
         jwtToken: any;
         query?: {};
         headers: any;
+        providerId: any;
     }) => any;
     create: ({ customer, token, jwtToken, query, headers }: {
         customer: any;

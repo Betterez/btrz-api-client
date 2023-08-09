@@ -9,11 +9,12 @@ declare function ticketsFactory({ client, internalAuthTokenProvider }: {
         id: any;
         headers: any;
     }) => any;
-    all: ({ token, jwtToken, query, headers }: {
+    all: ({ token, jwtToken, query, headers, providerId }: {
         token: any;
         jwtToken: any;
         query?: {};
         headers: any;
+        providerId: any;
     }) => any;
     patch: ({ token, jwtToken, id, operations, warningsEnabled, headers }: {
         token: any;

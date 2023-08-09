@@ -9,11 +9,12 @@ declare function parcelFactory({ client, internalAuthTokenProvider }: {
         id: any;
         headers: any;
     }) => any;
-    all: ({ token, jwtToken, query, headers }: {
+    all: ({ token, jwtToken, query, headers, providerId }: {
         token: any;
         jwtToken: any;
         query?: {};
         headers: any;
+        providerId: any;
     }) => any;
     addScan: ({ token, jwtToken, id, operationType, locationData, headers }: {
         token: any;

@@ -3,18 +3,20 @@ declare function documentTypesFactory({ client, internalAuthTokenProvider }: {
     client: any;
     internalAuthTokenProvider: any;
 }): {
-    all: ({ token, jwtToken, query, headers }: {
+    all: ({ token, jwtToken, query, headers, providerId }: {
         token: any;
         jwtToken: any;
         query?: {};
         headers: any;
+        providerId: any;
     }) => any;
-    get: ({ token, jwtToken, id, query, headers }: {
+    get: ({ token, jwtToken, id, query, headers, providerId }: {
         token: any;
         jwtToken: any;
         id: any;
         query?: {};
         headers: any;
+        providerId: any;
     }) => any;
     update: ({ token, jwtToken, id, data, query, headers }: {
         token: any;
