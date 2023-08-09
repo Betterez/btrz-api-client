@@ -1,21 +1,23 @@
 const {authorizationHeaders} = require("./../endpoints_helpers");
 
 function documentTypesFactory({client, internalAuthTokenProvider}) {
-  function all({token, jwtToken, query = {}, headers}) {
+  function all({token, jwtToken, query = {}, headers, providerId}) {
+    const query_ = providerId ? {...query, providerId} : query;
     return client({
       url: "/document-types",
       method: "get",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
-      params: query
+      params: query_
     });
   }
 
-  function get({token, jwtToken, id, query = {}, headers}) {
+  function get({token, jwtToken, id, query = {}, headers, providerId}) {
+    const query_ = providerId ? {...query, providerId} : query;
     return client({
       url: `/document-types/${id}`,
       method: "get",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
-      params: query
+      params: query_
     });
   }
 

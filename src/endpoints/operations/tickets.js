@@ -25,10 +25,11 @@ function ticketsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function all({token, jwtToken, query = {}, headers}) {
+  function all({token, jwtToken, query = {}, headers, providerId}) {
+    const query_ = providerId ? {...query, providerId} : query;
     return client({
       url: "/tickets",
-      params: query,
+      params: query_,
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
