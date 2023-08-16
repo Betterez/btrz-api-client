@@ -3,14 +3,16 @@ declare function labelsFactory({ client, internalAuthTokenProvider }: {
     client: any;
     internalAuthTokenProvider: any;
 }): {
-    all: ({ token, query, headers }: {
+    all: ({ token, jwtToken, query, headers }: {
         token: any;
+        jwtToken: any;
         query?: {};
         headers: any;
     }) => any;
-    get: ({ labelId, token, query, headers }: {
+    get: ({ labelId, token, jwtToken, query, headers }: {
         labelId: any;
         token: any;
+        jwtToken: any;
         query?: {};
         headers: any;
     }) => any;
