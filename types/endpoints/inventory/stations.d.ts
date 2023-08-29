@@ -19,4 +19,11 @@ declare function stationsFactory({ client, internalAuthTokenProvider }: {
         data: any;
         headers: any;
     }) => any;
+    update: ({ token, jwtToken, stationId, station, headers }: {
+        token: any;
+        jwtToken: any;
+        stationId: any;
+        station: any;
+        headers: any;
+    }) => any;
 };

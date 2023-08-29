@@ -151,6 +151,13 @@ declare const _exports: {
                 data: any;
                 headers: any;
             }) => any;
+            update: ({ token, jwtToken, stationId, station, headers }: {
+                token: any;
+                jwtToken: any;
+                stationId: any;
+                station: any;
+                headers: any;
+            }) => any;
         };
         stationsZones: {
             get: ({ token, query, headers }: {
