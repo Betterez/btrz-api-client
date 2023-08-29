@@ -24,4 +24,16 @@ describe("inventory/stations", () => {
       }
     });
   });
+
+  it("should update a station", () => {
+    const stationId = "1";
+    const jsonStation = {};
+
+    axiosMock.onPut(`/station/${stationId}`).reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.inventory.stations.update({
+      jwtToken, token, stationId, jsonStation
+    });
+  });
 });

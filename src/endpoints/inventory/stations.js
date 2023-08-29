@@ -25,10 +25,21 @@ function stationsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function update({ token, jwtToken, stationId, station, headers}) {
+    return client({
+      url: "/station/" + stationId,
+      method: "put",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data: { station }
+    });
+  }
+
+
   return {
     get,
     all,
-    create
+    create,
+    update
   };
 }
 
