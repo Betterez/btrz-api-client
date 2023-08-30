@@ -796,6 +796,12 @@ export function createApiClient(options: {
                 routeId: any;
                 headers: any;
             }) => any;
+            create: ({ token, jwtToken, data, headers }: {
+                token: any;
+                jwtToken: any;
+                data: any;
+                headers: any;
+            }) => any;
             fareTables: {
                 all({ token, query, headers }: {
                     token: any;
