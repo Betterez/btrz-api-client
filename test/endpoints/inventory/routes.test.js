@@ -24,6 +24,17 @@ describe("inventory/route", () => {
     return api.inventory.routes.all({token});
   });
 
+  it("should create a route", () => {
+    axiosMock.onPost("/routes").reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.inventory.routes.create({
+      jwtToken,
+      token,
+      data: {
+        name: "12 - Burlington Carpool "
+      }
+    });
+  });
+
   it("should get prices", () => {
     const routeId = "1";
     axiosMock.onGet(`/routes/${routeId}/stations`).reply(expectRequest({statusCode: 200, token}));
