@@ -11,8 +11,17 @@ function trustedMachinesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function get({token, jwtToken, id, headers}) {
+    return client({
+      url: `/trusted-machines/${id}`,
+      method: "get",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+    });
+  }
+
   return {
-    create
+    create,
+    get
   };
 }
 
