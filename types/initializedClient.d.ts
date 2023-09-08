@@ -2007,6 +2007,15 @@ declare const _exports: {
                     }): any;
                 };
             };
+            startingBalances: {
+                create({ jwtToken, token, shiftId, startingBalance, headers }: {
+                    jwtToken: any;
+                    token: any;
+                    shiftId: any;
+                    startingBalance: any;
+                    headers: any;
+                }): any;
+            };
         };
         shiftSettings: {
             get: ({ token, jwtToken, query, headers }: {
