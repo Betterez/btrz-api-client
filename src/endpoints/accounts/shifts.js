@@ -181,6 +181,16 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
       });
     }
   };
+  const startingBalances = {
+    create({jwtToken, token, shiftId, startingBalance, headers}) {
+      return client({
+        url: `/shifts/${shiftId}/starting-balance`,
+        method: "post",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        data: startingBalance
+      });
+    }
+  };
 
 
   return {
@@ -200,7 +210,8 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
     insurances,
     deposits,
     manualTickets,
-    locationClosures
+    locationClosures,
+    startingBalances
   };
 }
 

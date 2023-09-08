@@ -170,4 +170,11 @@ describe("accounts/shifts", () => {
     axiosMock.onPost(`/shifts/${shiftId}/manual-tickets`).reply(expectRequest({statusCode: 200, token, jwtToken, body: manualTicket}));
     return api.accounts.shifts.manualTickets.create({token, jwtToken, shiftId, manualTicket});
   });
+
+  it("should create the shift starting balance", () => {
+    const shiftId = "shiftId1";
+    const startingBalance = {};
+    axiosMock.onPost(`/shifts/${shiftId}/starting-balance`).reply(expectRequest({statusCode: 200, token, jwtToken, body: startingBalance}));
+    return api.accounts.shifts.startingBalances.create({token, jwtToken, shiftId, startingBalance});
+  });
 });
