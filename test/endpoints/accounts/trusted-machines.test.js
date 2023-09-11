@@ -19,4 +19,10 @@ describe("accounts/trusted-machines", () => {
       }));
     return api.accounts.trustedMachines.get({token, jwtToken, query: {}, id});
   });
+
+  it("should get all trusted-machines", () => {
+    const query = {};
+    axiosMock.onGet("/trusted-machines").reply(expectRequest({statusCode: 200, token, jwtToken, query}));
+    return api.accounts.trustedMachines.all({token, jwtToken, query});
+  });
 });
