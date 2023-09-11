@@ -15,4 +15,10 @@ declare function trustedMachinesFactory({ client, internalAuthTokenProvider }: {
         id: any;
         headers: any;
     }) => any;
+    all: ({ token, jwtToken, query, headers }: {
+        token: any;
+        jwtToken: any;
+        query?: {};
+        headers: any;
+    }) => any;
 };
