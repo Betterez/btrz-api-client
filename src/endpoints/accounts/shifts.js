@@ -151,6 +151,13 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
       });
     }
   };
+  const invoices = {
+    get({token, jwtToken, shiftId, headers}) {
+      return client.get(`/shifts/${shiftId}/invoices`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
   const deposits = {
     get({token, jwtToken, shiftId, headers}) {
       return client.get(`/shifts/${shiftId}/deposits`, {
@@ -208,6 +215,7 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
     giftCertificates,
     parcels,
     insurances,
+    invoices,
     deposits,
     manualTickets,
     locationClosures,
