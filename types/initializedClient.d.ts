@@ -1948,6 +1948,14 @@ declare const _exports: {
                     headers: any;
                 }): any;
             };
+            invoices: {
+                get({ token, jwtToken, shiftId, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    shiftId: any;
+                    headers: any;
+                }): any;
+            };
             deposits: {
                 get({ token, jwtToken, shiftId, headers }: {
                     token: any;
