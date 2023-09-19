@@ -1618,6 +1618,14 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        exchangeReceipts: {
+            update: ({ data, token, jwtToken, headers }: {
+                data: any;
+                token: any;
+                jwtToken: any;
+                headers: any;
+            }) => any;
+        };
         images: {
             all: ({ token, jwtToken, query, headers }: {
                 token: any;
