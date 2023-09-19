@@ -142,6 +142,7 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
     domains: require("./endpoints/accounts/domains.js")({client, internalAuthTokenProvider}),
     emailSettings: require("./endpoints/accounts/email-settings.js")({client, internalAuthTokenProvider}),
     exchangeRates: require("./endpoints/accounts/exchange-rates.js")({client, internalAuthTokenProvider}),
+    exchangeReceipts: require("./endpoints/accounts/exchange-receipts.js")({client, internalAuthTokenProvider}),
     images: require("./endpoints/accounts/images.js")({client, internalAuthTokenProvider}),
     interline: require("./endpoints/accounts/interline.js")({client, internalAuthTokenProvider}),
     lexicons: require("./endpoints/accounts/lexicons.js")({client, internalAuthTokenProvider}),
