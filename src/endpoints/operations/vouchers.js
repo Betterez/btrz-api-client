@@ -6,13 +6,13 @@ function vouchersFactory({
   client, internalAuthTokenProvider
 }) {
   function create({
-    jwtToken, token, headers, query = {}, voucher = {}
+    jwtToken, token, headers, query = {}, voucher = {}, user
   }) {
     return client({
       url: "/vouchers",
       method: "POST",
       params: query,
-      data: voucher,
+      data: {voucher, user},
       headers: authorizationHeaders({
         jwtToken,
         token,
