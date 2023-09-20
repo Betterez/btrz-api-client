@@ -2864,12 +2864,13 @@ declare const _exports: {
             }) => any;
         };
         vouchers: {
-            create: ({ jwtToken, token, headers, query, voucher }: {
+            create: ({ jwtToken, token, headers, query, voucher, user }: {
                 jwtToken: any;
                 token: any;
                 headers: any;
                 query?: {};
                 voucher?: {};
+                user: any;
             }) => any;
         };
         parcelManifests: {
