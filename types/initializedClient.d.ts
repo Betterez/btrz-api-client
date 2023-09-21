@@ -356,6 +356,32 @@ declare const _exports: {
                 token: any;
                 headers: any;
             }) => any;
+            getById: ({ seatmapId, token, jwtToken, query, headers }: {
+                seatmapId: any;
+                token: any;
+                jwtToken: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            create: ({ token, jwtToken, seatmap, headers }: {
+                token: any;
+                jwtToken: any;
+                seatmap: any;
+                headers: any;
+            }) => any;
+            remove: ({ token, jwtToken, seatmapId, headers }: {
+                token: any;
+                jwtToken: any;
+                seatmapId: any;
+                headers: any;
+            }) => any;
+            update: ({ token, jwtToken, seatmapId, seatmap, headers }: {
+                token: any;
+                jwtToken: any;
+                seatmapId: any;
+                seatmap: any;
+                headers: any;
+            }) => any;
         };
         fees: {
             all: ({ token, query, headers }: {
