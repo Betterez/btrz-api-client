@@ -198,7 +198,16 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
       });
     }
   };
-
+  const purchaseLimitPayments = {
+    get({token, jwtToken, locationId, query, headers}) {
+      return client.get(`/shifts/${locationId}/purchase-limit-payments`, {
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        }),
+        params: query
+      });
+    }
+  };
 
   return {
     all,
@@ -219,7 +228,8 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
     deposits,
     manualTickets,
     locationClosures,
-    startingBalances
+    startingBalances,
+    purchaseLimitPayments
   };
 }
 

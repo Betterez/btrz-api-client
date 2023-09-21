@@ -183,4 +183,11 @@ describe("accounts/shifts", () => {
     axiosMock.onPost(`/shifts/${shiftId}/starting-balance`).reply(expectRequest({statusCode: 200, token, jwtToken, body: startingBalance}));
     return api.accounts.shifts.startingBalances.create({token, jwtToken, shiftId, startingBalance});
   });
+
+  it("should get the shift purchase limit payments", () => {
+    const locationId = "locationId1";
+    const query = {day: "2020-01-01"};
+    axiosMock.onGet(`/shifts/${locationId}/purchase-limit-payments`).reply(expectRequest({statusCode: 200, token, query}));
+    return api.accounts.shifts.purchaseLimitPayments.get({token, jwtToken, locationId, query});
+  });
 });
