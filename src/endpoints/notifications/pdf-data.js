@@ -76,6 +76,9 @@ function pdfDataFactory({
     if (query.type === "parcelManifest") {
       url = `/pdf-parcels-manifests/${itemId}`;
     }
+    if (query.type === "startingBalance") {
+      url = `/pdf-starting-balance/${itemId}`;
+    }
 
     return client.get(url, {
       params: query,

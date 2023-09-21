@@ -260,4 +260,18 @@ describe("notifications/pdfs", () => {
       token, query, itemId
     });
   });
+
+  it("should return the proper data for a startingBalance", () => {
+    const itemId = "12345";
+    const query = {
+      type: "startingBalance"
+    };
+    axiosMock.onGet(`/pdf-starting-balance/${itemId}`)
+      .reply(expectRequest({
+        statusCode: 200, token
+      }));
+    return api.notifications.pdfData.get({
+      token, query, itemId
+    });
+  });
 });
