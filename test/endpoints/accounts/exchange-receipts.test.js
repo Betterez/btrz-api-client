@@ -27,4 +27,18 @@ describe("accounts/exchange-receipt-settings", () => {
       expect(httpResponse.status).eql(200);
     });
   });
+
+  it("should GET ExchangeReceipt", () => {
+    axiosMock.onGet("/exchange-receipt-settings").reply(expectRequest({
+      statusCode: 200,
+      token,
+      jwtToken
+    }));
+    return api.accounts.exchangeReceipts.get({
+      token,
+      jwtToken
+    }).then((httpResponse) => {
+      expect(httpResponse.status).eql(200);
+    });
+  });
 });

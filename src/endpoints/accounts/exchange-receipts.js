@@ -11,8 +11,17 @@ function exchangeReceiptsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function get({token, jwtToken, headers}) {
+    return client({
+      url: "/exchange-receipt-settings",
+      method: "get",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+    });
+  }
+
   return {
-    update
+    update,
+    get
   };
 }
 
