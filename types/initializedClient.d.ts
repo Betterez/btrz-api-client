@@ -1605,6 +1605,11 @@ declare const _exports: {
                 jwtToken: any;
                 headers: any;
             }) => any;
+            get: ({ token, jwtToken, headers }: {
+                token: any;
+                jwtToken: any;
+                headers: any;
+            }) => any;
         };
         images: {
             all: ({ token, jwtToken, query, headers }: {

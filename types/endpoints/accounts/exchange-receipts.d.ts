@@ -9,4 +9,9 @@ declare function exchangeReceiptsFactory({ client, internalAuthTokenProvider }: 
         jwtToken: any;
         headers: any;
     }) => any;
+    get: ({ token, jwtToken, headers }: {
+        token: any;
+        jwtToken: any;
+        headers: any;
+    }) => any;
 };
