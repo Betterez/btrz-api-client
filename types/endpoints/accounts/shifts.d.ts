@@ -184,4 +184,13 @@ declare function shiftsFactory({ client, internalAuthTokenProvider }: {
             headers: any;
         }): any;
     };
+    purchaseLimitPayments: {
+        get({ token, jwtToken, locationId, query, headers }: {
+            token: any;
+            jwtToken: any;
+            locationId: any;
+            query: any;
+            headers: any;
+        }): any;
+    };
 };

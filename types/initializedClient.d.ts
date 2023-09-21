@@ -2032,6 +2032,15 @@ declare const _exports: {
                     headers: any;
                 }): any;
             };
+            purchaseLimitPayments: {
+                get({ token, jwtToken, locationId, query, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    locationId: any;
+                    query: any;
+                    headers: any;
+                }): any;
+            };
         };
         shiftSettings: {
             get: ({ token, jwtToken, query, headers }: {
