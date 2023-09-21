@@ -3,12 +3,11 @@ declare function vouchersFactory({ client, internalAuthTokenProvider }: {
     client: any;
     internalAuthTokenProvider: any;
 }): {
-    create: ({ jwtToken, token, headers, query, voucher, user }: {
+    create: ({ jwtToken, token, headers, query, voucher }: {
         jwtToken: any;
         token: any;
         headers: any;
         query?: {};
         voucher?: {};
-        user: any;
     }) => any;
 };
