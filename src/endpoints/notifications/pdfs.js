@@ -6,6 +6,7 @@ function pdfFactory({
   client,
   internalAuthTokenProvider
 }) {
+  // eslint-disable-next-line max-statements
   function get({
     token,
     jwtToken,
@@ -80,6 +81,9 @@ function pdfFactory({
     }
     if (query.type === "parcelManifest") {
       url = `/pdf-parcels-manifests/${itemId}`;
+    }
+    if (query.type === "startingBalance") {
+      url = `/pdf-starting-balance/${itemId}`;
     }
 
     return client.get(url, {
