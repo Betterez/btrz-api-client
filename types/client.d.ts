@@ -1728,25 +1728,25 @@ export function createApiClient(options: {
                 }): any;
             };
             network: {
-                get({ token, networkId, headers }: {
+                get({ token, interlineId, headers }: {
                     token: any;
-                    networkId: any;
+                    interlineId: any;
                     headers: any;
                 }): any;
-                update({ networkId, data, token, jwtToken, headers }: {
-                    networkId: any;
+                update({ interlineId, data, token, jwtToken, headers }: {
+                    interlineId: any;
                     data: any;
                     token: any;
                     jwtToken: any;
                     headers: any;
                 }): any;
-                remove({ networkId, token, jwtToken, headers }: {
-                    networkId: any;
-                    token: any;
-                    jwtToken: any;
-                    headers: any;
-                }): any;
             };
+            remove({ interlineId, token, jwtToken, headers }: {
+                interlineId: any;
+                token: any;
+                jwtToken: any;
+                headers: any;
+            }): any;
         };
         lexicons: {
             all: ({ token, context, query, headers }: {
