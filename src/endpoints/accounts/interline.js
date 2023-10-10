@@ -55,24 +55,17 @@ function interlineFactory({client, internalAuthTokenProvider}) {
   };
 
   const network = {
-    get({token, networkId, headers}) {
-      return client.get(`/interline/${networkId}`, {
+    get({token, interlineId, headers}) {
+      return client.get(`/interline/${interlineId}/network`, {
         headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
       });
     },
-    update({networkId, data, token, jwtToken, headers}) {
+    update({interlineId, data, token, jwtToken, headers}) {
       return client({
-        url: `/interline/${networkId}`,
+        url: `/interline/${interlineId}/network`,
         method: "put",
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
         data
-      });
-    },
-    remove({networkId, token, jwtToken, headers}) {
-      return client({
-        url: `/interline/${networkId}`,
-        method: "delete",
-        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
       });
     }
   };
@@ -81,7 +74,14 @@ function interlineFactory({client, internalAuthTokenProvider}) {
     invitations,
     consumers,
     providers,
-    network
+    network,
+    remove({interlineId, token, jwtToken, headers}) {
+      return client({
+        url: `/interline/${interlineId}`,
+        method: "delete",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
   };
 }
 
