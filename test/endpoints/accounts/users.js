@@ -20,6 +20,16 @@ describe("accounts/user/{id}", () => {
     return api.accounts.users.all({token});
   });
 
+  it("should create a user login", () => {
+    const data = {audience: "lala"};
+    axiosMock.onPost("/users").reply(expectRequest({statusCode: 200, token, jwtToken, body: data}));
+    return api.accounts.users.create({
+      jwtToken,
+      token,
+      data
+    });
+  });
+
   it("should create user sequence", () => {
     const userSequenceData = {};
     axiosMock.onPost(`/users/${id}/sequences`).reply(expectRequest({statusCode: 200, token, jwtToken, body: userSequenceData}));

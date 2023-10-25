@@ -16,6 +16,16 @@ function usersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function create({token, jwtToken, query = {}, data, headers}) {
+    return client({
+      url: "/users",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      params: query,
+      data
+    });
+  }
+
   const sequences = {
     create({jwtToken, token, userId, sequence, headers}) {
       return client({
@@ -30,6 +40,7 @@ function usersFactory({client, internalAuthTokenProvider}) {
   return {
     get,
     all,
+    create,
     sequences
   };
 }
