@@ -21,11 +21,12 @@ declare function paymentMethodsFactory({ client, internalAuthTokenProvider }: {
         paymentMethod: any;
         headers: any;
     }) => any;
-    get: ({ token, jwtToken, paymentMethodId, headers }: {
+    get: ({ token, jwtToken, paymentMethodId, headers, query }: {
         token: any;
         jwtToken: any;
         paymentMethodId: any;
         headers: any;
+        query?: {};
     }) => any;
     setToAgency: ({ token, jwtToken, agencyId, providerId, paymentMethodNames, headers }: {
         token: any;
