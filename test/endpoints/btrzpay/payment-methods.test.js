@@ -46,6 +46,17 @@ describe("btrzpay/payment-methods", () => {
     });
   });
 
+  it("should get a payment method, with a query", () => {
+    const paymentMethodId = "5ad7804216b426412c19f06f";
+    const providerId = "5ad7804216b426412c19ffff";
+    axiosMock.onGet(`/payment-methods/${paymentMethodId}`, {params: {providerId}}).reply(expectRequest({statusCode: 200, token}));
+    return api.btrzpay.paymentMethods.get({
+      token,
+      paymentMethodId,
+      query: {providerId}
+    });
+  });
+
   it("should update a payment method", () => {
     const paymentMethodId = "5ad7804216b426412c19f06f";
     axiosMock.onPut(`/payment-methods/${paymentMethodId}`).reply(expectRequest({

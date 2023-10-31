@@ -25,10 +25,10 @@ function paymentMethodsFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  function get({ token, jwtToken, paymentMethodId, headers }) {
+  function get({ token, jwtToken, paymentMethodId, headers, query = {} }) {
     return client.get(`/payment-methods/${paymentMethodId}`, {
-      params: {},
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      params: query,
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
     });
   }
 
