@@ -6,6 +6,7 @@ function pdfDataFactory({
   client,
   internalAuthTokenProvider
 }) {
+  // eslint-disable-next-line max-statements
   function get({
     token,
     query = {},
@@ -78,6 +79,9 @@ function pdfDataFactory({
     }
     if (query.type === "startingBalance") {
       url = `/pdf-starting-balance/${itemId}`;
+    }
+    if (query.type === "partialShiftDeposits") {
+      url = `/pdf-partial-shift-deposits/${itemId}`;
     }
 
     return client.get(url, {

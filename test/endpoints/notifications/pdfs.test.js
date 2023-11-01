@@ -274,4 +274,18 @@ describe("notifications/pdfs", () => {
       token, query, itemId
     });
   });
+
+  it("should return the proper data for a partialShiftDeposits", () => {
+    const itemId = "12345";
+    const query = {
+      type: "partialShiftDeposits"
+    };
+    axiosMock.onGet(`/pdf-partial-shift-deposits/${itemId}`)
+      .reply(expectRequest({
+        statusCode: 200, token
+      }));
+    return api.notifications.pdfData.get({
+      token, query, itemId
+    });
+  });
 });
