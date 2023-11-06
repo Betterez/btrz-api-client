@@ -2769,15 +2769,6 @@ export function createApiClient(options: {
                     headers: any;
                 }): any;
             };
-            vehicles: {
-                createOrUpdate({ token, jwtToken, headers, manifestId, parcelManifestVehicle }: {
-                    token: any;
-                    jwtToken: any;
-                    headers: any;
-                    manifestId: any;
-                    parcelManifestVehicle: any;
-                }): any;
-            };
         };
         calendarEntries: {
             all: ({ token, query, headers }: {
@@ -3003,6 +2994,16 @@ export function createApiClient(options: {
                     headers: any;
                 }): any;
                 create({ token, jwtToken, manifestId, query, data, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    manifestId: any;
+                    query?: {};
+                    data: any;
+                    headers: any;
+                }): any;
+            };
+            vehicles: {
+                createOrUpdate({ token, jwtToken, manifestId, query, data, headers }: {
                     token: any;
                     jwtToken: any;
                     manifestId: any;
