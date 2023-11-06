@@ -16,25 +16,6 @@ function parcelsManifestsFactory({client, internalAuthTokenProvider}) {
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
-
-  // function update({token, jwtToken, id, data, headers, query}) {
-  //   return client({
-  //     url: `/passenger-check-in-info/${id}`,
-  //     method: "put",
-  //     params: query,
-  //     headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
-  //     data
-  //   });
-  // }
-
-  // function remove({token, jwtToken, manifestId, parcelId, headers}) {
-  //   return client({
-  //     url: `/parcels-manifests/${manifestId}`,
-  //     method: "delete",
-  //     headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
-  //   });
-  // }
-
   function create({token, jwtToken, query = {}, data, headers}) {
     return client({
       url: "/parcels-manifests",
@@ -64,13 +45,26 @@ function parcelsManifestsFactory({client, internalAuthTokenProvider}) {
     }
   };
 
+  const vehicles = {
+    createOrUpdate({token, jwtToken, manifestId, query = {}, data, headers}) {
+      return client({
+        url: `/parcels-manifests/${manifestId}/vehicles`,
+        method: "post",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        params: query,
+        data: {
+          parcelManifestVehicle: data
+        }
+      });
+    }
+  };
+
   return {
     all,
     get,
-    // update,
-    // remove,
     create,
-    parcels
+    parcels,
+    vehicles
   };
 }
 

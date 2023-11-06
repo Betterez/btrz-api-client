@@ -74,4 +74,21 @@ describe("operations/parcels-manifests", () => {
       data
     });
   });
+
+  it("should add a vehicle to a parcel manifest", () => {
+    const manifestId = "123123123213";
+    const data = {
+      vehicleId: 1
+    };
+
+    axiosMock.onPost(`/parcels-manifests/${manifestId}/vehicles`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.operations.parcelManifests.vehicles.createOrUpdate({
+      jwtToken,
+      token,
+      manifestId,
+      data
+    });
+  });
+
+  //parcels-manifests
 });

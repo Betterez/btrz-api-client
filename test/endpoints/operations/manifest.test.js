@@ -52,15 +52,6 @@ describe("operations/manifest", () => {
     return api.operations.manifest.getAll({token, jwtToken, providerId, data});
   });
 
-  it("should change the bus on the manifest", () => {
-    const parcelManifestVehicle = {
-      vehicleId: "vehicleId"
-    };
-    const manifestId = "manifestId";
-    axiosMock.onPost(`/manifests/${manifestId}/vehicles`).reply(expectRequest({statusCode: 200, token, jwtToken}));
-    return api.operations.manifest.vehicles.createOrUpdate({token, jwtToken, manifestId, parcelManifestVehicle});
-  });
-
   it("should get outlook manifests", () => {
     const query = {
       providerId,

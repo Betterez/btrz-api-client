@@ -245,19 +245,6 @@ function manifestFactory({
     }
   };
 
-  const vehicles = {
-    createOrUpdate({token, jwtToken, headers, manifestId, parcelManifestVehicle}) {
-      return client({
-        url: `/manifests/${manifestId}/vehicles`,
-        method: "post",
-        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
-        data: {
-          parcelManifestVehicle
-        }
-      });
-    }
-  };
-
   return {
     get,
     getAll,
@@ -273,8 +260,7 @@ function manifestFactory({
     removeCapacityException,
     checkIn,
     legs,
-    reports,
-    vehicles
+    reports
   };
 }
 
