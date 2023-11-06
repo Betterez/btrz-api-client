@@ -158,4 +158,13 @@ declare function manifestFactory({ client, internalAuthTokenProvider }: {
             headers: any;
         }): any;
     };
+    vehicles: {
+        createOrUpdate({ token, jwtToken, headers, manifestId, parcelManifestVehicle }: {
+            token: any;
+            jwtToken: any;
+            headers: any;
+            manifestId: any;
+            parcelManifestVehicle: any;
+        }): any;
+    };
 };
