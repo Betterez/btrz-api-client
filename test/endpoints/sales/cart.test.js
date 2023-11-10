@@ -57,4 +57,10 @@ describe('sales/cart', function() {
     axiosMock.onPatch(`/cart/${cartId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
     return api.sales.cart.patch({ jwtToken, token, cartId, data: {providerId, operations: [{op}]} });
   });
+
+  it("should get the shift partial deposit status", function() {
+    const shiftId = "shiftId1";
+    axiosMock.onGet(`/cart/${shiftId}/partial-deposit-status`).reply(expectRequest({statusCode: 200, token}));
+    return api.sales.cart.partialDepositStatus.get({token, jwtToken, shiftId});
+  });
 });

@@ -62,13 +62,22 @@ function cartFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  const partialDepositStatus = {
+    get({token, jwtToken, shiftId, headers}) {
+      return client.get(`/cart/${shiftId}/partial-deposit-status`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+
   return {
     get,
     create,
     add,
     deleteItems,
     loyaltyPointsAmount,
-    patch
+    patch,
+    partialDepositStatus
   };
 }
 
