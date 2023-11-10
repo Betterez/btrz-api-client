@@ -45,4 +45,12 @@ declare function cartFactory({ client, internalAuthTokenProvider }: {
         data: any;
         headers: any;
     }) => any;
+    partialDepositStatus: {
+        get({ token, jwtToken, shiftId, headers }: {
+            token: any;
+            jwtToken: any;
+            shiftId: any;
+            headers: any;
+        }): any;
+    };
 };

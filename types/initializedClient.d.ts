@@ -2270,6 +2270,14 @@ declare const _exports: {
                 data: any;
                 headers: any;
             }) => any;
+            partialDepositStatus: {
+                get({ token, jwtToken, shiftId, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    shiftId: any;
+                    headers: any;
+                }): any;
+            };
         };
         giftCertificates: {
             get: ({ token, GCNumber, query, headers }: {
