@@ -209,6 +209,17 @@ describe("operations/manifest", () => {
       }));
     return api.operations.manifest.reports.get({token, jwtToken, query: {}, id});
   });
+
+  it("should return manifest with dispatch information", () => {
+    const manifestId = "12312312312312";
+    axiosMock.onPost(`/manifests/${manifestId}/dispatches`)
+      .reply(expectRequest({
+        statusCode: 200,
+        token,
+        jwtToken
+      }));
+    return api.operations.manifest.dispatch({token, jwtToken, manifestId});
+  });
 });
 
 describe("operations/manifest/legs/tickets/noshow", () => {
@@ -229,11 +240,11 @@ describe("operations/manifest/legs/tickets/noshow", () => {
     axiosMock.onPut(`/manifests/${manifestId}/legs/${legFromId}/tickets/${ticketId}/noshow`).reply((config) => {
       expect(config.url).to.contain.oneOf([manifestId, legFromId, ticketId]);
       expect(config.headers.authorization).to.be.eql(`Bearer ${jwtToken}`);
-      expect(config.headers["x-api-key"]).to.be.eql(token);  
-      return [200, {}]; 
+      expect(config.headers["x-api-key"]).to.be.eql(token);
+      return [200, {}];
     });
     return api.operations.manifest.legs.tickets.noshow({
-      token, jwtToken, query , headers, manifestId, legFromId, ticketId
+      token, jwtToken, query, headers, manifestId, legFromId, ticketId
     });
   });
 });
