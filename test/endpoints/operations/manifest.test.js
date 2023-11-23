@@ -212,13 +212,28 @@ describe("operations/manifest", () => {
 
   it("should return manifest with dispatch information", () => {
     const manifestId = "12312312312312";
+    const data = {
+      user: {
+        firstName: "Al",
+        lastName: "Saunders",
+        email: "al@betterez.com",
+        shiftId: "649f20a95679910784326e81",
+        shiftNumber: "S-WTN6LDX",
+        shiftLocation: {
+          name: "Houston (Tx)",
+          stationId: "5d40d1f339861cba05a2aa3f",
+          country: "US",
+          province: "Texas"
+        }
+      }
+    };
     axiosMock.onPost(`/manifests/${manifestId}/dispatches`)
       .reply(expectRequest({
         statusCode: 200,
         token,
         jwtToken
       }));
-    return api.operations.manifest.dispatch({token, jwtToken, manifestId});
+    return api.operations.manifest.dispatch({token, jwtToken, manifestId, data});
   });
 });
 
