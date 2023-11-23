@@ -2708,11 +2708,12 @@ export function createApiClient(options: {
                 exceptionId: any;
                 headers: any;
             }) => any;
-            dispatch: ({ token, jwtToken, headers, manifestId }: {
+            dispatch: ({ token, jwtToken, headers, manifestId, data }: {
                 token: any;
                 jwtToken: any;
                 headers: any;
                 manifestId: any;
+                data: any;
             }) => any;
             checkIn: {
                 create({ token, jwtToken, query, headers, data, manifestId, legFromId }: {
