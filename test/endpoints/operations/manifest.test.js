@@ -233,7 +233,7 @@ describe("operations/manifest", () => {
         token,
         jwtToken
       }));
-    return api.operations.manifest.dispatch({token, jwtToken, manifestId, data});
+    return api.operations.manifest.dispatch({token, jwtToken, manifestId, data, query: {}});
   });
 });
 

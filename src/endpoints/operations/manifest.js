@@ -5,12 +5,13 @@ const {
 function manifestFactory({
   client, internalAuthTokenProvider
 }) {
-  function dispatch({token, jwtToken, headers, manifestId, data}) {
+  function dispatch({token, jwtToken, headers, manifestId, data, query}) {
     return client({
       url: `manifests/${manifestId}/dispatches`,
       method: "post",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
-      data
+      data,
+      params: query
     });
   }
 
