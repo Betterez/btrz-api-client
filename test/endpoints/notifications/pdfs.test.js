@@ -256,7 +256,7 @@ describe("notifications/pdfs", () => {
       .reply(expectRequest({
         statusCode: 200, token
       }));
-    return api.notifications.pdfData.get({
+    return api.notifications.pdfs.get({
       token, query, itemId
     });
   });
@@ -270,7 +270,7 @@ describe("notifications/pdfs", () => {
       .reply(expectRequest({
         statusCode: 200, token
       }));
-    return api.notifications.pdfData.get({
+    return api.notifications.pdfs.get({
       token, query, itemId
     });
   });
@@ -284,7 +284,21 @@ describe("notifications/pdfs", () => {
       .reply(expectRequest({
         statusCode: 200, token
       }));
-    return api.notifications.pdfData.get({
+    return api.notifications.pdfs.get({
+      token, query, itemId
+    });
+  });
+
+  it("should return the proper data for a shiftLocationClosure", () => {
+    const itemId = "12345";
+    const query = {
+      type: "shiftLocationClosure"
+    };
+    axiosMock.onGet(`/pdf-shift-location-closures/${itemId}`)
+      .reply(expectRequest({
+        statusCode: 200, token
+      }));
+    return api.notifications.pdfs.get({
       token, query, itemId
     });
   });

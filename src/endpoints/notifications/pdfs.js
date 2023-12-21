@@ -1,6 +1,6 @@
 const {
   authorizationHeaders
-} = require("./../endpoints_helpers");
+} = require("./../endpoints_helpers.js");
 
 function pdfFactory({
   client,
@@ -87,6 +87,9 @@ function pdfFactory({
     }
     if (query.type === "partialShiftDeposits") {
       url = `/pdf-partial-shift-deposits/${itemId}`;
+    }
+    if (query.type === "shiftLocationClosure") {
+      url = `/pdf-shift-location-closures/${itemId}`;
     }
 
     return client.get(url, {
