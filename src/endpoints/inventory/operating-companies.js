@@ -20,7 +20,7 @@ function operatingCompaniesFactory({ client, internalAuthTokenProvider }) {
   }
 
   function update({ jwtToken, token, operatingCompanyId, operatingCompany, headers }) {
-    return client({ 
+    return client({
       url: `/operating-companies/${operatingCompanyId}`,
       method: "put",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
@@ -36,11 +36,30 @@ function operatingCompaniesFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  const sequences = {
+    create({jwtToken, token, operatingCompanyId, sequence, headers}) {
+      return client({
+        url: `/operating-companies/${operatingCompanyId}/sequences`,
+        method: "post",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        data: sequence
+      });
+    },
+    all({jwtToken, token, operatingCompanyId, headers}) {
+      return client({
+        url: `/operating-companies/${operatingCompanyId}/sequences`,
+        method: "get",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+
   return {
     all,
     create,
     update,
-    get
+    get,
+    sequences
   };
 }
 

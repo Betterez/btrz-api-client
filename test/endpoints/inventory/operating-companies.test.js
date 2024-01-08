@@ -1,4 +1,5 @@
 const { axiosMock, expectRequest } = require("./../../test-helpers");
+const {expect} = require("chai");
 const api = require("./../../../src/client").createApiClient({ baseURL: "http://test.com" });
 
 describe('inventory/operating-companies', () => {
@@ -53,6 +54,33 @@ describe('inventory/operating-companies', () => {
       jwtToken,
       token,
       operatingCompanyId
+    });
+  });
+
+  it("should create an operating company sequence", () => {
+    const operatingCompanyId = "1234";
+    const operatingCompanySequenceData = {};
+    // eslint-disable-next-line max-len
+    axiosMock.onPost(`/operating-companies/${operatingCompanyId}/sequences`).reply(expectRequest({statusCode: 200, token, jwtToken, body: operatingCompanySequenceData}));
+    return api.inventory.operatingCompanies.sequences.create({
+      jwtToken,
+      token,
+      operatingCompanyId,
+      sequence: operatingCompanySequenceData
+    }).then((httpResponse) => {
+      expect(httpResponse.status).eql(200);
+    });
+  });
+
+  it("should get operating company sequences", () => {
+    const operatingCompanyId = "1234";
+    axiosMock.onGet(`/operating-companies/${operatingCompanyId}/sequences`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.inventory.operatingCompanies.sequences.all({
+      jwtToken,
+      token,
+      operatingCompanyId
+    }).then((httpResponse) => {
+      expect(httpResponse.status).eql(200);
     });
   });
 });
