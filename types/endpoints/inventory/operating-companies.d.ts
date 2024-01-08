@@ -28,4 +28,19 @@ declare function operatingCompaniesFactory({ client, internalAuthTokenProvider }
         jwtToken: any;
         headers: any;
     }) => any;
+    sequences: {
+        create({ jwtToken, token, operatingCompanyId, sequence, headers }: {
+            jwtToken: any;
+            token: any;
+            operatingCompanyId: any;
+            sequence: any;
+            headers: any;
+        }): any;
+        all({ jwtToken, token, operatingCompanyId, headers }: {
+            jwtToken: any;
+            token: any;
+            operatingCompanyId: any;
+            headers: any;
+        }): any;
+    };
 };
