@@ -330,6 +330,7 @@ function createBtrzPay({baseURL, headers, timeout, overrideFn, internalAuthToken
     customerCards: require("./endpoints/btrzpay/customerCards.js")({client, internalAuthTokenProvider}),
     squareTerminals: require("./endpoints/btrzpay/square.js").squareTerminalsFactory({client, internalAuthTokenProvider}),
     squareWebhooks: require("./endpoints/btrzpay/square.js").squareWebhooksFactory({client, internalAuthTokenProvider}),
+    oxxo: require("./endpoints/btrzpay/oxxo.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
