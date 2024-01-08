@@ -3524,6 +3524,24 @@ declare const _exports: {
                 headers: any;
             }) => any;
         };
+        oxxo: {
+            token: {
+                get({ jwtToken, headers, internalAuthTokenProvider }: {
+                    jwtToken: any;
+                    headers: any;
+                    internalAuthTokenProvider: any;
+                }): any;
+            };
+            payments: {
+                all({ jwtToken, headers, oxxoToken, query, internalAuthTokenProvider }: {
+                    jwtToken: any;
+                    headers: any;
+                    oxxoToken: any;
+                    query: any;
+                    internalAuthTokenProvider: any;
+                }): any;
+            };
+        };
         __test: {
             client: import("axios").AxiosInstance;
         };
