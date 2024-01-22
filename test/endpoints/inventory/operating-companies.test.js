@@ -83,4 +83,36 @@ describe('inventory/operating-companies', () => {
       expect(httpResponse.status).eql(200);
     });
   });
+
+  it("should get operating company sequence by id", () => {
+    const operatingCompanyId = "1234";
+    const sequenceId = "5678";
+    // eslint-disable-next-line max-len
+    axiosMock.onGet(`/operating-companies/${operatingCompanyId}/sequences/${sequenceId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.inventory.operatingCompanies.sequences.get({
+      jwtToken,
+      token,
+      operatingCompanyId,
+      sequenceId
+    }).then((httpResponse) => {
+      expect(httpResponse.status).eql(200);
+    });
+  });
+
+  it("should update operating company sequence", () => {
+    const operatingCompanyId = "1234";
+    const sequenceId = "5678";
+    const operatingCompanySequenceData = {};
+    // eslint-disable-next-line max-len
+    axiosMock.onPut(`/operating-companies/${operatingCompanyId}/sequences/${sequenceId}`).reply(expectRequest({statusCode: 200, token, jwtToken, body: operatingCompanySequenceData}));
+    return api.inventory.operatingCompanies.sequences.update({
+      jwtToken,
+      token,
+      operatingCompanyId,
+      sequenceId,
+      sequence: operatingCompanySequenceData
+    }).then((httpResponse) => {
+      expect(httpResponse.status).eql(200);
+    });
+  });
 });

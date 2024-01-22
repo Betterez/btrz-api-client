@@ -51,6 +51,21 @@ function operatingCompaniesFactory({ client, internalAuthTokenProvider }) {
         method: "get",
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
       });
+    },
+    get({jwtToken, token, operatingCompanyId, sequenceId, headers}) {
+      return client({
+        url: `/operating-companies/${operatingCompanyId}/sequences/${sequenceId}`,
+        method: "get",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    },
+    update({jwtToken, token, operatingCompanyId, sequenceId, sequence, headers}) {
+      return client({
+        url: `/operating-companies/${operatingCompanyId}/sequences/${sequenceId}`,
+        method: "put",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        data: sequence
+      });
     }
   };
 
