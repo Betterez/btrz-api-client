@@ -608,6 +608,21 @@ declare const _exports: {
                     operatingCompanyId: any;
                     headers: any;
                 }): any;
+                get({ jwtToken, token, operatingCompanyId, sequenceId, headers }: {
+                    jwtToken: any;
+                    token: any;
+                    operatingCompanyId: any;
+                    sequenceId: any;
+                    headers: any;
+                }): any;
+                update({ jwtToken, token, operatingCompanyId, sequenceId, sequence, headers }: {
+                    jwtToken: any;
+                    token: any;
+                    operatingCompanyId: any;
+                    sequenceId: any;
+                    sequence: any;
+                    headers: any;
+                }): any;
             };
         };
         operationMessages: {
