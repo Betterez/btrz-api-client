@@ -3555,6 +3555,15 @@ declare const _exports: {
                     query: any;
                     internalAuthTokenProvider: any;
                 }): any;
+                update({ jwtToken, headers, oxxoToken, query, referenceNumber, data, internalAuthTokenProvider }: {
+                    jwtToken: any;
+                    headers: any;
+                    oxxoToken: any;
+                    query: any;
+                    referenceNumber: any;
+                    data: any;
+                    internalAuthTokenProvider: any;
+                }): any;
             };
         };
         __test: {
