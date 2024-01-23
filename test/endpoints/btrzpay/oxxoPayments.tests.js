@@ -34,4 +34,27 @@ describe("btrz-pay/oxxo/payments", () => {
       query: {referenceNumber}
     });
   });
+
+  it("should update a payment with a result", () => {
+    axiosMock.onPost(`/oxxo/${oxxoToken}/payments/${referenceNumber}`).reply(expectRequest({
+      statusCode: 200,
+      internalAuthTokenProvider,
+      withoutApiKey: true,
+      jwtToken: "internal_auth_token"
+    }));
+
+    return api.btrzpay.oxxo.payments.update({
+      internalAuthTokenProvider,
+      jwtToken: "internal_auth_token",
+      oxxoToken,
+      referenceNumber,
+      data: {
+        status: "success",
+        ticket: "123",
+        folio: "123A",
+        amount: "750000",
+        store: "store"
+      }
+    });
+  });
 });

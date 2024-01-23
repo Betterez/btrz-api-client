@@ -19,6 +19,15 @@ function oxxoFactory({client, internalAuthTokenProvider}) {
         params: query,
         headers: authorizationHeaders({jwtToken, internalAuthTokenProvider, headers})
       });
+    },
+    update({jwtToken, headers, oxxoToken, query, referenceNumber, data, internalAuthTokenProvider}) {
+      return client({
+        url: `/oxxo/${oxxoToken}/payments/${referenceNumber}`,
+        method: "post",
+        params: query,
+        data,
+        headers: authorizationHeaders({jwtToken, internalAuthTokenProvider, headers})
+      });
     }
   };
 
