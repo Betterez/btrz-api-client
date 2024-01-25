@@ -46,12 +46,35 @@ function schedulesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  const autoBouncing = {
+    create: ({token, jwtToken, data, headers}) => {
+      return client({
+        url: "/routes/schedules/auto-bouncing",
+        method: "post",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        }),
+        data
+      });
+    },
+    delete: ({token, jwtToken, parentScheduleId, headers}) => {
+      return client({
+        url: `/routes/schedules/${parentScheduleId}/auto-bouncing`,
+        method: "delete",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        })
+      });
+    }
+  };
+
   return {
     all,
     get,
     create,
     update,
-    delete: deleteSchedule
+    delete: deleteSchedule,
+    autoBouncing
   };
 }
 
