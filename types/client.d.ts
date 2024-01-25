@@ -1399,19 +1399,21 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
             seatmaps: {
-                create({ jwtToken, token, vehicleId, seatmap, headers }: {
+                create({ jwtToken, token, vehicleId, seatmap, headers, newdesign }: {
                     jwtToken: any;
                     token: any;
                     vehicleId: any;
                     seatmap: any;
                     headers: any;
+                    newdesign: any;
                 }): any;
-                remove({ jwtToken, vehicleId, seatMapId, token, headers }: {
+                remove({ jwtToken, vehicleId, seatMapId, token, headers, newdesign }: {
                     jwtToken: any;
                     vehicleId: any;
                     seatMapId: any;
                     token: any;
                     headers: any;
+                    newdesign: any;
                 }): any;
             };
         };
