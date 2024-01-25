@@ -882,6 +882,20 @@ declare const _exports: {
                 scheduleId: any;
                 headers: any;
             }) => any;
+            autoBouncing: {
+                create: ({ token, jwtToken, data, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    data: any;
+                    headers: any;
+                }) => any;
+                delete: ({ token, jwtToken, parentScheduleId, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    parentScheduleId: any;
+                    headers: any;
+                }) => any;
+            };
         };
         garages: {
             all: ({ token, jwtToken, query, headers }: {
