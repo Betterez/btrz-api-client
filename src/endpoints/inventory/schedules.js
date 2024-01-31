@@ -57,9 +57,9 @@ function schedulesFactory({client, internalAuthTokenProvider}) {
         data
       });
     },
-    delete: ({token, jwtToken, parentScheduleId, headers}) => {
+    delete: ({token, jwtToken, routeId, parentScheduleId, headers}) => {
       return client({
-        url: `/routes/schedules/${parentScheduleId}/auto-bouncing`,
+        url: `/routes/${routeId}/schedules/${parentScheduleId}/auto-bouncing`,
         method: "delete",
         headers: authorizationHeaders({
           token, jwtToken, internalAuthTokenProvider, headers

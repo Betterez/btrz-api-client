@@ -71,7 +71,7 @@ describe("inventory/routes/shedules", () => {
   });
 
   it("should delete auto bouncing relationship", async () => {
-    axiosMock.onDelete(`/routes/schedules/${scheduleId}/auto-bouncing`).reply(expectRequest({statusCode: 200, token, jwtToken}));
-    return api.inventory.schedules.autoBouncing.delete({token, jwtToken, parentScheduleId: scheduleId});
+    axiosMock.onDelete(`/routes/${routeId}/schedules/${scheduleId}/auto-bouncing`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.inventory.schedules.autoBouncing.delete({token, jwtToken, routeId, parentScheduleId: scheduleId});
   });
 });
