@@ -91,6 +91,9 @@ function pdfFactory({
     if (query.type === "shiftLocationClosure") {
       url = `/pdf-shift-location-closures/${itemId}`;
     }
+    if (query.type === "bankDepositSlip") {
+      url = `/pdf-bank-deposit-slips/${itemId}`;
+    }
 
     return client.get(url, {
       params: query,

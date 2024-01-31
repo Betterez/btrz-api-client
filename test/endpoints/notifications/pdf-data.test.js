@@ -314,4 +314,17 @@ describe("notifications/pdf-data", () => {
       token, query, itemId
     });
   });
+  it("should return the proper data for a bankDepositSlip", () => {
+    const itemId = "12345";
+    const query = {
+      type: "bankDepositSlip"
+    };
+    axiosMock.onGet(`/pdf-bank-deposit-slips/${itemId}`)
+      .reply(expectRequest({
+        statusCode: 200, token
+      }));
+    return api.notifications.pdfData.get({
+      token, query, itemId
+    });
+  });
 });
