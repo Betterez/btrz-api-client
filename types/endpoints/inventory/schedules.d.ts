@@ -43,9 +43,10 @@ declare function schedulesFactory({ client, internalAuthTokenProvider }: {
             data: any;
             headers: any;
         }) => any;
-        delete: ({ token, jwtToken, parentScheduleId, headers }: {
+        delete: ({ token, jwtToken, routeId, parentScheduleId, headers }: {
             token: any;
             jwtToken: any;
+            routeId: any;
             parentScheduleId: any;
             headers: any;
         }) => any;
