@@ -53,4 +53,12 @@ declare function cartFactory({ client, internalAuthTokenProvider }: {
             headers: any;
         }): any;
     };
+    payments: {
+        delete({ token, cartId, jwtToken, headers }: {
+            token: any;
+            cartId: any;
+            jwtToken: any;
+            headers: any;
+        }): any;
+    };
 };

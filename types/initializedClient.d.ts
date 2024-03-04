@@ -2325,6 +2325,14 @@ declare const _exports: {
                     headers: any;
                 }): any;
             };
+            payments: {
+                delete({ token, cartId, jwtToken, headers }: {
+                    token: any;
+                    cartId: any;
+                    jwtToken: any;
+                    headers: any;
+                }): any;
+            };
         };
         giftCertificates: {
             get: ({ token, GCNumber, query, headers }: {
