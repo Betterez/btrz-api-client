@@ -1,11 +1,10 @@
-const { authorizationHeaders } = require("./../endpoints_helpers");
+const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
-function cartFactory({ client, internalAuthTokenProvider }) {
-
-  function get({ token, id, providerId, headers }) {
+function cartFactory({client, internalAuthTokenProvider}) {
+  function get({token, id, providerId, headers}) {
     let url = `/cart/${id}`;
 
-    if(providerId) {
+    if (providerId) {
       url = `${url}?providerId=${providerId}`;
     }
 
@@ -15,8 +14,8 @@ function cartFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  function create({ token, cart, jwtToken, headers }) {
-    return client({ 
+  function create({token, cart, jwtToken, headers}) {
+    return client({
       url: "/cart",
       method: "post",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
@@ -24,8 +23,8 @@ function cartFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  function add({ token, cartId, cart, jwtToken, headers }) {
-    return client({ 
+  function add({token, cartId, cart, jwtToken, headers}) {
+    return client({
       url: `/cart/${cartId}/items`,
       method: "post",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
@@ -33,8 +32,8 @@ function cartFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  function deleteItems({ token, cartId, params, jwtToken, headers }) {
-    return client({ 
+  function deleteItems({token, cartId, params, jwtToken, headers}) {
+    return client({
       url: `/cart/${cartId}/items`,
       method: "delete",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
@@ -43,7 +42,7 @@ function cartFactory({ client, internalAuthTokenProvider }) {
   }
 
   const loyaltyPointsAmount = {
-    get({ token, jwtToken, cartId, query = {}, headers }) {
+    get({token, jwtToken, cartId, query = {}, headers}) {
       return client({
         url: `/carts/${cartId}/loyalty-points-amount`,
         params: query,
@@ -53,7 +52,7 @@ function cartFactory({ client, internalAuthTokenProvider }) {
   };
 
 
-  function patch({ token, jwtToken, cartId, data, headers }) {
+  function patch({token, jwtToken, cartId, data, headers}) {
     return client({
       url: `/cart/${cartId}`,
       method: "patch",
@@ -70,6 +69,16 @@ function cartFactory({ client, internalAuthTokenProvider }) {
     }
   };
 
+  const payments = {
+    delete({token, cartId, jwtToken, headers}) {
+      return client({
+        url: `/cart/${cartId}/payments`,
+        method: "delete",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+
   return {
     get,
     create,
@@ -77,7 +86,8 @@ function cartFactory({ client, internalAuthTokenProvider }) {
     deleteItems,
     loyaltyPointsAmount,
     patch,
-    partialDepositStatus
+    partialDepositStatus,
+    payments
   };
 }
 
