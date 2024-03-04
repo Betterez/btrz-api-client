@@ -66,7 +66,7 @@ describe("sales/cart", () => {
 
   it("should delete payments from a cart", () => {
     const cartId = "someCartId";
-    axiosMock.onDelete(`/cart/${cartId}/payments`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    axiosMock.onDelete(`/carts/${cartId}/payments`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.sales.cart.payments.delete({jwtToken, token, cartId});
   });
 });

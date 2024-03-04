@@ -72,7 +72,7 @@ function cartFactory({client, internalAuthTokenProvider}) {
   const payments = {
     delete({token, cartId, jwtToken, headers}) {
       return client({
-        url: `/cart/${cartId}/payments`,
+        url: `/carts/${cartId}/payments`,
         method: "delete",
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
       });
