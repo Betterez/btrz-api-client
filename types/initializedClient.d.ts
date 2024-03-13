@@ -2725,6 +2725,13 @@ declare const _exports: {
                 data: any;
                 query: any;
             }) => any;
+            updateDispatchReporting: ({ token, jwtToken, headers, manifestId, data }: {
+                token: any;
+                jwtToken: any;
+                headers: any;
+                manifestId: any;
+                data: any;
+            }) => any;
             checkIn: {
                 create({ token, jwtToken, query, headers, data, manifestId, legFromId }: {
                     token: any;
