@@ -235,6 +235,23 @@ describe("operations/manifest", () => {
       }));
     return api.operations.manifest.dispatch({token, jwtToken, manifestId, data, query: {}});
   });
+
+  it("should update the manifest with the dispatch reporting data", () => {
+    const manifestId = "12312312312312";
+    const data = {
+      users: ["12312312312312", "23423423423423"],
+      busId: "bus",
+      distanceTraveled: 123,
+      operatingCompanyName: "opCo"
+    };
+    axiosMock.onPut(`/manifests/${manifestId}/dispatch/reporting`)
+      .reply(expectRequest({
+        statusCode: 200,
+        token,
+        jwtToken
+      }));
+    return api.operations.manifest.updateDispatchReporting({token, jwtToken, manifestId, data});
+  });
 });
 
 describe("operations/manifest/legs/tickets/noshow", () => {
