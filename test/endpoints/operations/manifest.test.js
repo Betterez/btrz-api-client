@@ -280,3 +280,30 @@ describe("operations/manifest/legs/tickets/noshow", () => {
     });
   });
 });
+
+describe("operations/manifest/:manifestId/labels", () => {
+  const token = "I owe you a token";
+  const jwtToken = "I owe you a JWT token";
+
+  afterEach(() => {
+    axiosMock.reset();
+  });
+  it("should add a label to a manifest", async () => {
+    const manifestId = "manifestId";
+    const data = {
+      labelId: "labelId"
+    };
+    axiosMock.onPost(`/manifests/${manifestId}/labels`).reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.operations.manifest.labels.add({token, jwtToken, manifestId, data});
+  });
+  it("should remove a label from a manifest", async () => {
+    const manifestId = "manifestId";
+    const labelId = "labelId";
+    axiosMock.onDelete(`/manifests/${manifestId}/labels/${labelId}`).reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.operations.manifest.labels.remove({token, jwtToken, manifestId, labelId});
+  });
+});

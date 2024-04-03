@@ -264,6 +264,25 @@ function manifestFactory({
     }
   };
 
+  const labels = {
+    add({token, jwtToken, manifestId, query = {}, headers, data}) {
+      return client({
+        url: `/manifests/${manifestId}/labels`,
+        method: "post",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        params: query,
+        data
+      });
+    },
+    remove({token, jwtToken, manifestId, labelId, headers}) {
+      return client({
+        url: `/manifests/${manifestId}/labels/${labelId}`,
+        method: "delete",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+
   return {
     get,
     getAll,
@@ -281,7 +300,8 @@ function manifestFactory({
     updateDispatchReporting,
     checkIn,
     legs,
-    reports
+    reports,
+    labels
   };
 }
 
