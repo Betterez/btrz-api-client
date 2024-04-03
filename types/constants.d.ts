@@ -1,1 +1,1 @@
-export const INTERNAL_AUTH_TOKEN_SYMBOL: string;
+export let INTERNAL_AUTH_TOKEN_SYMBOL: string;

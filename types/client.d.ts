@@ -2878,6 +2878,23 @@ export function createApiClient(options: {
                     headers: any;
                 }): any;
             };
+            labels: {
+                add({ token, jwtToken, manifestId, query, headers, data }: {
+                    token: any;
+                    jwtToken: any;
+                    manifestId: any;
+                    query?: {};
+                    headers: any;
+                    data: any;
+                }): any;
+                remove({ token, jwtToken, manifestId, labelId, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    manifestId: any;
+                    labelId: any;
+                    headers: any;
+                }): any;
+            };
         };
         calendarEntries: {
             all: ({ token, query, headers }: {
