@@ -5,7 +5,7 @@ const api = require("./../../../src/client.js").createApiClient({
   baseURL: "http://test.com"
 });
 
-describe.only("inventory/items", () => {
+describe("inventory/items", () => {
   const token = "I owe you a token";
   const jwtToken = "I owe you a JWT token";
 
