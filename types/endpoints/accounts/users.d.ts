@@ -30,5 +30,13 @@ declare function usersFactory({ client, internalAuthTokenProvider }: {
             sequence: any;
             headers: any;
         }): any;
+        update({ jwtToken, token, userId, sequenceId, sequence, headers }: {
+            jwtToken: any;
+            token: any;
+            userId: any;
+            sequenceId: any;
+            sequence: any;
+            headers: any;
+        }): any;
     };
 };
