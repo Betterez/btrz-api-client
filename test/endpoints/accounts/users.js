@@ -40,4 +40,18 @@ describe("accounts/user/{id}", () => {
       sequence: userSequenceData
     });
   });
+
+  it("should update user sequence", () => {
+    const sequenceId = "123";
+    const userSequenceData = {};
+    // eslint-disable-next-line max-len
+    axiosMock.onPut(`/users/${id}/sequences/${sequenceId}`).reply(expectRequest({statusCode: 200, token, jwtToken, body: userSequenceData}));
+    return api.accounts.users.sequences.update({
+      jwtToken,
+      userId: id,
+      sequenceId,
+      token,
+      sequence: userSequenceData
+    });
+  });
 });
