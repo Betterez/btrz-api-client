@@ -255,7 +255,7 @@ describe("operations/manifest", () => {
 
   it("should create a dispatch reporting", () => {
     const data = {
-      dateFrom: "17/04/2024",
+      dateFrom: "16/04/2024",
       dateTo: "18/04/2024"
     };
     axiosMock.onPost("/manifests/dispatch/reporting")
