@@ -104,6 +104,12 @@ declare function manifestFactory({ client, internalAuthTokenProvider }: {
         manifestId: any;
         data: any;
     }) => any;
+    createDispatchReporting: ({ token, jwtToken, headers, data }: {
+        token: any;
+        jwtToken: any;
+        headers: any;
+        data: any;
+    }) => any;
     checkIn: {
         create({ token, jwtToken, query, headers, data, manifestId, legFromId }: {
             token: any;
