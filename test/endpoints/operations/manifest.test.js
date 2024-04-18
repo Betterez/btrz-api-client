@@ -252,6 +252,20 @@ describe("operations/manifest", () => {
       }));
     return api.operations.manifest.updateDispatchReporting({token, jwtToken, manifestId, data});
   });
+
+  it("should create a dispatch reporting", () => {
+    const data = {
+      dateFrom: "17/04/2024",
+      dateTo: "18/04/2024"
+    };
+    axiosMock.onPost("/manifests/dispatch/reporting")
+      .reply(expectRequest({
+        statusCode: 200,
+        token,
+        jwtToken
+      }));
+    return api.operations.manifest.createDispatchReporting({token, jwtToken, data});
+  });
 });
 
 describe("operations/manifest/legs/tickets/noshow", () => {

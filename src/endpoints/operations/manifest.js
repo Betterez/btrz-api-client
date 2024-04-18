@@ -5,6 +5,15 @@ const {
 function manifestFactory({
   client, internalAuthTokenProvider
 }) {
+  function createDispatchReporting({token, jwtToken, headers, data}) {
+    return client({
+      url: "/manifests/dispatch/reporting",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data
+    });
+  }
+
   function updateDispatchReporting({token, jwtToken, headers, manifestId, data}) {
     return client({
       url: `manifests/${manifestId}/dispatch/reporting`,
@@ -298,6 +307,7 @@ function manifestFactory({
     removeCapacityException,
     dispatch,
     updateDispatchReporting,
+    createDispatchReporting,
     checkIn,
     legs,
     reports,
