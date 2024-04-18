@@ -34,13 +34,52 @@ function taxesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  const exceptions = {
+    create({jwtToken, token, taxException, headers}) {
+      return client({
+        url: "/taxes/exceptions",
+        method: "post",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        data: taxException
+      });
+    },
+    update({jwtToken, token, taxExceptionId, taxException, headers}) {
+      return client({
+        url: `/taxes/exceptions/${taxExceptionId}`,
+        method: "put",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        data: taxException
+      });
+    },
+    get({jwtToken, token, taxExceptionId, headers}) {
+      return client({
+        url: `/taxes/exceptions/${taxExceptionId}`,
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    },
+    all({jwtToken, token, query = {}, headers}) {
+      return client({
+        url: "/taxes/exceptions",
+        params: query,
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    },
+    delete({jwtToken, token, taxExceptionId, headers}) {
+      return client({
+        url: `/taxes/exceptions/${taxExceptionId}`,
+        method: "delete",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+
   return {
     all,
     get,
     create,
-    update
+    update,
+    exceptions
   };
-
 }
 
 module.exports = taxesFactory;
