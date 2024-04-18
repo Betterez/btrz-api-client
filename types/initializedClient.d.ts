@@ -340,6 +340,39 @@ declare const _exports: {
                 tax: any;
                 headers: any;
             }) => any;
+            exceptions: {
+                create({ jwtToken, token, taxException, headers }: {
+                    jwtToken: any;
+                    token: any;
+                    taxException: any;
+                    headers: any;
+                }): any;
+                update({ jwtToken, token, taxExceptionId, taxException, headers }: {
+                    jwtToken: any;
+                    token: any;
+                    taxExceptionId: any;
+                    taxException: any;
+                    headers: any;
+                }): any;
+                get({ jwtToken, token, taxExceptionId, headers }: {
+                    jwtToken: any;
+                    token: any;
+                    taxExceptionId: any;
+                    headers: any;
+                }): any;
+                all({ jwtToken, token, query, headers }: {
+                    jwtToken: any;
+                    token: any;
+                    query?: {};
+                    headers: any;
+                }): any;
+                delete({ jwtToken, token, taxExceptionId, headers }: {
+                    jwtToken: any;
+                    token: any;
+                    taxExceptionId: any;
+                    headers: any;
+                }): any;
+            };
         };
         seatmaps: {
             all: ({ token, query, headers }: {
