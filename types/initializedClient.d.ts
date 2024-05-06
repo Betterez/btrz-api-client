@@ -2310,6 +2310,13 @@ declare const _exports: {
                 data: any;
                 headers: any;
             }) => any;
+            update: ({ token, jwtToken, userId, user, headers }: {
+                token: any;
+                jwtToken: any;
+                userId: any;
+                user: any;
+                headers: any;
+            }) => any;
             sequences: {
                 create({ jwtToken, token, userId, sequence, headers }: {
                     jwtToken: any;
