@@ -30,6 +30,22 @@ describe("accounts/user/{id}", () => {
     });
   });
 
+  it("should update a user", () => {
+    const userId = "627a25404a761f0fcbdbdfc1";
+    const user = {
+      firstName: "Jane",
+      lastName: "Doe",
+      display: "JD"
+    };
+    axiosMock.onPut(`/users/${userId}`).reply(expectRequest({statusCode: 200, token, jwtToken, body: {user}}));
+    return api.accounts.users.update({
+      jwtToken,
+      token,
+      userId,
+      user
+    });
+  });
+
   it("should create user sequence", () => {
     const userSequenceData = {};
     axiosMock.onPost(`/users/${id}/sequences`).reply(expectRequest({statusCode: 200, token, jwtToken, body: userSequenceData}));
