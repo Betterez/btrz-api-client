@@ -1,7 +1,6 @@
 export = datalogicFactory;
-declare function datalogicFactory({ client, internalAuthTokenProvider }: {
+declare function datalogicFactory({ client }: {
     client: any;
-    internalAuthTokenProvider: any;
 }): {
     payments: {
         all({ token, jwtToken, headers, query, internalAuthTokenProvider }: {
@@ -18,6 +17,22 @@ declare function datalogicFactory({ client, internalAuthTokenProvider }: {
             query: any;
             referenceNumber: any;
             data: any;
+            internalAuthTokenProvider: any;
+        }): any;
+    };
+    referenceNumber: {
+        get({ token, jwtToken, headers, internalAuthTokenProvider }: {
+            token: any;
+            jwtToken: any;
+            headers: any;
+            internalAuthTokenProvider: any;
+        }): any;
+    };
+    authCode: {
+        get({ token, jwtToken, headers, internalAuthTokenProvider }: {
+            token: any;
+            jwtToken: any;
+            headers: any;
             internalAuthTokenProvider: any;
         }): any;
     };

@@ -3813,6 +3813,22 @@ export function createApiClient(options: {
                     internalAuthTokenProvider: any;
                 }): any;
             };
+            referenceNumber: {
+                get({ token, jwtToken, headers, internalAuthTokenProvider }: {
+                    token: any;
+                    jwtToken: any;
+                    headers: any;
+                    internalAuthTokenProvider: any;
+                }): any;
+            };
+            authCode: {
+                get({ token, jwtToken, headers, internalAuthTokenProvider }: {
+                    token: any;
+                    jwtToken: any;
+                    headers: any;
+                    internalAuthTokenProvider: any;
+                }): any;
+            };
         };
         __test: {
             client: axios.AxiosInstance;

@@ -3767,6 +3767,22 @@ declare const _exports: {
                     internalAuthTokenProvider: any;
                 }): any;
             };
+            referenceNumber: {
+                get({ token, jwtToken, headers, internalAuthTokenProvider }: {
+                    token: any;
+                    jwtToken: any;
+                    headers: any;
+                    internalAuthTokenProvider: any;
+                }): any;
+            };
+            authCode: {
+                get({ token, jwtToken, headers, internalAuthTokenProvider }: {
+                    token: any;
+                    jwtToken: any;
+                    headers: any;
+                    internalAuthTokenProvider: any;
+                }): any;
+            };
         };
         __test: {
             client: import("axios").AxiosInstance;
