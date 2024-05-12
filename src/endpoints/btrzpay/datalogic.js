@@ -2,7 +2,7 @@ const {
   authorizationHeaders
 } = require("./../endpoints_helpers");
 
-function datalogicFactory({client, internalAuthTokenProvider}) {
+function datalogicFactory({client}) {
   const payments = {
     all({token, jwtToken, headers, query, internalAuthTokenProvider}) {
       return client({
@@ -22,8 +22,28 @@ function datalogicFactory({client, internalAuthTokenProvider}) {
     }
   };
 
+  const referenceNumber = {
+    get({token, jwtToken, headers, internalAuthTokenProvider}) {
+      return client({
+        url: "/datalogic/reference-number",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+
+  const authCode = {
+    get({token, jwtToken, headers, internalAuthTokenProvider}) {
+      return client({
+        url: "/datalogic/auth-code",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+
   return {
-    payments
+    payments,
+    referenceNumber,
+    authCode
   };
 }
 

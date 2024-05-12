@@ -5,8 +5,7 @@ const api = require("../../../src/client").createApiClient({
   baseURL: "http://test.com"
 });
 
-describe("btrz-pay/datalogic/payments", () => {
-  const referenceNumber = "000000000000000000002";
+describe("btrz-pay/datalogic/reference-number", () => {
   const internalAuthTokenProvider = {
     getToken: () => {
       return "internalToken";
@@ -17,19 +16,17 @@ describe("btrz-pay/datalogic/payments", () => {
     axiosMock.reset();
   });
 
-  it("should get a list of payments", () => {
-    axiosMock.onGet("/datalogic/payments").reply(expectRequest({
+  it("should get a reference number", () => {
+    axiosMock.onGet("/datalogic/reference-number").reply(expectRequest({
       statusCode: 200,
       internalAuthTokenProvider,
       withoutApiKey: true,
-      jwtToken: "internal_auth_token",
-      query: {referenceNumber}
+      jwtToken: "internal_auth_token"
     }));
 
-    return api.btrzpay.datalogic.payments.all({
+    return api.btrzpay.datalogic.referenceNumber.get({
       internalAuthTokenProvider,
-      jwtToken: "internal_auth_token",
-      query: {referenceNumber}
+      jwtToken: "internal_auth_token"
     });
   });
 });
