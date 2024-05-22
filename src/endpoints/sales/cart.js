@@ -80,11 +80,12 @@ function cartFactory({client, internalAuthTokenProvider}) {
   };
 
   const taxExemptPaymentMethod = {
-    post({token, cartId, jwtToken, headers, query = {}}) {
+    post({token, cartId, jwtToken, headers, data = {}}) {
       return client({
         url: `/carts/${cartId}/tax-exempt-payment-method`,
         method: "POST",
-        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        data
       });
     }
   }
