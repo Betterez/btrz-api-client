@@ -69,4 +69,10 @@ describe("sales/cart", () => {
     axiosMock.onDelete(`/carts/${cartId}/payments`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.sales.cart.payments.delete({jwtToken, token, cartId});
   });
+
+  it("should post a mount with tax exempt from the payment method", () => {
+    const cartId = "thisCartId";
+    axiosMock.onPost(`/carts/${cartId}/tax-exempt-payment-method`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.sales.cart.taxExemptPaymentMethod.post({jwtToken, token, cartId});
+  });
 });
