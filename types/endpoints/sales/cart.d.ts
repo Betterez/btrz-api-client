@@ -61,4 +61,13 @@ declare function cartFactory({ client, internalAuthTokenProvider }: {
             headers: any;
         }): any;
     };
+    taxExemptPaymentMethod: {
+        post({ token, cartId, jwtToken, headers, query }: {
+            token: any;
+            cartId: any;
+            jwtToken: any;
+            headers: any;
+            query?: {};
+        }): any;
+    };
 };

@@ -2479,6 +2479,15 @@ export function createApiClient(options: {
                     headers: any;
                 }): any;
             };
+            taxExemptPaymentMethod: {
+                post({ token, cartId, jwtToken, headers, query }: {
+                    token: any;
+                    cartId: any;
+                    jwtToken: any;
+                    headers: any;
+                    query?: {};
+                }): any;
+            };
         };
         giftCertificates: {
             get: ({ token, GCNumber, query, headers }: {
