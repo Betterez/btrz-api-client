@@ -3775,6 +3775,15 @@ declare const _exports: {
                     data: any;
                     internalAuthTokenProvider: any;
                 }): any;
+                reverse({ token, jwtToken, headers, query, referenceNumber, data, internalAuthTokenProvider }: {
+                    token: any;
+                    jwtToken: any;
+                    headers: any;
+                    query: any;
+                    referenceNumber: any;
+                    data: any;
+                    internalAuthTokenProvider: any;
+                }): any;
             };
             referenceNumber: {
                 get({ token, jwtToken, headers, internalAuthTokenProvider }: {
