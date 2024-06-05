@@ -19,6 +19,15 @@ function datalogicFactory({client}) {
         data,
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
       });
+    },
+    reverse({token, jwtToken, headers, query, referenceNumber, data, internalAuthTokenProvider}) {
+      return client({
+        url: `/datalogic/reverse/${referenceNumber}`,
+        method: "post",
+        params: query,
+        data,
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
     }
   };
 
