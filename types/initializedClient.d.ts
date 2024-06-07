@@ -2237,6 +2237,15 @@ declare const _exports: {
                     headers: any;
                 }): any;
             };
+            salesSummary: {
+                get({ token, jwtToken, shiftId, query, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    shiftId: any;
+                    query: any;
+                    headers: any;
+                }): any;
+            };
         };
         shiftSettings: {
             get: ({ token, jwtToken, query, headers }: {
