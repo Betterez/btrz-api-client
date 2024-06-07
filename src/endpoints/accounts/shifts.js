@@ -208,6 +208,16 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
       });
     }
   };
+  const salesSummary = {
+    get({token, jwtToken, shiftId, query, headers}) {
+      return client.get(`/shifts/${shiftId}/sales-summary`, {
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        }),
+        params: query
+      });
+    }
+  };
 
   return {
     all,
@@ -229,7 +239,8 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
     manualTickets,
     locationClosures,
     startingBalances,
-    purchaseLimitPayments
+    purchaseLimitPayments, 
+    salesSummary
   };
 }
 
