@@ -190,11 +190,12 @@ describe("accounts/shifts", () => {
     axiosMock.onGet(`/shifts/${locationId}/purchase-limit-payments`).reply(expectRequest({statusCode: 200, token, query}));
     return api.accounts.shifts.purchaseLimitPayments.get({token, jwtToken, locationId, query});
   });
+
+  it("should get the shift sales Summary", () => {
+    const shiftId = "shiftId";
+    const query = {depositable: false};
+    axiosMock.onGet(`/shifts/${shiftId}/sales-summary`).reply(expectRequest({statusCode: 200, token, query}));
+    return api.accounts.shifts.salesSummary.get({token, jwtToken, shiftId, query});
+  });
 });
-it("should get the shift sales Summary", () => {
-  const shiftId = "shiftId";
-  const query = {depositable: false};
-  axiosMock.onGet(`/shifts/${shiftId}/sales-summary`).reply(expectRequest({statusCode: 200, token, query}));
-  return api.accounts.shifts.salesSummary.get({token, jwtToken, shiftId, query});
-});
-});
+
