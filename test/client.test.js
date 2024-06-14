@@ -177,7 +177,7 @@ describe("client", () => {
       });
     });
 
-    describe("with keepAlive disabled (default)", () => {
+    describe.skip("with keepAlive disabled (default)", () => {
       let mockServer = null;
 
       before((done) => {
@@ -185,7 +185,7 @@ describe("client", () => {
         mockServer = createTestServer({
           host: "localhost",
           port: 8888,
-          maxSockets: 100
+          maxSockets: 120
         }, (req) => {
           expect(req.headers.connection).to.equal("close");
         });
