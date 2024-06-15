@@ -3,7 +3,7 @@ const {
 } = require("./../endpoints_helpers.js");
 
 function twilioSettingsFactory({client, internalAuthTokenProvider}) {
-  function all({token, query, headers}) {
+  function get({jwtToken, token, query, headers}) {
     return client({
       url: "/twilio-settings",
       params: query,
@@ -25,7 +25,7 @@ function twilioSettingsFactory({client, internalAuthTokenProvider}) {
   }
 
   return {
-    all,
+    get,
     update
   };
 }

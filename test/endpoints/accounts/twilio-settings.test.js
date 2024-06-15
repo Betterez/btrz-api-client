@@ -14,7 +14,7 @@ describe("accounts/accounts/twilio-settings", () => {
 
     axiosMock.onGet("/twilio-settings", {params: query})
       .reply(expectRequest({statusCode: 200, token}));
-    return api.accounts.twilioSettings.all({token, query});
+    return api.accounts.twilioSettings.get({token, query});
   });
 
   it("should update a print setting", () => {
