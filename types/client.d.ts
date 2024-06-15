@@ -2379,7 +2379,8 @@ export function createApiClient(options: {
             }) => any;
         };
         twilioSettings: {
-            all: ({ token, query, headers }: {
+            get: ({ jwtToken, token, query, headers }: {
+                jwtToken: any;
                 token: any;
                 query: any;
                 headers: any;
