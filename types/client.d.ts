@@ -2378,6 +2378,19 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        twilioSettings: {
+            all: ({ token, query, headers }: {
+                token: any;
+                query: any;
+                headers: any;
+            }) => any;
+            update: ({ jwtToken, token, twilioSettings, headers }: {
+                jwtToken: any;
+                token: any;
+                twilioSettings: any;
+                headers: any;
+            }) => any;
+        };
         users: {
             get: ({ token, jwtToken, id, headers }?: {
                 token: any;
@@ -3226,7 +3239,7 @@ export function createApiClient(options: {
                 token: any;
                 jwtToken: any;
                 headers: any;
-            }): any;
+            }): any; /** @type {import("axios").AxiosRequestConfig} */
             update({ vehicleAssignmentId, data, token, jwtToken, headers }: {
                 vehicleAssignmentId: any;
                 data: any;
@@ -3408,6 +3421,24 @@ export function createApiClient(options: {
                 data: any;
                 headers: any;
             }) => any;
+        };
+        twilio: {
+            sms: {
+                create({ token, jwtToken, smsMsg, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    smsMsg?: {};
+                    headers: any;
+                }): any;
+            };
+            whatsapp: {
+                create({ token, jwtToken, whatsappMsg, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    whatsappMsg?: {};
+                    headers: any;
+                }): any;
+            };
         };
         ordersRulesValidations: {
             create: ({ token, jwtToken, query, orderRulesValidation, headers }: {
