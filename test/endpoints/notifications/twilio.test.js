@@ -19,7 +19,7 @@ describe("notifications/twilio", () => {
     const sms = {
       to: "+1234567890",
       from: "+0987654321",
-      body: "Hello, World now!"
+      body: "Hello, World now 2!"
     };
     return api.notifications.twilio.sms.create({token, jwtToken, sms});
   });
