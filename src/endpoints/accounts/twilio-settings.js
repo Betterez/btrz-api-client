@@ -7,7 +7,7 @@ function twilioSettingsFactory({client, internalAuthTokenProvider}) {
     return client({
       url: "/twilio-settings",
       params: query,
-      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
