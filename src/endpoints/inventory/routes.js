@@ -86,6 +86,18 @@ function routesFactory({ client, internalAuthTokenProvider }) {
       });
     }
   };
+  const stops = {
+    create({token, jwtToken, routeId, stop, headers}) {
+      return client({
+        url: `/routes/${routeId}/stops`,
+        method: "post",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        }),
+        data: stop
+      });
+    }
+  };
 
   return {
     get,
@@ -93,7 +105,8 @@ function routesFactory({ client, internalAuthTokenProvider }) {
     all,
     stations,
     create,
-    fareTables
+    fareTables,
+    stops
   };
 }
 

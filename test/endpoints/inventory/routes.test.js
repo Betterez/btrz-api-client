@@ -72,4 +72,15 @@ describe("inventory/route", () => {
       jwtToken, token, routeId, fareTableId, fareTable
     });
   });
+
+  it("should create a stop", () => {
+    const routeId = "11";
+    const stop = {stopId: "22"};
+    axiosMock.onPost(`/routes/${routeId}/stops`).reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.inventory.routes.stops.create({
+      token, jwtToken, routeId, stop
+    });
+  });
 });
