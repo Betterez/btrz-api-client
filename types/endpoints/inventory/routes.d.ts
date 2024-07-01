@@ -56,4 +56,13 @@ declare function routesFactory({ client, internalAuthTokenProvider }: {
             headers: any;
         }): any;
     };
+    stops: {
+        create({ token, jwtToken, routeId, stop, headers }: {
+            token: any;
+            jwtToken: any;
+            routeId: any;
+            stop: any;
+            headers: any;
+        }): any;
+    };
 };

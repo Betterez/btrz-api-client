@@ -965,6 +965,15 @@ export function createApiClient(options: {
                     headers: any;
                 }): any;
             };
+            stops: {
+                create({ token, jwtToken, routeId, stop, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    routeId: any;
+                    stop: any;
+                    headers: any;
+                }): any;
+            };
         };
         bareRoutes: {
             all: ({ token, query, headers }: {
@@ -2649,7 +2658,7 @@ export function createApiClient(options: {
                 create: ({ token, jwtToken, cancelData, headers }: {
                     token: string;
                     jwtToken: string;
-                    cancelData: import("./endpoints/sales/cancellations.js").CancelSetData;
+                    cancelData: CancelSetData;
                     headers: any;
                 }) => Promise<any>;
             };
@@ -3240,7 +3249,7 @@ export function createApiClient(options: {
                 token: any;
                 jwtToken: any;
                 headers: any;
-            }): any; /** @type {import("axios").AxiosRequestConfig} */
+            }): any;
             update({ vehicleAssignmentId, data, token, jwtToken, headers }: {
                 vehicleAssignmentId: any;
                 data: any;

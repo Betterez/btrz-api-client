@@ -919,6 +919,15 @@ declare const _exports: {
                     headers: any;
                 }): any;
             };
+            stops: {
+                create({ token, jwtToken, routeId, stop, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    routeId: any;
+                    stop: any;
+                    headers: any;
+                }): any;
+            };
         };
         bareRoutes: {
             all: ({ token, query, headers }: {
@@ -2603,7 +2612,7 @@ declare const _exports: {
                 create: ({ token, jwtToken, cancelData, headers }: {
                     token: string;
                     jwtToken: string;
-                    cancelData: import("./endpoints/sales/cancellations.js").CancelSetData;
+                    cancelData: CancelSetData;
                     headers: any;
                 }) => Promise<any>;
             };
