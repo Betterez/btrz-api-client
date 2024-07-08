@@ -94,6 +94,9 @@ function pdfFactory({
     if (query.type === "bankDepositSlip") {
       url = `/pdf-bank-deposit-slips/${itemId}`;
     }
+    if (query.type === "terminalVoucher") {
+      url = `/pdf-terminal-voucher/${itemId}`;
+    }
 
     return client.get(url, {
       params: query,

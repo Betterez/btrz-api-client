@@ -316,4 +316,18 @@ describe("notifications/pdfs", () => {
       token, query, itemId
     });
   });
+
+  it("should return the proper data for a terminalVoucher", () => {
+    const itemId = "12345";
+    const query = {
+      type: "terminalVoucher"
+    };
+    axiosMock.onGet(`/pdf-terminal-voucher/${itemId}`)
+      .reply(expectRequest({
+        statusCode: 200, token
+      }));
+    return api.notifications.pdfs.get({
+      token, query, itemId
+    });
+  });
 });

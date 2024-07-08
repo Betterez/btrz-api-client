@@ -90,6 +90,10 @@ function pdfDataFactory({
       url = `/pdf-bank-deposit-slips/${itemId}`;
     }
 
+    if (query.type === "terminalVoucher") {
+      url = `/pdf-terminal-voucher/${itemId}`;
+    }
+
     return client.get(url, {
       params: query,
       headers: authorizationHeaders({
