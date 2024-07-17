@@ -233,6 +233,7 @@ function createOperations({baseURL, headers, timeout, overrideFn, internalAuthTo
     passengerCheckInInfo: require("./endpoints/operations/passenger_check_in_info.js")({client, internalAuthTokenProvider}),
     vehicleAssignments: require("./endpoints/operations/vehicle_assignments.js")({client, internalAuthTokenProvider}),
     vouchers: require("./endpoints/operations/vouchers.js")({client, internalAuthTokenProvider}),
+    soldItemsFulfillment: require("./endpoints/operations/sold-items-fulfillment.js")({client, internalAuthTokenProvider}),
     parcelManifests: require("./endpoints/operations/parcels_manifests.js")({client, internalAuthTokenProvider}),
     __test: {
       client
