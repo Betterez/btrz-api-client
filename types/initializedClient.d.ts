@@ -3221,6 +3221,14 @@ declare const _exports: {
                 voucher?: {};
             }) => any;
         };
+        soldItemsFulfillment: {
+            all: ({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                headers: any;
+            }) => any;
+        };
         parcelManifests: {
             all: ({ token, jwtToken, query, headers }: {
                 token: any;
