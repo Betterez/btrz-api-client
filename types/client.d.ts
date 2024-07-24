@@ -3411,8 +3411,9 @@ export function createApiClient(options: {
             }) => any;
         };
         pdfData: {
-            get: ({ token, query, itemId, headers }: {
+            get: ({ token, jwtToken, query, itemId, headers }: {
                 token: any;
+                jwtToken: any;
                 query?: {};
                 itemId: any;
                 headers: any;
