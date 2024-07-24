@@ -9,6 +9,7 @@ function pdfDataFactory({
   // eslint-disable-next-line max-statements
   function get({
     token,
+    jwtToken,
     query = {},
     itemId,
     headers
@@ -98,6 +99,7 @@ function pdfDataFactory({
       params: query,
       headers: authorizationHeaders({
         token,
+        jwtToken,
         internalAuthTokenProvider,
         headers
       })
