@@ -2633,50 +2633,16 @@ declare const _exports: {
         docs: {
             get: () => any;
         };
-        flexpasses: {
-            deleteScanBytripId: ({ jwtToken, token, flexpassId, tripId, headers }: {
-                jwtToken: any;
+        accountingItems: {
+            all: ({ token, query, headers }: {
                 token: any;
-                flexpassId: any;
-                tripId: any;
-                headers: any;
-            }) => any;
-        };
-        parcel: {
-            get: ({ token, jwtToken, id, headers }: {
-                token: any;
-                jwtToken: any;
-                id: any;
-                headers: any;
-            }) => any;
-            all: ({ token, jwtToken, query, headers, providerId }: {
-                token: any;
-                jwtToken: any;
                 query?: {};
                 headers: any;
-                providerId: any;
             }) => any;
-            addScan: ({ token, jwtToken, id, operationType, locationData, headers }: {
+            get: ({ accountingItemId, token, headers }: {
+                accountingItemId: any;
                 token: any;
-                jwtToken: any;
-                id: any;
-                operationType: any;
-                locationData: any;
                 headers: any;
-            }) => any;
-            addComment: ({ token, jwtToken, headers, id, comment }: {
-                token: any;
-                jwtToken: any;
-                headers: any;
-                id: any;
-                comment: any;
-            }) => any;
-            deleteComment: ({ token, jwtToken, headers, id, commentId }: {
-                token: any;
-                jwtToken: any;
-                headers: any;
-                id: any;
-                commentId: any;
             }) => any;
         };
         appliedInsurance: {
@@ -2687,120 +2653,46 @@ declare const _exports: {
                 headers: any;
             }) => any;
         };
-        transaction: {
-            get: ({ token, jwtToken, id, providerId, headers }: {
+        calendarEntries: {
+            all: ({ token, query, headers }: {
                 token: any;
-                jwtToken: any;
-                id: any;
-                providerId: any;
-                headers: any;
-            }) => any;
-        };
-        transactions: {
-            all: ({ token, jwtToken, query, headers }: {
-                token: any;
-                jwtToken: any;
-                query: any;
-                headers: any;
-            }) => any;
-            get: ({ token, jwtToken, trxId, query, headers }: {
-                token: any;
-                jwtToken: any;
-                trxId: any;
-                query: any;
-                headers: any;
-            }) => any;
-            getTickets: ({ token, jwtToken, trxId, headers }: {
-                token: any;
-                jwtToken: any;
-                trxId: any;
-                headers: any;
-            }) => any;
-            appliedInsurance: ({ token, jwtToken, trxId, headers }: {
-                token: any;
-                jwtToken: any;
-                trxId: any;
-                headers: any;
-            }) => any;
-            companionTickets: ({ token, jwtToken, transactionId, ticketIds, headers }: {
-                token: any;
-                jwtToken: any;
-                transactionId: any;
-                ticketIds: any;
-                headers: any;
-            }) => any;
-            expireAll: ({ internalAuthTokenProvider, jwtToken, transactionId, avoidEmail, token, headers }: {
-                internalAuthTokenProvider: any;
-                jwtToken: any;
-                transactionId: any;
-                avoidEmail: any;
-                token: any;
-                headers: any;
-            }) => any;
-            cancellableItems: ({ token, jwtToken, transactionId, headers, displayAll, channel }: {
-                token: any;
-                jwtToken: any;
-                transactionId: any;
-                headers: any;
-                displayAll: any;
-                channel: any;
-            }) => any;
-            payments: {
-                update({ token, jwtToken, trxId, paymentResult, headers }: {
-                    token: any;
-                    jwtToken: any;
-                    trxId: any;
-                    paymentResult: any;
-                    headers: any;
-                }): any;
-            };
-            invoices: {
-                create({ token, jwtToken, transactionId, query, invoice, headers }: {
-                    token: any;
-                    jwtToken: any;
-                    transactionId: any;
-                    query: any;
-                    invoice: any;
-                    headers: any;
-                }): any;
-            };
-            creditNotes: {
-                create({ token, jwtToken, transactionId, query, creditNote, headers }: {
-                    token: any;
-                    jwtToken: any;
-                    transactionId: any;
-                    query: any;
-                    creditNote: any;
-                    headers: any;
-                }): any;
-            };
-        };
-        tickets: {
-            get: ({ token, jwtToken, id, headers }: {
-                token: any;
-                jwtToken: any;
-                id: any;
-                headers: any;
-            }) => any;
-            all: ({ token, jwtToken, query, headers, providerId }: {
-                token: any;
-                jwtToken: any;
                 query?: {};
                 headers: any;
-                providerId: any;
             }) => any;
-            patch: ({ token, jwtToken, id, operations, warningsEnabled, headers }: {
-                token: any;
+        };
+        externalBookings: {
+            create: ({ jwtToken, token, externalBooking, headers, query }: {
                 jwtToken: any;
-                id: any;
-                operations: any;
-                warningsEnabled: any;
+                token: any;
+                externalBooking: any;
+                headers: any;
+                query?: {};
+            }) => any;
+            remove: ({ jwtToken, token, ticketId, headers }: {
+                jwtToken: any;
+                token: any;
+                ticketId: any;
                 headers: any;
             }) => any;
-            companionTickets: ({ token, jwtToken, ticketId, headers }: {
-                token: any;
+        };
+        flexpasses: {
+            deleteScanBytripId: ({ jwtToken, token, flexpassId, tripId, headers }: {
                 jwtToken: any;
-                ticketId: any;
+                token: any;
+                flexpassId: any;
+                tripId: any;
+                headers: any;
+            }) => any;
+        };
+        loans: {
+            all: ({ token, query, headers }: {
+                token: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            get: ({ loanId, token, headers }: {
+                loanId: any;
+                token: any;
                 headers: any;
             }) => any;
         };
@@ -2999,62 +2891,12 @@ declare const _exports: {
                 }): any;
             };
         };
-        calendarEntries: {
-            all: ({ token, query, headers }: {
-                token: any;
-                query?: {};
-                headers: any;
-            }) => any;
-        };
-        redemption: {
-            create: ({ token, jwtToken, redemption, headers }: {
+        manifestLegForTickets: {
+            get: ({ token, jwtToken, ticketId, params, headers }: {
                 token: any;
                 jwtToken: any;
-                redemption: any;
-                headers: any;
-            }) => any;
-            getValidate: ({ token, jwtToken, passId, timezone, headers }: {
-                token: any;
-                jwtToken: any;
-                passId: any;
-                timezone: any;
-                headers: any;
-            }) => any;
-            unredeem: ({ token, jwtToken, data, headers }: {
-                token: any;
-                jwtToken: any;
-                data: any;
-                headers: any;
-            }) => any;
-        };
-        tripChangeInfo: {
-            get: ({ token, jwtToken, productId, params, headers }: {
-                token: any;
-                jwtToken: any;
-                productId: any;
-                params: any;
-                headers: any;
-            }) => any;
-        };
-        segments: {
-            all: ({ token, jwtToken, productId, ticketId, providerId, headers }: {
-                token: any;
-                jwtToken: any;
-                productId: any;
                 ticketId: any;
-                providerId: any;
-                headers: any;
-            }) => any;
-        };
-        loans: {
-            all: ({ token, query, headers }: {
-                token: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            get: ({ loanId, token, headers }: {
-                loanId: any;
-                token: any;
+                params: any;
                 headers: any;
             }) => any;
         };
@@ -3067,79 +2909,6 @@ declare const _exports: {
                 headers: any;
             }) => any;
         };
-        scheduledNotifications: {
-            all: ({ token, jwtToken, query, headers }: {
-                token: any;
-                jwtToken: any;
-                query: any;
-                headers: any;
-            }) => any;
-            get: ({ token, jwtToken, id, headers }: {
-                token: any;
-                jwtToken: any;
-                id: any;
-                headers: any;
-            }) => any;
-            update: ({ token, jwtToken, id, data, headers, query }: {
-                token: any;
-                jwtToken: any;
-                id: any;
-                data: any;
-                headers: any;
-                query: any;
-            }) => any;
-            remove: ({ token, jwtToken, id, headers }: {
-                token: any;
-                jwtToken: any;
-                id: any;
-                headers: any;
-            }) => any;
-            create: ({ token, jwtToken, query, data, headers }: {
-                token: any;
-                jwtToken: any;
-                query?: {};
-                data: any;
-                headers: any;
-            }) => any;
-        };
-        waitlists: {
-            all: ({ token, jwtToken, query, headers }: {
-                token: any;
-                jwtToken: any;
-                query: any;
-                headers: any;
-            }) => any;
-            get: ({ token, jwtToken, waitlistId, headers }: {
-                token: any;
-                jwtToken: any;
-                waitlistId: any;
-                headers: any;
-            }) => any;
-            remove: ({ token, jwtToken, waitlistId, headers }: {
-                token: any;
-                jwtToken: any;
-                waitlistId: any;
-                headers: any;
-            }) => any;
-            create: ({ token, jwtToken, data, headers }: {
-                token: any;
-                jwtToken: any;
-                data: any;
-                headers: any;
-            }) => any;
-        };
-        accountingItems: {
-            all: ({ token, query, headers }: {
-                token: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            get: ({ accountingItemId, token, headers }: {
-                accountingItemId: any;
-                token: any;
-                headers: any;
-            }) => any;
-        };
         outlookTrips: {
             get: ({ token, query, headers }: {
                 token: any;
@@ -3147,86 +2916,41 @@ declare const _exports: {
                 headers: any;
             }) => any;
         };
-        manifestLegForTickets: {
-            get: ({ token, jwtToken, ticketId, params, headers }: {
-                token: any;
-                jwtToken: any;
-                ticketId: any;
-                params: any;
-                headers: any;
-            }) => any;
-        };
-        passengerCheckInInfo: {
-            all: ({ token, jwtToken, query, headers }: {
-                token: any;
-                jwtToken: any;
-                query: any;
-                headers: any;
-            }) => any;
+        parcel: {
             get: ({ token, jwtToken, id, headers }: {
                 token: any;
                 jwtToken: any;
                 id: any;
                 headers: any;
             }) => any;
-            update: ({ token, jwtToken, id, data, headers, query }: {
+            all: ({ token, jwtToken, query, headers, providerId }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                headers: any;
+                providerId: any;
+            }) => any;
+            addScan: ({ token, jwtToken, id, operationType, locationData, headers }: {
                 token: any;
                 jwtToken: any;
                 id: any;
-                data: any;
-                headers: any;
-                query: any;
-            }) => any;
-            create: ({ token, jwtToken, query, data, headers }: {
-                token: any;
-                jwtToken: any;
-                query?: {};
-                data: any;
+                operationType: any;
+                locationData: any;
                 headers: any;
             }) => any;
-        };
-        vehicleAssignments: {
-            all({ token, jwtToken, query, headers }: {
-                token: any;
-                jwtToken: any;
-                query?: {};
-                headers: any;
-            }): any;
-            get({ token, jwtToken, vehicleAssignmentId, headers }: {
-                token: any;
-                jwtToken: any;
-                vehicleAssignmentId: any;
-                headers: any;
-            }): any;
-            create({ data, token, jwtToken, headers }: {
-                data: any;
+            addComment: ({ token, jwtToken, headers, id, comment }: {
                 token: any;
                 jwtToken: any;
                 headers: any;
-            }): any;
-            update({ vehicleAssignmentId, data, token, jwtToken, headers }: {
-                vehicleAssignmentId: any;
-                data: any;
-                token: any;
-                jwtToken: any;
-                headers: any;
-            }): any;
-        };
-        vouchers: {
-            create: ({ jwtToken, token, headers, query, voucher }: {
-                jwtToken: any;
-                token: any;
-                headers: any;
-                query?: {};
-                voucher?: {};
+                id: any;
+                comment: any;
             }) => any;
-        };
-        soldItemsFulfillment: {
-            all: ({ token, jwtToken, query, headers }: {
+            deleteComment: ({ token, jwtToken, headers, id, commentId }: {
                 token: any;
                 jwtToken: any;
-                query?: {};
                 headers: any;
+                id: any;
+                commentId: any;
             }) => any;
         };
         parcelManifests: {
@@ -3276,6 +3000,297 @@ declare const _exports: {
                     headers: any;
                 }): any;
             };
+        };
+        passengerCheckInInfo: {
+            all: ({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query: any;
+                headers: any;
+            }) => any;
+            get: ({ token, jwtToken, id, headers }: {
+                token: any;
+                jwtToken: any;
+                id: any;
+                headers: any;
+            }) => any;
+            update: ({ token, jwtToken, id, data, headers, query }: {
+                token: any;
+                jwtToken: any;
+                id: any;
+                data: any;
+                headers: any;
+                query: any;
+            }) => any;
+            create: ({ token, jwtToken, query, data, headers }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                data: any;
+                headers: any;
+            }) => any;
+        };
+        redemption: {
+            create: ({ token, jwtToken, redemption, headers }: {
+                token: any;
+                jwtToken: any;
+                redemption: any;
+                headers: any;
+            }) => any;
+            getValidate: ({ token, jwtToken, passId, timezone, headers }: {
+                token: any;
+                jwtToken: any;
+                passId: any;
+                timezone: any;
+                headers: any;
+            }) => any;
+            unredeem: ({ token, jwtToken, data, headers }: {
+                token: any;
+                jwtToken: any;
+                data: any;
+                headers: any;
+            }) => any;
+        };
+        scheduledNotifications: {
+            all: ({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query: any;
+                headers: any;
+            }) => any;
+            get: ({ token, jwtToken, id, headers }: {
+                token: any;
+                jwtToken: any;
+                id: any;
+                headers: any;
+            }) => any;
+            update: ({ token, jwtToken, id, data, headers, query }: {
+                token: any;
+                jwtToken: any;
+                id: any;
+                data: any;
+                headers: any;
+                query: any;
+            }) => any;
+            remove: ({ token, jwtToken, id, headers }: {
+                token: any;
+                jwtToken: any;
+                id: any;
+                headers: any;
+            }) => any;
+            create: ({ token, jwtToken, query, data, headers }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                data: any;
+                headers: any;
+            }) => any;
+        };
+        segments: {
+            all: ({ token, jwtToken, productId, ticketId, providerId, headers }: {
+                token: any;
+                jwtToken: any;
+                productId: any;
+                ticketId: any;
+                providerId: any;
+                headers: any;
+            }) => any;
+        };
+        soldItemsFulfillment: {
+            all: ({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                headers: any;
+            }) => any;
+        };
+        tickets: {
+            get: ({ token, jwtToken, id, headers }: {
+                token: any;
+                jwtToken: any;
+                id: any;
+                headers: any;
+            }) => any;
+            all: ({ token, jwtToken, query, headers, providerId }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                headers: any;
+                providerId: any;
+            }) => any;
+            patch: ({ token, jwtToken, id, operations, warningsEnabled, headers }: {
+                token: any;
+                jwtToken: any;
+                id: any;
+                operations: any;
+                warningsEnabled: any;
+                headers: any;
+            }) => any;
+            companionTickets: ({ token, jwtToken, ticketId, headers }: {
+                token: any;
+                jwtToken: any;
+                ticketId: any;
+                headers: any;
+            }) => any;
+        };
+        transaction: {
+            get: ({ token, jwtToken, id, providerId, headers }: {
+                token: any;
+                jwtToken: any;
+                id: any;
+                providerId: any;
+                headers: any;
+            }) => any;
+        };
+        transactions: {
+            all: ({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query: any;
+                headers: any;
+            }) => any;
+            get: ({ token, jwtToken, trxId, query, headers }: {
+                token: any;
+                jwtToken: any;
+                trxId: any;
+                query: any;
+                headers: any;
+            }) => any;
+            getTickets: ({ token, jwtToken, trxId, headers }: {
+                token: any;
+                jwtToken: any;
+                trxId: any;
+                headers: any;
+            }) => any;
+            appliedInsurance: ({ token, jwtToken, trxId, headers }: {
+                token: any;
+                jwtToken: any;
+                trxId: any;
+                headers: any;
+            }) => any;
+            companionTickets: ({ token, jwtToken, transactionId, ticketIds, headers }: {
+                token: any;
+                jwtToken: any;
+                transactionId: any;
+                ticketIds: any;
+                headers: any;
+            }) => any;
+            expireAll: ({ internalAuthTokenProvider, jwtToken, transactionId, avoidEmail, token, headers }: {
+                internalAuthTokenProvider: any;
+                jwtToken: any;
+                transactionId: any;
+                avoidEmail: any;
+                token: any;
+                headers: any;
+            }) => any;
+            cancellableItems: ({ token, jwtToken, transactionId, headers, displayAll, channel }: {
+                token: any;
+                jwtToken: any;
+                transactionId: any;
+                headers: any;
+                displayAll: any;
+                channel: any;
+            }) => any;
+            payments: {
+                update({ token, jwtToken, trxId, paymentResult, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    trxId: any;
+                    paymentResult: any;
+                    headers: any;
+                }): any;
+            };
+            invoices: {
+                create({ token, jwtToken, transactionId, query, invoice, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    transactionId: any;
+                    query: any;
+                    invoice: any;
+                    headers: any;
+                }): any;
+            };
+            creditNotes: {
+                create({ token, jwtToken, transactionId, query, creditNote, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    transactionId: any;
+                    query: any;
+                    creditNote: any;
+                    headers: any;
+                }): any;
+            };
+        };
+        tripChangeInfo: {
+            get: ({ token, jwtToken, productId, params, headers }: {
+                token: any;
+                jwtToken: any;
+                productId: any;
+                params: any;
+                headers: any;
+            }) => any;
+        };
+        vehicleAssignments: {
+            all({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                headers: any;
+            }): any;
+            get({ token, jwtToken, vehicleAssignmentId, headers }: {
+                token: any;
+                jwtToken: any;
+                vehicleAssignmentId: any;
+                headers: any;
+            }): any;
+            create({ data, token, jwtToken, headers }: {
+                data: any;
+                token: any;
+                jwtToken: any;
+                headers: any;
+            }): any;
+            update({ vehicleAssignmentId, data, token, jwtToken, headers }: {
+                vehicleAssignmentId: any;
+                data: any;
+                token: any;
+                jwtToken: any;
+                headers: any;
+            }): any;
+        };
+        vouchers: {
+            create: ({ jwtToken, token, headers, query, voucher }: {
+                jwtToken: any;
+                token: any;
+                headers: any;
+                query?: {};
+                voucher?: {};
+            }) => any;
+        };
+        waitlists: {
+            all: ({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query: any;
+                headers: any;
+            }) => any;
+            get: ({ token, jwtToken, waitlistId, headers }: {
+                token: any;
+                jwtToken: any;
+                waitlistId: any;
+                headers: any;
+            }) => any;
+            remove: ({ token, jwtToken, waitlistId, headers }: {
+                token: any;
+                jwtToken: any;
+                waitlistId: any;
+                headers: any;
+            }) => any;
+            create: ({ token, jwtToken, data, headers }: {
+                token: any;
+                jwtToken: any;
+                data: any;
+                headers: any;
+            }) => any;
         };
         __test: {
             client: import("axios").AxiosInstance;
