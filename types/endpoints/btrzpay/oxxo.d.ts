@@ -27,5 +27,15 @@ declare function oxxoFactory({ client, internalAuthTokenProvider }: {
             data: any;
             internalAuthTokenProvider: any;
         }): any;
+        reverse({ token, jwtToken, headers, query, referenceNumber, data, internalAuthTokenProvider, oxxoToken }: {
+            token: any;
+            jwtToken: any;
+            headers: any;
+            query: any;
+            referenceNumber: any;
+            data: any;
+            internalAuthTokenProvider: any;
+            oxxoToken: any;
+        }): any;
     };
 };
