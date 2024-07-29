@@ -28,6 +28,15 @@ function oxxoFactory({client, internalAuthTokenProvider}) {
         data,
         headers: authorizationHeaders({jwtToken, internalAuthTokenProvider, headers})
       });
+    },
+    reverse({token, jwtToken, headers, query, referenceNumber, data, internalAuthTokenProvider, oxxoToken}) {
+      return client({
+        url: `/oxxo/${oxxoToken}/reverse/${referenceNumber}`,
+        method: "post",
+        params: query,
+        data,
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
     }
   };
 

@@ -58,3 +58,39 @@ describe("btrz-pay/oxxo/payments", () => {
     });
   });
 });
+
+describe("btrz-pay/oxxo/reverse", () => {
+  const oxxoToken = "OXXO_1234567890";
+  const referenceNumber = "1234-1234-1234-1234";
+  const internalAuthTokenProvider = {
+    getToken: () => {
+      return "internalToken";
+    }
+  };
+
+  afterEach(() => {
+    axiosMock.reset();
+  });
+
+  it("should reverse", () => {
+    const path = `/oxxo/${oxxoToken}/reverse/${referenceNumber}`;
+    axiosMock.onPost(path).reply(expectRequest({
+      statusCode: 200,
+      internalAuthTokenProvider,
+      withoutApiKey: true,
+      jwtToken: "internal_auth_token",
+      query: {referenceNumber}
+    }));
+
+    return api.btrzpay.oxxo.payments.reverse({
+      token: "token",
+      jwtToken: "internal_auth_token",
+      headers: "headers",
+      query: {referenceNumber},
+      referenceNumber,
+      data: "data",
+      internalAuthTokenProvider,
+      oxxoToken
+    });
+  });
+});
