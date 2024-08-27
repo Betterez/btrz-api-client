@@ -3411,6 +3411,21 @@ declare const _exports: {
             }) => any;
         };
         twilio: {
+            phoneNumbers: {
+                all({ isocode, token, jwtToken, query, headers }: {
+                    isocode: any;
+                    token: any;
+                    jwtToken: any;
+                    query?: {};
+                    headers: any;
+                }): any;
+                create({ token, jwtToken, phoneNumberData, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    phoneNumberData?: {};
+                    headers: any;
+                }): any;
+            };
             sms: {
                 create({ token, jwtToken, smsMsg, headers }: {
                     token: any;
