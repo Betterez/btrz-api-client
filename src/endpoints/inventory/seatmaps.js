@@ -51,13 +51,21 @@ function seatmapsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function getOccupiedSeats({token, jwtToken, seatmapId, query = {}, headers}) {
+    return client.get(`/seatmaps/${seatmapId}/occupied-seats`, {
+      params: query,
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+    });
+  }
+
   return {
     all,
     get,
     getById,
     create,
     remove,
-    update
+    update,
+    getOccupiedSeats
   };
 }
 

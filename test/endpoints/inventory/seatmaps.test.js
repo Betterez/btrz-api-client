@@ -53,4 +53,17 @@ describe("inventory/seatmaps", () => {
         expect(httpResponse.data).eql(response);
       });
   });
+
+  it("should get a seatmap occupied seats", () => {
+    const seatmapId = "1234";
+    axiosMock.onGet(`/seatmaps/${seatmapId}/occupied-seats`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.inventory.seatmaps.getOccupiedSeats({
+      jwtToken,
+      token,
+      seatmapId,
+      query: {
+        newdesign: true
+      }
+    });
+  });
 });
