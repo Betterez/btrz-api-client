@@ -43,4 +43,11 @@ declare function seatmapsFactory({ client, internalAuthTokenProvider }: {
         seatmap: any;
         headers: any;
     }) => any;
+    getOccupiedSeats: ({ token, jwtToken, seatmapId, query, headers }: {
+        token: any;
+        jwtToken: any;
+        seatmapId: any;
+        query?: {};
+        headers: any;
+    }) => any;
 };
