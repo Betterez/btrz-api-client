@@ -2589,6 +2589,13 @@ export function createApiClient(options: {
                 query?: {};
                 headers: any;
             }) => any;
+            overwrite: ({ token, orderId, payments, jwtToken, headers }: {
+                token: any;
+                orderId: any;
+                payments: any;
+                jwtToken: any;
+                headers: any;
+            }) => any;
         };
         voucher: {
             get: ({ token, voucher, headers }: {
