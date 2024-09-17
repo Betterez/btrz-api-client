@@ -2409,12 +2409,7 @@ export function createApiClient(options: {
             }) => any;
         };
         users: {
-            get: ({ token, jwtToken, id, headers }?: {
-                token: any;
-                jwtToken: any;
-                id: any;
-                headers: any;
-            }) => any;
+            get: ({ token, jwtToken, id, headers }?: {}) => any;
             all: ({ token, jwtToken, query, headers }: {
                 token: any;
                 jwtToken: any;
@@ -2449,6 +2444,14 @@ export function createApiClient(options: {
                     userId: any;
                     sequenceId: any;
                     sequence: any;
+                    headers: any;
+                }): any;
+                transfer({ jwtToken, token, userId, sequenceId, newUserId, headers }: {
+                    jwtToken: any;
+                    token: any;
+                    userId: any;
+                    sequenceId: any;
+                    newUserId: any;
                     headers: any;
                 }): any;
             };
