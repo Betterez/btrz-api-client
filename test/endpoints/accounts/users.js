@@ -70,4 +70,22 @@ describe("accounts/user/{id}", () => {
       sequence: userSequenceData
     });
   });
+
+  it("should transfer an user sequence", () => {
+    const sequenceId = "123";
+    const newUserId = "123";
+    const operationData = {
+      operation: "transfer",
+      newUserId
+    };
+    // eslint-disable-next-line max-len
+    axiosMock.onPatch(`/users/${id}/sequences/${sequenceId}`).reply(expectRequest({statusCode: 200, token, jwtToken, body: operationData}));
+    return api.accounts.users.sequences.transfer({
+      jwtToken,
+      userId: id,
+      sequenceId,
+      token,
+      newUserId
+    });
+  });
 });

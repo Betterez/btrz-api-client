@@ -51,6 +51,17 @@ function usersFactory({client, internalAuthTokenProvider}) {
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
         data: sequence
       });
+    },
+    transfer({jwtToken, token, userId, sequenceId, newUserId, headers}) {
+      return client({
+        url: `/users/${userId}/sequences/${sequenceId}`,
+        method: "patch",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        data: {
+          operation: "transfer",
+          newUserId
+        }
+      });
     }
   };
 
