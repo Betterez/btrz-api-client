@@ -15,11 +15,12 @@ declare function orderFactory({ client, internalAuthTokenProvider }: {
         query?: {};
         headers: any;
     }) => any;
-    overwrite: ({ token, orderId, payments, jwtToken, headers }: {
+    overwrite: ({ token, orderId, payments, jwtToken, headers, query }: {
         token: any;
         orderId: any;
         payments: any;
         jwtToken: any;
         headers: any;
+        query?: {};
     }) => any;
 };
