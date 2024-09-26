@@ -18,12 +18,13 @@ function orderFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  function overwrite({token, orderId, payments, jwtToken, headers}) {
+  function overwrite({token, orderId, payments, jwtToken, headers, query = {}}) {
     return client({
       url: `/orders/${orderId}/payments`,
       method: "post",
       data: payments,
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      params: query,
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
