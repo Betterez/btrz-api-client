@@ -124,4 +124,27 @@ describe("accounts/customers", () => {
         expect(httpResponse.data).eql(response);
       });
   });
+
+  it("should merge a sourceCustomer into a destinationCustomer", () => {
+    const destinationCustomerId = "customer1";
+    const sourceCustomerIds = ["customer2"];
+
+    const data = {destinationCustomerId, sourceCustomerIds};
+
+    const response = {
+      foo: "bar"
+    };
+
+    axiosMock.onPost("/customers/merge", data).reply((config) => {
+      expect(config.headers.authorization).eql(`Bearer ${jwtToken}`);
+      expect(config.headers["x-api-key"]).eql(token);
+      return [200, response];
+    });
+
+    return api.accounts.customers.merge({destinationCustomerId, sourceCustomerIds, token, jwtToken})
+      .then((httpResponse) => {
+        expect(httpResponse.status).eql(200);
+        expect(httpResponse.data).eql(response);
+      });
+  });
 });

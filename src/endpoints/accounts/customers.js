@@ -72,13 +72,23 @@ function customersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function merge({destinationCustomerId, sourceCustomerIds, jwtToken, token}) {
+    return client({
+      url: "/customers/merge",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+      data: {destinationCustomerId, sourceCustomerIds}
+    });
+  }
+
   return {
     put,
     all,
     create,
     signIn,
     signInCas,
-    update
+    update,
+    merge
   };
 }
 
