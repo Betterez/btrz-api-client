@@ -1699,6 +1699,12 @@ declare const _exports: {
                 query: any;
                 headers: any;
             }) => any;
+            merge: ({ destinationCustomerId, sourceCustomerIds, jwtToken, token }: {
+                destinationCustomerId: any;
+                sourceCustomerIds: any;
+                jwtToken: any;
+                token: any;
+            }) => any;
         };
         currentShifts: {
             get: ({ token, userId, query, headers }: {
