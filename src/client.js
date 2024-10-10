@@ -163,6 +163,7 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
     printTemplates: require("./endpoints/accounts/print-templates.js")({
       client, internalAuthTokenProvider
     }),
+    revenueManagementSettings: require("./endpoints/accounts/rms-settings.js")({client, internalAuthTokenProvider}),
     subPrintTemplates: require("./endpoints/accounts/sub-print-templates.js")({
       client, internalAuthTokenProvider
     }),
