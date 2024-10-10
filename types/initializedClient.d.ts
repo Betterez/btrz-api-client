@@ -2054,6 +2054,19 @@ declare const _exports: {
                 }): any;
             };
         };
+        revenueManagementSettings: {
+            get: ({ token, jwtToken, headers }: {
+                token: any;
+                jwtToken: any;
+                headers: any;
+            }) => any;
+            update: ({ token, jwtToken, revenueManagementSettings, headers }: {
+                token: any;
+                jwtToken: any;
+                revenueManagementSettings: any;
+                headers: any;
+            }) => any;
+        };
         subPrintTemplates: {
             create: ({ jwtToken, token, subPrintTemplate, headers }: {
                 jwtToken: any;
