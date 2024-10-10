@@ -17,9 +17,7 @@ function revenueManagementSettingsFactory({client, internalAuthTokenProvider}) {
       headers: authorizationHeaders({
         token, jwtToken, internalAuthTokenProvider, headers
       }),
-      data: {
-        revenueManagementSettings
-      }
+      data: revenueManagementSettings
     });
   }
 
