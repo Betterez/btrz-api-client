@@ -2342,6 +2342,19 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        ticketMovementSettings: {
+            get: ({ token, jwtToken, headers }: {
+                token: any;
+                jwtToken: any;
+                headers: any;
+            }) => any;
+            update: ({ token, jwtToken, ticketMovementSettings, headers }: {
+                token: any;
+                jwtToken: any;
+                ticketMovementSettings: any;
+                headers: any;
+            }) => any;
+        };
         tokens: {
             get: ({ token, jwtToken, headers, query }: {
                 token: any;
