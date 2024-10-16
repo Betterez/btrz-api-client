@@ -1,6 +1,5 @@
 const axios = require("axios");
 const productionOptions = require("./productionDefaults.js");
-const twilioSettingsFactory = require("./endpoints/accounts/twilio-settings.js");
 
 /**
  * Creates a new axios client
@@ -49,6 +48,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
     insurances: require("./endpoints/inventory/insurances.js")({client, internalAuthTokenProvider}),
     insurancesCost: require("./endpoints/inventory/insurancesCost.js")({client, internalAuthTokenProvider}),
     stations: require("./endpoints/inventory/stations.js")({client, internalAuthTokenProvider}),
+    stationsProvinces: require("./endpoints/inventory/stations-provinces.js")({client, internalAuthTokenProvider}),
     stationsZones: require("./endpoints/inventory/stations-zones.js")({client, internalAuthTokenProvider}),
     parcelZones: require("./endpoints/inventory/parcel-zones.js")({client, internalAuthTokenProvider}),
     countries: require("./endpoints/inventory/countries.js")({client, internalAuthTokenProvider}),

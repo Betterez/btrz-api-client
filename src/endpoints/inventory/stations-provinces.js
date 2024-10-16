@@ -1,11 +1,11 @@
 const {
   authorizationHeaders
-} = require("./../endpoints_helpers.js");
+} = require("../endpoints_helpers.js");
 
-function stationGroupsFactory({client, internalAuthTokenProvider}) {
+function stationsProvincesFactory({client, internalAuthTokenProvider}) {
   function all({token, query = {}, headers}) {
     return client({
-      url: "/station-groups",
+      url: "/stations/provinces",
       params: query,
       headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
     });
@@ -16,4 +16,4 @@ function stationGroupsFactory({client, internalAuthTokenProvider}) {
   };
 }
 
-module.exports = stationGroupsFactory;
+module.exports = stationsProvincesFactory;

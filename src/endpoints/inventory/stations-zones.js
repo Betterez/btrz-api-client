@@ -1,10 +1,11 @@
-const { authorizationHeaders } = require("./../endpoints_helpers");
+const {
+  authorizationHeaders
+} = require("./../endpoints_helpers.js");
 
 function stationsZonesFactory({client, internalAuthTokenProvider}) {
-
-  function get({ token, query = {}, headers }) {
+  function get({token, query = {}, headers}) {
     return client.get("/stations/zones", {
-      params : query,
+      params: query,
       headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
     });
   }
