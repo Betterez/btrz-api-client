@@ -49,6 +49,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
     insurancesCost: require("./endpoints/inventory/insurancesCost.js")({client, internalAuthTokenProvider}),
     stations: require("./endpoints/inventory/stations.js")({client, internalAuthTokenProvider}),
     stationsProvinces: require("./endpoints/inventory/stations-provinces.js")({client, internalAuthTokenProvider}),
+    stationsTypes: require("./endpoints/inventory/stations-types.js")({client, internalAuthTokenProvider}),
     stationsZones: require("./endpoints/inventory/stations-zones.js")({client, internalAuthTokenProvider}),
     parcelZones: require("./endpoints/inventory/parcel-zones.js")({client, internalAuthTokenProvider}),
     countries: require("./endpoints/inventory/countries.js")({client, internalAuthTokenProvider}),
