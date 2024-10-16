@@ -205,6 +205,13 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        stationsProvinces: {
+            all: ({ token, query, headers }: {
+                token: any;
+                query?: {};
+                headers: any;
+            }) => any;
+        };
         stationsZones: {
             get: ({ token, query, headers }: {
                 token: any;
