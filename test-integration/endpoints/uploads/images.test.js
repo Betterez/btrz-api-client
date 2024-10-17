@@ -1,22 +1,26 @@
-const { expect } = require("chai");
+const {
+  expect
+} = require("chai");
 const FormData = require("form-data");
 const fs = require("fs");
 
 const port = process.env.UPLOADS_API_PORT;
 const token = process.env.API_TOKEN;
 
-const api = require("./../../../src/client").createApiClient({
+const api = require("./../../../src/client.js").createApiClient({
   baseURL: `http://localhost:${port}`,
   baseURLOverride: {
-    uploads: (baseUrl) => `${baseUrl}/uploads`
+    uploads: (baseUrl) => {
+      return `${baseUrl}/uploads`;
+    }
   }
 });
 
 
 describe("uploads/images", () => {
   it("should upload a image file", () => {
-    const formData = new FormData(),
-      fileStream = fs.createReadStream(`${__dirname}/sample.png`);
+    const formData = new FormData();
+    const fileStream = fs.createReadStream(`${__dirname}/sample.png`);
 
     formData.append("file", fileStream);
     return api.uploads.images.create({
