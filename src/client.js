@@ -168,6 +168,7 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
     subPrintTemplates: require("./endpoints/accounts/sub-print-templates.js")({
       client, internalAuthTokenProvider
     }),
+    s3Buckets: require("./endpoints/accounts/s3buckets.js")({client, internalAuthTokenProvider}),
     shifts: require("./endpoints/accounts/shifts.js")({client, internalAuthTokenProvider}),
     shiftSettings: require("./endpoints/accounts/shift-settings.js")({client, internalAuthTokenProvider}),
     ticketMovementSettings: require("./endpoints/accounts/ticket-movement-settings.js")({client, internalAuthTokenProvider}),
