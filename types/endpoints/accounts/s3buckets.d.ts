@@ -3,11 +3,11 @@ declare function s3BucketsFactory({ client, internalAuthTokenProvider }: {
     client: any;
     internalAuthTokenProvider: any;
 }): {
-    update: ({ jwtToken, token, bucketId, application, headers }: {
+    update: ({ jwtToken, token, bucketId, s3BucketData, headers }: {
         jwtToken: any;
         token: any;
         bucketId: any;
-        application: any;
+        s3BucketData: any;
         headers: any;
     }) => any;
     remove: ({ jwtToken, token, bucketId, headers }: {
@@ -16,10 +16,10 @@ declare function s3BucketsFactory({ client, internalAuthTokenProvider }: {
         bucketId: any;
         headers: any;
     }) => any;
-    create: ({ jwtToken, token, application, headers }: {
+    create: ({ jwtToken, token, s3BucketData, headers }: {
         jwtToken: any;
         token: any;
-        application: any;
+        s3BucketData: any;
         headers: any;
     }) => any;
 };

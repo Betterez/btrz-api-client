@@ -2142,11 +2142,11 @@ export function createApiClient(options: {
             }) => any;
         };
         s3Buckets: {
-            update: ({ jwtToken, token, bucketId, application, headers }: {
+            update: ({ jwtToken, token, bucketId, s3BucketData, headers }: {
                 jwtToken: any;
                 token: any;
                 bucketId: any;
-                application: any;
+                s3BucketData: any;
                 headers: any;
             }) => any;
             remove: ({ jwtToken, token, bucketId, headers }: {
@@ -2155,10 +2155,10 @@ export function createApiClient(options: {
                 bucketId: any;
                 headers: any;
             }) => any;
-            create: ({ jwtToken, token, application, headers }: {
+            create: ({ jwtToken, token, s3BucketData, headers }: {
                 jwtToken: any;
                 token: any;
-                application: any;
+                s3BucketData: any;
                 headers: any;
             }) => any;
         };
