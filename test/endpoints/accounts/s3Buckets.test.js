@@ -10,14 +10,14 @@ describe("accounts/account/s3Buckets", () => {
   });
 
   it("should update an existing s3Bucket", () => {
-    const application = {
+    const s3BucketData = {
       name: "A"
     };
     const bucketId = "somebucketId";
 
     axiosMock.onPut(`/account/s3Buckets/${bucketId}`)
       .reply(expectRequest({statusCode: 200, token, jwtToken}));
-    return api.accounts.s3Buckets.update({token, jwtToken, bucketId, application});
+    return api.accounts.s3Buckets.update({token, jwtToken, bucketId, s3BucketData});
   });
 
   it("should remove an s3Bucket", () => {
@@ -29,12 +29,12 @@ describe("accounts/account/s3Buckets", () => {
   });
 
   it("should create an s3Bucket", () => {
-    const application = {
+    const s3BucketData = {
       name: "A"
     };
 
     axiosMock.onPost("/account/s3Buckets")
       .reply(expectRequest({statusCode: 200, token, jwtToken}));
-    return api.accounts.s3Buckets.create({token, jwtToken, application});
+    return api.accounts.s3Buckets.create({token, jwtToken, s3BucketData});
   });
 });

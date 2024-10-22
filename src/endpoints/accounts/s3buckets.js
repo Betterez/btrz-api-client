@@ -1,12 +1,12 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 function s3BucketsFactory({client, internalAuthTokenProvider}) {
-  function update({jwtToken, token, bucketId, application, headers}) {
+  function update({jwtToken, token, bucketId, s3BucketData, headers}) {
     return client({
       url: `/account/s3Buckets/${bucketId}`,
       method: "put",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
-      data: {application}
+      data: {s3BucketData}
     });
   }
 
@@ -18,12 +18,12 @@ function s3BucketsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function create({jwtToken, token, application, headers}) {
+  function create({jwtToken, token, s3BucketData, headers}) {
     return client({
       url: "/account/s3Buckets",
       method: "post",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
-      data: {application}
+      data: {s3BucketData}
     });
   }
 
