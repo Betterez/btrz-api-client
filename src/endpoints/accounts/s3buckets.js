@@ -6,7 +6,7 @@ function s3BucketsFactory({client, internalAuthTokenProvider}) {
       url: `/account/s3Buckets/${bucketId}`,
       method: "put",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
-      data: {s3BucketData}
+      data: s3BucketData
     });
   }
 
@@ -23,7 +23,7 @@ function s3BucketsFactory({client, internalAuthTokenProvider}) {
       url: "/account/s3Buckets",
       method: "post",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
-      data: {s3BucketData}
+      data: s3BucketData
     });
   }
 
