@@ -144,6 +144,7 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
       client
     }),
     domains: require("./endpoints/accounts/domains.js")({client, internalAuthTokenProvider}),
+    dynamicForms: require("./endpoints/accounts/dynamic-forms.js")({client, internalAuthTokenProvider}),
     emailSettings: require("./endpoints/accounts/email-settings.js")({client, internalAuthTokenProvider}),
     exchangeRates: require("./endpoints/accounts/exchange-rates.js")({client, internalAuthTokenProvider}),
     exchangeReceipts: require("./endpoints/accounts/exchange-receipts.js")({client, internalAuthTokenProvider}),
