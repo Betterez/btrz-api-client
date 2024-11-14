@@ -1752,7 +1752,12 @@ declare const _exports: {
         };
         dynamicForms: {
             fields: {
-                get({ token, jwtToken, dynamicFormFieldId, headers }?: {}): any;
+                get({ token, jwtToken, dynamicFormFieldId, headers }?: {
+                    token: any;
+                    jwtToken: any;
+                    dynamicFormFieldId: any;
+                    headers: any;
+                }): any;
                 all({ token, jwtToken, query, headers }: {
                     token: any;
                     jwtToken: any;
@@ -2454,7 +2459,12 @@ declare const _exports: {
             }) => any;
         };
         users: {
-            get: ({ token, jwtToken, id, headers }?: {}) => any;
+            get: ({ token, jwtToken, id, headers }?: {
+                token: any;
+                jwtToken: any;
+                id: any;
+                headers: any;
+            }) => any;
             all: ({ token, jwtToken, query, headers }: {
                 token: any;
                 jwtToken: any;
@@ -2721,7 +2731,7 @@ declare const _exports: {
                 create: ({ token, jwtToken, cancelData, headers }: {
                     token: string;
                     jwtToken: string;
-                    cancelData: CancelSetData;
+                    cancelData: import("./endpoints/sales/cancellations.js").CancelSetData;
                     headers: any;
                 }) => Promise<any>;
             };
@@ -3159,6 +3169,23 @@ declare const _exports: {
                 data: any;
                 headers: any;
             }) => any;
+        };
+        rms: {
+            manifestForecasts: {
+                all({ token, jwtToken, query, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    query?: {};
+                    headers: any;
+                }): any;
+                get({ scheduleId, token, jwtToken, query, headers }: {
+                    scheduleId: any;
+                    token: any;
+                    jwtToken: any;
+                    query?: {};
+                    headers: any;
+                }): any;
+            };
         };
         scheduledNotifications: {
             all: ({ token, jwtToken, query, headers }: {
