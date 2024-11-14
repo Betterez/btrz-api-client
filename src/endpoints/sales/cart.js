@@ -76,6 +76,14 @@ function cartFactory({client, internalAuthTokenProvider}) {
         method: "delete",
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
       });
+    },
+    put({token, cartId, jwtToken, headers, payment}) {
+      return client({
+        url: `/carts/${cartId}/payments`,
+        method: "put",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        data: payment
+      });
     }
   };
 
@@ -88,7 +96,7 @@ function cartFactory({client, internalAuthTokenProvider}) {
         data
       });
     }
-  }
+  };
 
   return {
     get,
