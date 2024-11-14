@@ -2611,6 +2611,13 @@ declare const _exports: {
                     jwtToken: any;
                     headers: any;
                 }): any;
+                put({ token, cartId, jwtToken, headers, payment }: {
+                    token: any;
+                    cartId: any;
+                    jwtToken: any;
+                    headers: any;
+                    payment: any;
+                }): any;
             };
             taxExemptPaymentMethod: {
                 post({ token, cartId, jwtToken, headers, data }: {
