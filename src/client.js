@@ -231,6 +231,7 @@ function createOperations({baseURL, headers, timeout, overrideFn, internalAuthTo
     parcelManifests: require("./endpoints/operations/parcels_manifests.js")({client, internalAuthTokenProvider}),
     passengerCheckInInfo: require("./endpoints/operations/passenger_check_in_info.js")({client, internalAuthTokenProvider}),
     redemption: require("./endpoints/operations/redemption.js")({client, internalAuthTokenProvider}),
+    rms: require("./endpoints/operations/rms.js")({client, internalAuthTokenProvider}),
     scheduledNotifications: require("./endpoints/operations/scheduled_notifications.js")({client, internalAuthTokenProvider}),
     segments: require("./endpoints/operations/segments.js")({client, internalAuthTokenProvider}),
     soldItemsFulfillment: require("./endpoints/operations/sold-items-fulfillment.js")({client, internalAuthTokenProvider}),
