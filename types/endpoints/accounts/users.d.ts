@@ -17,11 +17,24 @@ declare function usersFactory({ client, internalAuthTokenProvider }: {
         data: any;
         headers: any;
     }) => any;
+    login: ({ token, jwtToken, query, data, headers }: {
+        token: any;
+        jwtToken: any;
+        query?: {};
+        data: any;
+        headers: any;
+    }) => any;
     update: ({ token, jwtToken, userId, user, headers }: {
         token: any;
         jwtToken: any;
         userId: any;
         user: any;
+        headers: any;
+    }) => any;
+    createOrUpdateMany: ({ token, jwtToken, users, headers }: {
+        token: any;
+        jwtToken: any;
+        users: any;
         headers: any;
     }) => any;
     sequences: {
