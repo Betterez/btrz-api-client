@@ -30,6 +30,16 @@ describe("accounts/user/{id}", () => {
     });
   });
 
+  it("should sign in a user", () => {
+    const data = {audience: "lala"};
+    axiosMock.onPost("/users").reply(expectRequest({statusCode: 200, token, jwtToken, body: data}));
+    return api.accounts.users.login({
+      jwtToken,
+      token,
+      data
+    });
+  });
+
   it("should update a user", () => {
     const userId = "627a25404a761f0fcbdbdfc1";
     const user = {
@@ -43,6 +53,22 @@ describe("accounts/user/{id}", () => {
       token,
       userId,
       user
+    });
+  });
+
+  it("should create a user", () => {
+    const user = {
+      firstName: "Jane",
+      lastName: "Doe",
+      display: "JD",
+      email: "test@something.com",
+      password: "123456"
+    };
+    axiosMock.onPost("/users/import").reply(expectRequest({statusCode: 200, token, jwtToken, body: {users: [user]}}));
+    return api.accounts.users.createOrUpdateMany({
+      jwtToken,
+      token,
+      users: [user]
     });
   });
 

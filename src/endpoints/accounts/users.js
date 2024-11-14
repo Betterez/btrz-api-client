@@ -16,7 +16,7 @@ function usersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function create({token, jwtToken, query = {}, data, headers}) {
+  function login({token, jwtToken, query = {}, data, headers}) {
     return client({
       url: "/users",
       method: "post",
@@ -26,12 +26,26 @@ function usersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  // Deprecated. Use login instead.
+  function create({token, jwtToken, query = {}, data, headers}) {
+    return login({token, jwtToken, query, data, headers});
+  }
+
   function update({token, jwtToken, userId, user, headers}) {
     return client({
       url: `/users/${userId}`,
       method: "put",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: {user}
+    });
+  }
+
+  function createOrUpdateMany({token, jwtToken, users, headers}) {
+    return client({
+      url: "/users/import",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data: {users}
     });
   }
 
@@ -69,7 +83,9 @@ function usersFactory({client, internalAuthTokenProvider}) {
     get,
     all,
     create,
+    login,
     update,
+    createOrUpdateMany,
     sequences
   };
 }
