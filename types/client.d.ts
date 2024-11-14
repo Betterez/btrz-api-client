@@ -1798,12 +1798,7 @@ export function createApiClient(options: {
         };
         dynamicForms: {
             fields: {
-                get({ token, jwtToken, dynamicFormFieldId, headers }?: {
-                    token: any;
-                    jwtToken: any;
-                    dynamicFormFieldId: any;
-                    headers: any;
-                }): any;
+                get({ token, jwtToken, dynamicFormFieldId, headers }?: {}): any;
                 all({ token, jwtToken, query, headers }: {
                     token: any;
                     jwtToken: any;
@@ -2505,12 +2500,7 @@ export function createApiClient(options: {
             }) => any;
         };
         users: {
-            get: ({ token, jwtToken, id, headers }?: {
-                token: any;
-                jwtToken: any;
-                id: any;
-                headers: any;
-            }) => any;
+            get: ({ token, jwtToken, id, headers }?: {}) => any;
             all: ({ token, jwtToken, query, headers }: {
                 token: any;
                 jwtToken: any;
@@ -2790,7 +2780,7 @@ export function createApiClient(options: {
                 create: ({ token, jwtToken, cancelData, headers }: {
                     token: string;
                     jwtToken: string;
-                    cancelData: import("./endpoints/sales/cancellations.js").CancelSetData;
+                    cancelData: CancelSetData;
                     headers: any;
                 }) => Promise<any>;
             };
@@ -3619,7 +3609,7 @@ export function createApiClient(options: {
                     jwtToken: any;
                     phoneNumberData?: {};
                     headers: any;
-                }): any; /** @type {import("axios").AxiosRequestConfig} */
+                }): any;
             };
             sms: {
                 create({ token, jwtToken, smsMsg, headers }: {

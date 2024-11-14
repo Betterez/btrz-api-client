@@ -1752,12 +1752,7 @@ declare const _exports: {
         };
         dynamicForms: {
             fields: {
-                get({ token, jwtToken, dynamicFormFieldId, headers }?: {
-                    token: any;
-                    jwtToken: any;
-                    dynamicFormFieldId: any;
-                    headers: any;
-                }): any;
+                get({ token, jwtToken, dynamicFormFieldId, headers }?: {}): any;
                 all({ token, jwtToken, query, headers }: {
                     token: any;
                     jwtToken: any;
@@ -2459,12 +2454,7 @@ declare const _exports: {
             }) => any;
         };
         users: {
-            get: ({ token, jwtToken, id, headers }?: {
-                token: any;
-                jwtToken: any;
-                id: any;
-                headers: any;
-            }) => any;
+            get: ({ token, jwtToken, id, headers }?: {}) => any;
             all: ({ token, jwtToken, query, headers }: {
                 token: any;
                 jwtToken: any;
@@ -2744,7 +2734,7 @@ declare const _exports: {
                 create: ({ token, jwtToken, cancelData, headers }: {
                     token: string;
                     jwtToken: string;
-                    cancelData: import("./endpoints/sales/cancellations.js").CancelSetData;
+                    cancelData: CancelSetData;
                     headers: any;
                 }) => Promise<any>;
             };
