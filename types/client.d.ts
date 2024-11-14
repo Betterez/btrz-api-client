@@ -1798,7 +1798,12 @@ export function createApiClient(options: {
         };
         dynamicForms: {
             fields: {
-                get({ token, jwtToken, dynamicFormFieldId, headers }?: {}): any;
+                get({ token, jwtToken, dynamicFormFieldId, headers }?: {
+                    token: any;
+                    jwtToken: any;
+                    dynamicFormFieldId: any;
+                    headers: any;
+                }): any;
                 all({ token, jwtToken, query, headers }: {
                     token: any;
                     jwtToken: any;
@@ -2500,7 +2505,12 @@ export function createApiClient(options: {
             }) => any;
         };
         users: {
-            get: ({ token, jwtToken, id, headers }?: {}) => any;
+            get: ({ token, jwtToken, id, headers }?: {
+                token: any;
+                jwtToken: any;
+                id: any;
+                headers: any;
+            }) => any;
             all: ({ token, jwtToken, query, headers }: {
                 token: any;
                 jwtToken: any;
@@ -2780,7 +2790,7 @@ export function createApiClient(options: {
                 create: ({ token, jwtToken, cancelData, headers }: {
                     token: string;
                     jwtToken: string;
-                    cancelData: CancelSetData;
+                    cancelData: import("./endpoints/sales/cancellations.js").CancelSetData;
                     headers: any;
                 }) => Promise<any>;
             };
@@ -3219,6 +3229,23 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        rms: {
+            manifestForecasts: {
+                all({ token, jwtToken, query, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    query?: {};
+                    headers: any;
+                }): any;
+                get({ scheduleId, token, jwtToken, query, headers }: {
+                    scheduleId: any;
+                    token: any;
+                    jwtToken: any;
+                    query?: {};
+                    headers: any;
+                }): any;
+            };
+        };
         scheduledNotifications: {
             all: ({ token, jwtToken, query, headers }: {
                 token: any;
@@ -3592,7 +3619,7 @@ export function createApiClient(options: {
                     jwtToken: any;
                     phoneNumberData?: {};
                     headers: any;
-                }): any;
+                }): any; /** @type {import("axios").AxiosRequestConfig} */
             };
             sms: {
                 create({ token, jwtToken, smsMsg, headers }: {
