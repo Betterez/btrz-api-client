@@ -90,9 +90,11 @@ function pdfDataFactory({
     if (query.type === "bankDepositSlip") {
       url = `/pdf-bank-deposit-slips/${itemId}`;
     }
-
     if (query.type === "terminalVoucher") {
       url = `/pdf-terminal-voucher/${itemId}`;
+    }
+    if (query.type === "manualTickets") {
+      url = `/pdf-manual-tickets/${itemId}`;
     }
 
     return client.get(url, {

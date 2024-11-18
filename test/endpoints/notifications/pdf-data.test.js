@@ -341,4 +341,17 @@ describe("notifications/pdf-data", () => {
       token, query, itemId
     });
   });
+  it("should return the proper data for a manualTicket request", () => {
+    const itemId = "12345";
+    const query = {
+      type: "manualTickets"
+    };
+    axiosMock.onGet(`/pdf-manual-tickets/${itemId}`)
+      .reply(expectRequest({
+        statusCode: 200, token
+      }));
+    return api.notifications.pdfData.get({
+      token, query, itemId
+    });
+  });
 });
