@@ -2532,6 +2532,19 @@ declare const _exports: {
                 headers: any;
             }) => any;
         };
+        transportRegulationSettingsForCNRT: {
+            get: ({ token, jwtToken, headers }: {
+                token: any;
+                jwtToken: any;
+                headers: any;
+            }) => any;
+            update: ({ token, jwtToken, transportRegulationSettings, headers }: {
+                token: any;
+                jwtToken: any;
+                transportRegulationSettings: any;
+                headers: any;
+            }) => any;
+        };
     };
     sales: {
         docs: {
