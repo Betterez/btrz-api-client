@@ -183,7 +183,11 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
     __test: {
       client
     },
-    websalesConfig: require("./endpoints/accounts/websales-config.js")({client, internalAuthTokenProvider})
+    websalesConfig: require("./endpoints/accounts/websales-config.js")({client, internalAuthTokenProvider}),
+    transportRegulationSettingsForCNRT: require("./endpoints/accounts/transport-regulation-settings.js")({
+      client, internalAuthTokenProvider
+    })
+
   };
 }
 
