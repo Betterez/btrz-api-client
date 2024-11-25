@@ -1178,6 +1178,32 @@ declare const _exports: {
                 headers: any;
             }) => any;
         };
+        scheduleGroups: {
+            all: ({ token, query, headers }: {
+                token: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            get: ({ token, scheduleGroupId, query, headers }: {
+                token: any;
+                scheduleGroupId: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            create: ({ token, jwtToken, scheduleGroup, headers }: {
+                token: any;
+                jwtToken: any;
+                scheduleGroup: any;
+                headers: any;
+            }) => any;
+            update: ({ token, jwtToken, scheduleGroupId, scheduleGroup, headers }: {
+                token: any;
+                jwtToken: any;
+                scheduleGroupId: any;
+                scheduleGroup: any;
+                headers: any;
+            }) => any;
+        };
         bundles: {
             all: ({ token, jwtToken, query, headers }: {
                 token: any;
@@ -1752,7 +1778,12 @@ declare const _exports: {
         };
         dynamicForms: {
             fields: {
-                get({ token, jwtToken, dynamicFormFieldId, headers }?: {}): any;
+                get({ token, jwtToken, dynamicFormFieldId, headers }?: {
+                    token: any;
+                    jwtToken: any;
+                    dynamicFormFieldId: any;
+                    headers: any;
+                }): any;
                 all({ token, jwtToken, query, headers }: {
                     token: any;
                     jwtToken: any;
@@ -2454,7 +2485,12 @@ declare const _exports: {
             }) => any;
         };
         users: {
-            get: ({ token, jwtToken, id, headers }?: {}) => any;
+            get: ({ token, jwtToken, id, headers }?: {
+                token: any;
+                jwtToken: any;
+                id: any;
+                headers: any;
+            }) => any;
             all: ({ token, jwtToken, query, headers }: {
                 token: any;
                 jwtToken: any;
@@ -2754,7 +2790,7 @@ declare const _exports: {
                 create: ({ token, jwtToken, cancelData, headers }: {
                     token: string;
                     jwtToken: string;
-                    cancelData: CancelSetData;
+                    cancelData: import("./endpoints/sales/cancellations.js").CancelSetData;
                     headers: any;
                 }) => Promise<any>;
             };

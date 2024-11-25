@@ -1224,6 +1224,32 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        scheduleGroups: {
+            all: ({ token, query, headers }: {
+                token: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            get: ({ token, scheduleGroupId, query, headers }: {
+                token: any;
+                scheduleGroupId: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            create: ({ token, jwtToken, scheduleGroup, headers }: {
+                token: any;
+                jwtToken: any;
+                scheduleGroup: any;
+                headers: any;
+            }) => any;
+            update: ({ token, jwtToken, scheduleGroupId, scheduleGroup, headers }: {
+                token: any;
+                jwtToken: any;
+                scheduleGroupId: any;
+                scheduleGroup: any;
+                headers: any;
+            }) => any;
+        };
         bundles: {
             all: ({ token, jwtToken, query, headers }: {
                 token: any;
@@ -1798,7 +1824,12 @@ export function createApiClient(options: {
         };
         dynamicForms: {
             fields: {
-                get({ token, jwtToken, dynamicFormFieldId, headers }?: {}): any;
+                get({ token, jwtToken, dynamicFormFieldId, headers }?: {
+                    token: any;
+                    jwtToken: any;
+                    dynamicFormFieldId: any;
+                    headers: any;
+                }): any;
                 all({ token, jwtToken, query, headers }: {
                     token: any;
                     jwtToken: any;
@@ -2500,7 +2531,12 @@ export function createApiClient(options: {
             }) => any;
         };
         users: {
-            get: ({ token, jwtToken, id, headers }?: {}) => any;
+            get: ({ token, jwtToken, id, headers }?: {
+                token: any;
+                jwtToken: any;
+                id: any;
+                headers: any;
+            }) => any;
             all: ({ token, jwtToken, query, headers }: {
                 token: any;
                 jwtToken: any;
@@ -2800,7 +2836,7 @@ export function createApiClient(options: {
                 create: ({ token, jwtToken, cancelData, headers }: {
                     token: string;
                     jwtToken: string;
-                    cancelData: CancelSetData;
+                    cancelData: import("./endpoints/sales/cancellations.js").CancelSetData;
                     headers: any;
                 }) => Promise<any>;
             };
@@ -3629,7 +3665,7 @@ export function createApiClient(options: {
                     jwtToken: any;
                     phoneNumberData?: {};
                     headers: any;
-                }): any;
+                }): any; /** @type {import("axios").AxiosRequestConfig} */
             };
             sms: {
                 create({ token, jwtToken, smsMsg, headers }: {
