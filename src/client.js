@@ -85,6 +85,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
     giftCertificateDefinitions: require("./endpoints/inventory/gift-certificate-definitions.js")({client, internalAuthTokenProvider}),
     amenities: require("./endpoints/inventory/amenities.js")({client, internalAuthTokenProvider}),
     amenityGroups: require("./endpoints/inventory/amenity-groups.js")({client, internalAuthTokenProvider}),
+    scheduleGroups: require("./endpoints/inventory/schedule-groups.js")({client, internalAuthTokenProvider}),
     bundles: require("./endpoints/inventory/bundles.js")({client, internalAuthTokenProvider}),
     stationGroups: require("./endpoints/inventory/station-groups.js")({client, internalAuthTokenProvider}),
     zonePrices: require("./endpoints/inventory/zone-prices.js")({client, internalAuthTokenProvider}),

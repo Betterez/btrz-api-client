@@ -12,7 +12,7 @@ describe("operations/accounting-items", () => {
   });
 
   it("should get all manifest forecast information in a single day", () => {
-    axiosMock.onGet("/rms/manifest-forecast/").reply(expectRequest({
+    axiosMock.onGet("/rms/manifest-forecast").reply(expectRequest({
       statusCode: 200, token, jwtToken
     }));
     return api.operations.rms.manifestForecasts.all({

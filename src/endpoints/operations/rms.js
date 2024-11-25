@@ -12,7 +12,7 @@ function rmsFactory({
       query = {},
       headers
     }) {
-      return client.get("/rms/manifest-forecast/", {
+      return client.get("/rms/manifest-forecast", {
         params: query,
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
       });
