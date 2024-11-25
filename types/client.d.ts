@@ -1225,13 +1225,15 @@ export function createApiClient(options: {
             }) => any;
         };
         scheduleGroups: {
-            all: ({ token, query, headers }: {
+            all: ({ token, jwtToken, query, headers }: {
                 token: any;
+                jwtToken: any;
                 query?: {};
                 headers: any;
             }) => any;
-            get: ({ token, scheduleGroupId, query, headers }: {
+            get: ({ token, jwtToken, scheduleGroupId, query, headers }: {
                 token: any;
+                jwtToken: any;
                 scheduleGroupId: any;
                 query?: {};
                 headers: any;
