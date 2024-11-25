@@ -10,16 +10,17 @@ describe("inventory/schedule-groups", () => {
   });
 
   it("should list Schedule Groups", () => {
-    axiosMock.onGet("/schedule-groups").reply(expectRequest({statusCode: 200, token}));
-    return api.inventory.scheduleGroups.all({token});
+    axiosMock.onGet("/schedule-groups").reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.inventory.scheduleGroups.all({token, jwtToken});
   });
 
 
   it("should get a Schedule Group", () => {
     const scheduleGroupId = "5ad7804216b426412c19f06f";
-    axiosMock.onGet(`/schedule-groups/${scheduleGroupId}`).reply(expectRequest({statusCode: 200, token}));
+    axiosMock.onGet(`/schedule-groups/${scheduleGroupId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.scheduleGroups.get({
       token,
+      jwtToken,
       scheduleGroupId
     });
   });

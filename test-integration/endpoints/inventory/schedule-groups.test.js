@@ -15,6 +15,7 @@ describe("inventory/schedule-groups", () => {
   it("should get an Schedule Group", () => {
     return api.inventory.scheduleGroups.get({
       token,
+      jwtToken,
       scheduleGroupId
     })
       .then(({status, data}) => {

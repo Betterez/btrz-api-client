@@ -1,17 +1,17 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 function scheduleGroupsFactory({client, internalAuthTokenProvider}) {
-  function all({token, query = {}, headers}) {
+  function all({token, jwtToken, query = {}, headers}) {
     return client.get("/schedule-groups", {
       params: query,
-      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
-  function get({token, scheduleGroupId, query = {}, headers}) {
+  function get({token, jwtToken, scheduleGroupId, query = {}, headers}) {
     return client.get(`/schedule-groups/${scheduleGroupId}`, {
       params: query,
-      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
