@@ -1618,6 +1618,39 @@ declare const _exports: {
                 headers: any;
             }) => any;
         };
+        financingCosts: {
+            all: ({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            get: ({ id, token, headers, jwtToken }: {
+                id: any;
+                token: any;
+                headers: any;
+                jwtToken: any;
+            }) => any;
+            create: ({ jwtToken, token, financingCost, headers }: {
+                jwtToken: any;
+                token: any;
+                financingCost: any;
+                headers: any;
+            }) => any;
+            update: ({ jwtToken, token, id, financingCost, headers }: {
+                jwtToken: any;
+                token: any;
+                id: any;
+                financingCost: any;
+                headers: any;
+            }) => any;
+            remove: ({ jwtToken, id, token, headers }: {
+                jwtToken: any;
+                id: any;
+                token: any;
+                headers: any;
+            }) => any;
+        };
         __test: {
             client: import("axios").AxiosInstance;
         };
@@ -1780,12 +1813,7 @@ declare const _exports: {
         };
         dynamicForms: {
             fields: {
-                get({ token, jwtToken, dynamicFormFieldId, headers }?: {
-                    token: any;
-                    jwtToken: any;
-                    dynamicFormFieldId: any;
-                    headers: any;
-                }): any;
+                get({ token, jwtToken, dynamicFormFieldId, headers }?: {}): any;
                 all({ token, jwtToken, query, headers }: {
                     token: any;
                     jwtToken: any;
@@ -2487,12 +2515,7 @@ declare const _exports: {
             }) => any;
         };
         users: {
-            get: ({ token, jwtToken, id, headers }?: {
-                token: any;
-                jwtToken: any;
-                id: any;
-                headers: any;
-            }) => any;
+            get: ({ token, jwtToken, id, headers }?: {}) => any;
             all: ({ token, jwtToken, query, headers }: {
                 token: any;
                 jwtToken: any;
@@ -2792,7 +2815,7 @@ declare const _exports: {
                 create: ({ token, jwtToken, cancelData, headers }: {
                     token: string;
                     jwtToken: string;
-                    cancelData: import("./endpoints/sales/cancellations.js").CancelSetData;
+                    cancelData: CancelSetData;
                     headers: any;
                 }) => Promise<any>;
             };

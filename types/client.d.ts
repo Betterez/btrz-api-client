@@ -1664,6 +1664,39 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        financingCosts: {
+            all: ({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            get: ({ id, token, headers, jwtToken }: {
+                id: any;
+                token: any;
+                headers: any;
+                jwtToken: any;
+            }) => any;
+            create: ({ jwtToken, token, financingCost, headers }: {
+                jwtToken: any;
+                token: any;
+                financingCost: any;
+                headers: any;
+            }) => any;
+            update: ({ jwtToken, token, id, financingCost, headers }: {
+                jwtToken: any;
+                token: any;
+                id: any;
+                financingCost: any;
+                headers: any;
+            }) => any;
+            remove: ({ jwtToken, id, token, headers }: {
+                jwtToken: any;
+                id: any;
+                token: any;
+                headers: any;
+            }) => any;
+        };
         __test: {
             client: axios.AxiosInstance;
         };
@@ -1826,12 +1859,7 @@ export function createApiClient(options: {
         };
         dynamicForms: {
             fields: {
-                get({ token, jwtToken, dynamicFormFieldId, headers }?: {
-                    token: any;
-                    jwtToken: any;
-                    dynamicFormFieldId: any;
-                    headers: any;
-                }): any;
+                get({ token, jwtToken, dynamicFormFieldId, headers }?: {}): any;
                 all({ token, jwtToken, query, headers }: {
                     token: any;
                     jwtToken: any;
@@ -2533,12 +2561,7 @@ export function createApiClient(options: {
             }) => any;
         };
         users: {
-            get: ({ token, jwtToken, id, headers }?: {
-                token: any;
-                jwtToken: any;
-                id: any;
-                headers: any;
-            }) => any;
+            get: ({ token, jwtToken, id, headers }?: {}) => any;
             all: ({ token, jwtToken, query, headers }: {
                 token: any;
                 jwtToken: any;
@@ -2838,7 +2861,7 @@ export function createApiClient(options: {
                 create: ({ token, jwtToken, cancelData, headers }: {
                     token: string;
                     jwtToken: string;
-                    cancelData: import("./endpoints/sales/cancellations.js").CancelSetData;
+                    cancelData: CancelSetData;
                     headers: any;
                 }) => Promise<any>;
             };
@@ -3667,7 +3690,7 @@ export function createApiClient(options: {
                     jwtToken: any;
                     phoneNumberData?: {};
                     headers: any;
-                }): any; /** @type {import("axios").AxiosRequestConfig} */
+                }): any;
             };
             sms: {
                 create({ token, jwtToken, smsMsg, headers }: {

@@ -4,12 +4,7 @@ declare function dynamicFormsFactory({ client, internalAuthTokenProvider }: {
     internalAuthTokenProvider: any;
 }): {
     fields: {
-        get({ token, jwtToken, dynamicFormFieldId, headers }?: {
-            token: any;
-            jwtToken: any;
-            dynamicFormFieldId: any;
-            headers: any;
-        }): any;
+        get({ token, jwtToken, dynamicFormFieldId, headers }?: {}): any;
         all({ token, jwtToken, query, headers }: {
             token: any;
             jwtToken: any;
