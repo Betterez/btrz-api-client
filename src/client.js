@@ -93,6 +93,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
     travellerCardProviders: require("./endpoints/inventory/traveller-card-providers.js")({client, internalAuthTokenProvider}),
     travellerCardProvidersTypes: require("./endpoints/inventory/traveller-card-providers-types.js")({client, internalAuthTokenProvider}),
     travellerCardTypes: require("./endpoints/inventory/traveller-card-types.js")({client, internalAuthTokenProvider}),
+    travelRoutes: require("./endpoints/inventory/travel-routes.js")({client, internalAuthTokenProvider}),
     marketplaceModifiers: require("./endpoints/inventory/marketplace-modifiers.js")({client, internalAuthTokenProvider}),
     healthCheck: require("./endpoints/inventory/healthcheck.js")({client, internalAuthTokenProvider}),
     maritalStatus: require("./endpoints/inventory/marital-status.js")({client, internalAuthTokenProvider}),
