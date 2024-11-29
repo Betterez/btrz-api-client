@@ -3831,6 +3831,11 @@ declare const _exports: {
                 id: any;
                 headers: any;
             }) => any;
+            deleteAll: ({ token, jwtToken, headers }: {
+                token: any;
+                jwtToken: any;
+                headers: any;
+            }) => any;
         };
         webhooks: {
             emit: ({ token, jwtToken, webhook, headers }: {
