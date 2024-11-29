@@ -53,15 +53,23 @@ function undeliveredFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
+  function deleteAll({token, jwtToken, headers}) {
+    return client({
+      url: "/undelivered/batch-all",
+      method: "delete",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+    });
+  }
+
   return {
     all,
     getById,
     patch,
     resend,
     resendAll,
-    deleteById
+    deleteById,
+    deleteAll
   };
-
 }
 
 module.exports = undeliveredFactory;

@@ -26,6 +26,11 @@ describe("webhooks/undelivered", () => {
     return api.webhooks.undelivered.deleteById({ token, jwtToken, id });
   });
 
+  it("should delete all undelivered webhooks", () => {
+    axiosMock.onDelete("/undelivered/batch-all").reply(expectRequest({statusCode: 204, token, jwtToken}));
+    return api.webhooks.undelivered.deleteAll({token, jwtToken});
+  });
+
   it("should patch an undelivered", function() {
     axiosMock.onPatch("/undelivered").reply(expectRequest({ statusCode: 200, token, jwtToken }));
     return api.webhooks.undelivered.patch({ jwtToken, token, operation: {} });
