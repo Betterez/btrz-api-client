@@ -5,18 +5,19 @@ const {
 function travelRoutesFactory({client, internalAuthTokenProvider}) {
   function all({
     token,
+    jwtToken,
     query = {},
     headers
   }) {
     return client.get("/travel-routes", {
       params: query,
-      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
-  function get({travelRouteId, token, headers}) {
+  function get({travelRouteId, jwtToken, token, headers}) {
     return client.get(`/travel-routes/${travelRouteId}`, {
-      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
