@@ -3,13 +3,15 @@ declare function travelRoutesFactory({ client, internalAuthTokenProvider }: {
     client: any;
     internalAuthTokenProvider: any;
 }): {
-    all: ({ token, query, headers }: {
+    all: ({ token, jwtToken, query, headers }: {
         token: any;
+        jwtToken: any;
         query?: {};
         headers: any;
     }) => any;
-    get: ({ travelRouteId, token, headers }: {
+    get: ({ travelRouteId, jwtToken, token, headers }: {
         travelRouteId: any;
+        jwtToken: any;
         token: any;
         headers: any;
     }) => any;
