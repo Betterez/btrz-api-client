@@ -27,7 +27,7 @@ function financingCostsFactory({client, internalAuthTokenProvider}) {
       method: "post",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: {
-        financingCost
+        financingcost: financingCost
       }
     });
   }
@@ -46,7 +46,7 @@ function financingCostsFactory({client, internalAuthTokenProvider}) {
       method: "put",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: {
-        financingCost
+        financingcost: financingCost
       }
     });
   }
