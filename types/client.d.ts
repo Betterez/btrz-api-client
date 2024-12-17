@@ -4460,5 +4460,43 @@ export function createApiClient(options: {
             client: axios.AxiosInstance;
         };
     };
+    ratality: {
+        auth: {
+            create: ({ data, headers }: {
+                data: any;
+                headers: any;
+            }) => any;
+        };
+        clients: {
+            create: ({ jwtToken, data, headers }: {
+                jwtToken: any;
+                data: any;
+                headers: any;
+            }) => any;
+            get: ({ jwtToken, clientId }: {
+                jwtToken: any;
+                clientId: any;
+            }) => any;
+        };
+        integrations: {
+            get: ({ jwtToken, clientId }: {
+                jwtToken: any;
+                clientId: any;
+            }) => any;
+            create: ({ jwtToken, clientId, data }: {
+                jwtToken: any;
+                clientId: any;
+                data: any;
+            }) => any;
+            remove: ({ jwtToken, clientId, integrationType }: {
+                jwtToken: any;
+                clientId: any;
+                integrationType: any;
+            }) => any;
+        };
+        __test: {
+            client: axios.AxiosInstance;
+        };
+    };
 };
 import axios = require("axios");
