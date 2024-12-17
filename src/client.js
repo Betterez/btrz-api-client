@@ -391,6 +391,20 @@ function createGPS({baseURL, headers, timeout, overrideFn, internalAuthTokenProv
   };
 }
 
+function createRatality({baseURL, headers, timeout, overrideFn, agents}) {
+  const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
+  const version = "v2";
+
+  return {
+    auth: require("./endpoints/ratality/auth.js")({client}),
+    clients: require("./endpoints/ratality/clients.js")({client, version}),
+    integrations: require("./endpoints/ratality/integrations.js")({client, version}),
+    __test: {
+      client
+    }
+  };
+}
+
 /**
  * Returns the apiClient object with defaults set
  *
@@ -427,7 +441,8 @@ function createApiClient(options) {
     seatmaps: createSeatmaps({baseURL, headers, timeout, overrideFn: baseURLOverride.seatmaps, internalAuthTokenProvider, agents}),
     btrzpay: createBtrzPay({baseURL, headers, timeout, overrideFn: baseURLOverride.btrzpay, internalAuthTokenProvider, agents}),
     invoices: createInvoices({baseURL, headers, timeout, overrideFn: baseURLOverride.invoices, internalAuthTokenProvider, agents}),
-    gps: createGPS({baseURL, headers, timeout, overrideFn: baseURLOverride.invoices, internalAuthTokenProvider, agents})
+    gps: createGPS({baseURL, headers, timeout, overrideFn: baseURLOverride.invoices, internalAuthTokenProvider, agents}),
+    ratality: createRatality({baseURL, headers, timeout, overrideFn: baseURLOverride.ratality, agents})
   };
 }
 
