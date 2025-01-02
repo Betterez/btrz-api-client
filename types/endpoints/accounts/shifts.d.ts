@@ -202,4 +202,12 @@ declare function shiftsFactory({ client, internalAuthTokenProvider }: {
             headers: any;
         }): any;
     };
+    commissions: {
+        get({ token, jwtToken, shiftId, headers }: {
+            token: any;
+            jwtToken: any;
+            shiftId: any;
+            headers: any;
+        }): any;
+    };
 };
