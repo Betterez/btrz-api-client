@@ -197,5 +197,12 @@ describe("accounts/shifts", () => {
     axiosMock.onGet(`/shifts/${shiftId}/sales-summary`).reply(expectRequest({statusCode: 200, token, query}));
     return api.accounts.shifts.salesSummary.get({token, jwtToken, shiftId, query});
   });
+
+  it("should get the shift commissions", () => {
+    const shiftId = "shiftId1";
+    axiosMock.onGet(`/shifts/${shiftId}/commissions`).reply(expectRequest({statusCode: 200, token}));
+    return api.accounts.shifts.commissions.get({token, jwtToken, shiftId});
+  });
+
 });
 

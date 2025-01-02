@@ -218,6 +218,13 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
       });
     }
   };
+  const commissions = {
+    get({token, jwtToken, shiftId, headers}) {
+      return client.get(`/shifts/${shiftId}/commissions`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
 
   return {
     all,
@@ -240,7 +247,8 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
     locationClosures,
     startingBalances,
     purchaseLimitPayments, 
-    salesSummary
+    salesSummary,
+    commissions
   };
 }
 
