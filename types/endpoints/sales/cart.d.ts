@@ -77,4 +77,19 @@ declare function cartFactory({ client, internalAuthTokenProvider }: {
             data?: {};
         }): any;
     };
+    financingCosts: {
+        create({ token, jwtToken, headers, cartId, financingCost }: {
+            token: any;
+            jwtToken: any;
+            headers: any;
+            cartId: any;
+            financingCost: any;
+        }): any;
+        delete({ token, jwtToken, headers, cartId }: {
+            token: any;
+            jwtToken: any;
+            headers: any;
+            cartId: any;
+        }): any;
+    };
 };
