@@ -81,4 +81,17 @@ describe("sales/cart", () => {
     axiosMock.onPost(`/carts/${cartId}/tax-exempt-payment-method`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.sales.cart.taxExemptPaymentMethod.post({jwtToken, token, cartId});
   });
+
+  it("should delete payments from a cart", () => {
+    const cartId = "someCartId";
+    axiosMock.onDelete(`/carts/${cartId}/financing-costs`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.sales.cart.financingCosts.delete({jwtToken, token, cartId});
+  });
+
+  it("should update payments from a cart", () => {
+    const cartId = "someCartId";
+    const financingCost = {_id: "123"};
+    axiosMock.onPost(`/carts/${cartId}/financing-costs`).reply(expectRequest({statusCode: 204, token, jwtToken}));
+    return api.sales.cart.financingCosts.create({jwtToken, token, cartId, financingCost});
+  });
 });

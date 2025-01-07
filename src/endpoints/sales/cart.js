@@ -98,6 +98,26 @@ function cartFactory({client, internalAuthTokenProvider}) {
     }
   };
 
+  const financingCosts = {
+    create({token, jwtToken, headers, cartId, financingCost}) {
+      return client({
+        url: `/carts/${cartId}/financing-costs`,
+        method: "POST",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        data: {
+          financingcost: financingCost
+        }
+      });
+    },
+    delete({token, jwtToken, headers, cartId}) {
+      return client({
+        url: `/carts/${cartId}/financing-costs`,
+        method: "delete",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+
   return {
     get,
     create,
@@ -107,7 +127,8 @@ function cartFactory({client, internalAuthTokenProvider}) {
     patch,
     partialDepositStatus,
     payments,
-    taxExemptPaymentMethod
+    taxExemptPaymentMethod,
+    financingCosts
   };
 }
 
