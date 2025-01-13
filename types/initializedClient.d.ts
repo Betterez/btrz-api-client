@@ -1839,6 +1839,27 @@ declare const _exports: {
             }) => any;
         };
         dynamicForms: {
+            get: ({ token, jwtToken, dynamicFormId, headers }?: {}) => any;
+            all: ({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            create: ({ token, jwtToken, query, data, headers }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                data: any;
+                headers: any;
+            }) => any;
+            update: ({ token, jwtToken, dynamicFormId, data, headers }: {
+                token: any;
+                jwtToken: any;
+                dynamicFormId: any;
+                data: any;
+                headers: any;
+            }) => any;
             fields: {
                 get({ token, jwtToken, dynamicFormFieldId, headers }?: {}): any;
                 all({ token, jwtToken, query, headers }: {
