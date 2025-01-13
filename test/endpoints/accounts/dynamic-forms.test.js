@@ -10,6 +10,47 @@ describe("accounts/dynamic-forms/", () => {
     axiosMock.restore();
   });
 
+  it("should GET a list of dynamic forms", () => {
+    axiosMock.onGet("/dynamic-forms").reply(expectRequest({
+      statusCode: 200,
+      token
+    }));
+    return api.accounts.dynamicForms.all({
+      token
+    });
+  });
+
+  it("should GET the dynamic form", () => {
+    const dynamicFormId = "123";  
+    axiosMock.onGet(`/dynamic-forms/${dynamicFormId}`)
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.accounts.dynamicForms.get({token, jwtToken, dynamicFormId});
+  });
+
+  it("should create dynamic form", () => {
+    const data = {};
+    axiosMock.onPost(`/dynamic-forms`).reply(expectRequest({statusCode: 200, token, jwtToken, body: data}));
+    return api.accounts.dynamicForms.create({
+      jwtToken,
+      userId: id,
+      token,
+      data
+    });
+  });
+
+  it("should update dynamic form field", () => {
+    const dynamicFormId = "123";
+    const data = {};
+    // eslint-disable-next-line max-len
+    axiosMock.onPut(`/dynamic-forms/${dynamicFormId}`).reply(expectRequest({statusCode: 200, token, jwtToken, body: data}));
+    return api.accounts.dynamicForms.update({
+      jwtToken,
+      dynamicFormId,
+      token,
+      data
+    });
+  });
+
   describe("accounts/dynamic-forms/fields", () => {
 
     it("should GET a list of dynamic form fields", () => {

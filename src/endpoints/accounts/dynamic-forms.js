@@ -68,10 +68,10 @@ function dynamicFormsFactory({client, internalAuthTokenProvider}) {
   };
 
   return {
-    /*get,
+    get,
     all,
     create,
-    update,*/
+    update,
     fields
   };
 }
