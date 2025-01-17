@@ -38,6 +38,20 @@ declare function usersFactory({ client, internalAuthTokenProvider }: {
         headers: any;
     }) => any;
     sequences: {
+        get({ token, jwtToken, userId, sequenceId, headers }: {
+            token: any;
+            jwtToken: any;
+            userId: any;
+            sequenceId: any;
+            headers: any;
+        }): any;
+        all({ token, jwtToken, userId, query, headers }: {
+            token: any;
+            jwtToken: any;
+            userId: any;
+            query?: {};
+            headers: any;
+        }): any;
         create({ jwtToken, token, userId, sequence, headers }: {
             jwtToken: any;
             token: any;
