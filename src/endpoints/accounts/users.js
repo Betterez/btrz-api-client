@@ -50,6 +50,19 @@ function usersFactory({client, internalAuthTokenProvider}) {
   }
 
   const sequences = {
+    get({token, jwtToken, userId, sequenceId, headers}) {
+      return client({
+        url: `/users/${userId}/sequences/${sequenceId}`,
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    },
+    all({token, jwtToken, userId, query = {}, headers}) {
+      return client({
+        url: `/users/${userId}/sequences`,
+        params: query,
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    },
     create({jwtToken, token, userId, sequence, headers}) {
       return client({
         url: `/users/${userId}/sequences`,

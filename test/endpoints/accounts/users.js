@@ -1,16 +1,15 @@
-const {axiosMock, expectRequest} = require("./../../test-helpers.js");
-const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
-const id = "1234321";
-
 describe("accounts/user/{id}", () => {
   const token = "someToken";
   const jwtToken = "I owe you a JWT token";
+  const {axiosMock, expectRequest} = require("./../../test-helpers.js");
+  const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
   afterEach(() => {
     axiosMock.restore();
   });
 
   it("should return user", () => {
+    const id = "1234321";
     axiosMock.onGet(`/user/${id}`).reply(expectRequest({statusCode: 200, token}));
     return api.accounts.users.get({token, id});
   });
@@ -72,12 +71,35 @@ describe("accounts/user/{id}", () => {
     });
   });
 
+  it("should return user sequence", () => {
+    const sequenceId = "123";
+    const userId = "1234321";
+    axiosMock.onGet(`/users/${userId}/sequences/${sequenceId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.accounts.users.sequences.get({
+      jwtToken,
+      userId,
+      sequenceId,
+      token
+    });
+  });
+
+  it("should return all user sequences", () => {
+    const userId = "1234321";
+    axiosMock.onGet(`/users/${userId}/sequences`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.accounts.users.sequences.all({
+      jwtToken,
+      userId,
+      token
+    });
+  });
+
   it("should create user sequence", () => {
     const userSequenceData = {};
-    axiosMock.onPost(`/users/${id}/sequences`).reply(expectRequest({statusCode: 200, token, jwtToken, body: userSequenceData}));
+    const userId = "1234321";
+    axiosMock.onPost(`/users/${userId}/sequences`).reply(expectRequest({statusCode: 200, token, jwtToken, body: userSequenceData}));
     return api.accounts.users.sequences.create({
       jwtToken,
-      userId: id,
+      userId,
       token,
       sequence: userSequenceData
     });
@@ -85,12 +107,13 @@ describe("accounts/user/{id}", () => {
 
   it("should update user sequence", () => {
     const sequenceId = "123";
+    const userId = "1234321";
     const userSequenceData = {};
     // eslint-disable-next-line max-len
-    axiosMock.onPut(`/users/${id}/sequences/${sequenceId}`).reply(expectRequest({statusCode: 200, token, jwtToken, body: userSequenceData}));
+    axiosMock.onPut(`/users/${userId}/sequences/${sequenceId}`).reply(expectRequest({statusCode: 200, token, jwtToken, body: userSequenceData}));
     return api.accounts.users.sequences.update({
       jwtToken,
-      userId: id,
+      userId,
       sequenceId,
       token,
       sequence: userSequenceData
@@ -98,6 +121,7 @@ describe("accounts/user/{id}", () => {
   });
 
   it("should transfer an user sequence", () => {
+    const userId = "123";
     const sequenceId = "123";
     const newUserId = "123";
     const operationData = {
@@ -105,10 +129,10 @@ describe("accounts/user/{id}", () => {
       newUserId
     };
     // eslint-disable-next-line max-len
-    axiosMock.onPatch(`/users/${id}/sequences/${sequenceId}`).reply(expectRequest({statusCode: 200, token, jwtToken, body: operationData}));
+    axiosMock.onPatch(`/users/${userId}/sequences/${sequenceId}`).reply(expectRequest({statusCode: 200, token, jwtToken, body: operationData}));
     return api.accounts.users.sequences.transfer({
       jwtToken,
-      userId: id,
+      userId,
       sequenceId,
       token,
       newUserId
