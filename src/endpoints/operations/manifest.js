@@ -292,6 +292,18 @@ function manifestFactory({
     }
   };
 
+  const driverRelays = {
+    update({token, jwtToken, manifestId, query = {bypassValidation: false}, headers, data}) {
+      return client({
+        url: `/manifests/${manifestId}/driver-relays`,
+        method: "put",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        params: query,
+        data
+      });
+    }
+  };
+
   return {
     get,
     getAll,
@@ -311,7 +323,8 @@ function manifestFactory({
     checkIn,
     legs,
     reports,
-    labels
+    labels,
+    driverRelays
   };
 }
 
