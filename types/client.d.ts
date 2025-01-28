@@ -3224,6 +3224,18 @@ export function createApiClient(options: {
                     headers: any;
                 }): any;
             };
+            driverRelays: {
+                update({ token, jwtToken, manifestId, query, headers, data }: {
+                    token: any;
+                    jwtToken: any;
+                    manifestId: any;
+                    query?: {
+                        bypassValidation: boolean;
+                    };
+                    headers: any;
+                    data: any;
+                }): any;
+            };
         };
         manifestLegForTickets: {
             get: ({ token, jwtToken, ticketId, params, headers }: {

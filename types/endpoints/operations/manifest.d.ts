@@ -196,4 +196,16 @@ declare function manifestFactory({ client, internalAuthTokenProvider }: {
             headers: any;
         }): any;
     };
+    driverRelays: {
+        update({ token, jwtToken, manifestId, query, headers, data }: {
+            token: any;
+            jwtToken: any;
+            manifestId: any;
+            query?: {
+                bypassValidation: boolean;
+            };
+            headers: any;
+            data: any;
+        }): any;
+    };
 };
