@@ -2665,6 +2665,12 @@ export function createApiClient(options: {
                 users: any;
                 headers: any;
             }) => any;
+            impersonate: ({ token, jwtToken, offlineUserId, headers }: {
+                token: any;
+                jwtToken: any;
+                offlineUserId: any;
+                headers: any;
+            }) => any;
             sequences: {
                 get({ token, jwtToken, userId, sequenceId, headers }: {
                     token: any;
