@@ -71,6 +71,23 @@ describe("accounts/user/{id}", () => {
     });
   });
 
+  it("should impersonate an user", () => {
+    const offlineUserId = "anOfflineUserId";
+    axiosMock.onPost("/users/impersonate").reply(
+      expectRequest({
+        statusCode: 200,
+        token,
+        jwtToken,
+        body: {offlineUserId: "anOfflineUserId"}
+      })
+    );
+    return api.accounts.users.impersonate({
+      jwtToken,
+      token,
+      offlineUserId
+    });
+  });
+
   it("should return user sequence", () => {
     const sequenceId = "123";
     const userId = "1234321";

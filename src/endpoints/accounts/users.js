@@ -49,6 +49,15 @@ function usersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function impersonate({token, jwtToken, offlineUserId, headers}) {
+    return client({
+      url: "/users/impersonate",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data: {offlineUserId}
+    });
+  }
+
   const sequences = {
     get({token, jwtToken, userId, sequenceId, headers}) {
       return client({
@@ -99,6 +108,7 @@ function usersFactory({client, internalAuthTokenProvider}) {
     login,
     update,
     createOrUpdateMany,
+    impersonate,
     sequences
   };
 }
