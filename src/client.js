@@ -355,6 +355,7 @@ function createBtrzPay({baseURL, headers, timeout, overrideFn, internalAuthToken
     squareWebhooks: require("./endpoints/btrzpay/square.js").squareWebhooksFactory({client, internalAuthTokenProvider}),
     oxxo: require("./endpoints/btrzpay/oxxo.js")({client, internalAuthTokenProvider}),
     datalogic: require("./endpoints/btrzpay/datalogic.js")({client, internalAuthTokenProvider}),
+    prismaTerminals: require("./endpoints/btrzpay/prismaTerminals.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
