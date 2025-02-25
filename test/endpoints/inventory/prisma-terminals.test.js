@@ -3,7 +3,7 @@ const {
 } = require("../../test-helpers");
 const api = require("../../../src/client").createApiClient({baseURL: "http://test.com"});
 
-describe.only("inventory/prisma-terminals", () => {
+describe("inventory/prisma-terminals", () => {
   const token = "I owe you a token";
   const jwtToken = "I owe you a JWT token";
 
