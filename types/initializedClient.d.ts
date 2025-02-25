@@ -1678,6 +1678,39 @@ declare const _exports: {
                 headers: any;
             }) => any;
         };
+        prismaTerminals: {
+            all: ({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            get: ({ prismaTerminalId, token, jwtToken, headers }: {
+                prismaTerminalId: any;
+                token: any;
+                jwtToken: any;
+                headers: any;
+            }) => any;
+            create: ({ jwtToken, token, prismaTerminal, headers }: {
+                jwtToken: any;
+                token: any;
+                prismaTerminal: any;
+                headers: any;
+            }) => any;
+            update: ({ jwtToken, token, prismaTerminalId, prismaTerminal, headers }: {
+                jwtToken: any;
+                token: any;
+                prismaTerminalId: any;
+                prismaTerminal: any;
+                headers: any;
+            }) => any;
+            remove: ({ jwtToken, prismaTerminalId, token, headers }: {
+                jwtToken: any;
+                prismaTerminalId: any;
+                token: any;
+                headers: any;
+            }) => any;
+        };
         __test: {
             client: import("axios").AxiosInstance;
         };
