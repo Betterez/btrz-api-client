@@ -103,6 +103,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
     segmentsInformation: require("./endpoints/inventory/segments-information.js")({client, internalAuthTokenProvider}),
     mitTerminalsSettings: require("./endpoints/inventory/mit-terminal-settings.js")({client, internalAuthTokenProvider}),
     financingCosts: require("./endpoints/inventory/financing-costs.js")({client, internalAuthTokenProvider}),
+    prismaTerminals: require("./endpoints/inventory/prisma-terminals.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
