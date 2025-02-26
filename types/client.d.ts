@@ -1015,11 +1015,12 @@ export function createApiClient(options: {
                 query?: {};
                 headers: any;
             }) => any;
-            get: ({ token, routeId, scheduleId, headers }: {
+            get: ({ token, routeId, scheduleId, headers, query }: {
                 token: any;
                 routeId: any;
                 scheduleId: any;
                 headers: any;
+                query?: {};
             }) => any;
             create: ({ token, jwtToken, data, routeId, headers }: {
                 token: any;
