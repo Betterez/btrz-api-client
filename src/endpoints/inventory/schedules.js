@@ -8,8 +8,9 @@ function schedulesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function get({token, routeId, scheduleId, headers}) {
+  function get({token, routeId, scheduleId, headers, query = {}}) {
     return client.get(`/routes/${routeId}/schedules/${scheduleId}`, {
+      params: query,
       headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
     });
   }
