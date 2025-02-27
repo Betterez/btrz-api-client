@@ -1,9 +1,11 @@
 const {authorizationHeaders} = require("../endpoints_helpers.js");
 
 function dynamicFormsFactory({client, internalAuthTokenProvider}) {
-  function get({token, jwtToken, dynamicFormId, headers} = {}) {
+  function get({token, jwtToken, dynamicFormId, query = {}, headers, providerId}) {
+    const query_ = providerId ? {...query, providerId} : query;
     return client({
       url: `/dynamic-forms/${dynamicFormId}`,
+      params: query_,
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
