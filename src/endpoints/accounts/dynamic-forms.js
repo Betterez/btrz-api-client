@@ -37,6 +37,14 @@ function dynamicFormsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function remove({dynamicFormId, token, jwtToken, headers}) {
+    return client({
+      url: `/dynamic-forms/${dynamicFormId}`,
+      method: "delete",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+    });
+  }
+
   const fields = {
     get({token, jwtToken, dynamicFormFieldId, headers} = {}) {
       return client({
@@ -53,7 +61,7 @@ function dynamicFormsFactory({client, internalAuthTokenProvider}) {
     },
     create({jwtToken, token, data, headers}) {
       return client({
-        url: `/dynamic-forms/fields`,
+        url: "/dynamic-forms/fields",
         method: "post",
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
         data
@@ -66,6 +74,13 @@ function dynamicFormsFactory({client, internalAuthTokenProvider}) {
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
         data
       });
+    },
+    remove({dynamicFormFieldId, token, jwtToken, headers}) {
+      return client({
+        url: `/dynamic-forms/fields/${dynamicFormFieldId}`,
+        method: "delete",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
     }
   };
 
@@ -74,6 +89,7 @@ function dynamicFormsFactory({client, internalAuthTokenProvider}) {
     all,
     create,
     update,
+    remove,
     fields
   };
 }

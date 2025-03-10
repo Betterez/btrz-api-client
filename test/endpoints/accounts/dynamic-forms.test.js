@@ -21,7 +21,7 @@ describe("accounts/dynamic-forms/", () => {
   });
 
   it("should GET the dynamic form", () => {
-    const dynamicFormId = "123";  
+    const dynamicFormId = "123";
     axiosMock.onGet(`/dynamic-forms/${dynamicFormId}`)
       .reply(expectRequest({statusCode: 200, token}));
     return api.accounts.dynamicForms.get({token, jwtToken, dynamicFormId});
@@ -29,7 +29,7 @@ describe("accounts/dynamic-forms/", () => {
 
   it("should create dynamic form", () => {
     const data = {};
-    axiosMock.onPost(`/dynamic-forms`).reply(expectRequest({statusCode: 200, token, jwtToken, body: data}));
+    axiosMock.onPost("/dynamic-forms").reply(expectRequest({statusCode: 200, token, jwtToken, body: data}));
     return api.accounts.dynamicForms.create({
       jwtToken,
       userId: id,
@@ -51,8 +51,18 @@ describe("accounts/dynamic-forms/", () => {
     });
   });
 
-  describe("accounts/dynamic-forms/fields", () => {
+  it("should delete dynamic form field", () => {
+    const dynamicFormId = "123";
+    // eslint-disable-next-line max-len
+    axiosMock.onDelete(`/dynamic-forms/${dynamicFormId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.accounts.dynamicForms.remove({
+      jwtToken,
+      dynamicFormId,
+      token
+    });
+  });
 
+  describe("accounts/dynamic-forms/fields", () => {
     it("should GET a list of dynamic form fields", () => {
       axiosMock.onGet("/dynamic-forms/fields").reply(expectRequest({
         statusCode: 200,
@@ -64,7 +74,7 @@ describe("accounts/dynamic-forms/", () => {
     });
 
     it("should GET the dynamic form field", () => {
-      const dynamicFormFieldId = "123";  
+      const dynamicFormFieldId = "123";
       axiosMock.onGet(`/dynamic-forms/fields/${dynamicFormFieldId}`)
         .reply(expectRequest({statusCode: 200, token}));
       return api.accounts.dynamicForms.fields.get({token, jwtToken, dynamicFormFieldId});
@@ -72,7 +82,7 @@ describe("accounts/dynamic-forms/", () => {
 
     it("should create dynamic form field", () => {
       const data = {};
-      axiosMock.onPost(`/dynamic-forms/fields`).reply(expectRequest({statusCode: 200, token, jwtToken, body: data}));
+      axiosMock.onPost("/dynamic-forms/fields").reply(expectRequest({statusCode: 200, token, jwtToken, body: data}));
       return api.accounts.dynamicForms.fields.create({
         jwtToken,
         userId: id,
@@ -91,6 +101,17 @@ describe("accounts/dynamic-forms/", () => {
         dynamicFormFieldId,
         token,
         data
+      });
+    });
+
+    it("should delete dynamic form field", () => {
+      const dynamicFormFieldId = "123";
+      // eslint-disable-next-line max-len
+      axiosMock.onDelete(`/dynamic-forms/fields/${dynamicFormFieldId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+      return api.accounts.dynamicForms.fields.remove({
+        jwtToken,
+        dynamicFormFieldId,
+        token
       });
     });
   });
