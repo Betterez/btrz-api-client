@@ -1901,6 +1901,12 @@ declare const _exports: {
                 data: any;
                 headers: any;
             }) => any;
+            remove: ({ dynamicFormId, token, jwtToken, headers }: {
+                dynamicFormId: any;
+                token: any;
+                jwtToken: any;
+                headers: any;
+            }) => any;
             fields: {
                 get({ token, jwtToken, dynamicFormFieldId, headers }?: {}): any;
                 all({ token, jwtToken, query, headers }: {
@@ -1920,6 +1926,12 @@ declare const _exports: {
                     token: any;
                     dynamicFormFieldId: any;
                     data: any;
+                    headers: any;
+                }): any;
+                remove({ dynamicFormFieldId, token, jwtToken, headers }: {
+                    dynamicFormFieldId: any;
+                    token: any;
+                    jwtToken: any;
                     headers: any;
                 }): any;
             };
