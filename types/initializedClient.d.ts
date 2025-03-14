@@ -2652,6 +2652,7 @@ declare const _exports: {
         };
         users: {
             get: ({ token, jwtToken, id, headers }?: {}) => any;
+            getV2: ({ token, jwtToken, id, headers }?: {}) => any;
             all: ({ token, jwtToken, query, headers }: {
                 token: any;
                 jwtToken: any;
