@@ -9,11 +9,12 @@ declare function financingCostsFactory({ client, internalAuthTokenProvider }: {
         query?: {};
         headers: any;
     }) => any;
-    get: ({ id, token, headers, jwtToken }: {
+    get: ({ id, token, headers, jwtToken, query }: {
         id: any;
         token: any;
         headers: any;
         jwtToken: any;
+        query?: {};
     }) => any;
     create: ({ jwtToken, token, financingCost, headers }: {
         jwtToken: any;

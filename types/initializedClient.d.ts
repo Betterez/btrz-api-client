@@ -1653,11 +1653,12 @@ declare const _exports: {
                 query?: {};
                 headers: any;
             }) => any;
-            get: ({ id, token, headers, jwtToken }: {
+            get: ({ id, token, headers, jwtToken, query }: {
                 id: any;
                 token: any;
                 headers: any;
                 jwtToken: any;
+                query?: {};
             }) => any;
             create: ({ jwtToken, token, financingCost, headers }: {
                 jwtToken: any;
@@ -2860,12 +2861,13 @@ declare const _exports: {
                 }): any;
             };
             financingCosts: {
-                create({ token, jwtToken, headers, cartId, financingCost }: {
+                create({ token, jwtToken, headers, cartId, financingCost, query }: {
                     token: any;
                     jwtToken: any;
                     headers: any;
                     cartId: any;
                     financingCost: any;
+                    query?: {};
                 }): any;
                 delete({ token, jwtToken, headers, cartId }: {
                     token: any;
