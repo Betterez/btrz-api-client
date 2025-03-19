@@ -99,10 +99,11 @@ function cartFactory({client, internalAuthTokenProvider}) {
   };
 
   const financingCosts = {
-    create({token, jwtToken, headers, cartId, financingCost}) {
+    create({token, jwtToken, headers, cartId, financingCost, query = {}}) {
       return client({
         url: `/carts/${cartId}/financing-costs`,
         method: "POST",
+        params: query,
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
         data: {
           financingcost: financingCost

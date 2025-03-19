@@ -15,8 +15,15 @@ function financingCostsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function get({id, token, headers, jwtToken}) {
+  function get({
+    id,
+    token,
+    headers,
+    jwtToken,
+    query = {}
+  }) {
     return client.get(`/financing-costs/${id}`, {
+      params: query,
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
