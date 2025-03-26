@@ -1,7 +1,7 @@
-const { authorizationHeaders } = require("./../endpoints_helpers");
+const {authorizationHeaders} = require("./../endpoints_helpers");
 
-function routesFactory({ client, internalAuthTokenProvider }) {
-  function get({ routeId, token, query = {}, headers }) {
+function routesFactory({client, internalAuthTokenProvider}) {
+  function get({routeId, token, query = {}, headers}) {
     return client({
       url: `/route/${routeId}`,
       params: query,
@@ -9,7 +9,7 @@ function routesFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  function prices({ token, productId, originId, destinationId, channel, query, headers }) {
+  function prices({token, productId, originId, destinationId, channel, query, headers}) {
     const params = Object.assign({}, query, {productId, originId, destinationId, channel});
 
     return client({
@@ -37,6 +37,17 @@ function routesFactory({ client, internalAuthTokenProvider }) {
     return client({
       url: "/routes",
       method: "post",
+      headers: authorizationHeaders({
+        token, jwtToken, internalAuthTokenProvider, headers
+      }),
+      data
+    });
+  }
+
+  function update({token, jwtToken, data, routeId, headers}) {
+    return client({
+      url: `/routes/${routeId}`,
+      method: "put",
       headers: authorizationHeaders({
         token, jwtToken, internalAuthTokenProvider, headers
       }),
@@ -105,6 +116,7 @@ function routesFactory({ client, internalAuthTokenProvider }) {
     all,
     stations,
     create,
+    update,
     fareTables,
     stops
   };
