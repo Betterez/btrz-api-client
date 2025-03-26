@@ -1,7 +1,7 @@
 const {
   axiosMock, expectRequest
-} = require("../../test-helpers");
-const api = require("../../../src/client").createApiClient({
+} = require("../../test-helpers.js");
+const api = require("../../../src/client.js").createApiClient({
   baseURL: "http://test.com"
 });
 
@@ -35,6 +35,32 @@ describe("btrzpay/prisma-terminals", () => {
         terminalId: "1",
         amount: "12.45"
       }
+    });
+  });
+
+  it("should create a prisma terminal reversal intent", () => {
+    axiosMock.onPost("/prisma-terminals/payments/1/reversals").reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.btrzpay.prismaTerminals.payments.reversals.create({
+      token,
+      jwtToken,
+      id: 1,
+      prismaReversal: {
+        terminalId: "1",
+        amount: "12.45"
+      }
+    });
+  });
+
+  it("should get the prisma terminal reversal", () => {
+    axiosMock.onGet("/prisma-terminals/reversals/1").reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.btrzpay.prismaTerminals.payments.reversals.get({
+      token,
+      jwtToken,
+      id: 1
     });
   });
 });
