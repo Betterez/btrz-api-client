@@ -918,6 +918,13 @@ declare const _exports: {
                 data: any;
                 headers: any;
             }) => any;
+            update: ({ token, jwtToken, data, routeId, headers }: {
+                token: any;
+                jwtToken: any;
+                data: any;
+                routeId: any;
+                headers: any;
+            }) => any;
             fareTables: {
                 all({ token, query, headers }: {
                     token: any;
