@@ -4,10 +4,11 @@ declare function prismaTerminalsFactory({ client, internalAuthTokenProvider }: {
     internalAuthTokenProvider: any;
 }): {
     payments: {
-        get({ token, jwtToken, id, headers }: {
+        get({ token, jwtToken, id, query, headers }: {
             token: any;
             jwtToken: any;
             id: any;
+            query: any;
             headers: any;
         }): any;
         create({ token, jwtToken, prismaPayment, headers }: {
@@ -16,5 +17,21 @@ declare function prismaTerminalsFactory({ client, internalAuthTokenProvider }: {
             prismaPayment: any;
             headers: any;
         }): any;
+        reversals: {
+            get({ token, jwtToken, id, query, headers }: {
+                token: any;
+                jwtToken: any;
+                id: any;
+                query: any;
+                headers: any;
+            }): any;
+            create({ token, jwtToken, id, prismaReversal, headers }: {
+                token: any;
+                jwtToken: any;
+                id: any;
+                prismaReversal: any;
+                headers: any;
+            }): any;
+        };
     };
 };
