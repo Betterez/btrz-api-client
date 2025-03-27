@@ -2265,6 +2265,32 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        pointToPointSettings: {
+            get: ({ token, jwtToken, headers }: {
+                token: any;
+                jwtToken: any;
+                headers: any;
+            }) => any;
+            update: ({ token, jwtToken, pointToPointSettings, headers }: {
+                token: any;
+                jwtToken: any;
+                pointToPointSettings: any;
+                headers: any;
+            }) => any;
+        };
+        marketPricingSettings: {
+            get: ({ token, jwtToken, headers }: {
+                token: any;
+                jwtToken: any;
+                headers: any;
+            }) => any;
+            update: ({ token, jwtToken, marketPricingSettings, headers }: {
+                token: any;
+                jwtToken: any;
+                marketPricingSettings: any;
+                headers: any;
+            }) => any;
+        };
         printers: {
             all: ({ token, query, headers }: {
                 token: any;
