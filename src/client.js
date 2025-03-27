@@ -161,6 +161,8 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
     peopleLookups: require("./endpoints/accounts/people-lookups.js")({
       client, internalAuthTokenProvider
     }),
+    pointToPointSettings: require("./endpoints/accounts/point-to-point-settings.js")({client, internalAuthTokenProvider}),
+    marketPricingSettings: require("./endpoints/accounts/market-pricing-settings.js")({client, internalAuthTokenProvider}),
     printers: require("./endpoints/accounts/printers.js")({
       client, internalAuthTokenProvider
     }),
