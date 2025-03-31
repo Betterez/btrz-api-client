@@ -8,29 +8,32 @@ const api = require("../../../src/client.js").createApiClient({
 describe("btrzpay/prisma-terminals", () => {
   const token = "token";
   const jwtToken = "I owe you a JWT token";
+  const query = {providerId: "123"};
 
   afterEach(() => {
     axiosMock.reset();
   });
 
   it("should get the prisma terminal payment", () => {
-    axiosMock.onGet("/prisma-terminals/payments/1").reply(expectRequest({
-      statusCode: 200, token, jwtToken
+    axiosMock.onGet("/prisma-terminals/payments/1", {params: query}).reply(expectRequest({
+      statusCode: 200, token, jwtToken, query
     }));
     return api.btrzpay.prismaTerminals.payments.get({
       token,
       jwtToken,
+      query,
       id: 1
     });
   });
 
   it("should create a prisma terminal payment intent", () => {
     axiosMock.onPost("/prisma-terminals/payments").reply(expectRequest({
-      statusCode: 200, token, jwtToken
+      statusCode: 200, token, jwtToken, query
     }));
     return api.btrzpay.prismaTerminals.payments.create({
       token,
       jwtToken,
+      query,
       prismaPayment: {
         terminalId: "1",
         amount: "12.45"
@@ -40,12 +43,13 @@ describe("btrzpay/prisma-terminals", () => {
 
   it("should create a prisma terminal reversal intent", () => {
     axiosMock.onPost("/prisma-terminals/payments/1/reversals").reply(expectRequest({
-      statusCode: 200, token, jwtToken
+      statusCode: 200, token, jwtToken, query
     }));
     return api.btrzpay.prismaTerminals.payments.reversals.create({
       token,
       jwtToken,
       id: 1,
+      query,
       prismaReversal: {
         terminalId: "1",
         amount: "12.45"
@@ -54,12 +58,13 @@ describe("btrzpay/prisma-terminals", () => {
   });
 
   it("should get the prisma terminal reversal", () => {
-    axiosMock.onGet("/prisma-terminals/reversals/1").reply(expectRequest({
-      statusCode: 200, token, jwtToken
+    axiosMock.onGet("/prisma-terminals/reversals/1", {params: query}).reply(expectRequest({
+      statusCode: 200, token, jwtToken, query
     }));
     return api.btrzpay.prismaTerminals.payments.reversals.get({
       token,
       jwtToken,
+      query,
       id: 1
     });
   });
