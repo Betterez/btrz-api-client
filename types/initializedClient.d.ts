@@ -4384,13 +4384,14 @@ declare const _exports: {
                     token: any;
                     jwtToken: any;
                     id: any;
-                    query: any;
+                    query?: {};
                     headers: any;
                 }): any;
-                create({ token, jwtToken, prismaPayment, headers }: {
+                create({ token, jwtToken, prismaPayment, query, headers }: {
                     token: any;
                     jwtToken: any;
                     prismaPayment: any;
+                    query?: {};
                     headers: any;
                 }): any;
                 reversals: {
@@ -4398,14 +4399,15 @@ declare const _exports: {
                         token: any;
                         jwtToken: any;
                         id: any;
-                        query: any;
+                        query?: {};
                         headers: any;
                     }): any;
-                    create({ token, jwtToken, id, prismaReversal, headers }: {
+                    create({ token, jwtToken, id, prismaReversal, query, headers }: {
                         token: any;
                         jwtToken: any;
                         id: any;
                         prismaReversal: any;
+                        query?: {};
                         headers: any;
                     }): any;
                 };
