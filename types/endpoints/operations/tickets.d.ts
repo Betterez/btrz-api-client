@@ -30,4 +30,11 @@ declare function ticketsFactory({ client, internalAuthTokenProvider }: {
         ticketId: any;
         headers: any;
     }) => any;
+    updateDelivery: ({ token, jwtToken, ticketId, data, headers }: {
+        token: any;
+        jwtToken: any;
+        ticketId: any;
+        data: any;
+        headers: any;
+    }) => any;
 };

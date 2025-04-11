@@ -3571,6 +3571,13 @@ declare const _exports: {
                 ticketId: any;
                 headers: any;
             }) => any;
+            updateDelivery: ({ token, jwtToken, ticketId, data, headers }: {
+                token: any;
+                jwtToken: any;
+                ticketId: any;
+                data: any;
+                headers: any;
+            }) => any;
         };
         transaction: {
             get: ({ token, jwtToken, id, providerId, headers }: {
