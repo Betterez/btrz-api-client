@@ -41,4 +41,24 @@ describe("operations/tickets", () => {
     axiosMock.onGet("/tickets").reply(expectRequest({statusCode: 200, token}));
     return api.operations.tickets.all({token, query: {lookupSearchParams}});
   });
+
+  it("should PUT and update a ticket delivery information", () => {
+    const ticketId = "ticketId555";
+    const data = {
+      delivery: {deliveryMethod: "sms"}
+    };
+    axiosMock.onPut(`/tickets/${ticketId}/delivery`).reply(expectRequest({
+      statusCode: 200,
+      token,
+      jwtToken
+    }));
+    return api.operations.tickets.updateDelivery({
+      ticketId,
+      token,
+      jwtToken,
+      data
+    }).then((httpResponse) => {
+      expect(httpResponse.status).eql(200);
+    });
+  });
 });

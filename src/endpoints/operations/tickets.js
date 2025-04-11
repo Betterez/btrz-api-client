@@ -34,11 +34,21 @@ function ticketsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function updateDelivery({token, jwtToken, ticketId, data, headers}) {
+    return client({
+      url: `/tickets/${ticketId}/delivery`,
+      method: "put",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data
+    });
+  }
+
   return {
     get,
     all,
     patch,
-    companionTickets
+    companionTickets,
+    updateDelivery
   };
 }
 
