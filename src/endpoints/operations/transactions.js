@@ -107,6 +107,15 @@ function transactionsFactory({client, internalAuthTokenProvider}) {
     }
   };
 
+  function updateDelivery({token, jwtToken, trxId, data, headers}) {
+    return client({
+      url: `/transactions/${trxId}/delivery`,
+      method: "put",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data
+    });
+  }
+
   return {
     all,
     get,
@@ -114,6 +123,7 @@ function transactionsFactory({client, internalAuthTokenProvider}) {
     appliedInsurance,
     companionTickets,
     expireAll,
+    updateDelivery,
     cancellableItems,
     payments,
     invoices,
