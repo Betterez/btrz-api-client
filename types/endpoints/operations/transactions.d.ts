@@ -43,6 +43,13 @@ declare function transactionsFactory({ client, internalAuthTokenProvider }: {
         token: any;
         headers: any;
     }) => any;
+    updateDelivery: ({ token, jwtToken, trxId, data, headers }: {
+        token: any;
+        jwtToken: any;
+        trxId: any;
+        data: any;
+        headers: any;
+    }) => any;
     cancellableItems: ({ token, jwtToken, transactionId, headers, displayAll, channel }: {
         token: any;
         jwtToken: any;
