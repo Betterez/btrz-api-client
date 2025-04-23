@@ -41,6 +41,18 @@ describe("btrzpay/prisma-terminals", () => {
     });
   });
 
+  it("should delete a prisma terminal payment intent", () => {
+    axiosMock.onDelete("/prisma-terminals/payments/1").reply(expectRequest({
+      statusCode: 200, token, jwtToken, query
+    }));
+    return api.btrzpay.prismaTerminals.payments.delete({
+      token,
+      jwtToken,
+      query,
+      id: 1
+    });
+  });
+
   it("should create a prisma terminal reversal intent", () => {
     axiosMock.onPost("/prisma-terminals/payments/1/reversals").reply(expectRequest({
       statusCode: 200, token, jwtToken, query

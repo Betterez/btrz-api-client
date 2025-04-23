@@ -37,6 +37,14 @@ function prismaTerminalsFactory({client, internalAuthTokenProvider}) {
         data: {prismaPayment}
       });
     },
+    delete({token, jwtToken, id, query = {}, headers}) {
+      return client({
+        url: `/prisma-terminals/payments/${id}`,
+        method: "delete",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        params: query
+      });
+    },
     reversals
   };
 
