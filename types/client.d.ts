@@ -2581,6 +2581,15 @@ export function createApiClient(options: {
                         headers: any;
                     }): any;
                 };
+                status: {
+                    update({ jwtToken, token, locationClosureId, locationClosureStatusChange, headers }: {
+                        jwtToken: any;
+                        token: any;
+                        locationClosureId: any;
+                        locationClosureStatusChange: any;
+                        headers: any;
+                    }): any;
+                };
             };
             startingBalances: {
                 create({ jwtToken, token, shiftId, startingBalance, headers }: {
