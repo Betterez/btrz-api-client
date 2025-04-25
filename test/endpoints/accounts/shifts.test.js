@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-statements
 describe("accounts/shifts", () => {
   const {
     axiosMock,
@@ -82,6 +83,19 @@ describe("accounts/shifts", () => {
       token,
       locationClosureId,
       locationClosureComment
+    });
+  });
+
+  it("should update the shift-location-closure status", () => {
+    const locationClosureId = "locationClosure1";
+    const locationClosureStatusChange = {};
+    axiosMock.onPut(`/shifts/location-closures/${locationClosureId}/status`)
+      .reply(expectRequest({statusCode: 200, token, jwtToken, body: locationClosureStatusChange}));
+    return api.accounts.shifts.locationClosures.status.update({
+      jwtToken,
+      token,
+      locationClosureId,
+      locationClosureStatusChange
     });
   });
 
@@ -203,6 +217,4 @@ describe("accounts/shifts", () => {
     axiosMock.onGet(`/shifts/${shiftId}/commissions`).reply(expectRequest({statusCode: 200, token}));
     return api.accounts.shifts.commissions.get({token, jwtToken, shiftId});
   });
-
 });
-

@@ -54,6 +54,19 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
     }
   };
 
+  const locationClosureStatus = {
+    update({jwtToken, token, locationClosureId, locationClosureStatusChange, headers}) {
+      return client({
+        url: `/shifts/location-closures/${locationClosureId}/status`,
+        method: "put",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        }),
+        data: locationClosureStatusChange
+      });
+    }
+  };
+
   const locationClosures = {
     create({jwtToken, token, locationClosure, headers}) {
       return client({
@@ -78,7 +91,8 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
       });
     },
-    comments: locationClosureComments
+    comments: locationClosureComments,
+    status: locationClosureStatus
   };
 
   const payments = {
@@ -246,7 +260,7 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
     manualTickets,
     locationClosures,
     startingBalances,
-    purchaseLimitPayments, 
+    purchaseLimitPayments,
     salesSummary,
     commissions
   };
