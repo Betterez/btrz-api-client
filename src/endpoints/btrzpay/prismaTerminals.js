@@ -18,7 +18,15 @@ function prismaTerminalsFactory({client, internalAuthTokenProvider}) {
         params: query,
         data: {prismaReversal}
       });
-    }
+    },
+    delete({token, jwtToken, id, query = {}, headers}) {
+      return client({
+        url: `/prisma-terminals/reversals/${id}`,
+        method: "delete",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        params: query
+      });
+    },
   };
 
   const payments = {
