@@ -41,6 +41,13 @@ declare function prismaTerminalsFactory({ client, internalAuthTokenProvider }: {
                 query?: {};
                 headers: any;
             }): any;
+            delete({ token, jwtToken, id, query, headers }: {
+                token: any;
+                jwtToken: any;
+                id: any;
+                query?: {};
+                headers: any;
+            }): any;
         };
     };
 };
