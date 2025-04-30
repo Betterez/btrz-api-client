@@ -85,6 +85,20 @@ describe("notifications/pdf-data", () => {
     });
   });
 
+  it("should return the proper data for a remainder slip", () => {
+    const itemId = "12345";
+    const query = {
+      type: "remainderSlip"
+    };
+    axiosMock.onGet(`/pdf-remainder-slip/${itemId}`)
+      .reply(expectRequest({
+        statusCode: 200, token
+      }));
+    return api.notifications.pdfData.get({
+      token, query, itemId
+    });
+  });
+
   it("should return the proper data for a ssr", () => {
     const itemId = "12345";
     const query = {

@@ -66,6 +66,9 @@ function pdfDataFactory({
     if (query.type === "shift") {
       url = `/pdf-shifts/${itemId}`;
     }
+    if (query.type === "remainderSlip") {
+      url = `/pdf-remainder-slip/${itemId}`;
+    }
     if (query.type === "exchange") {
       url = `/pdf-exchanges/${itemId}`;
     }

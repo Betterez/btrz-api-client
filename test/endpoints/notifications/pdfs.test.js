@@ -51,6 +51,18 @@ describe("notifications/pdfs", () => {
     return api.notifications.pdfs.get({token, query, itemId});
   });
 
+  it("should return the proper data for a shift", () => {
+    const itemId = "12345";
+    const query = {
+      type: "remainderSlip"
+    };
+    axiosMock.onGet(`/pdf-remainder-slip/${itemId}`)
+      .reply(expectRequest({
+        statusCode: 200, token
+      }));
+    return api.notifications.pdfs.get({token, query, itemId});
+  });
+
   it("should return the proper data for a manifest", () => {
     const itemId = "12345";
     const query = {
