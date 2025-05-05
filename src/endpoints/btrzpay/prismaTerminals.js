@@ -26,7 +26,7 @@ function prismaTerminalsFactory({client, internalAuthTokenProvider}) {
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
         params: query
       });
-    },
+    }
   };
 
   const payments = {
@@ -56,8 +56,21 @@ function prismaTerminalsFactory({client, internalAuthTokenProvider}) {
     reversals
   };
 
+  const settlements = {
+    create({token, jwtToken, settlement, query = {}, headers}) {
+      return client({
+        url: "/prisma-terminals/settlements",
+        method: "post",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        params: query,
+        data: {settlement}
+      });
+    }
+  };
+
   return {
-    payments
+    payments,
+    settlements
   };
 }
 

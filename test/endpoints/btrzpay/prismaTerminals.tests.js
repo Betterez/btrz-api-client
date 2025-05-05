@@ -92,4 +92,19 @@ describe("btrzpay/prisma-terminals", () => {
       id: 1
     });
   });
+
+  it("should create a prisma terminal settlement intent", () => {
+    axiosMock.onPost("/prisma-terminals/settlements").reply(expectRequest({
+      statusCode: 200, token, jwtToken, query
+    }));
+    return api.btrzpay.prismaTerminals.settlements.create({
+      token,
+      jwtToken,
+      id: 1,
+      query,
+      settlement: {
+        terminalId: "1"
+      }
+    });
+  });
 });
