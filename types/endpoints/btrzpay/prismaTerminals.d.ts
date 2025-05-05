@@ -50,4 +50,13 @@ declare function prismaTerminalsFactory({ client, internalAuthTokenProvider }: {
             }): any;
         };
     };
+    settlements: {
+        create({ token, jwtToken, settlement, query, headers }: {
+            token: any;
+            jwtToken: any;
+            settlement: any;
+            query?: {};
+            headers: any;
+        }): any;
+    };
 };

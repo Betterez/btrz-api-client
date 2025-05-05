@@ -4495,6 +4495,15 @@ export function createApiClient(options: {
                     }): any;
                 };
             };
+            settlements: {
+                create({ token, jwtToken, settlement, query, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    settlement: any;
+                    query?: {};
+                    headers: any;
+                }): any;
+            };
         };
         __test: {
             client: axios.AxiosInstance;
