@@ -39,10 +39,11 @@ function financingCostsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function remove({jwtToken, id, token, headers}) {
+  function remove({jwtToken, id, token, headers, query = {}}) {
     return client({
       url: `/financing-costs/${id}`,
       method: "delete",
+      params: query,
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
