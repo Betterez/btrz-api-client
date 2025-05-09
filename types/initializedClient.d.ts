@@ -1680,11 +1680,12 @@ declare const _exports: {
                 financingCost: any;
                 headers: any;
             }) => any;
-            remove: ({ jwtToken, id, token, headers }: {
+            remove: ({ jwtToken, id, token, headers, query }: {
                 jwtToken: any;
                 id: any;
                 token: any;
                 headers: any;
+                query?: {};
             }) => any;
         };
         prismaTerminals: {
