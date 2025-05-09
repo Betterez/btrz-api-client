@@ -110,10 +110,11 @@ function cartFactory({client, internalAuthTokenProvider}) {
         }
       });
     },
-    delete({token, jwtToken, headers, cartId}) {
+    delete({token, jwtToken, headers, cartId, query = {}}) {
       return client({
         url: `/carts/${cartId}/financing-costs`,
         method: "delete",
+        params: query,
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
       });
     }
