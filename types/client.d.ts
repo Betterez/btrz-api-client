@@ -2958,11 +2958,12 @@ export function createApiClient(options: {
                     financingCost: any;
                     query?: {};
                 }): any;
-                delete({ token, jwtToken, headers, cartId }: {
+                delete({ token, jwtToken, headers, cartId, query }: {
                     token: any;
                     jwtToken: any;
                     headers: any;
                     cartId: any;
+                    query?: {};
                 }): any;
             };
         };

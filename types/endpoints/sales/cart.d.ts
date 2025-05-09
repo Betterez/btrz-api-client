@@ -86,11 +86,12 @@ declare function cartFactory({ client, internalAuthTokenProvider }: {
             financingCost: any;
             query?: {};
         }): any;
-        delete({ token, jwtToken, headers, cartId }: {
+        delete({ token, jwtToken, headers, cartId, query }: {
             token: any;
             jwtToken: any;
             headers: any;
             cartId: any;
+            query?: {};
         }): any;
     };
 };
