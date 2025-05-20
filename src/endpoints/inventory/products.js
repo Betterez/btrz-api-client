@@ -17,6 +17,24 @@ function productsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function create({data, token, jwtToken, headers}) {
+    return client({
+      url: "/products",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data
+    });
+  }
+
+  function update({productId, data, token, jwtToken, headers}) {
+    return client({
+      url: `/products/${productId}`,
+      method: "put",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data
+    });
+  }
+
   const domains = {
     remove: ({token, jwtToken, domain, headers}) =>{
       return client({
@@ -40,6 +58,8 @@ function productsFactory({client, internalAuthTokenProvider}) {
   return {
     all,
     get,
+    create,
+    update,
     families,
     domains
   };

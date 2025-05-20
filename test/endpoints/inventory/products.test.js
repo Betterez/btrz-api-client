@@ -4,10 +4,10 @@ const api = require("./../../../src/client").createApiClient({ baseURL: "http://
 describe('inventory/products', function() {
   const token = 'I owe you a token';
   const jwtToken = 'I owe you a JWT token';
-  
+
   afterEach(function() {
     axiosMock.reset();
-  })
+  });
 
   it("should list products", function() {
     axiosMock.onGet(`/products`).reply(expectRequest({ statusCode: 200, token }));
@@ -27,6 +27,19 @@ describe('inventory/products', function() {
   it("should get the product families", () => {
     axiosMock.onGet(`/products/families`).reply(expectRequest({ statusCode: 200, token }));
     return api.inventory.products.families.all({ token });
+  });
+
+  it("should create a product", function() {
+    const data = {name: "Test Product"};
+    axiosMock.onPost("/products").reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.inventory.products.create({token, jwtToken, data});
+  });
+
+  it("should update a product", function() {
+    const data = {name: "Test Product"};
+    const productId = 1;
+    axiosMock.onPut(`/products/${productId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.inventory.products.update({token, jwtToken, productId, data});
   });
 
   it("should delete domain for all products from account", () => {
