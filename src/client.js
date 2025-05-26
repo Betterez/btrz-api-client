@@ -71,6 +71,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
     operatingCompanies: require("./endpoints/inventory/operating-companies.js")({client, internalAuthTokenProvider}),
     operationMessages: require("./endpoints/inventory/operation-messages.js")({client, internalAuthTokenProvider}),
     paymentTerminals: require("./endpoints/inventory/payment-terminals.js")({client, internalAuthTokenProvider}),
+    payOnAccounts: require("./endpoints/inventory/pay-on-accounts.js")({client, internalAuthTokenProvider}),
     mitTerminals: require("./endpoints/inventory/mit-terminals.js")({client, internalAuthTokenProvider}),
     serviceTypes: require("./endpoints/inventory/service-types.js")({client, internalAuthTokenProvider}),
     customContent: require("./endpoints/inventory/custom-content.js")({client, internalAuthTokenProvider}),
