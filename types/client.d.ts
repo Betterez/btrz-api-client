@@ -827,6 +827,14 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        payOnAccounts: {
+            all: ({ token, query, responseType, headers }: {
+                token: any;
+                query?: {};
+                responseType?: string;
+                headers: any;
+            }) => any;
+        };
         mitTerminals: {
             all: ({ token, query, headers }: {
                 token: any;
