@@ -782,8 +782,9 @@ declare const _exports: {
             }) => any;
         };
         payOnAccounts: {
-            all: ({ token, query, responseType, headers }: {
+            all: ({ token, jwtToken, query, responseType, headers }: {
                 token: any;
+                jwtToken: any;
                 query?: {};
                 responseType?: string;
                 headers: any;

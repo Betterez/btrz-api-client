@@ -3,8 +3,9 @@ declare function payOnAccountsFactory({ client, internalAuthTokenProvider }: {
     client: any;
     internalAuthTokenProvider: any;
 }): {
-    all: ({ token, query, responseType, headers }: {
+    all: ({ token, jwtToken, query, responseType, headers }: {
         token: any;
+        jwtToken: any;
         query?: {};
         responseType?: string;
         headers: any;
