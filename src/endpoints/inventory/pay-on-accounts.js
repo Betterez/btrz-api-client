@@ -1,11 +1,11 @@
 const {authorizationHeaders} = require("../endpoints_helpers.js");
 
 function payOnAccountsFactory({client, internalAuthTokenProvider}) {
-  function all({token, query = {}, responseType = "json", headers}) {
+  function all({token, jwtToken, query = {}, responseType = "json", headers}) {
     return client.get("/pay-on-accounts", {
       params: query,
       responseType,
-      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
