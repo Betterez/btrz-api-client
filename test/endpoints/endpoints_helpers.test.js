@@ -16,6 +16,16 @@ describe("endpoints helpers", () => {
       });
     });
 
+    it("should return a headers object which includes the btrz-trusted cookie", () => {
+      const jwtToken = "7A0mvzROJIucrSPYHlgd";
+      const headers = authorizationHeaders({jwtToken, headers: {cookie: "btrz-trusted=teststuff"}});
+
+      expect(headers).to.deep.equal({
+        authorization: `Bearer ${jwtToken}`,
+        cookie: "btrz-trusted=teststuff"
+      });
+    });
+
     it("should return a headers object which includes an auth token created using the 'internalAuthTokenProvider', when the caller " +
       "is trying to make an internal service-to-service API request", () => {
       const jwtToken = constants.INTERNAL_AUTH_TOKEN_SYMBOL,

@@ -9,6 +9,10 @@ function authorizationHeaders({
     _headers["x-api-key"] = `${token}`;
   }
 
+  if (headers && headers.cookie && headers.cookie.includes("btrz-trusted")) {
+    _headers.cookie = headers.cookie;
+  }
+
   if (jwtToken && jwtToken === constants.INTERNAL_AUTH_TOKEN_SYMBOL) {
     if (!internalAuthTokenProvider || typeof internalAuthTokenProvider.getToken !== "function") {
       throw new Error("Tried to make an internal API request, but no 'internalAuthTokenProvider' with a 'getToken' function " +
