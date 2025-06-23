@@ -5,5 +5,6 @@ export function authorizationHeaders({ token, jwtToken, internalAuthTokenProvide
     headers: any;
 }): {
     "x-api-key": string;
+    cookie: any;
     authorization: string;
 };
