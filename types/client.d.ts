@@ -3824,6 +3824,16 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        transportRegulations: {
+            cnrt: {
+                create({ data, token, jwtToken, headers }: {
+                    data: any;
+                    token: any;
+                    jwtToken: any;
+                    headers: any;
+                }): any;
+            };
+        };
         __test: {
             client: axios.AxiosInstance;
         };
