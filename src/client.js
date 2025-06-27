@@ -255,6 +255,7 @@ function createOperations({baseURL, headers, timeout, overrideFn, internalAuthTo
     vehicleAssignments: require("./endpoints/operations/vehicle_assignments.js")({client, internalAuthTokenProvider}),
     vouchers: require("./endpoints/operations/vouchers.js")({client, internalAuthTokenProvider}),
     waitlists: require("./endpoints/operations/waitlists.js")({client, internalAuthTokenProvider}),
+    transportRegulations: require("./endpoints/operations/transport_regulations.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
