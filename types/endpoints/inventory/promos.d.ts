@@ -27,6 +27,13 @@ declare function promosFactory({ client, internalAuthTokenProvider }: {
         update: any;
         headers: any;
     }) => any;
+    patch: ({ jwtToken, token, promoId, operations, headers }: {
+        jwtToken: any;
+        token: any;
+        promoId: any;
+        operations: any;
+        headers: any;
+    }) => any;
     remove: ({ jwtToken, promoId, token, headers }: {
         jwtToken: any;
         promoId: any;
