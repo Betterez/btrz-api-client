@@ -53,6 +53,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
     stationsZones: require("./endpoints/inventory/stations-zones.js")({client, internalAuthTokenProvider}),
     parcelZones: require("./endpoints/inventory/parcel-zones.js")({client, internalAuthTokenProvider}),
     countries: require("./endpoints/inventory/countries.js")({client, internalAuthTokenProvider}),
+    controlClasses: require("./endpoints/inventory/control-classes.js")({client, internalAuthTokenProvider}),
     fares: require("./endpoints/inventory/fares.js")({client, internalAuthTokenProvider}),
     promos: require("./endpoints/inventory/promos.js")({client, internalAuthTokenProvider}),
     labels: require("./endpoints/inventory/labels.js")({client, internalAuthTokenProvider}),
