@@ -3979,6 +3979,19 @@ declare const _exports: {
                 }): any;
             };
         };
+        notify: {
+            tickets: {
+                create({ token, jwtToken, query, operation, to, ticketId, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    query: any;
+                    operation: any;
+                    to: any;
+                    ticketId: any;
+                    headers: any;
+                }): any;
+            };
+        };
         ordersRulesValidations: {
             create: ({ token, jwtToken, query, orderRulesValidation, headers }: {
                 token: any;
