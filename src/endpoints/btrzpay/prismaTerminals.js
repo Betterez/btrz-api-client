@@ -53,6 +53,15 @@ function prismaTerminalsFactory({client, internalAuthTokenProvider}) {
         params: query
       });
     },
+    update({token, jwtToken, id, prismaPayment, query = {}, headers}) {
+      return client({
+        url: `/prisma-terminals/payments/${id}`,
+        method: "put",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        params: query,
+        data: {prismaPayment}
+      });
+    },
     reversals
   };
 

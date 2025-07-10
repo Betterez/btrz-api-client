@@ -53,6 +53,25 @@ describe("btrzpay/prisma-terminals", () => {
     });
   });
 
+  it("should update a prisma terminal payment", () => {
+    axiosMock.onPut("/prisma-terminals/payments/1").reply(expectRequest({
+      statusCode: 200, token, jwtToken, query
+    }));
+    return api.btrzpay.prismaTerminals.payments.update({
+      token,
+      jwtToken,
+      query,
+      id: 1,
+      prismaPayment: {
+        referenceNumber: "1",
+        result: {
+          id: "1",
+          paymentStatus: "CONFIRMED"
+        }
+      }
+    });
+  });
+
   it("should create a prisma terminal reversal intent", () => {
     axiosMock.onPost("/prisma-terminals/payments/1/reversals").reply(expectRequest({
       statusCode: 200, token, jwtToken, query
