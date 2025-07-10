@@ -4557,6 +4557,14 @@ export function createApiClient(options: {
                     query?: {};
                     headers: any;
                 }): any;
+                update({ token, jwtToken, id, prismaPayment, query, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    id: any;
+                    prismaPayment: any;
+                    query?: {};
+                    headers: any;
+                }): any;
                 reversals: {
                     get({ token, jwtToken, id, query, headers }: {
                         token: any;
