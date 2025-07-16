@@ -7,8 +7,9 @@ function soldItems({client, internalAuthTokenProvider}) {
     });
   }
 
-  function all({token, jwtToken, headers}) {
+  function all({token, jwtToken, headers, query}) {
     return client.get("/sold-items", {
+      params: query,
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
