@@ -249,6 +249,7 @@ function createOperations({baseURL, headers, timeout, overrideFn, internalAuthTo
     scheduledNotifications: require("./endpoints/operations/scheduled_notifications.js")({client, internalAuthTokenProvider}),
     segments: require("./endpoints/operations/segments.js")({client, internalAuthTokenProvider}),
     soldItemsFulfillment: require("./endpoints/operations/sold-items-fulfillment.js")({client, internalAuthTokenProvider}),
+    soldItems: require("./endpoints/operations/sold-items.js")({client, internalAuthTokenProvider}),
     tickets: require("./endpoints/operations/tickets.js")({client, internalAuthTokenProvider}),
     transaction: require("./endpoints/operations/transaction.js")({client, internalAuthTokenProvider}),
     transactions: require("./endpoints/operations/transactions.js")({client, internalAuthTokenProvider}),
