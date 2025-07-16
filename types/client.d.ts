@@ -3662,6 +3662,20 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        soldItems: {
+            all: ({ token, jwtToken, headers, query }: {
+                token: any;
+                jwtToken: any;
+                headers: any;
+                query: any;
+            }) => any;
+            get: ({ token, jwtToken, soldItemId, headers }: {
+                token: any;
+                jwtToken: any;
+                soldItemId: any;
+                headers: any;
+            }) => any;
+        };
         tickets: {
             get: ({ token, jwtToken, id, headers }: {
                 token: any;
