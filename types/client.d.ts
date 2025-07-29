@@ -2963,6 +2963,13 @@ export function createApiClient(options: {
                 jwtToken: any;
                 headers: any;
             }) => any;
+            deletePaidInItem: ({ token, cartId, itemId, jwtToken, headers }: {
+                token: any;
+                cartId: any;
+                itemId: any;
+                jwtToken: any;
+                headers: any;
+            }) => any;
             loyaltyPointsAmount: {
                 get({ token, jwtToken, cartId, query, headers }: {
                     token: any;
