@@ -94,4 +94,11 @@ describe("sales/cart", () => {
     axiosMock.onPost(`/carts/${cartId}/financing-costs`).reply(expectRequest({statusCode: 204, token, jwtToken}));
     return api.sales.cart.financingCosts.create({jwtToken, token, cartId, financingCost});
   });
+
+  it("should delete a paid in item from a cart", () => {
+    const cartId = "someCartId";
+    const itemId = "itemId";
+    axiosMock.onDelete(`/cart/${cartId}/paid-in-items/${itemId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.sales.cart.deletePaidInItem({jwtToken, token, cartId, itemId});
+  });
 });

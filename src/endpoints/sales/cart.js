@@ -41,6 +41,14 @@ function cartFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function deletePaidInItem({token, cartId, itemId, jwtToken, headers}) {
+    return client({
+      url: `/cart/${cartId}/paid-in-items/${itemId}`,
+      method: "delete",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+    });
+  }
+
   const loyaltyPointsAmount = {
     get({token, jwtToken, cartId, query = {}, headers}) {
       return client({
@@ -125,6 +133,7 @@ function cartFactory({client, internalAuthTokenProvider}) {
     create,
     add,
     deleteItems,
+    deletePaidInItem,
     loyaltyPointsAmount,
     patch,
     partialDepositStatus,
