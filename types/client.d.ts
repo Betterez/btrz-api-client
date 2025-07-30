@@ -265,6 +265,12 @@ export function createApiClient(options: {
                 query?: {};
                 headers: any;
             }) => any;
+            get: ({ token, id, query, headers }: {
+                token: any;
+                id: any;
+                query?: {};
+                headers: any;
+            }) => any;
         };
         controlClasses: {
             all: ({ token, jwtToken, query, headers }: {
