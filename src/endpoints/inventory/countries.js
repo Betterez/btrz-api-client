@@ -9,11 +9,11 @@ function countriesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function get({token, id, query = {}, headers}) {
+  function get({token, jwtToken, id, query = {}, headers}) {
     return client({
       url: `/countries/${id}`,
       params: query,
-      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
