@@ -8,8 +8,9 @@ declare function countriesFactory({ client, internalAuthTokenProvider }: {
         query?: {};
         headers: any;
     }) => any;
-    get: ({ token, id, query, headers }: {
+    get: ({ token, jwtToken, id, query, headers }: {
         token: any;
+        jwtToken: any;
         id: any;
         query?: {};
         headers: any;
