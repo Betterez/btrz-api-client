@@ -4582,6 +4582,18 @@ declare const _exports: {
                 }): any;
             };
         };
+        terminalPayments: {
+            mit: {
+                update({ token, jwtToken, id, payment, query, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    id: any;
+                    payment: any;
+                    query?: {};
+                    headers: any;
+                }): any;
+            };
+        };
         __test: {
             client: import("axios").AxiosInstance;
         };
