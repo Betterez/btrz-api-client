@@ -29,4 +29,13 @@ declare function itemsFactory({ client, internalAuthTokenProvider }: {
         item: any;
         headers: any;
     }) => any;
+    tickets: {
+        update({ jwtToken, token, soldItemId, ticketId, headers }: {
+            jwtToken: any;
+            token: any;
+            soldItemId: any;
+            ticketId: any;
+            headers: any;
+        }): any;
+    };
 };

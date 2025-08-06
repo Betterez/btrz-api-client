@@ -596,6 +596,15 @@ export function createApiClient(options: {
                 item: any;
                 headers: any;
             }) => any;
+            tickets: {
+                update({ jwtToken, token, soldItemId, ticketId, headers }: {
+                    jwtToken: any;
+                    token: any;
+                    soldItemId: any;
+                    ticketId: any;
+                    headers: any;
+                }): any;
+            };
         };
         externalPasses: {
             all: ({ token, jwtToken, query, headers }: {
