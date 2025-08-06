@@ -57,4 +57,17 @@ describe("inventory/items", () => {
       }
     });
   });
+
+  it("should call the sold item ticket update endpoint", () => {
+    const soldItemId = "123";
+    const ticketId = "456";
+    axiosMock.onPut(`/items/${soldItemId}/tickets/${ticketId}`)
+      .reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.inventory.items.tickets.update({
+      jwtToken,
+      token,
+      soldItemId,
+      ticketId
+    });
+  });
 });

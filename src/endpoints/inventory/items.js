@@ -41,11 +41,22 @@ function itemsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  const tickets = {
+    update({jwtToken, token, soldItemId, ticketId, headers}) {
+      return client({
+        url: `/items/${soldItemId}/tickets/${ticketId}`,
+        method: "put",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+
   return {
     all,
     get,
     create,
-    update
+    update,
+    tickets
   };
 }
 
