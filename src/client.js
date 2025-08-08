@@ -90,6 +90,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
     scheduleGroups: require("./endpoints/inventory/schedule-groups.js")({client, internalAuthTokenProvider}),
     bundles: require("./endpoints/inventory/bundles.js")({client, internalAuthTokenProvider}),
     stationGroups: require("./endpoints/inventory/station-groups.js")({client, internalAuthTokenProvider}),
+    stationTypes: require("./endpoints/inventory/station-types.js")({client, internalAuthTokenProvider}),
     zonePrices: require("./endpoints/inventory/zone-prices.js")({client, internalAuthTokenProvider}),
     zonePriceOverages: require("./endpoints/inventory/zone-price-overages.js")({client, internalAuthTokenProvider}),
     travellerCardProviders: require("./endpoints/inventory/traveller-card-providers.js")({client, internalAuthTokenProvider}),
@@ -364,7 +365,7 @@ function createBtrzPay({baseURL, headers, timeout, overrideFn, internalAuthToken
     oxxo: require("./endpoints/btrzpay/oxxo.js")({client, internalAuthTokenProvider}),
     datalogic: require("./endpoints/btrzpay/datalogic.js")({client, internalAuthTokenProvider}),
     prismaTerminals: require("./endpoints/btrzpay/prismaTerminals.js")({client, internalAuthTokenProvider}),
-    terminalPayments: require("./endpoints/btrzpay/terminalPayments.js")({ client, internalAuthTokenProvider}),
+    terminalPayments: require("./endpoints/btrzpay/terminalPayments.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
