@@ -89,7 +89,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
     scheduleGroups: require("./endpoints/inventory/schedule-groups.js")({client, internalAuthTokenProvider}),
     bundles: require("./endpoints/inventory/bundles.js")({client, internalAuthTokenProvider}),
     stationGroups: require("./endpoints/inventory/station-groups.js")({client, internalAuthTokenProvider}),
-    stationTypes: require("./endpoints/inventory/station-types.js")({client, internalAuthTokenProvider}),
+    stationClasses: require("./endpoints/inventory/station-classes.js")({client, internalAuthTokenProvider}),
     zonePrices: require("./endpoints/inventory/zone-prices.js")({client, internalAuthTokenProvider}),
     zonePriceOverages: require("./endpoints/inventory/zone-price-overages.js")({client, internalAuthTokenProvider}),
     travellerCardProviders: require("./endpoints/inventory/traveller-card-providers.js")({client, internalAuthTokenProvider}),

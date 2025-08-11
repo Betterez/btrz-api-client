@@ -1,36 +1,36 @@
-const {authorizationHeaders} = require("./../endpoints_helpers.js");
+const {authorizationHeaders} = require("../endpoints_helpers.js");
 
-function stationTypeFactory({client, internalAuthTokenProvider}) {
+function stationClassFactory({client, internalAuthTokenProvider}) {
   function all({token, jwtToken, query = {}, headers}) {
     return client({
-      url: "/station-types",
+      url: "/station-classes",
       method: "get",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       params: query
     });
   }
 
-  function get({token, jwtToken, stationTypeId, query = {}, headers}) {
+  function get({token, jwtToken, stationClassId, query = {}, headers}) {
     return client({
-      url: `/station-types/${stationTypeId}`,
+      url: `/station-classes/${stationClassId}`,
       method: "get",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       params: query
     });
   }
 
-  function update({token, jwtToken, stationTypeId, data, headers}) {
+  function update({token, jwtToken, stationClassId, data, headers}) {
     return client({
-      url: `/station-types/${stationTypeId}`,
+      url: `/station-classes/${stationClassId}`,
       method: "put",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data
     });
   }
 
-  function remove({token, jwtToken, stationTypeId, headers}) {
+  function remove({token, jwtToken, stationClassId, headers}) {
     return client({
-      url: `/station-types/${stationTypeId}`,
+      url: `/station-classes/${stationClassId}`,
       method: "delete",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
@@ -38,7 +38,7 @@ function stationTypeFactory({client, internalAuthTokenProvider}) {
 
   function create({token, jwtToken, data, headers}) {
     return client({
-      url: "/station-types",
+      url: "/station-classes",
       method: "post",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data
@@ -54,4 +54,4 @@ function stationTypeFactory({client, internalAuthTokenProvider}) {
   };
 }
 
-module.exports = stationTypeFactory;
+module.exports = stationClassFactory;

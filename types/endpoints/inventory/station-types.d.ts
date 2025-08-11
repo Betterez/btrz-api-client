@@ -1,5 +1,5 @@
-export = stationTypeFactory;
-declare function stationTypeFactory({ client, internalAuthTokenProvider }: {
+export = stationClassFactory;
+declare function stationClassFactory({ client, internalAuthTokenProvider }: {
     client: any;
     internalAuthTokenProvider: any;
 }): {
@@ -9,24 +9,24 @@ declare function stationTypeFactory({ client, internalAuthTokenProvider }: {
         query?: {};
         headers: any;
     }) => any;
-    get: ({ token, jwtToken, stationTypeId, query, headers }: {
+    get: ({ token, jwtToken, stationClassId, query, headers }: {
         token: any;
         jwtToken: any;
-        stationTypeId: any;
+        stationClassId: any;
         query?: {};
         headers: any;
     }) => any;
-    update: ({ token, jwtToken, stationTypeId, data, headers }: {
+    update: ({ token, jwtToken, stationClassId, data, headers }: {
         token: any;
         jwtToken: any;
-        stationTypeId: any;
+        stationClassId: any;
         data: any;
         headers: any;
     }) => any;
-    remove: ({ token, jwtToken, stationTypeId, headers }: {
+    remove: ({ token, jwtToken, stationClassId, headers }: {
         token: any;
         jwtToken: any;
-        stationTypeId: any;
+        stationClassId: any;
         headers: any;
     }) => any;
     create: ({ token, jwtToken, data, headers }: {
