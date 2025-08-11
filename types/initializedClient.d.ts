@@ -2967,6 +2967,12 @@ declare const _exports: {
                 jwtToken: any;
                 headers: any;
             }) => any;
+            deletePaidInItems: ({ token, cartId, jwtToken, headers }: {
+                token: any;
+                cartId: any;
+                jwtToken: any;
+                headers: any;
+            }) => any;
             loyaltyPointsAmount: {
                 get({ token, jwtToken, cartId, query, headers }: {
                     token: any;
