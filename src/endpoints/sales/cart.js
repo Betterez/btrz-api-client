@@ -43,7 +43,15 @@ function cartFactory({client, internalAuthTokenProvider}) {
 
   function deletePaidInItem({token, cartId, itemId, jwtToken, headers}) {
     return client({
-      url: `/cart/${cartId}/paid-in-items/${itemId}`,
+      url: `/carts/${cartId}/paid-in-items/${itemId}`,
+      method: "delete",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+    });
+  }
+
+  function deletePaidInItems({token, cartId, jwtToken, headers}) {
+    return client({
+      url: `/carts/${cartId}/paid-in-items`,
       method: "delete",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
@@ -134,6 +142,7 @@ function cartFactory({client, internalAuthTokenProvider}) {
     add,
     deleteItems,
     deletePaidInItem,
+    deletePaidInItems,
     loyaltyPointsAmount,
     patch,
     partialDepositStatus,

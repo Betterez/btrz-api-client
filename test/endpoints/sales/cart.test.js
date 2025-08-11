@@ -98,7 +98,13 @@ describe("sales/cart", () => {
   it("should delete a paid in item from a cart", () => {
     const cartId = "someCartId";
     const itemId = "itemId";
-    axiosMock.onDelete(`/cart/${cartId}/paid-in-items/${itemId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    axiosMock.onDelete(`/carts/${cartId}/paid-in-items/${itemId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.sales.cart.deletePaidInItem({jwtToken, token, cartId, itemId});
+  });
+
+  it("should delete all paid in items from a cart", () => {
+    const cartId = "someCartId";
+    axiosMock.onDelete(`/carts/${cartId}/paid-in-items`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.sales.cart.deletePaidInItems({jwtToken, token, cartId});
   });
 });
