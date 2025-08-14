@@ -4,11 +4,11 @@ declare function terminalPaymentsFactory({ client, internalAuthTokenProvider }: 
     internalAuthTokenProvider: any;
 }): {
     mit: {
-        update({ token, jwtToken, id, payment, query, headers }: {
+        update({ token, jwtToken, id, terminalPayment, query, headers }: {
             token: any;
             jwtToken: any;
             id: any;
-            payment: any;
+            terminalPayment: any;
             query?: {};
             headers: any;
         }): any;
