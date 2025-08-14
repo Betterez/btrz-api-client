@@ -4,13 +4,13 @@ const {
 
 function terminalPaymentsFactory({client, internalAuthTokenProvider}) {
   const mit = {
-    update({token, jwtToken, id, payment, query = {}, headers}) {
+    update({token, jwtToken, id, terminalPayment, query = {}, headers}) {
       return client({
         url: `/terminal-payments/mit/${id}`,
         method: "put",
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
         params: query,
-        data: {payment}
+        data: {terminalPayment}
       });
     }
   };

@@ -23,7 +23,7 @@ describe("btrzpay/terminal-payments", () => {
       jwtToken,
       query,
       id: 1,
-      payment: {
+      terminalPayment: {
         referenceNumber: "1",
         result: {
           id: "1",
