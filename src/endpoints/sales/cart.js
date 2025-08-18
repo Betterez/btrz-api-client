@@ -49,11 +49,12 @@ function cartFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function deletePaidInItems({token, cartId, jwtToken, headers}) {
+  function deletePaidInItems({token, cartId, params, jwtToken, headers}) {
     return client({
       url: `/carts/${cartId}/paid-in-items`,
       method: "delete",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      params
     });
   }
 
