@@ -3344,6 +3344,12 @@ declare const _exports: {
                 headers: any;
                 data: any;
             }) => any;
+            statusBulkUpdate: ({ token, jwtToken, data, headers }: {
+                token: any;
+                jwtToken: any;
+                data: any;
+                headers: any;
+            }) => any;
             checkIn: {
                 create({ token, jwtToken, query, headers, data, manifestId, legFromId }: {
                     token: any;
