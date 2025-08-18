@@ -3013,9 +3013,10 @@ export function createApiClient(options: {
                 jwtToken: any;
                 headers: any;
             }) => any;
-            deletePaidInItems: ({ token, cartId, jwtToken, headers }: {
+            deletePaidInItems: ({ token, cartId, params, jwtToken, headers }: {
                 token: any;
                 cartId: any;
+                params: any;
                 jwtToken: any;
                 headers: any;
             }) => any;
