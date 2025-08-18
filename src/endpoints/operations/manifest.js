@@ -55,6 +55,17 @@ function manifestFactory({
     });
   }
 
+  function statusBulkUpdate({
+    token, jwtToken, data, headers
+  }) {
+    return client({
+      url: "/manifests/status",
+      method: "put",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data
+    });
+  }
+
   function getAll({token, jwtToken, providerId, data, headers}) {
     // an HTTP POST request is used to send the query data in the request body because the query may be very large.
     return client({
@@ -320,6 +331,7 @@ function manifestFactory({
     dispatch,
     updateDispatchReporting,
     createDispatchReporting,
+    statusBulkUpdate,
     checkIn,
     legs,
     reports,

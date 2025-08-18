@@ -131,6 +131,27 @@ describe("operations/manifest", () => {
     return call;
   });
 
+  it("should update the status of multiple manifests", async () => {
+    const data = {
+      status: "paused",
+      manifests: [
+        {
+          scheduleId: "schedule1",
+          date: "2023-10-15"
+        },
+        {
+          scheduleId: "schedule2",
+          date: "2023-10-16"
+        }
+      ]
+    };
+
+    axiosMock.onPut("/manifests/status").reply(expectRequest({statusCode: 200, token, jwtToken}));
+    const call = await api.operations.manifest.statusBulkUpdate({token, jwtToken, data});
+    expect(JSON.parse(call.config.data)).to.be.eql(data);
+    return call;
+  });
+
   it("should add capacity exception to the manifest", async () => {
     const manifestId = "theId";
     const data = {
