@@ -240,11 +240,25 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
     }
   };
 
+  const requiresAgencyShiftClosure = {
+    put({token, jwtToken, shiftId, headers, shiftData}) {
+      return client({
+        url: `/shifts/${shiftId}/requires-agency-shift-closure`,
+        method: "put",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        data: {
+          shiftData
+        }
+      });
+    }
+  };
+
   return {
     all,
     get,
     create,
     update,
+    requiresAgencyShiftClosure,
     payments,
     transactions,
     tickets,

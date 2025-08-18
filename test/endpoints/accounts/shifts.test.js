@@ -217,4 +217,14 @@ describe("accounts/shifts", () => {
     axiosMock.onGet(`/shifts/${shiftId}/commissions`).reply(expectRequest({statusCode: 200, token}));
     return api.accounts.shifts.commissions.get({token, jwtToken, shiftId});
   });
+
+  it("should set the requiresAgencyShiftLocation property", () => {
+    const shiftId = "shiftId1";
+    const shiftData = {
+      requiresAgencyShiftLocation: true
+    };
+    axiosMock.onPut(`/shifts/${shiftId}/requires-agency-shift-closure`)
+      .reply(expectRequest({statusCode: 200, token, jwtToken, body: {shiftData}}));
+    return api.accounts.shifts.requiresAgencyShiftClosure.put({token, jwtToken, shiftId, shiftData});
+  });
 });
