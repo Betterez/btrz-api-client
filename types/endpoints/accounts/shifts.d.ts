@@ -28,6 +28,15 @@ declare function shiftsFactory({ client, internalAuthTokenProvider }: {
         headers: any;
         query: any;
     }) => any;
+    requiresAgencyShiftClosure: {
+        put({ token, jwtToken, shiftId, headers, shiftData }: {
+            token: any;
+            jwtToken: any;
+            shiftId: any;
+            headers: any;
+            shiftData: any;
+        }): any;
+    };
     payments: {
         get({ token, jwtToken, shiftId, headers }: {
             token: any;
