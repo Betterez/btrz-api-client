@@ -61,4 +61,27 @@ describe("operations/tickets", () => {
       expect(httpResponse.status).eql(200);
     });
   });
+
+  it("should PUT and update a ticket passenger information", () => {
+    const ticketId = "123456";
+    const data = {
+      ticketNumber: "t123",
+      firstName: "joe",
+      lastName: "joe"
+    };
+    console.log(api.operations.tickets);
+    axiosMock.onPut(`/tickets/${ticketId}/passenger`).reply(expectRequest({
+      statusCode: 200,
+      token,
+      jwtToken
+    }));
+    return api.operations.tickets.updatePassenger({
+      ticketId,
+      token,
+      jwtToken,
+      data
+    }).then((httpResponse) => {
+      expect(httpResponse.status).eql(200);
+    });
+  });
 });

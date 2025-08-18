@@ -43,12 +43,22 @@ function ticketsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function updatePassenger({token, jwtToken, ticketId, data, headers}) {
+    return client({
+      url: `/tickets/${ticketId}/passenger`,
+      method: "put",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data
+    });
+  }
+
   return {
     get,
     all,
     patch,
     companionTickets,
-    updateDelivery
+    updateDelivery,
+    updatePassenger
   };
 }
 
