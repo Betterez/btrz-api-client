@@ -12,6 +12,12 @@ function terminalPaymentsFactory({client, internalAuthTokenProvider}) {
         params: query,
         data: {terminalPayment}
       });
+    },
+    get({token, jwtToken, id, query = {}, headers}) {
+      return client.get(`/terminal-payments/mit/${id}`, {
+        params: query,
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
     }
   };
 

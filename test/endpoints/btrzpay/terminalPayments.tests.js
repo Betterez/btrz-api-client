@@ -32,4 +32,16 @@ describe("btrzpay/terminal-payments", () => {
       }
     });
   });
+
+  it("should get the MIT terminal payment", () => {
+    axiosMock.onGet("/terminal-payments/mit/1", {params: query}).reply(expectRequest({
+      statusCode: 200, token, jwtToken, query
+    }));
+    return api.btrzpay.terminalPayments.mit.get({
+      token,
+      jwtToken,
+      query,
+      id: 1
+    });
+  });
 });
