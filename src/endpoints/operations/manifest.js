@@ -303,6 +303,17 @@ function manifestFactory({
     }
   };
 
+  const tripClose = {
+    add({token, jwtToken, manifestId, query = {}, headers}) {
+      return client({
+        url: `/manifests/${manifestId}/trip-close`,
+        method: "post",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        params: query
+      });
+    }
+  };
+
   const driverRelays = {
     update({token, jwtToken, manifestId, query = {bypassValidation: false}, headers, data}) {
       return client({
@@ -336,7 +347,8 @@ function manifestFactory({
     legs,
     reports,
     labels,
-    driverRelays
+    driverRelays,
+    tripClose
   };
 }
 

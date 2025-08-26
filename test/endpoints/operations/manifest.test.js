@@ -316,7 +316,28 @@ describe("operations/manifest/legs/tickets/noshow", () => {
   });
 });
 
-describe("operations/manifest/:manifestId/labels", () => {
+describe("operations/manifests/:manifestId/trip-close", () => {
+  const token = "I owe you a token";
+  const jwtToken = "I owe you a JWT token";
+
+  afterEach(() => {
+    axiosMock.reset();
+  });
+  it("should add a label to a manifest", async () => {
+    const manifestId = "manifestId";
+    const query = {
+      routeId: "labelId",
+      schedule: "schedule",
+      date: "2020-12-01"
+    };
+    axiosMock.onPost(`/manifests/${manifestId}/trip-close`).reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.operations.manifest.tripClose.add({token, jwtToken, manifestId, query});
+  });
+});
+
+describe("operations/manifests/:manifestId/labels", () => {
   const token = "I owe you a token";
   const jwtToken = "I owe you a JWT token";
 
