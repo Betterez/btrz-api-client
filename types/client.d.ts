@@ -3503,6 +3503,15 @@ export function createApiClient(options: {
                     data: any;
                 }): any;
             };
+            tripClose: {
+                add({ token, jwtToken, manifestId, query, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    manifestId: any;
+                    query?: {};
+                    headers: any;
+                }): any;
+            };
         };
         manifestLegForTickets: {
             get: ({ token, jwtToken, ticketId, params, headers }: {

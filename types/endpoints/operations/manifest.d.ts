@@ -214,4 +214,13 @@ declare function manifestFactory({ client, internalAuthTokenProvider }: {
             data: any;
         }): any;
     };
+    tripClose: {
+        add({ token, jwtToken, manifestId, query, headers }: {
+            token: any;
+            jwtToken: any;
+            manifestId: any;
+            query?: {};
+            headers: any;
+        }): any;
+    };
 };
