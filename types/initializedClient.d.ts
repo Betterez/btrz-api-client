@@ -3712,11 +3712,12 @@ declare const _exports: {
             }) => any;
         };
         tickets: {
-            get: ({ token, jwtToken, id, headers }: {
+            get: ({ token, jwtToken, id, headers, query }: {
                 token: any;
                 jwtToken: any;
                 id: any;
                 headers: any;
+                query: any;
             }) => any;
             all: ({ token, jwtToken, query, headers, providerId }: {
                 token: any;
