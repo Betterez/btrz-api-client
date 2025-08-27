@@ -1,10 +1,11 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 function ticketsFactory({client, internalAuthTokenProvider}) {
-  function get({token, jwtToken, id, headers}) {
+  function get({token, jwtToken, id, headers, query}) {
     return client({
       url: `/tickets/${id}`,
       method: "get",
+      params: query,
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
