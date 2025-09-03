@@ -29,6 +29,32 @@ function prismaTerminalsFactory({client, internalAuthTokenProvider}) {
     }
   };
 
+  const refunds = {
+    get({token, jwtToken, id, query = {}, headers}) {
+      return client.get(`/prisma-terminals/refunds/${id}`, {
+        params: query,
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    },
+    create({token, jwtToken, id, prismaRefund, query = {}, headers}) {
+      return client({
+        url: `/prisma-terminals/payments/${id}/refunds`,
+        method: "post",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        params: query,
+        data: {prismaRefund}
+      });
+    },
+    delete({token, jwtToken, id, query = {}, headers}) {
+      return client({
+        url: `/prisma-terminals/refunds/${id}`,
+        method: "delete",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        params: query
+      });
+    }
+  };
+
   const payments = {
     get({token, jwtToken, id, query = {}, headers}) {
       return client.get(`/prisma-terminals/payments/${id}`, {
@@ -62,7 +88,8 @@ function prismaTerminalsFactory({client, internalAuthTokenProvider}) {
         data: {prismaPayment}
       });
     },
-    reversals
+    reversals,
+    refunds
   };
 
   const settlements = {

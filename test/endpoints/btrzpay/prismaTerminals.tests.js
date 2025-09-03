@@ -112,6 +112,46 @@ describe("btrzpay/prisma-terminals", () => {
     });
   });
 
+  it("should create a prisma terminal refund intent", () => {
+    axiosMock.onPost("/prisma-terminals/payments/1/refunds").reply(expectRequest({
+      statusCode: 200, token, jwtToken, query
+    }));
+    return api.btrzpay.prismaTerminals.payments.refunds.create({
+      token,
+      jwtToken,
+      id: 1,
+      query,
+      prismaRefund: {
+        terminalId: "1",
+        amount: "12.45"
+      }
+    });
+  });
+
+  it("should get the prisma terminal refund", () => {
+    axiosMock.onGet("/prisma-terminals/refunds/1", {params: query}).reply(expectRequest({
+      statusCode: 200, token, jwtToken, query
+    }));
+    return api.btrzpay.prismaTerminals.payments.refunds.get({
+      token,
+      jwtToken,
+      query,
+      id: 1
+    });
+  });
+
+  it("should delete a prisma terminal refund intent", () => {
+    axiosMock.onDelete("/prisma-terminals/refunds/1").reply(expectRequest({
+      statusCode: 200, token, jwtToken, query
+    }));
+    return api.btrzpay.prismaTerminals.payments.refunds.delete({
+      token,
+      jwtToken,
+      query,
+      id: 1
+    });
+  });
+
   it("should create a prisma terminal settlement intent", () => {
     axiosMock.onPost("/prisma-terminals/settlements").reply(expectRequest({
       statusCode: 200, token, jwtToken, query
