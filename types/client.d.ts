@@ -4692,6 +4692,30 @@ export function createApiClient(options: {
                         headers: any;
                     }): any;
                 };
+                refunds: {
+                    get({ token, jwtToken, id, query, headers }: {
+                        token: any;
+                        jwtToken: any;
+                        id: any;
+                        query?: {};
+                        headers: any;
+                    }): any;
+                    create({ token, jwtToken, id, prismaRefund, query, headers }: {
+                        token: any;
+                        jwtToken: any;
+                        id: any;
+                        prismaRefund: any;
+                        query?: {};
+                        headers: any;
+                    }): any;
+                    delete({ token, jwtToken, id, query, headers }: {
+                        token: any;
+                        jwtToken: any;
+                        id: any;
+                        query?: {};
+                        headers: any;
+                    }): any;
+                };
             };
             settlements: {
                 create({ token, jwtToken, settlement, query, headers }: {
