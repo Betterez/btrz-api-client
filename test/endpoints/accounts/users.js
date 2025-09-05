@@ -94,6 +94,32 @@ describe("accounts/user/{id}", () => {
     });
   });
 
+  it("should delegate a user", () => {
+    axiosMock.onPost("/users/delegation").reply(
+      expectRequest({
+        statusCode: 200,
+        token,
+        jwtToken,
+        body: {
+          actionName: "move_tickets",
+          delegator: {
+            email: "some_email@betterez.com",
+            password: "some_password"
+          }
+        }
+      })
+    );
+    return api.accounts.users.delegation({
+      jwtToken,
+      token,
+      actionName: "move_tickets",
+      delegator: {
+        email: "some_email@betterez.com",
+        password: "some_password"
+      }
+    });
+  });
+
   it("should return user sequence", () => {
     const sequenceId = "123";
     const userId = "1234321";

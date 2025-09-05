@@ -65,6 +65,15 @@ function usersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function delegation({token, jwtToken, actionName, delegator, headers}) {
+    return client({
+      url: "/users/delegation",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data: {actionName, delegator}
+    });
+  }
+
   const sequences = {
     get({token, jwtToken, userId, sequenceId, headers}) {
       return client({
@@ -117,6 +126,7 @@ function usersFactory({client, internalAuthTokenProvider}) {
     update,
     createOrUpdateMany,
     impersonate,
+    delegation,
     sequences
   };
 }
