@@ -22,8 +22,21 @@ function vouchersFactory({
     });
   }
 
+  function compensationsCreate({token, jwtToken, compensation, query = {}, headers}) {
+    return client({
+      url: "/vouchers/compensations",
+      method: "post",
+      params: query,
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data: compensation
+    });
+  }
+
   return {
-    create
+    create,
+    compensations: {
+      create: compensationsCreate
+    }
   };
 }
 
