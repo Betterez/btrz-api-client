@@ -15,8 +15,9 @@ function controlClassesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function get({controlClassId, token, headers, jwtToken}) {
+  function get({controlClassId, token, headers, jwtToken, query = {}}) {
     return client.get(`/control-classes/${controlClassId}`, {
+      params: query,
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
