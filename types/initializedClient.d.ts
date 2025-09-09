@@ -227,11 +227,12 @@ declare const _exports: {
                 query?: {};
                 headers: any;
             }) => any;
-            get: ({ controlClassId, token, headers, jwtToken }: {
+            get: ({ controlClassId, token, headers, jwtToken, query }: {
                 controlClassId: any;
                 token: any;
                 headers: any;
                 jwtToken: any;
+                query?: {};
             }) => any;
             create: ({ jwtToken, token, controlClass, headers }: {
                 jwtToken: any;
