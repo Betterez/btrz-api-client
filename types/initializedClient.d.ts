@@ -4717,6 +4717,14 @@ declare const _exports: {
                 }): any;
             };
         };
+        stripeTerminals: {
+            all: ({ token, jwtToken, headers, query }: {
+                token: any;
+                jwtToken: any;
+                headers: any;
+                query?: {};
+            }) => any;
+        };
         __test: {
             client: import("axios").AxiosInstance;
         };

@@ -4763,6 +4763,14 @@ export function createApiClient(options: {
                 }): any;
             };
         };
+        stripeTerminals: {
+            all: ({ token, jwtToken, headers, query }: {
+                token: any;
+                jwtToken: any;
+                headers: any;
+                query?: {};
+            }) => any;
+        };
         __test: {
             client: axios.AxiosInstance;
         };
