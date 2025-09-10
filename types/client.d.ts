@@ -614,6 +614,25 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        externalWallets: {
+            saldoMax: {
+                create: ({ token, jwtToken, wallet }: {
+                    token: any;
+                    jwtToken: any;
+                    wallet: any;
+                }) => any;
+                get: ({ token, jwtToken, walletId }: {
+                    token: any;
+                    jwtToken: any;
+                    walletId: any;
+                }) => any;
+                update: ({ token, jwtToken, wallet }: {
+                    token: any;
+                    jwtToken: any;
+                    wallet: any;
+                }) => any;
+            };
+        };
         filteredTrips: {
             create: ({ token, jwtToken, tripSegmentsId, headers }: {
                 token: any;
