@@ -4,12 +4,12 @@ const {
 
 function externalWalletsFactory({client, internalAuthTokenProvider}) {
   const saldoMax = {
-    create: ({token, jwtToken, wallet}) => {
+    create: ({token, jwtToken, externalWallet}) => {
       return client({
         url: "/external-wallets/saldo-max",
         method: "post",
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
-        data: {wallet}
+        data: {externalWallet}
       });
     },
     get: ({token, jwtToken, walletId}) => {
@@ -17,12 +17,20 @@ function externalWalletsFactory({client, internalAuthTokenProvider}) {
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider})
       });
     },
-    update: ({token, jwtToken, wallet}) => {
+    update: ({token, jwtToken, externalWallet}) => {
+      const externalWalletFieldsToUpdate = {
+        nip: externalWallet.nip,
+        walletNumber: externalWallet.walletNumber,
+        status: externalWallet.status
+      };
+
       return client({
-        url: `/external-wallets/saldo-max/${wallet.id}`,
+        url: `/external-wallets/saldo-max/${externalWallet._id}`,
         method: "put",
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
-        data: {wallet}
+        data: {
+          externalWallet: externalWalletFieldsToUpdate
+        }
       });
     }
   };

@@ -16,7 +16,7 @@ describe("inventory/external-wallets", () => {
 
   describe("/saldo-max", () => {
     it("should create a new Saldo Max wallet", async () => {
-      const wallet = {
+      const externalWallet = {
         firstName: "John",
         lastName: "Doe",
         email: "john.doe@example.com",
@@ -26,35 +26,43 @@ describe("inventory/external-wallets", () => {
       };
 
       axiosMock.onPost("/external-wallets/saldo-max").reply(expectRequest({
-        statusCode: 200, token, jwtToken, body: {wallet}
+        statusCode: 200, token, jwtToken, body: {externalWallet}
       }));
 
       return api.inventory.externalWallets.saldoMax.create({
         jwtToken,
         token,
-        wallet
+        externalWallet
       });
     });
 
     it("should update an existing Saldo Max wallet", async () => {
-      const wallet = {
-        id: "wallet-id-123",
+      const externalWallet = {
+        _id: "wallet-id-123",
+        dob: "1992-02-02",
+        email: "jane.doe@example.com",
         firstName: "Jane",
         lastName: "Doe",
-        email: "jane.doe@example.com",
+        nip: 1234,
+        status: "active",
         tel: "+987654321",
-        dob: "1992-02-02",
-        nip: 1234
+        walletNumber: "CTCW6K"
       };
 
-      axiosMock.onPut(`/external-wallets/saldo-max/${wallet.id}`).reply(expectRequest({
-        statusCode: 200, token, jwtToken, body: {wallet}
+      const externalWalletFieldsToUpdate = {
+        nip: externalWallet.nip,
+        walletNumber: externalWallet.walletNumber,
+        status: externalWallet.status
+      };
+
+      axiosMock.onPut(`/external-wallets/saldo-max/${externalWallet._id}`).reply(expectRequest({
+        statusCode: 200, token, jwtToken, body: {externalWallet: externalWalletFieldsToUpdate}
       }));
 
       return api.inventory.externalWallets.saldoMax.update({
         jwtToken,
         token,
-        wallet
+        externalWallet
       });
     });
 
