@@ -2535,6 +2535,20 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        salesforceSettings: {
+            get: ({ jwtToken, token, query, headers }: {
+                jwtToken: any;
+                token: any;
+                query: any;
+                headers: any;
+            }) => any;
+            update: ({ jwtToken, token, salesforceSettings, headers }: {
+                jwtToken: any;
+                token: any;
+                salesforceSettings: any;
+                headers: any;
+            }) => any;
+        };
         shifts: {
             all: ({ jwtToken, token, query, headers }: {
                 jwtToken: any;
@@ -4160,6 +4174,16 @@ export function createApiClient(options: {
                     token: any;
                     jwtToken: any;
                     whatsappMsg?: {};
+                    headers: any;
+                }): any;
+            };
+        };
+        salesforce: {
+            sms: {
+                create({ token, jwtToken, smsMsg, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    smsMsg?: {};
                     headers: any;
                 }): any;
             };
