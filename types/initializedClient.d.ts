@@ -570,20 +570,20 @@ declare const _exports: {
         };
         externalWallets: {
             saldoMax: {
-                create: ({ token, jwtToken, wallet }: {
+                create: ({ token, jwtToken, externalWallet }: {
                     token: any;
                     jwtToken: any;
-                    wallet: any;
+                    externalWallet: any;
                 }) => any;
                 get: ({ token, jwtToken, walletId }: {
                     token: any;
                     jwtToken: any;
                     walletId: any;
                 }) => any;
-                update: ({ token, jwtToken, wallet }: {
+                update: ({ token, jwtToken, externalWallet }: {
                     token: any;
                     jwtToken: any;
-                    wallet: any;
+                    externalWallet: any;
                 }) => any;
             };
         };
