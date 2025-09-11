@@ -181,6 +181,7 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
       client, internalAuthTokenProvider
     }),
     s3Buckets: require("./endpoints/accounts/s3buckets.js")({client, internalAuthTokenProvider}),
+    salesforceSettings: require("./endpoints/accounts/salesforce-settings.js")({client, internalAuthTokenProvider}),
     shifts: require("./endpoints/accounts/shifts.js")({client, internalAuthTokenProvider}),
     shiftSettings: require("./endpoints/accounts/shift-settings.js")({client, internalAuthTokenProvider}),
     ticketMovementSettings: require("./endpoints/accounts/ticket-movement-settings.js")({client, internalAuthTokenProvider}),
@@ -290,6 +291,7 @@ function createNotifications({baseURL, headers, timeout, overrideFn, internalAut
     email: require("./endpoints/notifications/email.js")({client, internalAuthTokenProvider}),
     customers: require("./endpoints/notifications/customers.js")({client, internalAuthTokenProvider}),
     twilio: require("./endpoints/notifications/twilio.js")({client, internalAuthTokenProvider}),
+    salesforce: require("./endpoints/notifications/salesforce.js")({client, internalAuthTokenProvider}),
     notify: require("./endpoints/notifications/notify-tickets.js")({client, internalAuthTokenProvider}),
     ordersRulesValidations: require("./endpoints/notifications/orders-rules-validations.js")({client, internalAuthTokenProvider}),
     __test: {
