@@ -2891,6 +2891,12 @@ declare const _exports: {
                 delegator: any;
                 headers: any;
             }) => any;
+            revokeDelegation: ({ token, jwtToken, actionName, headers }: {
+                token: any;
+                jwtToken: any;
+                actionName: any;
+                headers: any;
+            }) => any;
             sequences: {
                 get({ token, jwtToken, userId, sequenceId, headers }: {
                     token: any;
