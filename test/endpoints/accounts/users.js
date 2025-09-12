@@ -94,14 +94,14 @@ describe("accounts/user/{id}", () => {
     });
   });
 
-  it("should delegate a user", () => {
+  it("should delegate permissions to a user", () => {
     axiosMock.onPost("/users/delegation").reply(
       expectRequest({
         statusCode: 200,
         token,
         jwtToken,
         body: {
-          actionName: "move_tickets",
+          actionName: "exceed_ticket_movement_limit",
           delegator: {
             email: "some_email@betterez.com",
             password: "some_password"
@@ -112,11 +112,29 @@ describe("accounts/user/{id}", () => {
     return api.accounts.users.delegation({
       jwtToken,
       token,
-      actionName: "move_tickets",
+      actionName: "exceed_ticket_movement_limit",
       delegator: {
         email: "some_email@betterez.com",
         password: "some_password"
       }
+    });
+  });
+
+  it("should revoke permissions previously delegated to a user", () => {
+    axiosMock.onDelete("/users/delegation").reply(
+      expectRequest({
+        statusCode: 200,
+        token,
+        jwtToken,
+        body: {
+          actionName: "exceed_ticket_movement_limit"
+        }
+      })
+    );
+    return api.accounts.users.revokeDelegation({
+      jwtToken,
+      token,
+      actionName: "exceed_ticket_movement_limit"
     });
   });
 
