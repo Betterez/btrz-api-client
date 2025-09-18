@@ -38,6 +38,18 @@ function externalWalletsFactory({client, internalAuthTokenProvider}) {
           externalWallet: externalWalletFieldsToUpdate
         }
       });
+    },
+    movements: {
+      create: ({token, jwtToken, walletId, movement}) => {
+        return client({
+          url: `/external-wallets/saldo-max/${walletId}/movements`,
+          method: "put",
+          headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider}),
+          data: {
+            movement
+          }
+        });
+      }
     }
   };
 

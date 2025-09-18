@@ -1,12 +1,12 @@
-const {
-  axiosMock,
-  expectRequest
-} = require("../../test-helpers.js");
-const api = require("../../../src/client.js").createApiClient({
-  baseURL: "http://test.com"
-});
-
 describe("inventory/external-wallets", () => {
+  const {
+    axiosMock,
+    expectRequest
+  } = require("../../test-helpers.js");
+  const api = require("../../../src/client.js").createApiClient({
+    baseURL: "http://test.com"
+  });
+
   const token = "I owe you a token";
   const jwtToken = "I owe you a JWT token";
 
@@ -91,6 +91,69 @@ describe("inventory/external-wallets", () => {
         jwtToken,
         token,
         walletId
+      });
+    });
+
+    it("should create a movement for a Saldo Max wallet", async () => {
+      const walletId = "wallet-id-123";
+      const movement = {
+        amount: 100,
+        type: "credit",
+        reason: "refund",
+        nip: "1234"
+      };
+
+      axiosMock.onPut(`/external-wallets/saldo-max/${walletId}/movements`).reply(expectRequest({
+        statusCode: 200, token, jwtToken, body: {movement}
+      }));
+
+      return api.inventory.externalWallets.saldoMax.movements.create({
+        jwtToken,
+        token,
+        walletId,
+        movement
+      });
+    });
+
+    it("should create a debit movement for a Saldo Max wallet", async () => {
+      const walletId = "wallet-id-456";
+      const movement = {
+        amount: 50.75,
+        type: "debit",
+        reason: "purchase",
+        nip: "9876"
+      };
+
+      axiosMock.onPut(`/external-wallets/saldo-max/${walletId}/movements`).reply(expectRequest({
+        statusCode: 200, token, jwtToken, body: {movement}
+      }));
+
+      return api.inventory.externalWallets.saldoMax.movements.create({
+        jwtToken,
+        token,
+        walletId,
+        movement
+      });
+    });
+
+    it("should handle movements with zero amount", async () => {
+      const walletId = "wallet-id-789";
+      const movement = {
+        amount: 0,
+        type: "adjustment",
+        reason: "correction",
+        nip: "0000"
+      };
+
+      axiosMock.onPut(`/external-wallets/saldo-max/${walletId}/movements`).reply(expectRequest({
+        statusCode: 200, token, jwtToken, body: {movement}
+      }));
+
+      return api.inventory.externalWallets.saldoMax.movements.create({
+        jwtToken,
+        token,
+        walletId,
+        movement
       });
     });
   });
