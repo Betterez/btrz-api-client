@@ -14,4 +14,13 @@ declare function notifyTicketFactory({ client, internalAuthTokenProvider }: {
             headers: any;
         }): any;
     };
+    vouchers: {
+        create({ token, jwtToken, query, data, headers }: {
+            token: any;
+            jwtToken: any;
+            query: any;
+            data: any;
+            headers: any;
+        }): any;
+    };
 };

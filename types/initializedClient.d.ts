@@ -4191,6 +4191,15 @@ declare const _exports: {
                     headers: any;
                 }): any;
             };
+            vouchers: {
+                create({ token, jwtToken, query, data, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    query: any;
+                    data: any;
+                    headers: any;
+                }): any;
+            };
         };
         ordersRulesValidations: {
             create: ({ token, jwtToken, query, orderRulesValidation, headers }: {
