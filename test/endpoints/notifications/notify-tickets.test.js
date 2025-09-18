@@ -9,7 +9,7 @@ describe("notifications/notify-tickets", () => {
     axiosMock.reset();
   });
 
-  it("should post send an email", () => {
+  it("should post send an email with ticket", () => {
     const query = {
       lang: "en"
     };
@@ -27,6 +27,26 @@ describe("notifications/notify-tickets", () => {
       operation: "movement",
       to: "info@betterez.com",
       ticketId
+    });
+  });
+
+  it("should post send an email with voucher", () => {
+    const query = {
+      lang: "en"
+    };
+    axiosMock.onPost("/notify-vouchers").reply(({headers}) => {
+      if (headers["x-api-key"] === token && headers.authorization === `Bearer ${jwtToken}`) {
+        return [200];
+      }
+      return [403];
+    });
+    return api.notifications.notify.vouchers.create({
+      token,
+      jwtToken,
+      query,
+      data: {
+        voucherIds: []
+      }
     });
   });
 });
