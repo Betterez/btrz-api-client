@@ -27,10 +27,39 @@ function changeRequestsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  const schedules = {
+    get({changeRequestId, token, jwtToken, query = {}, headers}) {
+      return client({
+        url: `/change-requests/${changeRequestId}/schedules`,
+        params: query,
+        headers: authorizationHeaders({token, internalAuthTokenProvider, jwtToken, headers})
+      });
+    },
+
+    create({data, token, jwtToken, headers}) {
+      return client({
+        url: "/change-requests/schedules",
+        method: "post",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        data
+      });
+    },
+
+    update({changeRequestId, data, token, jwtToken, headers}) {
+      return client({
+        url: `/change-requests/${changeRequestId}/schedules`,
+        method: "put",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        data
+      });
+    }
+  };
+
   return {
     get,
     create,
-    update
+    update,
+    schedules
   };
 }
 
