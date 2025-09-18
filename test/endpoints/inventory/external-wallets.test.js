@@ -15,6 +15,20 @@ describe("inventory/external-wallets", () => {
   });
 
   describe("/saldo-max", () => {
+    it("should retrieve a list of Saldo Max wallets", () => {
+      const query = {walletNumber: "CTCW6L"};
+
+      axiosMock.onGet("/external-wallets/saldo-max", {params: query}).reply(expectRequest({
+        statusCode: 200, token, jwtToken
+      }));
+
+      return api.inventory.externalWallets.saldoMax.all({
+        jwtToken,
+        token,
+        query
+      });
+    });
+
     it("should create a new Saldo Max wallet", async () => {
       const externalWallet = {
         firstName: "John",
