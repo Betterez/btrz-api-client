@@ -640,6 +640,14 @@ export function createApiClient(options: {
                     externalWallet: any;
                     headers: any;
                 }) => any;
+                movements: {
+                    create: ({ token, jwtToken, walletId, movement }: {
+                        token: any;
+                        jwtToken: any;
+                        walletId: any;
+                        movement: any;
+                    }) => any;
+                };
             };
         };
         filteredTrips: {
