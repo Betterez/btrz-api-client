@@ -294,6 +294,7 @@ function createNotifications({baseURL, headers, timeout, overrideFn, internalAut
     twilio: require("./endpoints/notifications/twilio.js")({client, internalAuthTokenProvider}),
     salesforce: require("./endpoints/notifications/salesforce.js")({client, internalAuthTokenProvider}),
     notify: require("./endpoints/notifications/notify-tickets.js")({client, internalAuthTokenProvider}),
+    notifyVoucher: require("./endpoints/notifications/notify-vouchers.js")({client, internalAuthTokenProvider}),
     ordersRulesValidations: require("./endpoints/notifications/orders-rules-validations.js")({client, internalAuthTokenProvider}),
     __test: {
       client

@@ -1,7 +1,7 @@
 const {axiosMock} = require("./../../test-helpers.js");
 const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
-describe("notifications/notify-tickets", () => {
+describe("notifications/notify-vouchers", () => {
   const token = "my-api-key";
   const jwtToken = "my-jwt";
 
@@ -9,24 +9,23 @@ describe("notifications/notify-tickets", () => {
     axiosMock.reset();
   });
 
-  it("should post send an email with ticket", () => {
+  it("should post send an email with voucher", () => {
     const query = {
       lang: "en"
     };
-    const ticketId = "XHC";
-    axiosMock.onPost(`/notify-tickets/${ticketId}`).reply(({headers}) => {
+    axiosMock.onPost("/notify-vouchers").reply(({headers}) => {
       if (headers["x-api-key"] === token && headers.authorization === `Bearer ${jwtToken}`) {
         return [200];
       }
       return [403];
     });
-    return api.notifications.notify.tickets.create({
+    return api.notifications.notifyVoucher.create({
       token,
       jwtToken,
       query,
-      operation: "movement",
-      to: "info@betterez.com",
-      ticketId
+      data: {
+        voucherIds: []
+      }
     });
   });
 });
