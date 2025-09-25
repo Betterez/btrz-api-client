@@ -9,4 +9,12 @@ declare function stripeTerminalsFactory({ client, internalAuthTokenProvider }: {
         headers: any;
         query?: {};
     }) => any;
+    simulate: ({ token, jwtToken, id, stripePayment, query, headers }: {
+        token: any;
+        jwtToken: any;
+        id: any;
+        stripePayment: any;
+        query?: {};
+        headers: any;
+    }) => any;
 };
