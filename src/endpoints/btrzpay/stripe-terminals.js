@@ -12,8 +12,19 @@ function stripeTerminalsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function simulate({token, jwtToken, id, stripePayment, query = {}, headers}) {
+    return client({
+      url: `/stripe-terminals/${id}/simulate`,
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      params: query,
+      data: {stripePayment}
+    });
+  }
+
   return {
-    all
+    all,
+    simulate
   };
 }
 module.exports = stripeTerminalsFactory;

@@ -24,4 +24,20 @@ describe("btrzpay/stripe-terminals", () => {
       query
     });
   });
+
+  it("should simulate a stripe terminal payment", () => {
+    const data = {ccNumber: "4242424242424242"};
+    const terminalId = "tm_123";
+    axiosMock.onPost(`/stripe-terminals/${terminalId}/simulate`).reply(expectRequest({
+      statusCode: 200, token, jwtToken, data
+    }));
+    return api.btrzpay.stripeTerminals.simulate({
+      id: terminalId,
+      token,
+      jwtToken,
+      data: {
+        stripePayment: data
+      }
+    });
+  });
 });
