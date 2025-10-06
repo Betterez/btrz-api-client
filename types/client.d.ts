@@ -75,50 +75,157 @@ export function createApiClient(options: {
         __test_trips: {
             client: axios.AxiosInstance;
         };
-        docs: {
-            get: () => any;
-        };
-        customFields: {
+        amenities: {
             all: ({ token, query, headers }: {
                 token: any;
                 query?: {};
                 headers: any;
             }) => any;
-            get: ({ fieldId, token, jwtToken, query, headers }: {
-                fieldId: any;
+            get: ({ token, amenityId, query, headers }: {
                 token: any;
-                jwtToken: any;
+                amenityId: any;
                 query?: {};
                 headers: any;
             }) => any;
-            create: ({ token, jwtToken, field, headers }: {
+            create: ({ token, jwtToken, amenity, headers }: {
                 token: any;
                 jwtToken: any;
-                field: any;
+                amenity: any;
                 headers: any;
             }) => any;
-            update: ({ token, jwtToken, fieldId, field, headers }: {
+            update: ({ token, jwtToken, amenityId, amenity, headers }: {
                 token: any;
                 jwtToken: any;
-                fieldId: any;
-                field: any;
+                amenityId: any;
+                amenity: any;
                 headers: any;
             }) => any;
-            types: {
-                all({ token, headers }: {
-                    token: any;
-                    headers: any;
-                }): any;
-            };
         };
-        products: {
+        amenityGroups: {
             all: ({ token, query, headers }: {
                 token: any;
                 query?: {};
                 headers: any;
             }) => any;
-            get: ({ productId, token, jwtToken, query, headers }: {
+            get: ({ token, amenityGroupId, query, headers }: {
+                token: any;
+                amenityGroupId: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            create: ({ token, jwtToken, amenityGroup, headers }: {
+                token: any;
+                jwtToken: any;
+                amenityGroup: any;
+                headers: any;
+            }) => any;
+            update: ({ token, jwtToken, amenityGroupId, amenityGroup, headers }: {
+                token: any;
+                jwtToken: any;
+                amenityGroupId: any;
+                amenityGroup: any;
+                headers: any;
+            }) => any;
+        };
+        banks: {
+            all: ({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            get: ({ bankId, token, headers, jwtToken }: {
+                bankId: any;
+                token: any;
+                headers: any;
+                jwtToken: any;
+            }) => any;
+            create: ({ jwtToken, token, bank, headers }: {
+                jwtToken: any;
+                token: any;
+                bank: any;
+                headers: any;
+            }) => any;
+            update: ({ jwtToken, token, bankId, bank, headers }: {
+                jwtToken: any;
+                token: any;
+                bankId: any;
+                bank: any;
+                headers: any;
+            }) => any;
+            remove: ({ jwtToken, bankId, token, headers }: {
+                jwtToken: any;
+                bankId: any;
+                token: any;
+                headers: any;
+            }) => any;
+        };
+        bareRoutes: {
+            all: ({ token, query, headers }: {
+                token: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            get: ({ routeId, token, query, headers }: {
+                routeId: any;
+                token: any;
+                query?: {};
+                headers: any;
+            }) => any;
+        };
+        brands: {
+            all: ({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            create: ({ token, jwtToken, brand, headers }: {
+                token: any;
+                jwtToken: any;
+                brand: any;
+                headers: any;
+            }) => any;
+            update: ({ jwtToken, token, brandId, brand, headers }: {
+                jwtToken: any;
+                token: any;
+                brandId: any;
+                brand: any;
+                headers: any;
+            }) => any;
+            get: ({ token, brandId, jwtToken, headers }: {
+                token: any;
+                brandId: any;
+                jwtToken: any;
+                headers: any;
+            }) => any;
+        };
+        bundleFares: {
+            all: ({ token, bundleId, productId, query, headers }: {
+                token: any;
+                bundleId: any;
                 productId: any;
+                query?: {};
+                headers: any;
+            }) => any;
+        };
+        bundles: {
+            all: ({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            get: ({ token, jwtToken, bundleId, headers }: {
+                token: any;
+                jwtToken: any;
+                bundleId: any;
+                headers: any;
+            }) => any;
+        };
+        changeRequests: {
+            get: ({ changerequestId, token, jwtToken, query, headers }: {
+                changerequestId: any;
                 token: any;
                 jwtToken: any;
                 query?: {};
@@ -130,138 +237,40 @@ export function createApiClient(options: {
                 jwtToken: any;
                 headers: any;
             }) => any;
-            update: ({ productId, data, token, jwtToken, headers }: {
-                productId: any;
+            update: ({ changerequestId, data, token, jwtToken, headers }: {
+                changerequestId: any;
                 data: any;
                 token: any;
                 jwtToken: any;
                 headers: any;
             }) => any;
-            families: {
-                all: ({ token, query, headers }: {
-                    token: any;
-                    query?: {};
-                    headers: any;
-                }) => any;
-            };
-            domains: {
-                remove: ({ token, jwtToken, domain, headers }: {
+            schedules: {
+                get({ changeRequestId, token, jwtToken, query, headers }: {
+                    changeRequestId: any;
                     token: any;
                     jwtToken: any;
-                    domain: any;
+                    query?: {};
                     headers: any;
-                }) => any;
+                }): any;
+                create({ data, token, jwtToken, headers }: {
+                    data: any;
+                    token: any;
+                    jwtToken: any;
+                    headers: any;
+                }): any;
+                update({ changeRequestId, data, token, jwtToken, headers }: {
+                    changeRequestId: any;
+                    data: any;
+                    token: any;
+                    jwtToken: any;
+                    headers: any;
+                }): any;
             };
         };
-        insurances: {
-            all: ({ token, query, headers }: {
-                token: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            create: ({ token, insurance, jwtToken, headers }: {
-                token: any;
-                insurance: any;
-                jwtToken: any;
-                headers: any;
-            }) => any;
-            get: ({ token, insuranceId, headers }: {
-                token: any;
-                insuranceId: any;
-                headers: any;
-            }) => any;
-            update: ({ token, insurance, jwtToken, insuranceId, headers }: {
-                token: any;
-                insurance: any;
-                jwtToken: any;
-                insuranceId: any;
-                headers: any;
-            }) => any;
-            remove: ({ token, jwtToken, insuranceId, headers }: {
+        companies: {
+            all: ({ token, jwtToken, query, headers }: {
                 token: any;
                 jwtToken: any;
-                insuranceId: any;
-                headers: any;
-            }) => any;
-        };
-        insurancesCost: {
-            get: ({ token, productId, declaredValue, query, headers }: {
-                token: any;
-                productId: any;
-                declaredValue: any;
-                query?: {};
-                headers: any;
-            }) => any;
-        };
-        stations: {
-            get: ({ token, id, headers }: {
-                token: any;
-                id: any;
-                headers: any;
-            }) => any;
-            all: ({ token, query, headers }: {
-                token: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            create: ({ token, jwtToken, data, headers }: {
-                token: any;
-                jwtToken: any;
-                data: any;
-                headers: any;
-            }) => any;
-            update: ({ token, jwtToken, stationId, station, headers }: {
-                token: any;
-                jwtToken: any;
-                stationId: any;
-                station: any;
-                headers: any;
-            }) => any;
-        };
-        stationsProvinces: {
-            all: ({ token, query, headers }: {
-                token: any;
-                query?: {};
-                headers: any;
-            }) => any;
-        };
-        stationsZones: {
-            get: ({ token, query, headers }: {
-                token: any;
-                query?: {};
-                headers: any;
-            }) => any;
-        };
-        parcelZones: {
-            all: ({ token, query, headers }: {
-                token: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            create: ({ token, parcelZone, jwtToken, headers }: {
-                token: any;
-                parcelZone: any;
-                jwtToken: any;
-                headers: any;
-            }) => any;
-            update: ({ jwtToken, token, parcelZoneId, parcelZone, headers }: {
-                jwtToken: any;
-                token: any;
-                parcelZoneId: any;
-                parcelZone: any;
-                headers: any;
-            }) => any;
-        };
-        countries: {
-            all: ({ token, query, headers }: {
-                token: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            get: ({ token, jwtToken, id, query, headers }: {
-                token: any;
-                jwtToken: any;
-                id: any;
                 query?: {};
                 headers: any;
             }) => any;
@@ -300,305 +309,125 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
-        fares: {
+        countries: {
             all: ({ token, query, headers }: {
                 token: any;
                 query?: {};
                 headers: any;
             }) => any;
-            get: ({ token, id, headers }: {
+            get: ({ token, jwtToken, id, query, headers }: {
                 token: any;
+                jwtToken: any;
                 id: any;
+                query?: {};
                 headers: any;
             }) => any;
-            update: ({ token, jwtToken, fareId, fare, headers }: {
+        };
+        customContent: {
+            all: ({ token, query, headers }: {
+                token: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            get: ({ customContentId, token, headers }: {
+                customContentId: any;
+                token: any;
+                headers: any;
+            }) => any;
+            create: ({ jwtToken, token, customContent, headers }: {
+                jwtToken: any;
+                token: any;
+                customContent: any;
+                headers: any;
+            }) => any;
+            update: ({ jwtToken, token, customContentId, customContent, headers }: {
+                jwtToken: any;
+                token: any;
+                customContentId: any;
+                customContent: any;
+                headers: any;
+            }) => any;
+            remove: ({ jwtToken, customContentId, token, headers }: {
+                jwtToken: any;
+                customContentId: any;
+                token: any;
+                headers: any;
+            }) => any;
+        };
+        customFields: {
+            all: ({ token, query, headers }: {
+                token: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            get: ({ fieldId, token, jwtToken, query, headers }: {
+                fieldId: any;
                 token: any;
                 jwtToken: any;
-                fareId: any;
-                fare: any;
+                query?: {};
                 headers: any;
             }) => any;
-            create: ({ token, jwtToken, fare, headers }: {
+            create: ({ token, jwtToken, field, headers }: {
                 token: any;
                 jwtToken: any;
-                fare: any;
+                field: any;
                 headers: any;
             }) => any;
-            adjustments: {
-                create({ token, jwtToken, fareId, adjustmentsOverride, headers }: {
+            update: ({ token, jwtToken, fieldId, field, headers }: {
+                token: any;
+                jwtToken: any;
+                fieldId: any;
+                field: any;
+                headers: any;
+            }) => any;
+            types: {
+                all({ token, headers }: {
                     token: any;
-                    jwtToken: any;
-                    fareId: any;
-                    adjustmentsOverride: any;
-                    headers: any;
-                }): any;
-                remove({ token, jwtToken, fareId, adjustmentId, headers }: {
-                    token: any;
-                    jwtToken: any;
-                    fareId: any;
-                    adjustmentId: any;
                     headers: any;
                 }): any;
             };
         };
-        promos: {
-            all: ({ token, query, headers }: {
-                token: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            get: ({ promoId, token, query, headers }: {
-                promoId: any;
-                token: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            create: ({ jwtToken, promo, token, headers }: {
-                jwtToken: any;
-                promo: any;
-                token: any;
-                headers: any;
-            }) => any;
-            update: ({ jwtToken, token, promoId, update, headers }: {
-                jwtToken: any;
-                token: any;
-                promoId: any;
-                update: any;
-                headers: any;
-            }) => any;
-            patch: ({ jwtToken, token, promoId, operations, headers }: {
-                jwtToken: any;
-                token: any;
-                promoId: any;
-                operations: any;
-                headers: any;
-            }) => any;
-            remove: ({ jwtToken, promoId, token, headers }: {
-                jwtToken: any;
-                promoId: any;
-                token: any;
-                headers: any;
-            }) => any;
-            addRule: ({ jwtToken, token, promoId, rule, headers }: {
-                jwtToken: any;
-                token: any;
-                promoId: any;
-                rule: any;
-                headers: any;
-            }) => any;
-            updateRule: ({ jwtToken, token, promoId, ruleId, rule, headers }: {
-                jwtToken: any;
-                token: any;
-                promoId: any;
-                ruleId: any;
-                rule: any;
-                headers: any;
-            }) => any;
+        docs: {
+            get: () => any;
         };
-        labels: {
-            all: ({ token, jwtToken, query, headers }: {
+        documentTypes: {
+            all: ({ token, jwtToken, query, headers, providerId }: {
                 token: any;
                 jwtToken: any;
                 query?: {};
                 headers: any;
+                providerId: any;
             }) => any;
-            get: ({ labelId, token, jwtToken, query, headers }: {
-                labelId: any;
+            get: ({ token, jwtToken, id, query, headers, providerId }: {
                 token: any;
                 jwtToken: any;
+                id: any;
+                query?: {};
+                headers: any;
+                providerId: any;
+            }) => any;
+            update: ({ token, jwtToken, id, data, query, headers }: {
+                token: any;
+                jwtToken: any;
+                id: any;
+                data: any;
                 query?: {};
                 headers: any;
             }) => any;
-            create: ({ jwtToken, label, token, headers }: {
+            remove: ({ token, jwtToken, id, query, headers }: {
+                token: any;
                 jwtToken: any;
-                label: any;
-                token: any;
-                headers: any;
-            }) => any;
-            update: ({ jwtToken, token, labelId, label, headers }: {
-                jwtToken: any;
-                token: any;
-                labelId: any;
-                label: any;
-                headers: any;
-            }) => any;
-            remove: ({ jwtToken, token, labelId, headers }: {
-                jwtToken: any;
-                token: any;
-                labelId: any;
-                headers: any;
-            }) => any;
-        };
-        taxes: {
-            all: ({ token, query, headers }: {
-                token: any;
+                id: any;
                 query?: {};
                 headers: any;
             }) => any;
-            get: ({ taxId, token, query, headers }: {
-                taxId: any;
+            create: ({ token, jwtToken, data, query, headers }: {
                 token: any;
+                jwtToken: any;
+                data: any;
                 query?: {};
                 headers: any;
             }) => any;
-            create: ({ jwtToken, tax, token, headers }: {
-                jwtToken: any;
-                tax: any;
-                token: any;
-                headers: any;
-            }) => any;
-            update: ({ jwtToken, token, taxId, tax, headers }: {
-                jwtToken: any;
-                token: any;
-                taxId: any;
-                tax: any;
-                headers: any;
-            }) => any;
-            exceptions: {
-                create({ jwtToken, token, taxException, headers }: {
-                    jwtToken: any;
-                    token: any;
-                    taxException: any;
-                    headers: any;
-                }): any;
-                update({ jwtToken, token, taxExceptionId, taxException, headers }: {
-                    jwtToken: any;
-                    token: any;
-                    taxExceptionId: any;
-                    taxException: any;
-                    headers: any;
-                }): any;
-                get({ jwtToken, token, taxExceptionId, headers }: {
-                    jwtToken: any;
-                    token: any;
-                    taxExceptionId: any;
-                    headers: any;
-                }): any;
-                all({ jwtToken, token, query, headers }: {
-                    jwtToken: any;
-                    token: any;
-                    query?: {};
-                    headers: any;
-                }): any;
-                delete({ jwtToken, token, taxExceptionId, headers }: {
-                    jwtToken: any;
-                    token: any;
-                    taxExceptionId: any;
-                    headers: any;
-                }): any;
-            };
-        };
-        seatmaps: {
-            all: ({ token, query, headers }: {
-                token: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            get: ({ seatmapId, routeId, scheduleId, manifestDate, query, token, headers }: {
-                seatmapId: any;
-                routeId: any;
-                scheduleId: any;
-                manifestDate: any;
-                query?: {};
-                token: any;
-                headers: any;
-            }) => any;
-            getById: ({ seatmapId, token, jwtToken, query, headers }: {
-                seatmapId: any;
-                token: any;
-                jwtToken: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            create: ({ token, jwtToken, seatmap, headers }: {
-                token: any;
-                jwtToken: any;
-                seatmap: any;
-                headers: any;
-            }) => any;
-            remove: ({ token, jwtToken, seatmapId, headers }: {
-                token: any;
-                jwtToken: any;
-                seatmapId: any;
-                headers: any;
-            }) => any;
-            update: ({ token, jwtToken, seatmapId, seatmap, headers }: {
-                token: any;
-                jwtToken: any;
-                seatmapId: any;
-                seatmap: any;
-                headers: any;
-            }) => any;
-            getOccupiedSeats: ({ token, jwtToken, seatmapId, query, headers }: {
-                token: any;
-                jwtToken: any;
-                seatmapId: any;
-                query?: {};
-                headers: any;
-            }) => any;
-        };
-        fees: {
-            all: ({ token, query, headers }: {
-                token: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            get: ({ token, jwtToken, feeId, headers }: {
-                token: any;
-                jwtToken: any;
-                feeId: any;
-                headers: any;
-            }) => any;
-            create: ({ token, jwtToken, fee, headers }: {
-                token: any;
-                jwtToken: any;
-                fee: any;
-                headers: any;
-            }) => any;
-            update: ({ token, jwtToken, feeId, fee, headers }: {
-                token: any;
-                jwtToken: any;
-                feeId: any;
-                fee: any;
-                headers: any;
-            }) => any;
-        };
-        items: {
-            all: ({ token, query, jwtToken, headers }: {
-                token: any;
-                query?: {};
-                jwtToken: any;
-                headers: any;
-            }) => any;
-            get: ({ itemId, token, jwtToken, query, headers }: {
-                itemId: any;
-                token: any;
-                jwtToken: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            create: ({ jwtToken, item, token, headers }: {
-                jwtToken: any;
-                item: any;
-                token: any;
-                headers: any;
-            }) => any;
-            update: ({ jwtToken, token, itemId, item, headers }: {
-                jwtToken: any;
-                token: any;
-                itemId: any;
-                item: any;
-                headers: any;
-            }) => any;
-            tickets: {
-                update({ jwtToken, token, soldItemId, ticketId, headers }: {
-                    jwtToken: any;
-                    token: any;
-                    soldItemId: any;
-                    ticketId: any;
-                    headers: any;
-                }): any;
-            };
         };
         externalPasses: {
             all: ({ token, jwtToken, query, headers }: {
@@ -650,29 +479,6 @@ export function createApiClient(options: {
                 };
             };
         };
-        filteredTrips: {
-            create: ({ token, jwtToken, tripSegmentsId, headers }: {
-                token: any;
-                jwtToken: any;
-                tripSegmentsId: any;
-                headers: any;
-            }) => any;
-        };
-        filteredTripsV2: {
-            create: ({ token, jwtToken, filteredTrip, headers }: {
-                token: any;
-                jwtToken: any;
-                filteredTrip: any;
-                headers: any;
-            }) => any;
-        };
-        ssrs: {
-            all: ({ token, query, headers }: {
-                token: any;
-                query?: {};
-                headers: any;
-            }) => any;
-        };
         fareClasses: {
             all: ({ token, jwtToken, query, headers }: {
                 token: any;
@@ -693,6 +499,303 @@ export function createApiClient(options: {
                 update: any;
                 headers: any;
             }) => any;
+        };
+        fares: {
+            all: ({ token, query, headers }: {
+                token: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            get: ({ token, id, headers }: {
+                token: any;
+                id: any;
+                headers: any;
+            }) => any;
+            update: ({ token, jwtToken, fareId, fare, headers }: {
+                token: any;
+                jwtToken: any;
+                fareId: any;
+                fare: any;
+                headers: any;
+            }) => any;
+            create: ({ token, jwtToken, fare, headers }: {
+                token: any;
+                jwtToken: any;
+                fare: any;
+                headers: any;
+            }) => any;
+            adjustments: {
+                create({ token, jwtToken, fareId, adjustmentsOverride, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    fareId: any;
+                    adjustmentsOverride: any;
+                    headers: any;
+                }): any;
+                remove({ token, jwtToken, fareId, adjustmentId, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    fareId: any;
+                    adjustmentId: any;
+                    headers: any;
+                }): any;
+            };
+        };
+        fees: {
+            all: ({ token, query, headers }: {
+                token: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            get: ({ token, jwtToken, feeId, headers }: {
+                token: any;
+                jwtToken: any;
+                feeId: any;
+                headers: any;
+            }) => any;
+            create: ({ token, jwtToken, fee, headers }: {
+                token: any;
+                jwtToken: any;
+                fee: any;
+                headers: any;
+            }) => any;
+            update: ({ token, jwtToken, feeId, fee, headers }: {
+                token: any;
+                jwtToken: any;
+                feeId: any;
+                fee: any;
+                headers: any;
+            }) => any;
+        };
+        filteredTrips: {
+            create: ({ token, jwtToken, tripSegmentsId, headers }: {
+                token: any;
+                jwtToken: any;
+                tripSegmentsId: any;
+                headers: any;
+            }) => any;
+        };
+        filteredTripsV2: {
+            create: ({ token, jwtToken, filteredTrip, headers }: {
+                token: any;
+                jwtToken: any;
+                filteredTrip: any;
+                headers: any;
+            }) => any;
+        };
+        financingCosts: {
+            all: ({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            get: ({ id, token, headers, jwtToken, query }: {
+                id: any;
+                token: any;
+                headers: any;
+                jwtToken: any;
+                query?: {};
+            }) => any;
+            create: ({ jwtToken, token, financingCost, headers }: {
+                jwtToken: any;
+                token: any;
+                financingCost: any;
+                headers: any;
+            }) => any;
+            update: ({ jwtToken, token, id, financingCost, headers }: {
+                jwtToken: any;
+                token: any;
+                id: any;
+                financingCost: any;
+                headers: any;
+            }) => any;
+            remove: ({ jwtToken, id, token, headers, query }: {
+                jwtToken: any;
+                id: any;
+                token: any;
+                headers: any;
+                query?: {};
+            }) => any;
+        };
+        garages: {
+            all: ({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            get: ({ token, jwtToken, garageId, headers }: {
+                token: any;
+                jwtToken: any;
+                garageId: any;
+                headers: any;
+            }) => any;
+            create: ({ token, jwtToken, data, headers }: {
+                token: any;
+                jwtToken: any;
+                data: any;
+                headers: any;
+            }) => any;
+            update: ({ token, jwtToken, garageId, data, headers }: {
+                token: any;
+                jwtToken: any;
+                garageId: any;
+                data: any;
+                headers: any;
+            }) => any;
+            remove: ({ token, jwtToken, garageId, headers }: {
+                token: any;
+                jwtToken: any;
+                garageId: any;
+                headers: any;
+            }) => any;
+        };
+        getnetTerminals: {
+            all: ({ token, query, headers }: {
+                token: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            get: ({ getnetTerminalId, token, headers }: {
+                getnetTerminalId: any;
+                token: any;
+                headers: any;
+            }) => any;
+            create: ({ jwtToken, token, getnetTerminal, headers }: {
+                jwtToken: any;
+                token: any;
+                getnetTerminal: any;
+                headers: any;
+            }) => any;
+            remove: ({ jwtToken, getnetTerminalId, token, headers }: {
+                jwtToken: any;
+                getnetTerminalId: any;
+                token: any;
+                headers: any;
+            }) => any;
+            update: ({ jwtToken, token, getnetTerminal, headers }: {
+                jwtToken: any;
+                token: any;
+                getnetTerminal: any;
+                headers: any;
+            }) => any;
+        };
+        giftCertificateDefinitions: {
+            all: ({ token, query, headers }: {
+                token: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            get: ({ token, jwtToken, giftcertificateId, query, headers }: {
+                token: any;
+                jwtToken: any;
+                giftcertificateId: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            create: ({ token, jwtToken, giftcertificate, query, headers }: {
+                token: any;
+                jwtToken: any;
+                giftcertificate: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            update: ({ token, jwtToken, giftcertificateId, giftcertificate, query, headers }: {
+                token: any;
+                jwtToken: any;
+                giftcertificateId: any;
+                giftcertificate: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            remove: ({ token, jwtToken, giftcertificateId, query, headers }: {
+                token: any;
+                jwtToken: any;
+                giftcertificateId: any;
+                query?: {};
+                headers: any;
+            }) => any;
+        };
+        healthCheck: {
+            get: () => any;
+        };
+        insurances: {
+            all: ({ token, query, headers }: {
+                token: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            create: ({ token, insurance, jwtToken, headers }: {
+                token: any;
+                insurance: any;
+                jwtToken: any;
+                headers: any;
+            }) => any;
+            get: ({ token, insuranceId, headers }: {
+                token: any;
+                insuranceId: any;
+                headers: any;
+            }) => any;
+            update: ({ token, insurance, jwtToken, insuranceId, headers }: {
+                token: any;
+                insurance: any;
+                jwtToken: any;
+                insuranceId: any;
+                headers: any;
+            }) => any;
+            remove: ({ token, jwtToken, insuranceId, headers }: {
+                token: any;
+                jwtToken: any;
+                insuranceId: any;
+                headers: any;
+            }) => any;
+        };
+        insurancesCost: {
+            get: ({ token, productId, declaredValue, query, headers }: {
+                token: any;
+                productId: any;
+                declaredValue: any;
+                query?: {};
+                headers: any;
+            }) => any;
+        };
+        items: {
+            all: ({ token, query, jwtToken, headers }: {
+                token: any;
+                query?: {};
+                jwtToken: any;
+                headers: any;
+            }) => any;
+            get: ({ itemId, token, jwtToken, query, headers }: {
+                itemId: any;
+                token: any;
+                jwtToken: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            create: ({ jwtToken, item, token, headers }: {
+                jwtToken: any;
+                item: any;
+                token: any;
+                headers: any;
+            }) => any;
+            update: ({ jwtToken, token, itemId, item, headers }: {
+                jwtToken: any;
+                token: any;
+                itemId: any;
+                item: any;
+                headers: any;
+            }) => any;
+            tickets: {
+                update({ jwtToken, token, soldItemId, ticketId, headers }: {
+                    jwtToken: any;
+                    token: any;
+                    soldItemId: any;
+                    ticketId: any;
+                    headers: any;
+                }): any;
+            };
         };
         journeyPrices: {
             all: ({ token, jwtToken, query, headers }: {
@@ -728,62 +831,168 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
-        brands: {
+        labels: {
             all: ({ token, jwtToken, query, headers }: {
                 token: any;
                 jwtToken: any;
                 query?: {};
                 headers: any;
             }) => any;
-            create: ({ token, jwtToken, brand, headers }: {
+            get: ({ labelId, token, jwtToken, query, headers }: {
+                labelId: any;
                 token: any;
                 jwtToken: any;
-                brand: any;
+                query?: {};
                 headers: any;
             }) => any;
-            update: ({ jwtToken, token, brandId, brand, headers }: {
+            create: ({ jwtToken, label, token, headers }: {
                 jwtToken: any;
+                label: any;
                 token: any;
-                brandId: any;
-                brand: any;
                 headers: any;
             }) => any;
-            get: ({ token, brandId, jwtToken, headers }: {
-                token: any;
-                brandId: any;
+            update: ({ jwtToken, token, labelId, label, headers }: {
                 jwtToken: any;
+                token: any;
+                labelId: any;
+                label: any;
+                headers: any;
+            }) => any;
+            remove: ({ jwtToken, token, labelId, headers }: {
+                jwtToken: any;
+                token: any;
+                labelId: any;
                 headers: any;
             }) => any;
         };
-        banks: {
+        maritalStatus: {
             all: ({ token, jwtToken, query, headers }: {
                 token: any;
                 jwtToken: any;
                 query?: {};
                 headers: any;
             }) => any;
-            get: ({ bankId, token, headers, jwtToken }: {
-                bankId: any;
+            get: ({ token, jwtToken, id, query, headers }: {
                 token: any;
-                headers: any;
                 jwtToken: any;
-            }) => any;
-            create: ({ jwtToken, token, bank, headers }: {
-                jwtToken: any;
-                token: any;
-                bank: any;
+                id: any;
+                query?: {};
                 headers: any;
             }) => any;
-            update: ({ jwtToken, token, bankId, bank, headers }: {
-                jwtToken: any;
+            update: ({ token, jwtToken, id, data, query, headers }: {
                 token: any;
-                bankId: any;
-                bank: any;
+                jwtToken: any;
+                id: any;
+                data: any;
+                query?: {};
                 headers: any;
             }) => any;
-            remove: ({ jwtToken, bankId, token, headers }: {
+            remove: ({ token, jwtToken, id, query, headers }: {
+                token: any;
                 jwtToken: any;
-                bankId: any;
+                id: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            create: ({ token, jwtToken, data, query, headers }: {
+                token: any;
+                jwtToken: any;
+                data: any;
+                query?: {};
+                headers: any;
+            }) => any;
+        };
+        marketplaceModifiers: {
+            all: ({ token, query, headers }: {
+                token: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            get: ({ marketplaceModifierId, token, headers }: {
+                marketplaceModifierId: any;
+                token: any;
+                headers: any;
+            }) => any;
+            create: ({ jwtToken, token, marketplaceModifier, headers }: {
+                jwtToken: any;
+                token: any;
+                marketplaceModifier: any;
+                headers: any;
+            }) => any;
+            update: ({ jwtToken, token, marketplaceModifierId, marketplaceModifier, headers }: {
+                jwtToken: any;
+                token: any;
+                marketplaceModifierId: any;
+                marketplaceModifier: any;
+                headers: any;
+            }) => any;
+            remove: ({ jwtToken, marketplaceModifierId, token, headers }: {
+                jwtToken: any;
+                marketplaceModifierId: any;
+                token: any;
+                headers: any;
+            }) => any;
+        };
+        mitTerminals: {
+            all: ({ token, query, headers }: {
+                token: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            get: ({ mitTerminalId, token, headers }: {
+                mitTerminalId: any;
+                token: any;
+                headers: any;
+            }) => any;
+            create: ({ jwtToken, token, mitTerminal, headers }: {
+                jwtToken: any;
+                token: any;
+                mitTerminal: any;
+                headers: any;
+            }) => any;
+            update: ({ jwtToken, token, mitTerminalId, mitTerminal, headers }: {
+                jwtToken: any;
+                token: any;
+                mitTerminalId: any;
+                mitTerminal: any;
+                headers: any;
+            }) => any;
+            remove: ({ jwtToken, mitTerminalId, token, headers }: {
+                jwtToken: any;
+                mitTerminalId: any;
+                token: any;
+                headers: any;
+            }) => any;
+        };
+        mitTerminalsSettings: {
+            all: ({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            get: ({ id, token, jwtToken, headers }: {
+                id: any;
+                token: any;
+                jwtToken: any;
+                headers: any;
+            }) => any;
+            create: ({ jwtToken, token, mitTerminalSettings, headers }: {
+                jwtToken: any;
+                token: any;
+                mitTerminalSettings: any;
+                headers: any;
+            }) => any;
+            update: ({ jwtToken, token, id, mitTerminalSettings, headers }: {
+                jwtToken: any;
+                token: any;
+                id: any;
+                mitTerminalSettings: any;
+                headers: any;
+            }) => any;
+            remove: ({ jwtToken, id, token, headers }: {
+                jwtToken: any;
+                id: any;
                 token: any;
                 headers: any;
             }) => any;
@@ -882,6 +1091,26 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        parcelZones: {
+            all: ({ token, query, headers }: {
+                token: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            create: ({ token, parcelZone, jwtToken, headers }: {
+                token: any;
+                parcelZone: any;
+                jwtToken: any;
+                headers: any;
+            }) => any;
+            update: ({ jwtToken, token, parcelZoneId, parcelZone, headers }: {
+                jwtToken: any;
+                token: any;
+                parcelZoneId: any;
+                parcelZone: any;
+                headers: any;
+            }) => any;
+        };
         paymentTerminals: {
             all: ({ token, query, headers }: {
                 token: any;
@@ -922,121 +1151,132 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
-        mitTerminals: {
-            all: ({ token, query, headers }: {
+        prismaTerminals: {
+            all: ({ token, jwtToken, query, headers }: {
                 token: any;
+                jwtToken: any;
                 query?: {};
                 headers: any;
             }) => any;
-            get: ({ mitTerminalId, token, headers }: {
-                mitTerminalId: any;
+            get: ({ prismaTerminalId, token, jwtToken, headers }: {
+                prismaTerminalId: any;
                 token: any;
+                jwtToken: any;
                 headers: any;
             }) => any;
-            create: ({ jwtToken, token, mitTerminal, headers }: {
+            create: ({ jwtToken, token, prismaTerminal, headers }: {
                 jwtToken: any;
                 token: any;
-                mitTerminal: any;
+                prismaTerminal: any;
                 headers: any;
             }) => any;
-            update: ({ jwtToken, token, mitTerminalId, mitTerminal, headers }: {
+            update: ({ jwtToken, token, prismaTerminalId, prismaTerminal, headers }: {
                 jwtToken: any;
                 token: any;
-                mitTerminalId: any;
-                mitTerminal: any;
+                prismaTerminalId: any;
+                prismaTerminal: any;
                 headers: any;
             }) => any;
-            remove: ({ jwtToken, mitTerminalId, token, headers }: {
+            remove: ({ jwtToken, prismaTerminalId, token, headers }: {
                 jwtToken: any;
-                mitTerminalId: any;
+                prismaTerminalId: any;
                 token: any;
                 headers: any;
             }) => any;
         };
-        serviceTypes: {
+        products: {
             all: ({ token, query, headers }: {
                 token: any;
                 query?: {};
                 headers: any;
             }) => any;
-            get: ({ serviceTypeId, token, headers }: {
-                serviceTypeId: any;
+            get: ({ productId, token, jwtToken, query, headers }: {
+                productId: any;
                 token: any;
-                headers: any;
-            }) => any;
-            create: ({ jwtToken, token, serviceType, headers }: {
                 jwtToken: any;
-                token: any;
-                serviceType: any;
+                query?: {};
                 headers: any;
             }) => any;
-            update: ({ jwtToken, token, serviceTypeId, serviceType, headers }: {
+            create: ({ data, token, jwtToken, headers }: {
+                data: any;
+                token: any;
                 jwtToken: any;
-                token: any;
-                serviceTypeId: any;
-                serviceType: any;
                 headers: any;
             }) => any;
-            remove: ({ jwtToken, serviceTypeId, token, headers }: {
+            update: ({ productId, data, token, jwtToken, headers }: {
+                productId: any;
+                data: any;
+                token: any;
                 jwtToken: any;
-                serviceTypeId: any;
-                token: any;
                 headers: any;
             }) => any;
+            families: {
+                all: ({ token, query, headers }: {
+                    token: any;
+                    query?: {};
+                    headers: any;
+                }) => any;
+            };
+            domains: {
+                remove: ({ token, jwtToken, domain, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    domain: any;
+                    headers: any;
+                }) => any;
+            };
         };
-        customContent: {
+        promos: {
             all: ({ token, query, headers }: {
                 token: any;
                 query?: {};
                 headers: any;
             }) => any;
-            get: ({ customContentId, token, headers }: {
-                customContentId: any;
-                token: any;
-                headers: any;
-            }) => any;
-            create: ({ jwtToken, token, customContent, headers }: {
-                jwtToken: any;
-                token: any;
-                customContent: any;
-                headers: any;
-            }) => any;
-            update: ({ jwtToken, token, customContentId, customContent, headers }: {
-                jwtToken: any;
-                token: any;
-                customContentId: any;
-                customContent: any;
-                headers: any;
-            }) => any;
-            remove: ({ jwtToken, customContentId, token, headers }: {
-                jwtToken: any;
-                customContentId: any;
-                token: any;
-                headers: any;
-            }) => any;
-        };
-        seatfees: {
-            all: ({ token, query, headers }: {
+            get: ({ promoId, token, query, headers }: {
+                promoId: any;
                 token: any;
                 query?: {};
                 headers: any;
             }) => any;
-            get: ({ seatfeeId, token, headers }: {
-                seatfeeId: any;
+            create: ({ jwtToken, promo, token, headers }: {
+                jwtToken: any;
+                promo: any;
                 token: any;
                 headers: any;
             }) => any;
-            create: ({ jwtToken, token, seatfee, headers }: {
+            update: ({ jwtToken, token, promoId, update, headers }: {
                 jwtToken: any;
                 token: any;
-                seatfee: any;
+                promoId: any;
+                update: any;
                 headers: any;
             }) => any;
-            update: ({ jwtToken, token, seatfeeId, seatfee, headers }: {
+            patch: ({ jwtToken, token, promoId, operations, headers }: {
                 jwtToken: any;
                 token: any;
-                seatfeeId: any;
-                seatfee: any;
+                promoId: any;
+                operations: any;
+                headers: any;
+            }) => any;
+            remove: ({ jwtToken, promoId, token, headers }: {
+                jwtToken: any;
+                promoId: any;
+                token: any;
+                headers: any;
+            }) => any;
+            addRule: ({ jwtToken, token, promoId, rule, headers }: {
+                jwtToken: any;
+                token: any;
+                promoId: any;
+                rule: any;
+                headers: any;
+            }) => any;
+            updateRule: ({ jwtToken, token, promoId, ruleId, rule, headers }: {
+                jwtToken: any;
+                token: any;
+                promoId: any;
+                ruleId: any;
+                rule: any;
                 headers: any;
             }) => any;
         };
@@ -1111,16 +1351,31 @@ export function createApiClient(options: {
                 }): any;
             };
         };
-        bareRoutes: {
-            all: ({ token, query, headers }: {
+        scheduleGroups: {
+            all: ({ token, jwtToken, query, headers }: {
                 token: any;
+                jwtToken: any;
                 query?: {};
                 headers: any;
             }) => any;
-            get: ({ routeId, token, query, headers }: {
-                routeId: any;
+            get: ({ token, jwtToken, scheduleGroupId, query, headers }: {
                 token: any;
+                jwtToken: any;
+                scheduleGroupId: any;
                 query?: {};
+                headers: any;
+            }) => any;
+            create: ({ token, jwtToken, scheduleGroup, headers }: {
+                token: any;
+                jwtToken: any;
+                scheduleGroup: any;
+                headers: any;
+            }) => any;
+            update: ({ token, jwtToken, scheduleGroupId, scheduleGroup, headers }: {
+                token: any;
+                jwtToken: any;
+                scheduleGroupId: any;
+                scheduleGroup: any;
                 headers: any;
             }) => any;
         };
@@ -1175,36 +1430,147 @@ export function createApiClient(options: {
                 }) => any;
             };
         };
-        garages: {
+        seatClasses: {
             all: ({ token, jwtToken, query, headers }: {
                 token: any;
                 jwtToken: any;
                 query?: {};
                 headers: any;
             }) => any;
-            get: ({ token, jwtToken, garageId, headers }: {
+            get: ({ token, jwtToken, id, query, headers }: {
                 token: any;
                 jwtToken: any;
-                garageId: any;
+                id: any;
+                query?: {};
                 headers: any;
             }) => any;
-            create: ({ token, jwtToken, data, headers }: {
+            update: ({ token, jwtToken, id, data, query, headers }: {
+                token: any;
+                jwtToken: any;
+                id: any;
+                data: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            remove: ({ token, jwtToken, id, query, headers }: {
+                token: any;
+                jwtToken: any;
+                id: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            create: ({ token, jwtToken, data, query, headers }: {
                 token: any;
                 jwtToken: any;
                 data: any;
+                query?: {};
                 headers: any;
             }) => any;
-            update: ({ token, jwtToken, garageId, data, headers }: {
+        };
+        seatfees: {
+            all: ({ token, query, headers }: {
                 token: any;
-                jwtToken: any;
-                garageId: any;
-                data: any;
+                query?: {};
                 headers: any;
             }) => any;
-            remove: ({ token, jwtToken, garageId, headers }: {
+            get: ({ seatfeeId, token, headers }: {
+                seatfeeId: any;
+                token: any;
+                headers: any;
+            }) => any;
+            create: ({ jwtToken, token, seatfee, headers }: {
+                jwtToken: any;
+                token: any;
+                seatfee: any;
+                headers: any;
+            }) => any;
+            update: ({ jwtToken, token, seatfeeId, seatfee, headers }: {
+                jwtToken: any;
+                token: any;
+                seatfeeId: any;
+                seatfee: any;
+                headers: any;
+            }) => any;
+        };
+        seatmaps: {
+            all: ({ token, query, headers }: {
+                token: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            get: ({ seatmapId, routeId, scheduleId, manifestDate, query, token, headers }: {
+                seatmapId: any;
+                routeId: any;
+                scheduleId: any;
+                manifestDate: any;
+                query?: {};
+                token: any;
+                headers: any;
+            }) => any;
+            getById: ({ seatmapId, token, jwtToken, query, headers }: {
+                seatmapId: any;
                 token: any;
                 jwtToken: any;
-                garageId: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            create: ({ token, jwtToken, seatmap, headers }: {
+                token: any;
+                jwtToken: any;
+                seatmap: any;
+                headers: any;
+            }) => any;
+            remove: ({ token, jwtToken, seatmapId, headers }: {
+                token: any;
+                jwtToken: any;
+                seatmapId: any;
+                headers: any;
+            }) => any;
+            update: ({ token, jwtToken, seatmapId, seatmap, headers }: {
+                token: any;
+                jwtToken: any;
+                seatmapId: any;
+                seatmap: any;
+                headers: any;
+            }) => any;
+            getOccupiedSeats: ({ token, jwtToken, seatmapId, query, headers }: {
+                token: any;
+                jwtToken: any;
+                seatmapId: any;
+                query?: {};
+                headers: any;
+            }) => any;
+        };
+        segmentsInformation: {
+            all: ({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            get: ({ segmentInformationId, token, headers, jwtToken }: {
+                segmentInformationId: any;
+                token: any;
+                headers: any;
+                jwtToken: any;
+            }) => any;
+            create: ({ jwtToken, token, segmentInformation, headers }: {
+                jwtToken: any;
+                token: any;
+                segmentInformation: any;
+                headers: any;
+            }) => any;
+            update: ({ jwtToken, token, segmentInformationId, segmentInformation, headers }: {
+                jwtToken: any;
+                token: any;
+                segmentInformationId: any;
+                segmentInformation: any;
+                headers: any;
+            }) => any;
+            remove: ({ jwtToken, segmentInformationId, token, headers }: {
+                jwtToken: any;
+                segmentInformationId: any;
+                token: any;
                 headers: any;
             }) => any;
         };
@@ -1235,198 +1601,38 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
-        companies: {
-            all: ({ token, jwtToken, query, headers }: {
-                token: any;
-                jwtToken: any;
-                query?: {};
-                headers: any;
-            }) => any;
-        };
-        bundleFares: {
-            all: ({ token, bundleId, productId, query, headers }: {
-                token: any;
-                bundleId: any;
-                productId: any;
-                query?: {};
-                headers: any;
-            }) => any;
-        };
-        changeRequests: {
-            get: ({ changerequestId, token, jwtToken, query, headers }: {
-                changerequestId: any;
-                token: any;
-                jwtToken: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            create: ({ data, token, jwtToken, headers }: {
-                data: any;
-                token: any;
-                jwtToken: any;
-                headers: any;
-            }) => any;
-            update: ({ changerequestId, data, token, jwtToken, headers }: {
-                changerequestId: any;
-                data: any;
-                token: any;
-                jwtToken: any;
-                headers: any;
-            }) => any;
-            schedules: {
-                get({ changeRequestId, token, jwtToken, query, headers }: {
-                    changeRequestId: any;
-                    token: any;
-                    jwtToken: any;
-                    query?: {};
-                    headers: any;
-                }): any;
-                create({ data, token, jwtToken, headers }: {
-                    data: any;
-                    token: any;
-                    jwtToken: any;
-                    headers: any;
-                }): any;
-                update({ changeRequestId, data, token, jwtToken, headers }: {
-                    changeRequestId: any;
-                    data: any;
-                    token: any;
-                    jwtToken: any;
-                    headers: any;
-                }): any;
-            };
-        };
-        giftCertificateDefinitions: {
+        serviceTypes: {
             all: ({ token, query, headers }: {
                 token: any;
                 query?: {};
                 headers: any;
             }) => any;
-            get: ({ token, jwtToken, giftcertificateId, query, headers }: {
+            get: ({ serviceTypeId, token, headers }: {
+                serviceTypeId: any;
                 token: any;
-                jwtToken: any;
-                giftcertificateId: any;
-                query?: {};
                 headers: any;
             }) => any;
-            create: ({ token, jwtToken, giftcertificate, query, headers }: {
-                token: any;
+            create: ({ jwtToken, token, serviceType, headers }: {
                 jwtToken: any;
-                giftcertificate: any;
-                query?: {};
+                token: any;
+                serviceType: any;
                 headers: any;
             }) => any;
-            update: ({ token, jwtToken, giftcertificateId, giftcertificate, query, headers }: {
-                token: any;
+            update: ({ jwtToken, token, serviceTypeId, serviceType, headers }: {
                 jwtToken: any;
-                giftcertificateId: any;
-                giftcertificate: any;
-                query?: {};
+                token: any;
+                serviceTypeId: any;
+                serviceType: any;
                 headers: any;
             }) => any;
-            remove: ({ token, jwtToken, giftcertificateId, query, headers }: {
-                token: any;
+            remove: ({ jwtToken, serviceTypeId, token, headers }: {
                 jwtToken: any;
-                giftcertificateId: any;
-                query?: {};
+                serviceTypeId: any;
+                token: any;
                 headers: any;
             }) => any;
         };
-        amenities: {
-            all: ({ token, query, headers }: {
-                token: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            get: ({ token, amenityId, query, headers }: {
-                token: any;
-                amenityId: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            create: ({ token, jwtToken, amenity, headers }: {
-                token: any;
-                jwtToken: any;
-                amenity: any;
-                headers: any;
-            }) => any;
-            update: ({ token, jwtToken, amenityId, amenity, headers }: {
-                token: any;
-                jwtToken: any;
-                amenityId: any;
-                amenity: any;
-                headers: any;
-            }) => any;
-        };
-        amenityGroups: {
-            all: ({ token, query, headers }: {
-                token: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            get: ({ token, amenityGroupId, query, headers }: {
-                token: any;
-                amenityGroupId: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            create: ({ token, jwtToken, amenityGroup, headers }: {
-                token: any;
-                jwtToken: any;
-                amenityGroup: any;
-                headers: any;
-            }) => any;
-            update: ({ token, jwtToken, amenityGroupId, amenityGroup, headers }: {
-                token: any;
-                jwtToken: any;
-                amenityGroupId: any;
-                amenityGroup: any;
-                headers: any;
-            }) => any;
-        };
-        scheduleGroups: {
-            all: ({ token, jwtToken, query, headers }: {
-                token: any;
-                jwtToken: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            get: ({ token, jwtToken, scheduleGroupId, query, headers }: {
-                token: any;
-                jwtToken: any;
-                scheduleGroupId: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            create: ({ token, jwtToken, scheduleGroup, headers }: {
-                token: any;
-                jwtToken: any;
-                scheduleGroup: any;
-                headers: any;
-            }) => any;
-            update: ({ token, jwtToken, scheduleGroupId, scheduleGroup, headers }: {
-                token: any;
-                jwtToken: any;
-                scheduleGroupId: any;
-                scheduleGroup: any;
-                headers: any;
-            }) => any;
-        };
-        bundles: {
-            all: ({ token, jwtToken, query, headers }: {
-                token: any;
-                jwtToken: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            get: ({ token, jwtToken, bundleId, headers }: {
-                token: any;
-                jwtToken: any;
-                bundleId: any;
-                headers: any;
-            }) => any;
-        };
-        stationGroups: {
+        ssrs: {
             all: ({ token, query, headers }: {
                 token: any;
                 query?: {};
@@ -1467,67 +1673,110 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
-        zonePrices: {
+        stationGroups: {
             all: ({ token, query, headers }: {
                 token: any;
                 query?: {};
-                headers: any;
-            }) => any;
-            get: ({ zonePriceId, token, headers }: {
-                zonePriceId: any;
-                token: any;
-                headers: any;
-            }) => any;
-            create: ({ jwtToken, token, zonePrice, headers }: {
-                jwtToken: any;
-                token: any;
-                zonePrice: any;
-                headers: any;
-            }) => any;
-            update: ({ jwtToken, token, zonePriceId, zonePrice, headers }: {
-                jwtToken: any;
-                token: any;
-                zonePriceId: any;
-                zonePrice: any;
-                headers: any;
-            }) => any;
-            remove: ({ jwtToken, zonePriceId, token, headers }: {
-                jwtToken: any;
-                zonePriceId: any;
-                token: any;
                 headers: any;
             }) => any;
         };
-        zonePriceOverages: {
+        stations: {
+            get: ({ token, id, headers }: {
+                token: any;
+                id: any;
+                headers: any;
+            }) => any;
             all: ({ token, query, headers }: {
                 token: any;
                 query?: {};
                 headers: any;
             }) => any;
-            get: ({ zonePriceOverageId, token, headers }: {
-                zonePriceOverageId: any;
+            create: ({ token, jwtToken, data, headers }: {
+                token: any;
+                jwtToken: any;
+                data: any;
+                headers: any;
+            }) => any;
+            update: ({ token, jwtToken, stationId, station, headers }: {
+                token: any;
+                jwtToken: any;
+                stationId: any;
+                station: any;
+                headers: any;
+            }) => any;
+        };
+        stationsProvinces: {
+            all: ({ token, query, headers }: {
+                token: any;
+                query?: {};
+                headers: any;
+            }) => any;
+        };
+        stationsZones: {
+            get: ({ token, query, headers }: {
+                token: any;
+                query?: {};
+                headers: any;
+            }) => any;
+        };
+        taxes: {
+            all: ({ token, query, headers }: {
+                token: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            get: ({ taxId, token, query, headers }: {
+                taxId: any;
+                token: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            create: ({ jwtToken, tax, token, headers }: {
+                jwtToken: any;
+                tax: any;
                 token: any;
                 headers: any;
             }) => any;
-            create: ({ jwtToken, token, zonePriceOverages, headers }: {
+            update: ({ jwtToken, token, taxId, tax, headers }: {
                 jwtToken: any;
                 token: any;
-                zonePriceOverages: any;
+                taxId: any;
+                tax: any;
                 headers: any;
             }) => any;
-            update: ({ jwtToken, token, zonePriceOverageId, zonePriceOverages, headers }: {
-                jwtToken: any;
-                token: any;
-                zonePriceOverageId: any;
-                zonePriceOverages: any;
-                headers: any;
-            }) => any;
-            remove: ({ jwtToken, zonePriceOverageId, token, headers }: {
-                jwtToken: any;
-                zonePriceOverageId: any;
-                token: any;
-                headers: any;
-            }) => any;
+            exceptions: {
+                create({ jwtToken, token, taxException, headers }: {
+                    jwtToken: any;
+                    token: any;
+                    taxException: any;
+                    headers: any;
+                }): any;
+                update({ jwtToken, token, taxExceptionId, taxException, headers }: {
+                    jwtToken: any;
+                    token: any;
+                    taxExceptionId: any;
+                    taxException: any;
+                    headers: any;
+                }): any;
+                get({ jwtToken, token, taxExceptionId, headers }: {
+                    jwtToken: any;
+                    token: any;
+                    taxExceptionId: any;
+                    headers: any;
+                }): any;
+                all({ jwtToken, token, query, headers }: {
+                    jwtToken: any;
+                    token: any;
+                    query?: {};
+                    headers: any;
+                }): any;
+                delete({ jwtToken, token, taxExceptionId, headers }: {
+                    jwtToken: any;
+                    token: any;
+                    taxExceptionId: any;
+                    headers: any;
+                }): any;
+            };
         };
         travellerCardProviders: {
             all: ({ token, jwtToken, query, headers }: {
@@ -1623,116 +1872,6 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
-        marketplaceModifiers: {
-            all: ({ token, query, headers }: {
-                token: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            get: ({ marketplaceModifierId, token, headers }: {
-                marketplaceModifierId: any;
-                token: any;
-                headers: any;
-            }) => any;
-            create: ({ jwtToken, token, marketplaceModifier, headers }: {
-                jwtToken: any;
-                token: any;
-                marketplaceModifier: any;
-                headers: any;
-            }) => any;
-            update: ({ jwtToken, token, marketplaceModifierId, marketplaceModifier, headers }: {
-                jwtToken: any;
-                token: any;
-                marketplaceModifierId: any;
-                marketplaceModifier: any;
-                headers: any;
-            }) => any;
-            remove: ({ jwtToken, marketplaceModifierId, token, headers }: {
-                jwtToken: any;
-                marketplaceModifierId: any;
-                token: any;
-                headers: any;
-            }) => any;
-        };
-        healthCheck: {
-            get: () => any;
-        };
-        maritalStatus: {
-            all: ({ token, jwtToken, query, headers }: {
-                token: any;
-                jwtToken: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            get: ({ token, jwtToken, id, query, headers }: {
-                token: any;
-                jwtToken: any;
-                id: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            update: ({ token, jwtToken, id, data, query, headers }: {
-                token: any;
-                jwtToken: any;
-                id: any;
-                data: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            remove: ({ token, jwtToken, id, query, headers }: {
-                token: any;
-                jwtToken: any;
-                id: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            create: ({ token, jwtToken, data, query, headers }: {
-                token: any;
-                jwtToken: any;
-                data: any;
-                query?: {};
-                headers: any;
-            }) => any;
-        };
-        documentTypes: {
-            all: ({ token, jwtToken, query, headers, providerId }: {
-                token: any;
-                jwtToken: any;
-                query?: {};
-                headers: any;
-                providerId: any;
-            }) => any;
-            get: ({ token, jwtToken, id, query, headers, providerId }: {
-                token: any;
-                jwtToken: any;
-                id: any;
-                query?: {};
-                headers: any;
-                providerId: any;
-            }) => any;
-            update: ({ token, jwtToken, id, data, query, headers }: {
-                token: any;
-                jwtToken: any;
-                id: any;
-                data: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            remove: ({ token, jwtToken, id, query, headers }: {
-                token: any;
-                jwtToken: any;
-                id: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            create: ({ token, jwtToken, data, query, headers }: {
-                token: any;
-                jwtToken: any;
-                data: any;
-                query?: {};
-                headers: any;
-            }) => any;
-        };
         vehicles: {
             all: ({ token, query, headers }: {
                 token: any;
@@ -1782,173 +1921,64 @@ export function createApiClient(options: {
                 }): any;
             };
         };
-        seatClasses: {
-            all: ({ token, jwtToken, query, headers }: {
+        zonePriceOverages: {
+            all: ({ token, query, headers }: {
                 token: any;
-                jwtToken: any;
                 query?: {};
                 headers: any;
             }) => any;
-            get: ({ token, jwtToken, id, query, headers }: {
-                token: any;
-                jwtToken: any;
-                id: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            update: ({ token, jwtToken, id, data, query, headers }: {
-                token: any;
-                jwtToken: any;
-                id: any;
-                data: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            remove: ({ token, jwtToken, id, query, headers }: {
-                token: any;
-                jwtToken: any;
-                id: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            create: ({ token, jwtToken, data, query, headers }: {
-                token: any;
-                jwtToken: any;
-                data: any;
-                query?: {};
-                headers: any;
-            }) => any;
-        };
-        segmentsInformation: {
-            all: ({ token, jwtToken, query, headers }: {
-                token: any;
-                jwtToken: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            get: ({ segmentInformationId, token, headers, jwtToken }: {
-                segmentInformationId: any;
+            get: ({ zonePriceOverageId, token, headers }: {
+                zonePriceOverageId: any;
                 token: any;
                 headers: any;
-                jwtToken: any;
             }) => any;
-            create: ({ jwtToken, token, segmentInformation, headers }: {
+            create: ({ jwtToken, token, zonePriceOverages, headers }: {
                 jwtToken: any;
                 token: any;
-                segmentInformation: any;
+                zonePriceOverages: any;
                 headers: any;
             }) => any;
-            update: ({ jwtToken, token, segmentInformationId, segmentInformation, headers }: {
+            update: ({ jwtToken, token, zonePriceOverageId, zonePriceOverages, headers }: {
                 jwtToken: any;
                 token: any;
-                segmentInformationId: any;
-                segmentInformation: any;
+                zonePriceOverageId: any;
+                zonePriceOverages: any;
                 headers: any;
             }) => any;
-            remove: ({ jwtToken, segmentInformationId, token, headers }: {
+            remove: ({ jwtToken, zonePriceOverageId, token, headers }: {
                 jwtToken: any;
-                segmentInformationId: any;
+                zonePriceOverageId: any;
                 token: any;
                 headers: any;
             }) => any;
         };
-        mitTerminalsSettings: {
-            all: ({ token, jwtToken, query, headers }: {
+        zonePrices: {
+            all: ({ token, query, headers }: {
                 token: any;
-                jwtToken: any;
                 query?: {};
                 headers: any;
             }) => any;
-            get: ({ id, token, jwtToken, headers }: {
-                id: any;
-                token: any;
-                jwtToken: any;
-                headers: any;
-            }) => any;
-            create: ({ jwtToken, token, mitTerminalSettings, headers }: {
-                jwtToken: any;
-                token: any;
-                mitTerminalSettings: any;
-                headers: any;
-            }) => any;
-            update: ({ jwtToken, token, id, mitTerminalSettings, headers }: {
-                jwtToken: any;
-                token: any;
-                id: any;
-                mitTerminalSettings: any;
-                headers: any;
-            }) => any;
-            remove: ({ jwtToken, id, token, headers }: {
-                jwtToken: any;
-                id: any;
+            get: ({ zonePriceId, token, headers }: {
+                zonePriceId: any;
                 token: any;
                 headers: any;
             }) => any;
-        };
-        financingCosts: {
-            all: ({ token, jwtToken, query, headers }: {
-                token: any;
-                jwtToken: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            get: ({ id, token, headers, jwtToken, query }: {
-                id: any;
-                token: any;
-                headers: any;
-                jwtToken: any;
-                query?: {};
-            }) => any;
-            create: ({ jwtToken, token, financingCost, headers }: {
+            create: ({ jwtToken, token, zonePrice, headers }: {
                 jwtToken: any;
                 token: any;
-                financingCost: any;
+                zonePrice: any;
                 headers: any;
             }) => any;
-            update: ({ jwtToken, token, id, financingCost, headers }: {
+            update: ({ jwtToken, token, zonePriceId, zonePrice, headers }: {
                 jwtToken: any;
                 token: any;
-                id: any;
-                financingCost: any;
+                zonePriceId: any;
+                zonePrice: any;
                 headers: any;
             }) => any;
-            remove: ({ jwtToken, id, token, headers, query }: {
+            remove: ({ jwtToken, zonePriceId, token, headers }: {
                 jwtToken: any;
-                id: any;
-                token: any;
-                headers: any;
-                query?: {};
-            }) => any;
-        };
-        prismaTerminals: {
-            all: ({ token, jwtToken, query, headers }: {
-                token: any;
-                jwtToken: any;
-                query?: {};
-                headers: any;
-            }) => any;
-            get: ({ prismaTerminalId, token, jwtToken, headers }: {
-                prismaTerminalId: any;
-                token: any;
-                jwtToken: any;
-                headers: any;
-            }) => any;
-            create: ({ jwtToken, token, prismaTerminal, headers }: {
-                jwtToken: any;
-                token: any;
-                prismaTerminal: any;
-                headers: any;
-            }) => any;
-            update: ({ jwtToken, token, prismaTerminalId, prismaTerminal, headers }: {
-                jwtToken: any;
-                token: any;
-                prismaTerminalId: any;
-                prismaTerminal: any;
-                headers: any;
-            }) => any;
-            remove: ({ jwtToken, prismaTerminalId, token, headers }: {
-                jwtToken: any;
-                prismaTerminalId: any;
+                zonePriceId: any;
                 token: any;
                 headers: any;
             }) => any;
