@@ -5,22 +5,33 @@ const {
 function getnetTerminalFactory({client, internalAuthTokenProvider}) {
   function all({
     token,
+    jwtToken,
     query = {},
     headers
   }) {
     return client.get("/getnet-terminals", {
       params: query,
-      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
-  function get({getnetTerminalId, token, headers}) {
+  function get({
+    getnetTerminalId,
+    token,
+    jwtToken,
+    headers
+  }) {
     return client.get(`/getnet-terminals/${getnetTerminalId}`, {
-      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
-  function create({jwtToken, token, getnetTerminal, headers}) {
+  function create({
+    jwtToken,
+    token,
+    getnetTerminal,
+    headers
+  }) {
     return client({
       url: "/getnet-terminals",
       method: "post",
@@ -31,7 +42,12 @@ function getnetTerminalFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function remove({jwtToken, getnetTerminalId, token, headers}) {
+  function remove({
+    jwtToken,
+    getnetTerminalId,
+    token,
+    headers
+  }) {
     return client({
       url: `/getnet-terminals/${getnetTerminalId}`,
       method: "delete",
@@ -39,11 +55,17 @@ function getnetTerminalFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function update({jwtToken, token, getnetTerminal, headers}) {
-    const getnetTerminalId = getnetTerminal._id;
+  function update({
+    jwtToken,
+    token,
+    getnetTerminalId,
+    getnetTerminal,
+    headers
+  }) {
+    const _getnetTerminalId = getnetTerminalId || getnetTerminal._id;
 
     return client({
-      url: `/getnet-terminals/${getnetTerminalId}`,
+      url: `/getnet-terminals/${_getnetTerminalId}`,
       method: "put",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: {
