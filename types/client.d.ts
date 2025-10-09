@@ -652,14 +652,16 @@ export function createApiClient(options: {
             }) => any;
         };
         getnetTerminals: {
-            all: ({ token, query, headers }: {
+            all: ({ token, jwtToken, query, headers }: {
                 token: any;
+                jwtToken: any;
                 query?: {};
                 headers: any;
             }) => any;
-            get: ({ getnetTerminalId, token, headers }: {
+            get: ({ getnetTerminalId, token, jwtToken, headers }: {
                 getnetTerminalId: any;
                 token: any;
+                jwtToken: any;
                 headers: any;
             }) => any;
             create: ({ jwtToken, token, getnetTerminal, headers }: {
@@ -674,9 +676,10 @@ export function createApiClient(options: {
                 token: any;
                 headers: any;
             }) => any;
-            update: ({ jwtToken, token, getnetTerminal, headers }: {
+            update: ({ jwtToken, token, getnetTerminalId, getnetTerminal, headers }: {
                 jwtToken: any;
                 token: any;
+                getnetTerminalId: any;
                 getnetTerminal: any;
                 headers: any;
             }) => any;
