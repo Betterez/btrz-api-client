@@ -52,4 +52,28 @@ declare function schedulesFactory({ client, internalAuthTokenProvider }: {
             headers: any;
         }) => any;
     };
+    exceptions: {
+        create: ({ token, jwtToken, data, scheduleId, headers }: {
+            token: any;
+            jwtToken: any;
+            data: any;
+            scheduleId: any;
+            headers: any;
+        }) => any;
+        delete: ({ token, jwtToken, scheduleId, exceptionId, headers }: {
+            token: any;
+            jwtToken: any;
+            scheduleId: any;
+            exceptionId: any;
+            headers: any;
+        }) => any;
+        update: ({ token, jwtToken, data, scheduleId, exceptionId, headers }: {
+            token: any;
+            jwtToken: any;
+            data: any;
+            scheduleId: any;
+            exceptionId: any;
+            headers: any;
+        }) => any;
+    };
 };
