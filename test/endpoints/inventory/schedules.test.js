@@ -1,5 +1,5 @@
-const {axiosMock, expectRequest} = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({baseURL: "http://test.com"});
+const {axiosMock, expectRequest} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
 describe("inventory/routes/shedules", () => {
   const token = "I owe you a token";
@@ -64,7 +64,7 @@ describe("inventory/routes/shedules", () => {
   });
 
   it("should add auto bouncing data to the schedules", () => {
-    axiosMock.onPost(`/routes/schedules/auto-bouncing`).reply(expectRequest({
+    axiosMock.onPost("/routes/schedules/auto-bouncing").reply(expectRequest({
       statusCode: 200, token, jwtToken
     }));
     return api.inventory.schedules.autoBouncing.create({token, jwtToken, data});
@@ -73,5 +73,26 @@ describe("inventory/routes/shedules", () => {
   it("should delete auto bouncing relationship", async () => {
     axiosMock.onDelete(`/routes/${routeId}/schedules/${scheduleId}/auto-bouncing`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.schedules.autoBouncing.delete({token, jwtToken, routeId, parentScheduleId: scheduleId});
+  });
+
+  it("should create a schedule exception", () => {
+    axiosMock.onPost(`/schedules/${scheduleId}/schedule-exceptions`).reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.inventory.schedules.exceptions.create({token, jwtToken, data, scheduleId});
+  });
+
+  it("should delete a schedule exception", async () => {
+    const exceptionId = "exception123";
+    axiosMock.onDelete(`/schedules/${scheduleId}/schedule-exceptions/${exceptionId}`)
+      .reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.inventory.schedules.exceptions.delete({token, jwtToken, scheduleId, exceptionId});
+  });
+
+  it("should update a schedule exception", async () => {
+    const exceptionId = "exception123";
+    axiosMock.onPut(`/schedules/${scheduleId}/schedule-exceptions/${exceptionId}`)
+      .reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.inventory.schedules.exceptions.update({token, jwtToken, data, scheduleId, exceptionId});
   });
 });

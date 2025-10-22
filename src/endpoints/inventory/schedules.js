@@ -1,4 +1,4 @@
-const {authorizationHeaders} = require("./../endpoints_helpers");
+const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 function schedulesFactory({client, internalAuthTokenProvider}) {
   function all({token, query = {}, headers}) {
@@ -69,13 +69,46 @@ function schedulesFactory({client, internalAuthTokenProvider}) {
     }
   };
 
+  const exceptions = {
+    create: ({token, jwtToken, data, scheduleId, headers}) => {
+      return client({
+        url: `/schedules/${scheduleId}/schedule-exceptions`,
+        method: "post",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        }),
+        data
+      });
+    },
+    delete: ({token, jwtToken, scheduleId, exceptionId, headers}) => {
+      return client({
+        url: `/schedules/${scheduleId}/schedule-exceptions/${exceptionId}`,
+        method: "delete",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        })
+      });
+    },
+    update: ({token, jwtToken, data, scheduleId, exceptionId, headers}) => {
+      return client({
+        url: `/schedules/${scheduleId}/schedule-exceptions/${exceptionId}`,
+        method: "put",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        }),
+        data
+      });
+    }
+  };
+
   return {
     all,
     get,
     create,
     update,
     delete: deleteSchedule,
-    autoBouncing
+    autoBouncing,
+    exceptions
   };
 }
 
