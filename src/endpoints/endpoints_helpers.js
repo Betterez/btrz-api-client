@@ -25,14 +25,14 @@ function authorizationHeaders({
 
   try {
     if (headers && typeof headers === "object" && !Array.isArray(headers)) {
-      Object.keys(headers).forEach((key) => {
+      Object.entries(headers).forEach(([key, value]) => {
         if (_headers[key]) {
           return;
         }
-        if (key === "x-amzn-trace-id") {
-          if (headers[key]) {
-            _headers[key] = headers[key];
-          }
+        if (key === "x-amzn-trace-id" && value) {
+          _headers[key] = headers[key];
+        } else if (key === "x-elevation-token") {
+          _headers[key] = headers[key];
         }
       });
     }

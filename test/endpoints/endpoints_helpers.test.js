@@ -115,6 +115,19 @@ describe("endpoints helpers", () => {
         expect(headers).to.not.haveOwnProperty("x-amzn-trace-id");
         expect(headers).to.deep.equal({});
       });
+
+      it("should add the x-elevation-token header if it is provided in the 'headers' argument", () => {
+        const newHeaders = {
+          "test-header": "123",
+          "x-elevation-token": "ABCDEF"
+        };
+
+        const headers = authorizationHeaders({headers: newHeaders});
+
+        expect(headers).to.deep.equal({
+          "x-elevation-token": "ABCDEF"
+        });
+      });
     });
   });
 });
