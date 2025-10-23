@@ -44,19 +44,6 @@ declare function usersFactory({ client, internalAuthTokenProvider }: {
         offlineUserId: any;
         headers: any;
     }) => any;
-    delegation: ({ token, jwtToken, actionName, delegator, headers }: {
-        token: any;
-        jwtToken: any;
-        actionName: any;
-        delegator: any;
-        headers: any;
-    }) => any;
-    revokeDelegation: ({ token, jwtToken, actionName, headers }: {
-        token: any;
-        jwtToken: any;
-        actionName: any;
-        headers: any;
-    }) => any;
     sequences: {
         get({ token, jwtToken, userId, sequenceId, headers }: {
             token: any;
