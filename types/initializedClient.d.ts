@@ -1276,6 +1276,12 @@ declare const _exports: {
                 routeId: any;
                 headers: any;
             }) => any;
+            remove: ({ token, jwtToken, routeId, headers }: {
+                token: any;
+                jwtToken: any;
+                routeId: any;
+                headers: any;
+            }) => any;
             fareTables: {
                 all({ token, query, headers }: {
                     token: any;
