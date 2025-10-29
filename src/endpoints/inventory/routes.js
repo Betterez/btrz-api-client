@@ -55,6 +55,15 @@ function routesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function remove({token, jwtToken, routeId, headers}) {
+    return client({
+      url: `/routes/${routeId}`,
+      method: "delete",
+      headers: authorizationHeaders({
+        token, jwtToken, internalAuthTokenProvider, headers
+      })
+    });
+  }
 
   const fareTables = {
     all({
@@ -117,6 +126,7 @@ function routesFactory({client, internalAuthTokenProvider}) {
     stations,
     create,
     update,
+    remove,
     fareTables,
     stops
   };

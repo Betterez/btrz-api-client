@@ -83,4 +83,27 @@ describe("inventory/route", () => {
       token, jwtToken, routeId, stop
     });
   });
+
+  it("should update a route", () => {
+    const routeId = "507f1f77bcf86cd799439011";
+    const data = {
+      name: "Updated Route Name"
+    };
+    axiosMock.onPut(`/routes/${routeId}`).reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.inventory.routes.update({
+      token, jwtToken, routeId, data
+    });
+  });
+
+  it("should delete a route", () => {
+    const routeId = "507f1f77bcf86cd799439011";
+    axiosMock.onDelete(`/routes/${routeId}`).reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.inventory.routes.remove({
+      token, jwtToken, routeId
+    });
+  });
 });
