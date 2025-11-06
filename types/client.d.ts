@@ -2541,6 +2541,19 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        multiproductSalesSettings: {
+            get: ({ token, jwtToken, headers }: {
+                token: any;
+                jwtToken: any;
+                headers: any;
+            }) => any;
+            update: ({ token, jwtToken, data, headers }: {
+                token: any;
+                jwtToken: any;
+                data: any;
+                headers: any;
+            }) => any;
+        };
         printers: {
             all: ({ token, query, headers }: {
                 token: any;
