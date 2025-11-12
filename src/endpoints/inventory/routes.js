@@ -120,11 +120,11 @@ function routesFactory({client, internalAuthTokenProvider}) {
   };
 
   const fareRules = {
-    get({token, routeId, headers}) {
+    get({token, jwtToken, routeId, headers}) {
       return client({
         url: `/routes/${routeId}/fare-rules`,
         headers: authorizationHeaders({
-          token, internalAuthTokenProvider, headers
+          token, jwtToken, internalAuthTokenProvider, headers
         })
       });
     },
@@ -164,11 +164,11 @@ function routesFactory({client, internalAuthTokenProvider}) {
   };
 
   const priceBuckets = {
-    get({token, routeId, headers}) {
+    get({token, jwtToken, routeId, headers}) {
       return client({
         url: `/routes/${routeId}/price-buckets`,
         headers: authorizationHeaders({
-          token, internalAuthTokenProvider, headers
+          token, jwtToken, internalAuthTokenProvider, headers
         })
       });
     },
@@ -208,11 +208,11 @@ function routesFactory({client, internalAuthTokenProvider}) {
   };
 
   const crossBorderDistances = {
-    get({token, routeId, headers}) {
+    get({token, jwtToken, routeId, headers}) {
       return client({
         url: `/routes/${routeId}/cross-border-distances`,
         headers: authorizationHeaders({
-          token, internalAuthTokenProvider, headers
+          token, jwtToken, internalAuthTokenProvider, headers
         })
       });
     },
