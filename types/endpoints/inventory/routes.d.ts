@@ -79,6 +79,11 @@ declare function routesFactory({ client, internalAuthTokenProvider }: {
         }): any;
     };
     fareRules: {
+        get({ token, routeId, headers }: {
+            token: any;
+            routeId: any;
+            headers: any;
+        }): any;
         create({ token, jwtToken, routeId, fareRule, headers }: {
             token: any;
             jwtToken: any;
@@ -99,6 +104,49 @@ declare function routesFactory({ client, internalAuthTokenProvider }: {
             jwtToken: any;
             routeId: any;
             fareRuleId: any;
+            headers: any;
+        }): any;
+    };
+    priceBuckets: {
+        get({ token, routeId, headers }: {
+            token: any;
+            routeId: any;
+            headers: any;
+        }): any;
+        create({ token, jwtToken, routeId, bucket, headers }: {
+            token: any;
+            jwtToken: any;
+            routeId: any;
+            bucket: any;
+            headers: any;
+        }): any;
+        update({ token, jwtToken, routeId, bucketId, bucket, headers }: {
+            token: any;
+            jwtToken: any;
+            routeId: any;
+            bucketId: any;
+            bucket: any;
+            headers: any;
+        }): any;
+        remove({ token, jwtToken, routeId, bucketId, headers }: {
+            token: any;
+            jwtToken: any;
+            routeId: any;
+            bucketId: any;
+            headers: any;
+        }): any;
+    };
+    crossBorderDistances: {
+        get({ token, routeId, headers }: {
+            token: any;
+            routeId: any;
+            headers: any;
+        }): any;
+        update({ token, jwtToken, routeId, crossBorderDistances, headers }: {
+            token: any;
+            jwtToken: any;
+            routeId: any;
+            crossBorderDistances: any;
             headers: any;
         }): any;
     };
