@@ -1,5 +1,5 @@
-const {axiosMock, expectRequest} = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({baseURL: "http://test.com"});
+const {axiosMock, expectRequest} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
 describe("inventory/route", () => {
   const token = "I owe you a token";
@@ -104,6 +104,125 @@ describe("inventory/route", () => {
     }));
     return api.inventory.routes.remove({
       token, jwtToken, routeId
+    });
+  });
+
+  it("should create a fare-rule", () => {
+    const routeId = "507f1f77bcf86cd799439011";
+    const fareRule = {
+      name: "Summer Pricing",
+      dates: {
+        from: "2024-06-01",
+        to: "2024-08-31"
+      },
+      buckets: {
+        "bucket-1": 150,
+        "bucket-2": 200
+      }
+    };
+    axiosMock.onPost(`/routes/${routeId}/fare-rules`).reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.inventory.routes.fareRules.create({
+      jwtToken, token, routeId, fareRule
+    });
+  });
+
+  it("should update a fare-rule", () => {
+    const routeId = "507f1f77bcf86cd799439011";
+    const fareRuleId = "summer-pricing";
+    const fareRule = {
+      name: "Updated Summer Pricing",
+      dates: {
+        from: "2024-06-01",
+        to: "2024-08-31"
+      },
+      buckets: {
+        "bucket-1": 175,
+        "bucket-2": 225
+      }
+    };
+    axiosMock.onPut(`/routes/${routeId}/fare-rules/${fareRuleId}`).reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.inventory.routes.fareRules.update({
+      jwtToken, token, routeId, fareRuleId, fareRule
+    });
+  });
+
+  it("should delete a fare-rule", () => {
+    const routeId = "507f1f77bcf86cd799439011";
+    const fareRuleId = "summer-pricing";
+    axiosMock.onDelete(`/routes/${routeId}/fare-rules/${fareRuleId}`).reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.inventory.routes.fareRules.remove({
+      jwtToken, token, routeId, fareRuleId
+    });
+  });
+
+  it("should create a price-bucket", () => {
+    const routeId = "507f1f77bcf86cd799439011";
+    const bucket = {
+      name: "Premium Bucket",
+      id: "premium-bucket"
+    };
+    axiosMock.onPost(`/routes/${routeId}/price-buckets`).reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.inventory.routes.priceBuckets.create({
+      jwtToken, token, routeId, bucket
+    });
+  });
+
+  it("should update a price-bucket", () => {
+    const routeId = "507f1f77bcf86cd799439011";
+    const bucketId = "premium-bucket";
+    const bucket = {
+      name: "Updated Premium Bucket"
+    };
+    axiosMock.onPut(`/routes/${routeId}/price-buckets/${bucketId}`).reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.inventory.routes.priceBuckets.update({
+      jwtToken, token, routeId, bucketId, bucket
+    });
+  });
+
+  it("should delete a price-bucket", () => {
+    const routeId = "507f1f77bcf86cd799439011";
+    const bucketId = "premium-bucket";
+    axiosMock.onDelete(`/routes/${routeId}/price-buckets/${bucketId}`).reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.inventory.routes.priceBuckets.remove({
+      jwtToken, token, routeId, bucketId
+    });
+  });
+
+  it("should get cross-border-distances", () => {
+    const routeId = "507f1f77bcf86cd799439011";
+    axiosMock.onGet(`/routes/${routeId}/cross-border-distances`).reply(expectRequest({
+      statusCode: 200, token
+    }));
+    return api.inventory.routes.crossBorderDistances.get({
+      token, routeId
+    });
+  });
+
+  it("should update cross-border-distances", () => {
+    const routeId = "507f1f77bcf86cd799439011";
+    const crossBorderDistances = {
+      "stop-1": {
+        "stop-2": 150,
+        "stop-3": 200
+      }
+    };
+    axiosMock.onPut(`/routes/${routeId}/cross-border-distances`).reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.inventory.routes.crossBorderDistances.update({
+      jwtToken, token, routeId, crossBorderDistances
     });
   });
 });

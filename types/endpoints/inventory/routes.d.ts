@@ -78,4 +78,28 @@ declare function routesFactory({ client, internalAuthTokenProvider }: {
             headers: any;
         }): any;
     };
+    fareRules: {
+        create({ token, jwtToken, routeId, fareRule, headers }: {
+            token: any;
+            jwtToken: any;
+            routeId: any;
+            fareRule: any;
+            headers: any;
+        }): any;
+        update({ token, jwtToken, routeId, fareRuleId, fareRule, headers }: {
+            token: any;
+            jwtToken: any;
+            routeId: any;
+            fareRuleId: any;
+            fareRule: any;
+            headers: any;
+        }): any;
+        remove({ token, jwtToken, routeId, fareRuleId, headers }: {
+            token: any;
+            jwtToken: any;
+            routeId: any;
+            fareRuleId: any;
+            headers: any;
+        }): any;
+    };
 };

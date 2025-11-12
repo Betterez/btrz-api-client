@@ -1,4 +1,4 @@
-const {authorizationHeaders} = require("./../endpoints_helpers");
+const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 function routesFactory({client, internalAuthTokenProvider}) {
   function get({routeId, token, query = {}, headers}) {
@@ -119,6 +119,118 @@ function routesFactory({client, internalAuthTokenProvider}) {
     }
   };
 
+  const fareRules = {
+    get({token, routeId, headers}) {
+      return client({
+        url: `/routes/${routeId}/fare-rules`,
+        headers: authorizationHeaders({
+          token, internalAuthTokenProvider, headers
+        })
+      });
+    },
+    create({token, jwtToken, routeId, fareRule, headers}) {
+      return client({
+        url: `/routes/${routeId}/fare-rules`,
+        method: "post",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        }),
+        data: {
+          fareRule
+        }
+      });
+    },
+    update({token, jwtToken, routeId, fareRuleId, fareRule, headers}) {
+      return client({
+        url: `/routes/${routeId}/fare-rules/${fareRuleId}`,
+        method: "put",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        }),
+        data: {
+          fareRule
+        }
+      });
+    },
+    remove({token, jwtToken, routeId, fareRuleId, headers}) {
+      return client({
+        url: `/routes/${routeId}/fare-rules/${fareRuleId}`,
+        method: "delete",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        })
+      });
+    }
+  };
+
+  const priceBuckets = {
+    get({token, routeId, headers}) {
+      return client({
+        url: `/routes/${routeId}/price-buckets`,
+        headers: authorizationHeaders({
+          token, internalAuthTokenProvider, headers
+        })
+      });
+    },
+    create({token, jwtToken, routeId, bucket, headers}) {
+      return client({
+        url: `/routes/${routeId}/price-buckets`,
+        method: "post",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        }),
+        data: {
+          bucket
+        }
+      });
+    },
+    update({token, jwtToken, routeId, bucketId, bucket, headers}) {
+      return client({
+        url: `/routes/${routeId}/price-buckets/${bucketId}`,
+        method: "put",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        }),
+        data: {
+          bucket
+        }
+      });
+    },
+    remove({token, jwtToken, routeId, bucketId, headers}) {
+      return client({
+        url: `/routes/${routeId}/price-buckets/${bucketId}`,
+        method: "delete",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        })
+      });
+    }
+  };
+
+  const crossBorderDistances = {
+    get({token, routeId, headers}) {
+      return client({
+        url: `/routes/${routeId}/cross-border-distances`,
+        headers: authorizationHeaders({
+          token, internalAuthTokenProvider, headers
+        })
+      });
+    },
+    // eslint-disable-next-line no-shadow
+    update({token, jwtToken, routeId, crossBorderDistances, headers}) {
+      return client({
+        url: `/routes/${routeId}/cross-border-distances`,
+        method: "put",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        }),
+        data: {
+          crossBorderDistances
+        }
+      });
+    }
+  };
+
   return {
     get,
     prices,
@@ -128,7 +240,10 @@ function routesFactory({client, internalAuthTokenProvider}) {
     update,
     remove,
     fareTables,
-    stops
+    stops,
+    fareRules,
+    priceBuckets,
+    crossBorderDistances
   };
 }
 
