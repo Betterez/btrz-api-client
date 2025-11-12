@@ -1314,8 +1314,9 @@ declare const _exports: {
                 }): any;
             };
             fareRules: {
-                get({ token, routeId, headers }: {
+                get({ token, jwtToken, routeId, headers }: {
                     token: any;
+                    jwtToken: any;
                     routeId: any;
                     headers: any;
                 }): any;
@@ -1343,8 +1344,9 @@ declare const _exports: {
                 }): any;
             };
             priceBuckets: {
-                get({ token, routeId, headers }: {
+                get({ token, jwtToken, routeId, headers }: {
                     token: any;
+                    jwtToken: any;
                     routeId: any;
                     headers: any;
                 }): any;
@@ -1372,8 +1374,9 @@ declare const _exports: {
                 }): any;
             };
             crossBorderDistances: {
-                get({ token, routeId, headers }: {
+                get({ token, jwtToken, routeId, headers }: {
                     token: any;
+                    jwtToken: any;
                     routeId: any;
                     headers: any;
                 }): any;

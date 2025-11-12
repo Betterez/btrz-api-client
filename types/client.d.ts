@@ -1360,8 +1360,9 @@ export function createApiClient(options: {
                 }): any;
             };
             fareRules: {
-                get({ token, routeId, headers }: {
+                get({ token, jwtToken, routeId, headers }: {
                     token: any;
+                    jwtToken: any;
                     routeId: any;
                     headers: any;
                 }): any;
@@ -1389,8 +1390,9 @@ export function createApiClient(options: {
                 }): any;
             };
             priceBuckets: {
-                get({ token, routeId, headers }: {
+                get({ token, jwtToken, routeId, headers }: {
                     token: any;
+                    jwtToken: any;
                     routeId: any;
                     headers: any;
                 }): any;
@@ -1418,8 +1420,9 @@ export function createApiClient(options: {
                 }): any;
             };
             crossBorderDistances: {
-                get({ token, routeId, headers }: {
+                get({ token, jwtToken, routeId, headers }: {
                     token: any;
+                    jwtToken: any;
                     routeId: any;
                     headers: any;
                 }): any;

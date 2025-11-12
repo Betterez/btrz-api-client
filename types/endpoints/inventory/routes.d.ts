@@ -79,8 +79,9 @@ declare function routesFactory({ client, internalAuthTokenProvider }: {
         }): any;
     };
     fareRules: {
-        get({ token, routeId, headers }: {
+        get({ token, jwtToken, routeId, headers }: {
             token: any;
+            jwtToken: any;
             routeId: any;
             headers: any;
         }): any;
@@ -108,8 +109,9 @@ declare function routesFactory({ client, internalAuthTokenProvider }: {
         }): any;
     };
     priceBuckets: {
-        get({ token, routeId, headers }: {
+        get({ token, jwtToken, routeId, headers }: {
             token: any;
+            jwtToken: any;
             routeId: any;
             headers: any;
         }): any;
@@ -137,8 +139,9 @@ declare function routesFactory({ client, internalAuthTokenProvider }: {
         }): any;
     };
     crossBorderDistances: {
-        get({ token, routeId, headers }: {
+        get({ token, jwtToken, routeId, headers }: {
             token: any;
+            jwtToken: any;
             routeId: any;
             headers: any;
         }): any;
