@@ -1388,6 +1388,22 @@ declare const _exports: {
                     headers: any;
                 }): any;
             };
+            prorationTable: {
+                get({ token, jwtToken, routeId, productId, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    routeId: any;
+                    productId: any;
+                    headers: any;
+                }): any;
+                update({ token, jwtToken, routeId, prorationTable: prorationTableData, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    routeId: any;
+                    prorationTable: any;
+                    headers: any;
+                }): any;
+            };
         };
         scheduleGroups: {
             all: ({ token, jwtToken, query, headers }: {
