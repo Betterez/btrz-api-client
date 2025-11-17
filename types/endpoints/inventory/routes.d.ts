@@ -153,4 +153,20 @@ declare function routesFactory({ client, internalAuthTokenProvider }: {
             headers: any;
         }): any;
     };
+    prorationTable: {
+        get({ token, jwtToken, routeId, productId, headers }: {
+            token: any;
+            jwtToken: any;
+            routeId: any;
+            productId?: any;
+            headers: any;
+        }): any;
+        update({ token, jwtToken, routeId, prorationTable, headers }: {
+            token: any;
+            jwtToken: any;
+            routeId: any;
+            prorationTable: any;
+            headers: any;
+        }): any;
+    };
 };

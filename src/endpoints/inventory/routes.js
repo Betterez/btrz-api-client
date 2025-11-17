@@ -231,6 +231,31 @@ function routesFactory({client, internalAuthTokenProvider}) {
     }
   };
 
+  const prorationTable = {
+    get({token, jwtToken, routeId, productId, headers}) {
+      const query = productId ? {productId} : {};
+      return client({
+        url: `/routes/${routeId}/proration-table`,
+        params: query,
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        })
+      });
+    },
+    update({token, jwtToken, routeId, prorationTable: prorationTableData, headers}) {
+      return client({
+        url: `/routes/${routeId}/proration-table`,
+        method: "put",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        }),
+        data: {
+          prorationTable: prorationTableData
+        }
+      });
+    }
+  };
+
   return {
     get,
     prices,
@@ -243,7 +268,8 @@ function routesFactory({client, internalAuthTokenProvider}) {
     stops,
     fareRules,
     priceBuckets,
-    crossBorderDistances
+    crossBorderDistances,
+    prorationTable
   };
 }
 
