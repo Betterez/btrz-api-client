@@ -107,6 +107,16 @@ describe("inventory/route", () => {
     });
   });
 
+  it("should get fare-rules", () => {
+    const routeId = "507f1f77bcf86cd799439011";
+    axiosMock.onGet(`/routes/${routeId}/fare-rules`).reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.inventory.routes.fareRules.get({
+      jwtToken, token, routeId
+    });
+  });
+
   it("should create a fare-rule", () => {
     const routeId = "507f1f77bcf86cd799439011";
     const fareRule = {
@@ -158,6 +168,16 @@ describe("inventory/route", () => {
     }));
     return api.inventory.routes.fareRules.remove({
       jwtToken, token, routeId, fareRuleId
+    });
+  });
+
+  it("should get price-buckets", () => {
+    const routeId = "507f1f77bcf86cd799439011";
+    axiosMock.onGet(`/routes/${routeId}/price-buckets`).reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.inventory.routes.priceBuckets.get({
+      jwtToken, token, routeId
     });
   });
 
@@ -226,12 +246,41 @@ describe("inventory/route", () => {
     });
   });
 
-  it("should get a proration-table without productId", () => {
-    const routeId = "507f1f77bcf86cd799439011";
-    axiosMock.onGet(`/routes/${routeId}/proration-table`).reply(expectRequest({
+  it("should get all the proration-tables", () => {
+    axiosMock.onGet("/routes/proration-tables").reply(expectRequest({
       statusCode: 200, token, jwtToken
     }));
-    return api.inventory.routes.prorationTable.get({
+    return api.inventory.routes.prorationTables.all({
+      jwtToken, token
+    });
+  });
+
+  it("should get a proration-table by routeId", () => {
+    const routeId = "507f1f77bcf86cd799439011";
+    axiosMock.onGet("/routes/proration-tables", {params: {routeId}}).reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.inventory.routes.prorationTables.all({
+      jwtToken, token, query: {routeId}
+    });
+  });
+
+  it("should get a proration-table by productId", () => {
+    const productId = "507f1f77bcf86cd799439012";
+    axiosMock.onGet("/routes/proration-tables", {params: {productId}}).reply(expectRequest({
+      statusCode: 200, token, jwtToken, query: {productId}
+    }));
+    return api.inventory.routes.prorationTables.all({
+      jwtToken, token, query: {productId}
+    });
+  });
+
+  it("should get a proration-table without productId", () => {
+    const routeId = "507f1f77bcf86cd799439011";
+    axiosMock.onGet(`/routes/${routeId}/proration-tables`).reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.inventory.routes.prorationTables.getByRouteId({
       jwtToken, token, routeId
     });
   });
@@ -239,10 +288,10 @@ describe("inventory/route", () => {
   it("should get a proration-table with productId", () => {
     const routeId = "507f1f77bcf86cd799439011";
     const productId = "507f1f77bcf86cd799439012";
-    axiosMock.onGet(`/routes/${routeId}/proration-table`, {params: {productId}}).reply(expectRequest({
+    axiosMock.onGet(`/routes/${routeId}/proration-tables`, {params: {productId}}).reply(expectRequest({
       statusCode: 200, token, jwtToken, query: {productId}
     }));
-    return api.inventory.routes.prorationTable.get({
+    return api.inventory.routes.prorationTables.getByRouteId({
       jwtToken, token, routeId, productId
     });
   });
@@ -258,10 +307,10 @@ describe("inventory/route", () => {
         }
       }
     };
-    axiosMock.onPut(`/routes/${routeId}/proration-table`).reply(expectRequest({
+    axiosMock.onPut(`/routes/${routeId}/proration-tables`).reply(expectRequest({
       statusCode: 200, token, jwtToken
     }));
-    return api.inventory.routes.prorationTable.update({
+    return api.inventory.routes.prorationTables.updateByRouteId({
       jwtToken, token, routeId, prorationTable
     });
   });

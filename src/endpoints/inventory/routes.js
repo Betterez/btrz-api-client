@@ -231,20 +231,29 @@ function routesFactory({client, internalAuthTokenProvider}) {
     }
   };
 
-  const prorationTable = {
-    get({token, jwtToken, routeId, productId, headers}) {
-      const query = productId ? {productId} : {};
+  const prorationTables = {
+    all({token, jwtToken, query = {}, headers}) {
       return client({
-        url: `/routes/${routeId}/proration-table`,
+        url: "/routes/proration-tables",
         params: query,
         headers: authorizationHeaders({
           token, jwtToken, internalAuthTokenProvider, headers
         })
       });
     },
-    update({token, jwtToken, routeId, prorationTable: prorationTableData, headers}) {
+    getByRouteId({token, jwtToken, routeId, productId, headers}) {
+      const query = productId ? {productId} : {};
       return client({
-        url: `/routes/${routeId}/proration-table`,
+        url: `/routes/${routeId}/proration-tables`,
+        params: query,
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        })
+      });
+    },
+    updateByRouteId({token, jwtToken, routeId, prorationTable: prorationTableData, headers}) {
+      return client({
+        url: `/routes/${routeId}/proration-tables`,
         method: "put",
         headers: authorizationHeaders({
           token, jwtToken, internalAuthTokenProvider, headers
@@ -269,7 +278,7 @@ function routesFactory({client, internalAuthTokenProvider}) {
     fareRules,
     priceBuckets,
     crossBorderDistances,
-    prorationTable
+    prorationTables
   };
 }
 
