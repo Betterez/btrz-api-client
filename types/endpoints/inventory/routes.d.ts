@@ -153,15 +153,21 @@ declare function routesFactory({ client, internalAuthTokenProvider }: {
             headers: any;
         }): any;
     };
-    prorationTable: {
-        get({ token, jwtToken, routeId, productId, headers }: {
+    prorationTables: {
+        all({ token, jwtToken, query, headers }: {
+            token: any;
+            jwtToken: any;
+            query?: {};
+            headers: any;
+        }): any;
+        getByRouteId({ token, jwtToken, routeId, productId, headers }: {
             token: any;
             jwtToken: any;
             routeId: any;
             productId: any;
             headers: any;
         }): any;
-        update({ token, jwtToken, routeId, prorationTable: prorationTableData, headers }: {
+        updateByRouteId({ token, jwtToken, routeId, prorationTable: prorationTableData, headers }: {
             token: any;
             jwtToken: any;
             routeId: any;
