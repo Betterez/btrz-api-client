@@ -745,12 +745,13 @@ declare const _exports: {
                 headers: any;
             }) => any;
             tickets: {
-                update({ jwtToken, token, soldItemId, ticketId, headers }: {
+                update({ jwtToken, token, soldItemId, ticketId, headers, query }: {
                     jwtToken: any;
                     token: any;
                     soldItemId: any;
                     ticketId: any;
                     headers: any;
+                    query: any;
                 }): any;
             };
         };
