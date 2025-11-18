@@ -42,11 +42,12 @@ function itemsFactory({client, internalAuthTokenProvider}) {
   }
 
   const tickets = {
-    update({jwtToken, token, soldItemId, ticketId, headers}) {
+    update({jwtToken, token, soldItemId, ticketId, headers, query}) {
       return client({
         url: `/items/${soldItemId}/tickets/${ticketId}`,
         method: "put",
-        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        params: query
       });
     }
   };
