@@ -178,6 +178,12 @@ declare const _exports: {
             }) => any;
         };
         changeRequests: {
+            all: ({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                headers: any;
+            }) => any;
             get: ({ changerequestId, token, jwtToken, query, headers }: {
                 changerequestId: any;
                 token: any;
