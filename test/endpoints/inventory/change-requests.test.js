@@ -9,6 +9,17 @@ describe("inventory/change-requests", () => {
     axiosMock.reset();
   });
 
+  it("should get all change requests", () => {
+    const query = {
+      type: "schedule",
+      status: "pending",
+      page: 1,
+      pageSize: 20
+    };
+    axiosMock.onGet("/change-requests").reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.inventory.changeRequests.all({token, jwtToken, query});
+  });
+
   it("should get a change request by id", () => {
     const changerequestId = "507f1f77bcf86cd799439011";
     axiosMock.onGet(`/change-requests/${changerequestId}/manifests`).reply(expectRequest({statusCode: 200, token, jwtToken}));

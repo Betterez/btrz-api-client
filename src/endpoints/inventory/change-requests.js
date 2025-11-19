@@ -1,6 +1,13 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 function changeRequestsFactory({client, internalAuthTokenProvider}) {
+  function all({token, jwtToken, query = {}, headers}) {
+    return client.get("/change-requests", {
+      params: query,
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+    });
+  }
+
   function get({changerequestId, token, jwtToken, query = {}, headers}) {
     return client({
       url: `/change-requests/${changerequestId}/manifests`,
@@ -56,6 +63,7 @@ function changeRequestsFactory({client, internalAuthTokenProvider}) {
   };
 
   return {
+    all,
     get,
     create,
     update,
