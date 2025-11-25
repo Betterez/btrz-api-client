@@ -1,4 +1,4 @@
-const {authorizationHeaders} = require("./../endpoints_helpers");
+const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 function transactionsFactory({client, internalAuthTokenProvider}) {
   function get({token, jwtToken, trxId, query, headers}) {
@@ -41,7 +41,7 @@ function transactionsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function expireAll({internalAuthTokenProvider, jwtToken, transactionId, avoidEmail, token, headers}) {
+  function expireAll({jwtToken, transactionId, avoidEmail, token, headers}) {
     return client({
       url: "/transactions/status",
       method: "patch",
@@ -61,7 +61,7 @@ function transactionsFactory({client, internalAuthTokenProvider}) {
     return client({
       url: `/transactions/${transactionId}/cancellable-items`,
       params: {
-        displayAll: displayAll ? true : false,
+        displayAll: !!displayAll,
         channel: channel || ""
       },
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})

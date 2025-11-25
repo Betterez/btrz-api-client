@@ -1,19 +1,17 @@
 /* eslint-disable prefer-arrow-callback */
 /* eslint-disable func-names */
 
-const {axiosMock, expectRequest} = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({baseURL: "http://test.com"});
-
-const expect = require("chai").expect;
-
 describe("operations/transactions", function () {
-  const token = "validToken";
-  const jwtToken = "validJWTtoken";
+  const {axiosMock, expectRequest} = require("./../../test-helpers.js");
   const internalAuthTokenProvider = {
     getToken: () => {
       return "internalToken";
     }
   };
+  const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com", internalAuthTokenProvider});
+  const expect = require("chai").expect;
+  const token = "validToken";
+  const jwtToken = "validJWTtoken";
 
   afterEach(function () {
     axiosMock.reset();
@@ -118,7 +116,6 @@ describe("operations/transactions", function () {
       jwtToken: "internal_auth_token"
     }));
     return api.operations.transactions.expireAll({
-      internalAuthTokenProvider,
       transactionId,
       jwtToken: "internal_auth_token"
     });

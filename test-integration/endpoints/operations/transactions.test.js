@@ -6,7 +6,7 @@ const port = process.env.OPERATIONS_API_PORT;
 const token = process.env.API_TOKEN;
 const jwtToken = process.env.JWT_TOKEN;
 
-const api = require("./../../../src/client").createApiClient({
+const api = require("./../../../src/client.js").createApiClient({
   baseURL: `http://localhost:${port}`,
   baseURLOverride: {
     operations: (baseUrl) => {
@@ -32,12 +32,7 @@ describe("operations/transactions", function () {
   describe("expireAll", () => {
     it("should expire all", () => {
       const transactionId = "5ce2d7d4c16f0e5827069f13";
-      const internalAuthTokenProvider = {
-        getToken: () => {
-          return process.env.INTERNAL_TOKEN;
-        }
-      };
-      return api.operations.transactions.expireAll({jwtToken, internalAuthTokenProvider, transactionId})
+      return api.operations.transactions.expireAll({jwtToken, transactionId})
         .then((res) => {
           expect(res.data.transactionIds).to.have.length(1);
         });
