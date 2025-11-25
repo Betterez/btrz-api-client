@@ -35,8 +35,7 @@ declare function transactionsFactory({ client, internalAuthTokenProvider }: {
         ticketIds: any;
         headers: any;
     }) => any;
-    expireAll: ({ internalAuthTokenProvider, jwtToken, transactionId, avoidEmail, token, headers }: {
-        internalAuthTokenProvider: any;
+    expireAll: ({ jwtToken, transactionId, avoidEmail, token, headers }: {
         jwtToken: any;
         transactionId: any;
         avoidEmail: any;

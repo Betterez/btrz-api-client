@@ -4073,8 +4073,7 @@ declare const _exports: {
                 ticketIds: any;
                 headers: any;
             }) => any;
-            expireAll: ({ internalAuthTokenProvider, jwtToken, transactionId, avoidEmail, token, headers }: {
-                internalAuthTokenProvider: any;
+            expireAll: ({ jwtToken, transactionId, avoidEmail, token, headers }: {
                 jwtToken: any;
                 transactionId: any;
                 avoidEmail: any;
