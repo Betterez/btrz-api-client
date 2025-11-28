@@ -50,3 +50,28 @@ describe("notifications/notify-tickets", () => {
     });
   });
 });
+
+describe("notifications/notify-child-user", () => {
+  const token = "my-api-key";
+  const jwtToken = "my-jwt";
+
+  afterEach(() => {
+    axiosMock.reset();
+  });
+
+  it("should post send an email with child user created", () => {
+    axiosMock.onPost("/notify-child-user").reply(({headers}) => {
+      if (headers["x-api-key"] === token && headers.authorization === `Bearer ${jwtToken}`) {
+        return [200];
+      }
+      return [403];
+    });
+
+    return api.notifications.notify.childUsers.create({
+      token,
+      jwtToken,
+      email: "test@betterez.com",
+      lang: "en"
+    });
+  });
+});

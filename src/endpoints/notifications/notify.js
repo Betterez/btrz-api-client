@@ -6,6 +6,19 @@ function notifyTicketFactory({
   client, internalAuthTokenProvider
 }) {
   return {
+    childUsers: {
+      create({token, jwtToken, email, lang, headers}) {
+        return client({
+          url: "/notify-child-user",
+          method: "post",
+          data: {
+            email,
+            lang
+          },
+          headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+        });
+      }
+    },
     tickets: {
       create({token, jwtToken, query, operation, to, ticketId, headers}) {
         return client({
