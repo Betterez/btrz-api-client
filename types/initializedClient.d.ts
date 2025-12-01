@@ -4377,6 +4377,15 @@ declare const _exports: {
             };
         };
         notify: {
+            childUsers: {
+                create({ token, jwtToken, email, lang, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    email: any;
+                    lang: any;
+                    headers: any;
+                }): any;
+            };
             tickets: {
                 create({ token, jwtToken, query, operation, to, ticketId, headers }: {
                     token: any;
