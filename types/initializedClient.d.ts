@@ -4406,6 +4406,14 @@ declare const _exports: {
                     headers: any;
                 }): any;
             };
+            manifest: {
+                create({ token, jwtToken, data, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    data: any;
+                    headers: any;
+                }): any;
+            };
         };
         ordersRulesValidations: {
             create: ({ token, jwtToken, query, orderRulesValidation, headers }: {

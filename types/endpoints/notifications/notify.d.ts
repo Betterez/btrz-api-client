@@ -32,4 +32,12 @@ declare function notifyTicketFactory({ client, internalAuthTokenProvider }: {
             headers: any;
         }): any;
     };
+    manifest: {
+        create({ token, jwtToken, data, headers }: {
+            token: any;
+            jwtToken: any;
+            data: any;
+            headers: any;
+        }): any;
+    };
 };
