@@ -43,6 +43,16 @@ function notifyTicketFactory({
           headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
         });
       }
+    },
+    manifest: {
+      create({token, jwtToken, data, headers}) {
+        return client({
+          url: "/notify-manifest",
+          method: "post",
+          data,
+          headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+        });
+      }
     }
   };
 }

@@ -75,3 +75,28 @@ describe("notifications/notify-child-user", () => {
     });
   });
 });
+
+describe("notifications/notify-manifest", () => {
+  const token = "my-api-key";
+  const jwtToken = "my-jwt";
+
+  afterEach(() => {
+    axiosMock.reset();
+  });
+
+  it("should post a notification for manifest", () => {
+    axiosMock.onPost("/notify-manifest").reply(({headers}) => {
+      if (headers["x-api-key"] === token && headers.authorization === `Bearer ${jwtToken}`) {
+        return [200];
+      }
+      return [403];
+    });
+
+    return api.notifications.notify.manifest.create({
+      token,
+      jwtToken,
+      data: {},
+      headers: {}
+    });
+  });
+});
