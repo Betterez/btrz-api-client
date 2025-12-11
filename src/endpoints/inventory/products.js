@@ -1,4 +1,4 @@
-const {authorizationHeaders} = require("./../endpoints_helpers");
+const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 function productsFactory({client, internalAuthTokenProvider}) {
   function all({token, query = {}, headers}) {
@@ -36,7 +36,7 @@ function productsFactory({client, internalAuthTokenProvider}) {
   }
 
   const domains = {
-    remove: ({token, jwtToken, domain, headers}) =>{
+    remove: ({token, jwtToken, domain, headers}) => {
       return client({
         url: `/products/domains/${domain}`,
         method: "delete",
