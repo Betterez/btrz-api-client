@@ -1,5 +1,5 @@
-const {axiosMock, expectRequest} = require("../../test-helpers");
-const api = require("../../../src/client").createApiClient({baseURL: "http://test.com"});
+const {axiosMock, expectRequest} = require("../../test-helpers.js");
+const api = require("../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
 describe("btrzpay/customers", () => {
   const token = "token";
@@ -37,7 +37,8 @@ describe("btrzpay/customers", () => {
   it("should delete a customer", () => {
     const paymentMethodId = "5ad7804216b426412c19f06f";
     const customerId = "5ad7804216b426412c19f06g";
-    axiosMock.onDelete(`/payment-methods/${paymentMethodId}/customers/${customerId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    axiosMock
+      .onDelete(`/payment-methods/${paymentMethodId}/customers/${customerId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.btrzpay.customers.remove({
       jwtToken,
       token,
