@@ -3,7 +3,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
 function routesFactory({client, internalAuthTokenProvider}) {
   function get({routeId, token, query = {}, headers}) {
     return client({
-      url: `/route/${routeId}`,
+      url: `/routes/${routeId}`,
       params: query,
       headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
     });

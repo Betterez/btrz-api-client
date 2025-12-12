@@ -1,7 +1,7 @@
 const {axiosMock, expectRequest} = require("./../../test-helpers.js");
 const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
-describe("inventory/route", () => {
+describe("inventory/routes", () => {
   const token = "I owe you a token";
   const jwtToken = "I owe you a JWT token";
 
@@ -10,7 +10,7 @@ describe("inventory/route", () => {
   });
 
   it("should get route by id", () => {
-    axiosMock.onGet("/route/1").reply(expectRequest({statusCode: 200, token}));
+    axiosMock.onGet("/routes/1").reply(expectRequest({statusCode: 200, token}));
     return api.inventory.routes.get({token, routeId: 1});
   });
 
