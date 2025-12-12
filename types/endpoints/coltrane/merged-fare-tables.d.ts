@@ -5,8 +5,8 @@ declare function mergedFareTablesFactory({ client, internalAuthTokenProvider }: 
 }): {
     get: ({ token, routeId, productId, headers }: {
         token: any;
-        routeId: string;
-        productId: string;
-        headers?: any;
+        routeId: any;
+        productId: any;
+        headers: any;
     }) => any;
 };
