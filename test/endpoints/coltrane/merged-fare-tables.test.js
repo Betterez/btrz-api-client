@@ -11,7 +11,7 @@ describe("coltrane/merged-fare-tables", () => {
   it("should get merged fare tables", () => {
     const routeId = "507f1f77bcf86cd799439011";
     const productId = "507f1f77bcf86cd799439012";
-    axiosMock.onGet(`/routes/${routeId}/merged-fare-tables/${productId}`).reply(expectRequest({statusCode: 200, token}));
+    axiosMock.onGet(`/coltrane/routes/${routeId}/merged-fare-tables/${productId}`).reply(expectRequest({statusCode: 200, token}));
     return api.coltrane.mergedFareTables.get({token, routeId, productId});
   });
 });

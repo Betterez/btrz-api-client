@@ -3,7 +3,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
 function mergedFareTablesFactory({client, internalAuthTokenProvider}) {
   function get({token, routeId, productId, headers}) {
     return client({
-      url: `/routes/${routeId}/merged-fare-tables/${productId}`,
+      url: `/coltrane/routes/${routeId}/merged-fare-tables/${productId}`,
       headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
     });
   }
