@@ -134,6 +134,7 @@ function createColtrane({baseURL, headers, timeout, overrideFn, internalAuthToke
   return {
     docs: require("./endpoints/coltrane/docs.js")({client}),
     paths: require("./endpoints/coltrane/paths.js")({client, internalAuthTokenProvider}),
+    mergedFareTables: require("./endpoints/coltrane/merged-fare-tables.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }

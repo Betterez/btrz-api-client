@@ -2121,6 +2121,14 @@ declare const _exports: {
                 headers: any;
             }) => any;
         };
+        mergedFareTables: {
+            get: ({ token, routeId, productId, headers }: {
+                token: any;
+                routeId: string;
+                productId: string;
+                headers?: any;
+            }) => any;
+        };
         __test: {
             client: import("axios").AxiosInstance;
         };

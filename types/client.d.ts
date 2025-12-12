@@ -2167,6 +2167,14 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        mergedFareTables: {
+            get: ({ token, routeId, productId, headers }: {
+                token: any;
+                routeId: string;
+                productId: string;
+                headers?: any;
+            }) => any;
+        };
         __test: {
             client: axios.AxiosInstance;
         };
