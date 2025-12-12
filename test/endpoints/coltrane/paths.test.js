@@ -1,15 +1,15 @@
-const { axiosMock, expectRequest } = require("../../test-helpers");
-const api = require("../../../src/client").createApiClient({ baseURL: "http://test.com" });
+const {axiosMock, expectRequest} = require("../../test-helpers.js");
+const api = require("../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
-describe('coltrane/paths', function() {
-  const token = 'I owe you a token';
+describe("coltrane/paths", () => {
+  const token = "I owe you a token";
 
-  afterEach(function() {
+  afterEach(() => {
     axiosMock.reset();
   });
 
-  it("should list paths", function() {
-    axiosMock.onGet(`/paths`).reply(expectRequest({ statusCode: 200, token }));
-    return api.coltrane.paths.all({ token });
+  it("should list paths", () => {
+    axiosMock.onGet("/paths").reply(expectRequest({statusCode: 200, token}));
+    return api.coltrane.paths.all({token});
   });
 });

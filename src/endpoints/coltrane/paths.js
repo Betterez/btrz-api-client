@@ -1,7 +1,7 @@
-const { authorizationHeaders } = require("./../endpoints_helpers");
+const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
-function coltraneFactory({ client, internalAuthTokenProvider }) {
-  function all({ token, query = {}, headers }) {
+function coltraneFactory({client, internalAuthTokenProvider}) {
+  function all({token, query = {}, headers}) {
     return client({
       url: "/paths",
       params: query,
