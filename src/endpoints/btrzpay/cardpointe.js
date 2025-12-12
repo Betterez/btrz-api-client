@@ -1,6 +1,6 @@
 const {
   authorizationHeaders
-} = require("../endpoints_helpers");
+} = require("../endpoints_helpers.js");
 
 function cardpointeTerminalsFactory({client, internalAuthTokenProvider}) {
   function all({token, jwtToken, headers}) {
