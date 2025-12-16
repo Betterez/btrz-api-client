@@ -326,6 +326,18 @@ function manifestFactory({
     }
   };
 
+  const manifestsExceptions = {
+    update({token, jwtToken, manifestKey, manifestException, headers, query = {}}) {
+      return client({
+        url: `/manifests/${manifestKey}/manifests-exceptions`,
+        method: "put",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        params: query,
+        data: {manifestException}
+      });
+    }
+  };
+
   return {
     get,
     getAll,
@@ -343,6 +355,7 @@ function manifestFactory({
     updateDispatchReporting,
     createDispatchReporting,
     statusBulkUpdate,
+    manifestsExceptions,
     checkIn,
     legs,
     reports,

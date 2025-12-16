@@ -384,3 +384,23 @@ describe("operations/manifests/:manifestId/driver-relays", () => {
     return api.operations.manifest.driverRelays.update({token, jwtToken, manifestId, data, query});
   });
 });
+
+describe("operations/manifests/:manifestKey/manifests-exceptions", () => {
+  const token = "I owe you a token";
+  const jwtToken = "I owe you a JWT token";
+
+  afterEach(() => {
+    axiosMock.reset();
+  });
+  it("should update a manifest exception", async () => {
+    const manifestKey = "manifestKey";
+    const manifestException = {
+      legs: []
+    };
+    axiosMock.onPut(`/manifests/${manifestKey}/manifests-exceptions`).reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+
+    return api.operations.manifest.manifestsExceptions.update({token, jwtToken, manifestKey, manifestException});
+  });
+});
