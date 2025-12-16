@@ -3674,6 +3674,16 @@ declare const _exports: {
                 data: any;
                 headers: any;
             }) => any;
+            manifestsExceptions: {
+                update({ token, jwtToken, manifestKey, manifestException, headers, query }: {
+                    token: any;
+                    jwtToken: any;
+                    manifestKey: any;
+                    manifestException: any;
+                    headers: any;
+                    query?: {};
+                }): any;
+            };
             checkIn: {
                 create({ token, jwtToken, query, headers, data, manifestId, legFromId }: {
                     token: any;
