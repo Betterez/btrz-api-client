@@ -2168,8 +2168,9 @@ export function createApiClient(options: {
             }) => any;
         };
         mergedFareTables: {
-            get: ({ token, routeId, productId, headers }: {
+            get: ({ token, jwtToken, routeId, productId, headers }: {
                 token: any;
+                jwtToken: any;
                 routeId: any;
                 productId: any;
                 headers: any;

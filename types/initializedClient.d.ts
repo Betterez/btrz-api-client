@@ -2122,8 +2122,9 @@ declare const _exports: {
             }) => any;
         };
         mergedFareTables: {
-            get: ({ token, routeId, productId, headers }: {
+            get: ({ token, jwtToken, routeId, productId, headers }: {
                 token: any;
+                jwtToken: any;
                 routeId: any;
                 productId: any;
                 headers: any;
