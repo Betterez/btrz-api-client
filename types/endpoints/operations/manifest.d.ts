@@ -116,6 +116,13 @@ declare function manifestFactory({ client, internalAuthTokenProvider }: {
         data: any;
         headers: any;
     }) => any;
+    getSalesAuthorizations: ({ token, jwtToken, manifestKey, query, headers }: {
+        token: any;
+        jwtToken: any;
+        manifestKey: any;
+        query?: {};
+        headers: any;
+    }) => any;
     manifestsExceptions: {
         update({ token, jwtToken, manifestKey, manifestException, headers, query }: {
             token: any;
