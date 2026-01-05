@@ -197,6 +197,19 @@ function manifestFactory({
     });
   }
 
+  function getSalesAuthorizations({
+    token, jwtToken, manifestKey, query = {}, headers
+  }) {
+    return client({
+      url: `/manifests/${manifestKey}/sales-authorizations`,
+      method: "get",
+      params: query,
+      headers: authorizationHeaders({
+        token, jwtToken, internalAuthTokenProvider, headers
+      })
+    });
+  }
+
   const checkIn = {
     create({token, jwtToken, query = {}, headers, data, manifestId, legFromId}) {
       return client({
@@ -355,6 +368,7 @@ function manifestFactory({
     updateDispatchReporting,
     createDispatchReporting,
     statusBulkUpdate,
+    getSalesAuthorizations,
     manifestsExceptions,
     checkIn,
     legs,
