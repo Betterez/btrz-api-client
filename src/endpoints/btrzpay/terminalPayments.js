@@ -21,8 +21,20 @@ function terminalPaymentsFactory({client, internalAuthTokenProvider}) {
     }
   };
 
+  const webhooks = {
+    getnet({data, providerId, headers = {}}) {
+      return client({
+        url: `/terminal-payments/webhooks/getnet/${providerId}`,
+        method: "post",
+        headers,
+        data
+      });
+    }
+  };
+
   return {
-    mit
+    mit,
+    webhooks
   };
 }
 
