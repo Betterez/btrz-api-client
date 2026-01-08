@@ -5077,6 +5077,13 @@ declare const _exports: {
                     headers: any;
                 }): any;
             };
+            webhooks: {
+                getnet({ data, providerId, headers }: {
+                    data: any;
+                    providerId: any;
+                    headers?: {};
+                }): any;
+            };
         };
         stripeTerminals: {
             all: ({ token, jwtToken, headers, query }: {
