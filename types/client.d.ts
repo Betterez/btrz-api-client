@@ -4366,6 +4366,14 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        tripManifests: {
+            all: ({ token, jwtToken, query, headers }: {
+                token: any;
+                jwtToken: any;
+                query?: {};
+                headers: any;
+            }) => any;
+        };
         __test: {
             client: axios.AxiosInstance;
         };
