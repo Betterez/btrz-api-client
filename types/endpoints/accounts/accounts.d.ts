@@ -8,4 +8,13 @@ declare function accountsFactory({ client, internalAuthTokenProvider }: {
         accountId: any;
         headers: any;
     }) => any;
+    defaultUsers: {
+        create({ token, jwtToken, accountId, data, headers }: {
+            token: any;
+            jwtToken: any;
+            accountId: any;
+            data: any;
+            headers: any;
+        }): any;
+    };
 };

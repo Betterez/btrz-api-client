@@ -2187,6 +2187,15 @@ export function createApiClient(options: {
                 accountId: any;
                 headers: any;
             }) => any;
+            defaultUsers: {
+                create({ token, jwtToken, accountId, data, headers }: {
+                    token: any;
+                    jwtToken: any;
+                    accountId: any;
+                    data: any;
+                    headers: any;
+                }): any;
+            };
         };
         application: {
             get: ({ token, jwtToken, headers }: {
