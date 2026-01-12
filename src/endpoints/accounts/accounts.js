@@ -10,8 +10,20 @@ function accountsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  const defaultUsers = {
+    create({token, jwtToken, accountId, data, headers}) {
+      return client({
+        url: `/accounts/${accountId}/default-users`,
+        method: "post",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        data
+      });
+    }
+  };
+
   return {
-    get
+    get,
+    defaultUsers
   };
 }
 
