@@ -292,7 +292,7 @@ describe("notifications/pdfs", () => {
     const query = {
       type: "partialShiftDeposits"
     };
-    axiosMock.onGet(`/pdf-partial-shift-deposits/${itemId}`)
+    axiosMock.onGet(`/pdf-partial-shift-deposits-id/${itemId}`)
       .reply(expectRequest({
         statusCode: 200, token
       }));

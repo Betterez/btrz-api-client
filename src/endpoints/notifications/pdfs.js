@@ -89,7 +89,7 @@ function pdfFactory({
       url = `/pdf-starting-balance/${itemId}`;
     }
     if (query.type === "partialShiftDeposits") {
-      url = `/pdf-partial-shift-deposits/${itemId}`;
+      url = `/pdf-partial-shift-deposits-id/${itemId}`;
     }
     if (query.type === "shiftLocationClosure") {
       url = `/pdf-shift-location-closures/${itemId}`;
