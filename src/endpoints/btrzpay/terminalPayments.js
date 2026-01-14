@@ -22,11 +22,15 @@ function terminalPaymentsFactory({client, internalAuthTokenProvider}) {
   };
 
   const webhooks = {
-    getnet({data, providerId, headers = {}}) {
+    getnet({data, providerId, headers = {}, token, jwtToken}) {
+      const _headers = token && jwtToken ?
+        authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}) :
+        headers;
+
       return client({
         url: `/terminal-payments/webhooks/getnet/${providerId}`,
         method: "post",
-        headers,
+        headers: _headers,
         data
       });
     }
