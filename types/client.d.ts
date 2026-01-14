@@ -5141,10 +5141,12 @@ export function createApiClient(options: {
                 }): any;
             };
             webhooks: {
-                getnet({ data, providerId, headers }: {
+                getnet({ data, providerId, headers, token, jwtToken }: {
                     data: any;
                     providerId: any;
                     headers?: {};
+                    token: any;
+                    jwtToken: any;
                 }): any;
             };
         };

@@ -21,10 +21,12 @@ declare function terminalPaymentsFactory({ client, internalAuthTokenProvider }: 
         }): any;
     };
     webhooks: {
-        getnet({ data, providerId, headers }: {
+        getnet({ data, providerId, headers, token, jwtToken }: {
             data: any;
             providerId: any;
             headers?: {};
+            token: any;
+            jwtToken: any;
         }): any;
     };
 };
