@@ -1,7 +1,7 @@
 const {
   axiosMock, expectRequest
-} = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({
+} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({
   baseURL: "http://test.com"
 });
 
@@ -93,6 +93,66 @@ describe("accounts/lexicons", () => {
           "fr-fr": "Nouveau phrase en français"
         }
       }]
+    });
+  });
+
+  describe("suggestions", () => {
+    it("should list lexicon suggestions", () => {
+      axiosMock.onGet("/lexicons/suggestions").reply(expectRequest({
+        statusCode: 200,
+        token,
+        query: {status: "for review"}
+      }));
+      return api.accounts.lexicons.suggestions.list({
+        token,
+        params: {status: "for review"}
+      });
+    });
+
+    it("should list lexicon suggestions with super user params", () => {
+      axiosMock.onGet("/lexicons/suggestions").reply(expectRequest({
+        statusCode: 200,
+        token,
+        query: {superUserId: "abc123", superUserHash: "hash456"}
+      }));
+      return api.accounts.lexicons.suggestions.list({
+        token,
+        jwtToken,
+        params: {superUserId: "abc123", superUserHash: "hash456"}
+      });
+    });
+
+    it("should get lexicon suggestion by id", () => {
+      const suggestionId = "507f1f77bcf86cd799439011";
+      axiosMock.onGet(`/lexicons/suggestions/${suggestionId}`).reply(expectRequest({
+        statusCode: 200,
+        token,
+        jwtToken
+      }));
+      return api.accounts.lexicons.suggestions.getById({
+        token,
+        jwtToken,
+        suggestionId
+      });
+    });
+
+    it("should update lexicon suggestion (super user)", () => {
+      const suggestionId = "507f1f77bcf86cd799439011";
+      axiosMock.onPut(`/lexicons/suggestions/${suggestionId}`).reply(expectRequest({
+        statusCode: 200,
+        token,
+        jwtToken,
+        body: {status: "accepted"},
+        query: {superUserId: "super1", superUserHash: "hash1"}
+      }));
+      return api.accounts.lexicons.suggestions.update({
+        token,
+        jwtToken,
+        suggestionId,
+        data: {status: "accepted"},
+        superUserId: "super1",
+        superUserHash: "hash1"
+      });
     });
   });
 });
