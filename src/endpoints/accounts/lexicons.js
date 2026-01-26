@@ -127,6 +127,26 @@ function lexiconsFactory({
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
         data
       });
+    },
+
+    /**
+     * Submit a translation suggestion for an existing lexicon key and language.
+     * @param {Object} opts
+     * @param {string} opts.key - The existing lexicon key to suggest a translation for
+     * @param {string} opts.lang - Supported language code (e.g. en-us, pt-br)
+     * @param {Object} opts.data - { txt } - The suggested translation text
+     * @param {string} [opts.token] - API key
+     * @param {string} [opts.jwtToken] - JWT
+     * @param {Object} [opts.headers] - Optional request headers
+     * @returns {Promise<{data: Object}>}
+     */
+    create({token, jwtToken, headers, key, lang, data}) {
+      return client({
+        url: `/lexicons/${encodeURIComponent(key)}/${encodeURIComponent(lang)}/suggestion`,
+        method: "post",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        data
+      });
     }
   };
 
