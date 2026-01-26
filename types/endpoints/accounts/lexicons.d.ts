@@ -1,5 +1,4 @@
 export = lexiconsFactory;
-
 declare function lexiconsFactory({ client, internalAuthTokenProvider }: {
     client: any;
     internalAuthTokenProvider: any;
@@ -29,8 +28,66 @@ declare function lexiconsFactory({ client, internalAuthTokenProvider }: {
         headers: any;
     }) => any;
     suggestions: {
-        list: (opts: { token?: string; jwtToken?: string; headers?: any; params?: { status?: string; lang?: string; key?: string; superUserId?: string; superUserHash?: string } }) => any;
-        getById: (opts: { token?: string; jwtToken?: string; headers?: any; suggestionId: string; params?: { superUserId?: string; superUserHash?: string } }) => any;
-        update: (opts: { token?: string; jwtToken?: string; headers?: any; suggestionId: string; data: { status: string; rejected_reason?: string }; superUserId: string; superUserHash: string }) => any;
+        /**
+         * List lexicon suggestions for the account (or all accounts when super user params are provided).
+         * @param {Object} opts
+         * @param {string} [opts.token] - API key (x-api-key)
+         * @param {string} [opts.jwtToken] - JWT or constants.INTERNAL_AUTH_TOKEN_SYMBOL for internal auth
+         * @param {Object} [opts.headers] - Optional request headers
+         * @param {Object} [opts.params] - Query params: status, lang, key, superUserId, superUserHash
+         * @returns {Promise<{data: { suggestions: Array }}>}
+         */
+        list({ token, jwtToken, headers, params }: {
+            token?: string;
+            jwtToken?: string;
+            headers?: any;
+            params?: any;
+        }): Promise<{
+            data: {
+                suggestions: any[];
+            };
+        }>;
+        /**
+         * Get a single lexicon suggestion by id.
+         * @param {Object} opts
+         * @param {string} opts.suggestionId - MongoDB ObjectId of the suggestion
+         * @param {string} [opts.token] - API key
+         * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+         * @param {Object} [opts.headers] - Optional request headers
+         * @param {Object} [opts.params] - Query params: superUserId, superUserHash (to access any account's suggestion)
+         * @returns {Promise<{data: Object}>}
+         */
+        getById({ token, jwtToken, headers, suggestionId, params }: {
+            suggestionId: string;
+            token?: string;
+            jwtToken?: string;
+            headers?: any;
+            params?: any;
+        }): Promise<{
+            data: any;
+        }>;
+        /**
+         * Update a lexicon suggestion (status and optional rejected_reason). Requires super user auth.
+         * @param {Object} opts
+         * @param {string} opts.suggestionId - MongoDB ObjectId of the suggestion
+         * @param {Object} opts.data - { status, [rejected_reason] }
+         * @param {string} opts.superUserId - Super user id (required)
+         * @param {string} opts.superUserHash - Super user hash (required)
+         * @param {string} [opts.token] - API key
+         * @param {string} [opts.jwtToken] - JWT
+         * @param {Object} [opts.headers] - Optional request headers
+         * @returns {Promise<{data: Object}>}
+         */
+        update({ token, jwtToken, headers, suggestionId, data, superUserId, superUserHash }: {
+            suggestionId: string;
+            data: any;
+            superUserId: string;
+            superUserHash: string;
+            token?: string;
+            jwtToken?: string;
+            headers?: any;
+        }): Promise<{
+            data: any;
+        }>;
     };
 };

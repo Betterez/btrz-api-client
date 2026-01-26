@@ -2540,6 +2540,38 @@ declare const _exports: {
                 updates: any;
                 headers: any;
             }) => any;
+            suggestions: {
+                list({ token, jwtToken, headers, params }: {
+                    token?: string;
+                    jwtToken?: string;
+                    headers?: any;
+                    params?: any;
+                }): Promise<{
+                    data: {
+                        suggestions: any[];
+                    };
+                }>;
+                getById({ token, jwtToken, headers, suggestionId, params }: {
+                    suggestionId: string;
+                    token?: string;
+                    jwtToken?: string;
+                    headers?: any;
+                    params?: any;
+                }): Promise<{
+                    data: any;
+                }>;
+                update({ token, jwtToken, headers, suggestionId, data, superUserId, superUserHash }: {
+                    suggestionId: string;
+                    data: any;
+                    superUserId: string;
+                    superUserHash: string;
+                    token?: string;
+                    jwtToken?: string;
+                    headers?: any;
+                }): Promise<{
+                    data: any;
+                }>;
+            };
         };
         network: {
             agencies: {
