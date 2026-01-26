@@ -2617,6 +2617,16 @@ export function createApiClient(options: {
                 }): Promise<{
                     data: any;
                 }>;
+                create({ token, jwtToken, headers, key, lang, data }: {
+                    key: string;
+                    lang: string;
+                    data: any;
+                    token?: string;
+                    jwtToken?: string;
+                    headers?: any;
+                }): Promise<{
+                    data: any;
+                }>;
             };
         };
         network: {
