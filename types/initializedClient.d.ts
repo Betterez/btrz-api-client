@@ -2540,6 +2540,17 @@ declare const _exports: {
                 updates: any;
                 headers: any;
             }) => any;
+            getByText: ({ token, jwtToken, headers, lang, txt }: {
+                lang: string;
+                txt: string;
+                token?: string;
+                jwtToken?: string;
+                headers?: any;
+            }) => Promise<{
+                data: {
+                    lexicons: any[];
+                };
+            }>;
             suggestions: {
                 list({ token, jwtToken, headers, params }: {
                     token?: string;
