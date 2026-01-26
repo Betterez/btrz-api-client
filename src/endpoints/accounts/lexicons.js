@@ -70,6 +70,24 @@ function lexiconsFactory({
     });
   }
 
+  /**
+   * Search global lexicons (no account) by partial match on the translation value for the given language.
+   * @param {Object} opts
+   * @param {string} opts.lang - Language code (e.g. en-us, pt-br). Must be a supported language.
+   * @param {string} opts.txt - Text to search for (partial, case-insensitive). Required.
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT
+   * @param {Object} [opts.headers] - Optional request headers
+   * @returns {Promise<{data: { lexicons: Array }}>}
+   */
+  function getByText({token, jwtToken, headers, lang, txt}) {
+    return client({
+      url: `/lexicons/${encodeURIComponent(lang)}/content`,
+      params: {txt},
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+    });
+  }
+
   const suggestions = {
     /**
      * List lexicon suggestions for the account (or all accounts when super user params are provided).
@@ -155,6 +173,7 @@ function lexiconsFactory({
     create,
     createOrUpdateMany,
     updateMany,
+    getByText,
     suggestions
   };
 }

@@ -27,6 +27,22 @@ declare function lexiconsFactory({ client, internalAuthTokenProvider }: {
         updates: any;
         headers: any;
     }) => any;
+    /**
+     * Search global lexicons (no account) by partial match on the translation value for the given language.
+     * @param opts.lang - Language code (e.g. en-us, pt-br). Must be a supported language.
+     * @param opts.txt - Text to search for (partial, case-insensitive). Required.
+     */
+    getByText: ({ token, jwtToken, headers, lang, txt }: {
+        lang: string;
+        txt: string;
+        token?: string;
+        jwtToken?: string;
+        headers?: any;
+    }) => Promise<{
+        data: {
+            lexicons: any[];
+        };
+    }>;
     suggestions: {
         /**
          * List lexicon suggestions for the account (or all accounts when super user params are provided).

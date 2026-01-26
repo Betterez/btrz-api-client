@@ -96,6 +96,25 @@ describe("accounts/lexicons", () => {
     });
   });
 
+  it("should get lexicons by text (search global lexicons)", () => {
+    axiosMock.onGet("/lexicons/en-us/content").reply((req) => {
+      if (req.params.txt !== "welcome") {
+        return [400];
+      }
+      return expectRequest({
+        statusCode: 200,
+        token,
+        jwtToken
+      })(req);
+    });
+    return api.accounts.lexicons.getByText({
+      token,
+      jwtToken,
+      lang: "en-us",
+      txt: "welcome"
+    });
+  });
+
   describe("suggestions", () => {
     it("should list lexicon suggestions", () => {
       axiosMock.onGet("/lexicons/suggestions").reply(expectRequest({
