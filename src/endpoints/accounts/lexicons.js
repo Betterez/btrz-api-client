@@ -78,7 +78,7 @@ function lexiconsFactory({
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT
    * @param {Object} [opts.headers] - Optional request headers
-   * @returns {Promise<{data: { lexicons: Array }}>}
+   * @returns {Promise<{data: { lexiconTextContentItems: Array }}>}
    */
   function getByText({token, jwtToken, headers, lang, txt}) {
     return client({

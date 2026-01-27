@@ -35,7 +35,7 @@ declare function lexiconsFactory({ client, internalAuthTokenProvider }: {
         headers?: any;
     }) => Promise<{
         data: {
-            lexicons: any[];
+            lexiconTextContentItems: any[];
         };
     }>;
     suggestions: {
