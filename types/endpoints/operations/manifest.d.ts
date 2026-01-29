@@ -36,12 +36,13 @@ declare function manifestFactory({ client, internalAuthTokenProvider }: {
         operations: any;
         headers: any;
     }) => any;
-    save: ({ token, jwtToken, providerId, data, headers }: {
+    save: ({ token, jwtToken, providerId, data, headers, query }: {
         token: any;
         jwtToken: any;
         providerId: any;
         data: any;
         headers: any;
+        query?: {};
     }) => any;
     addUser: ({ token, jwtToken, manifestId, query, data, headers }: {
         token: any;

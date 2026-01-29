@@ -2548,7 +2548,7 @@ declare const _exports: {
                 headers?: any;
             }) => Promise<{
                 data: {
-                    lexicons: any[];
+                    lexiconTextContentItems: any[];
                 };
             }>;
             suggestions: {
@@ -3657,12 +3657,13 @@ declare const _exports: {
                 operations: any;
                 headers: any;
             }) => any;
-            save: ({ token, jwtToken, providerId, data, headers }: {
+            save: ({ token, jwtToken, providerId, data, headers, query }: {
                 token: any;
                 jwtToken: any;
                 providerId: any;
                 data: any;
                 headers: any;
+                query?: {};
             }) => any;
             addUser: ({ token, jwtToken, manifestId, query, data, headers }: {
                 token: any;

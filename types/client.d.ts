@@ -2594,7 +2594,7 @@ export function createApiClient(options: {
                 headers?: any;
             }) => Promise<{
                 data: {
-                    lexicons: any[];
+                    lexiconTextContentItems: any[];
                 };
             }>;
             suggestions: {
@@ -3703,12 +3703,13 @@ export function createApiClient(options: {
                 operations: any;
                 headers: any;
             }) => any;
-            save: ({ token, jwtToken, providerId, data, headers }: {
+            save: ({ token, jwtToken, providerId, data, headers, query }: {
                 token: any;
                 jwtToken: any;
                 providerId: any;
                 data: any;
                 headers: any;
+                query?: {};
             }) => any;
             addUser: ({ token, jwtToken, manifestId, query, data, headers }: {
                 token: any;
