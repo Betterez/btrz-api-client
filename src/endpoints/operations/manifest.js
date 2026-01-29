@@ -105,12 +105,12 @@ function manifestFactory({
   }
 
   function save({
-    token, jwtToken, providerId, data, headers
+    token, jwtToken, providerId, data, headers, query = {}
   }) {
     return client({
       url: "/manifests",
       method: "put",
-      params: {providerId, manifestId: data.manifestId},
+      params: {providerId, manifestId: data.manifestId, ...query},
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data
     });
