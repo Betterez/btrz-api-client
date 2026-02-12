@@ -2619,6 +2619,14 @@ declare const _exports: {
                 }): Promise<{
                     data: any;
                 }>;
+                delete({ token, jwtToken, headers, suggestionId }: {
+                    suggestionId: string;
+                    token?: string;
+                    jwtToken?: string;
+                    headers?: any;
+                }): Promise<{
+                    status: number;
+                }>;
                 create({ token, jwtToken, headers, key, lang, data }: {
                     key: string;
                     lang: string;
