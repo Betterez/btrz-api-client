@@ -173,5 +173,19 @@ describe("accounts/lexicons", () => {
         superUserHash: "hash1"
       });
     });
+
+    it("should delete lexicon suggestion (when status is for review)", () => {
+      const suggestionId = "507f1f77bcf86cd799439012";
+      axiosMock.onDelete(`/lexicons/suggestions/${suggestionId}`).reply(expectRequest({
+        statusCode: 204,
+        token,
+        jwtToken
+      }));
+      return api.accounts.lexicons.suggestions.delete({
+        token,
+        jwtToken,
+        suggestionId
+      });
+    });
   });
 });

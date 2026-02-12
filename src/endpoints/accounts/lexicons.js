@@ -148,6 +148,23 @@ function lexiconsFactory({
     },
 
     /**
+     * Delete a lexicon suggestion by id. Only suggestions with status "for review" can be deleted.
+     * @param {Object} opts
+     * @param {string} opts.suggestionId - MongoDB ObjectId of the suggestion to delete
+     * @param {string} [opts.token] - API key
+     * @param {string} [opts.jwtToken] - JWT
+     * @param {Object} [opts.headers] - Optional request headers
+     * @returns {Promise<{status: number}>} Resolves with 204 on success
+     */
+    delete({token, jwtToken, headers, suggestionId}) {
+      return client({
+        url: `/lexicons/suggestions/${suggestionId}`,
+        method: "delete",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    },
+
+    /**
      * Submit a translation suggestion for an existing lexicon key and language.
      * @param {Object} opts
      * @param {string} opts.key - The existing lexicon key to suggest a translation for
