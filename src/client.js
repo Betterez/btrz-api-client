@@ -81,6 +81,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
     mitTerminalsSettings: require("./endpoints/inventory/mit-terminal-settings.js")({client, internalAuthTokenProvider}),
     operatingCompanies: require("./endpoints/inventory/operating-companies.js")({client, internalAuthTokenProvider}),
     operationMessages: require("./endpoints/inventory/operation-messages.js")({client, internalAuthTokenProvider}),
+    operationReasons: require("./endpoints/inventory/operation-reasons.js")({client, internalAuthTokenProvider}),
     parcelZones: require("./endpoints/inventory/parcel-zones.js")({client, internalAuthTokenProvider}),
     paymentTerminals: require("./endpoints/inventory/payment-terminals.js")({client, internalAuthTokenProvider}),
     payOnAccounts: require("./endpoints/inventory/pay-on-accounts.js")({client, internalAuthTokenProvider}),
