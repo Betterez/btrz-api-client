@@ -120,11 +120,11 @@ describe("accounts/lexicons", () => {
       axiosMock.onGet("/lexicons/suggestions").reply(expectRequest({
         statusCode: 200,
         token,
-        query: {status: "for review"}
+        query: {status: "under review"}
       }));
       return api.accounts.lexicons.suggestions.list({
         token,
-        params: {status: "for review"}
+        params: {status: "under review"}
       });
     });
 
@@ -174,7 +174,7 @@ describe("accounts/lexicons", () => {
       });
     });
 
-    it("should delete lexicon suggestion (when status is for review)", () => {
+    it("should delete lexicon suggestion (when status is under review)", () => {
       const suggestionId = "507f1f77bcf86cd799439012";
       axiosMock.onDelete(`/lexicons/suggestions/${suggestionId}`).reply(expectRequest({
         statusCode: 204,

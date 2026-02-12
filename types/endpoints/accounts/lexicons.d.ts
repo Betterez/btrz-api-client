@@ -101,7 +101,7 @@ declare function lexiconsFactory({ client, internalAuthTokenProvider }: {
             data: any;
         }>;
         /**
-         * Delete a lexicon suggestion by id. Only suggestions with status "for review" can be deleted.
+         * Delete a lexicon suggestion by id. Only suggestions with status "under review" can be deleted.
          * @param {Object} opts
          * @param {string} opts.suggestionId - MongoDB ObjectId of the suggestion to delete
          * @param {string} [opts.token] - API key
