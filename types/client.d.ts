@@ -2079,7 +2079,7 @@ export function createApiClient(options: {
             }) => any;
         };
         vehicleTypes: {
-            all: ({ token, query, headers }: {
+            all: ({ token, jwtToken, query, headers }: {
                 token: string;
                 query?: any;
                 headers?: any;
