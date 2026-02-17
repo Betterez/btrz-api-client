@@ -3287,6 +3287,25 @@ declare const _exports: {
                 offlineUserId: any;
                 headers: any;
             }) => any;
+            startMfa: ({ token, jwtToken, userId, headers }: {
+                token: any;
+                jwtToken: any;
+                userId: any;
+                headers: any;
+            }) => any;
+            confirmMfa: ({ token, jwtToken, userId, totpToken, headers }: {
+                token: any;
+                jwtToken: any;
+                userId: any;
+                totpToken: any;
+                headers: any;
+            }) => any;
+            disableMfa: ({ token, jwtToken, userId, headers }: {
+                token: any;
+                jwtToken: any;
+                userId: any;
+                headers: any;
+            }) => any;
             sequences: {
                 get({ token, jwtToken, userId, sequenceId, headers }: {
                     token: any;
