@@ -94,6 +94,40 @@ describe("accounts/user/{id}", () => {
     });
   });
 
+  it("should start MFA enrollment for a user", () => {
+    const userId = "627a25404a761f0fcbdbdfc1";
+    axiosMock.onPost(`/users/${userId}/mfa`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.accounts.users.startMfa({
+      jwtToken,
+      token,
+      userId
+    });
+  });
+
+  it("should confirm MFA enrollment with TOTP token", () => {
+    const userId = "627a25404a761f0fcbdbdfc1";
+    const totpToken = "123456";
+    axiosMock.onPut(`/users/${userId}/mfa`).reply(
+      expectRequest({statusCode: 200, token, jwtToken, body: {token: totpToken}})
+    );
+    return api.accounts.users.confirmMfa({
+      jwtToken,
+      token,
+      userId,
+      totpToken
+    });
+  });
+
+  it("should disable MFA for a user", () => {
+    const userId = "627a25404a761f0fcbdbdfc1";
+    axiosMock.onDelete(`/users/${userId}/mfa`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.accounts.users.disableMfa({
+      jwtToken,
+      token,
+      userId
+    });
+  });
+
   it("should return user sequence", () => {
     const sequenceId = "123";
     const userId = "1234321";

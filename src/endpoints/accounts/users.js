@@ -65,6 +65,31 @@ function usersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function startMfa({token, jwtToken, userId, headers}) {
+    return client({
+      url: `/users/${userId}/mfa`,
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+    });
+  }
+
+  function confirmMfa({token, jwtToken, userId, totpToken, headers}) {
+    return client({
+      url: `/users/${userId}/mfa`,
+      method: "put",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data: {token: totpToken}
+    });
+  }
+
+  function disableMfa({token, jwtToken, userId, headers}) {
+    return client({
+      url: `/users/${userId}/mfa`,
+      method: "delete",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+    });
+  }
+
   const sequences = {
     get({token, jwtToken, userId, sequenceId, headers}) {
       return client({
@@ -117,6 +142,9 @@ function usersFactory({client, internalAuthTokenProvider}) {
     update,
     createOrUpdateMany,
     impersonate,
+    startMfa,
+    confirmMfa,
+    disableMfa,
     sequences
   };
 }
