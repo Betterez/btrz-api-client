@@ -12,10 +12,10 @@ function vehicleTypesFactory({client, internalAuthTokenProvider}) {
    * @param {Object} [opts.headers] - Optional request headers
    * @returns {Promise<{data: {vehicleTypes: Array<{_id: string, name: string}>}}>}
    */
-  function all({token, query = {}, headers}) {
+  function all({token, jwtToken, query = {}, headers}) {
     return client.get("/vehicle-types", {
       params: query,
-      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
