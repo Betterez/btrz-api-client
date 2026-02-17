@@ -2032,6 +2032,20 @@ declare const _exports: {
                 headers: any;
             }) => any;
         };
+        vehicleTypes: {
+            all: ({ token, query, headers }: {
+                token: string;
+                query?: any;
+                headers?: any;
+            }) => Promise<{
+                data: {
+                    vehicleTypes: Array<{
+                        _id: string;
+                        name: string;
+                    }>;
+                };
+            }>;
+        };
         vehicles: {
             all: ({ token, query, headers }: {
                 token: any;
