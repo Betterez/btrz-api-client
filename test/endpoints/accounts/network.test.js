@@ -80,4 +80,27 @@ describe("accounts/interline", () => {
     });
   });
 
+  it("should remove a product from all agencies", () => {
+    const productId = "productId";
+    axiosMock.onPut("/network/agencies/remove-product").reply(expectRequest({
+      statusCode: 200,
+      token,
+      jwtToken
+    }));
+    return api.accounts.network.agencies.removeProduct({
+      token, jwtToken, productId
+    });
+  });
+
+  it("should remove a fare from all agencies", () => {
+    const fareId = "fareId";
+    axiosMock.onPut("/network/agencies/remove-fare").reply(expectRequest({
+      statusCode: 200,
+      token,
+      jwtToken
+    }));
+    return api.accounts.network.agencies.removeFare({
+      token, jwtToken, fareId
+    });
+  });
 });
