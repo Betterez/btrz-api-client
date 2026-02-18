@@ -30,5 +30,17 @@ declare function networkFactory({ client, internalAuthTokenProvider }: {
             agency: any;
             headers: any;
         }): any;
+        removeProduct({ token, jwtToken, productId, headers }: {
+            token: any;
+            jwtToken: any;
+            productId: any;
+            headers: any;
+        }): any;
+        removeFare({ token, jwtToken, fareId, headers }: {
+            token: any;
+            jwtToken: any;
+            fareId: any;
+            headers: any;
+        }): any;
     };
 };
