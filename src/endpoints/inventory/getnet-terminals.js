@@ -71,7 +71,8 @@ function getnetTerminalFactory({client, internalAuthTokenProvider}) {
       data: {
         getnetTerminal: {
           name: getnetTerminal.name,
-          serialNumber: getnetTerminal.serialNumber
+          serialNumber: getnetTerminal.serialNumber,
+          stationId: getnetTerminal.stationId
         }
       }
     });

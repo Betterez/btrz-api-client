@@ -59,6 +59,24 @@ describe("inventory/getnet-terminals", () => {
     });
   });
 
+  it("should create a new Getnet terminal with stationId (location)", async () => {
+    const getnetTerminal = {
+      name: "Getnet Terminal at Station",
+      serialNumber: "SN-001",
+      stationId: "5f243d100617680712e78dd7"
+    };
+
+    axiosMock.onPost("/getnet-terminals").reply(expectRequest({
+      statusCode: 200, token, jwtToken, body: {getnetTerminal}
+    }));
+
+    return api.inventory.getnetTerminals.create({
+      jwtToken,
+      token,
+      getnetTerminal
+    });
+  });
+
   it("should delete a Getnet terminal", () => {
     const getnetTerminalId = "1234";
 
@@ -82,11 +100,68 @@ describe("inventory/getnet-terminals", () => {
 
     const getnetTerminalFieldsToUpdate = {
       name: getnetTerminal.name,
-      serialNumber: getnetTerminal.serialNumber
+      serialNumber: getnetTerminal.serialNumber,
+      stationId: getnetTerminal.stationId
     };
 
     axiosMock.onPut(`/getnet-terminals/${getnetTerminal._id}`).reply(expectRequest({
       statusCode: 200, token, jwtToken, body: {getnetTerminal: getnetTerminalFieldsToUpdate}
+    }));
+
+    return api.inventory.getnetTerminals.update({
+      jwtToken,
+      token,
+      getnetTerminal
+    });
+  });
+
+  it("should update an existing Getnet terminal with stationId (location)", async () => {
+    const getnetTerminalId = "terminal-id-456";
+    const getnetTerminal = {
+      _id: getnetTerminalId,
+      name: "Terminal at Station",
+      serialNumber: "SN-789",
+      stationId: "5f243d100617680712e78dd7"
+    };
+
+    const expectedBody = {
+      getnetTerminal: {
+        name: getnetTerminal.name,
+        serialNumber: getnetTerminal.serialNumber,
+        stationId: getnetTerminal.stationId
+      }
+    };
+
+    axiosMock.onPut(`/getnet-terminals/${getnetTerminalId}`).reply(expectRequest({
+      statusCode: 200, token, jwtToken, body: expectedBody
+    }));
+
+    return api.inventory.getnetTerminals.update({
+      jwtToken,
+      token,
+      getnetTerminalId,
+      getnetTerminal
+    });
+  });
+
+  it("should update an existing Getnet terminal with empty stationId", async () => {
+    const getnetTerminal = {
+      _id: "terminal-id-999",
+      name: "Terminal No Location",
+      serialNumber: "SN-999",
+      stationId: ""
+    };
+
+    const expectedBody = {
+      getnetTerminal: {
+        name: getnetTerminal.name,
+        serialNumber: getnetTerminal.serialNumber,
+        stationId: ""
+      }
+    };
+
+    axiosMock.onPut(`/getnet-terminals/${getnetTerminal._id}`).reply(expectRequest({
+      statusCode: 200, token, jwtToken, body: expectedBody
     }));
 
     return api.inventory.getnetTerminals.update({
