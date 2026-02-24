@@ -2895,6 +2895,108 @@ export function createApiClient(options: {
                 }): any;
             };
         };
+        emailTemplates: {
+            all: ({ token, jwtToken, query, headers }: {
+                token?: any;
+                jwtToken?: any;
+                query?: {};
+                headers?: any;
+            }) => any;
+            get: ({ token, jwtToken, emailTemplateId, query, headers }: {
+                token?: any;
+                jwtToken?: any;
+                emailTemplateId: any;
+                query?: {};
+                headers?: any;
+            }) => any;
+            create: ({ token, jwtToken, data, headers }: {
+                token?: any;
+                jwtToken?: any;
+                data: any;
+                headers?: any;
+            }) => any;
+            update: ({ token, jwtToken, emailTemplateId, data, headers }: {
+                token?: any;
+                jwtToken?: any;
+                emailTemplateId: any;
+                data: any;
+                headers?: any;
+            }) => any;
+            remove: ({ token, jwtToken, emailTemplateId, headers }: {
+                token?: any;
+                jwtToken?: any;
+                emailTemplateId: any;
+                headers?: any;
+            }) => any;
+            createSub: ({ token, jwtToken, mainTemplateId, agencyId, headers }: {
+                token?: any;
+                jwtToken?: any;
+                mainTemplateId: any;
+                agencyId: any;
+                headers?: any;
+            }) => any;
+            versions: {
+                update({ token, jwtToken, emailTemplateId, versionId, query, headers }: {
+                    token?: any;
+                    jwtToken?: any;
+                    emailTemplateId: any;
+                    versionId: any;
+                    query?: {};
+                    headers?: any;
+                }): any;
+            };
+        };
+        smsTemplates: {
+            all: ({ token, jwtToken, query, headers }: {
+                token?: any;
+                jwtToken?: any;
+                query?: {};
+                headers?: any;
+            }) => any;
+            get: ({ token, jwtToken, smsTemplateId, query, headers }: {
+                token?: any;
+                jwtToken?: any;
+                smsTemplateId: any;
+                query?: {};
+                headers?: any;
+            }) => any;
+            create: ({ token, jwtToken, data, headers }: {
+                token?: any;
+                jwtToken?: any;
+                data: any;
+                headers?: any;
+            }) => any;
+            update: ({ token, jwtToken, smsTemplateId, data, headers }: {
+                token?: any;
+                jwtToken?: any;
+                smsTemplateId: any;
+                data: any;
+                headers?: any;
+            }) => any;
+            remove: ({ token, jwtToken, smsTemplateId, headers }: {
+                token?: any;
+                jwtToken?: any;
+                smsTemplateId: any;
+                headers?: any;
+            }) => any;
+            createSub: ({ token, jwtToken, mainTemplateId, agencyId, headers }: {
+                token?: any;
+                jwtToken?: any;
+                mainTemplateId: any;
+                agencyId: any;
+                headers?: any;
+            }) => any;
+            versions: {
+                update({ token, jwtToken, smsTemplateId, versionId, query, headers }: {
+                    token?: any;
+                    jwtToken?: any;
+                    smsTemplateId: any;
+                    versionId: any;
+                    query?: {};
+                    headers?: any;
+                }): any;
+            };
+        };
         revenueManagementSettings: {
             get: ({ token, jwtToken, headers }: {
                 token: any;
