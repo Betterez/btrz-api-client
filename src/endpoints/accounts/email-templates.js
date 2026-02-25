@@ -3,11 +3,9 @@ const {
 } = require("../endpoints_helpers.js");
 
 function emailTemplatesFactory({client, internalAuthTokenProvider}) {
-  const basePath = "/accounts/email-templates";
-
   function all({token, jwtToken, query = {}, headers}) {
     return client({
-      url: basePath,
+      url: "/email-templates",
       params: query,
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
@@ -15,7 +13,7 @@ function emailTemplatesFactory({client, internalAuthTokenProvider}) {
 
   function get({token, jwtToken, emailTemplateId, query = {}, headers}) {
     return client({
-      url: `${basePath}/${emailTemplateId}`,
+      url: `/email-templates/${emailTemplateId}`,
       params: query,
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
@@ -23,7 +21,7 @@ function emailTemplatesFactory({client, internalAuthTokenProvider}) {
 
   function create({token, jwtToken, data, headers}) {
     return client({
-      url: basePath,
+      url: "/email-templates",
       method: "post",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data
@@ -32,7 +30,7 @@ function emailTemplatesFactory({client, internalAuthTokenProvider}) {
 
   function update({token, jwtToken, emailTemplateId, data, headers}) {
     return client({
-      url: `${basePath}/${emailTemplateId}`,
+      url: `/email-templates/${emailTemplateId}`,
       method: "put",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data
@@ -41,7 +39,7 @@ function emailTemplatesFactory({client, internalAuthTokenProvider}) {
 
   function remove({token, jwtToken, emailTemplateId, headers}) {
     return client({
-      url: `${basePath}/${emailTemplateId}`,
+      url: `/email-templates/${emailTemplateId}`,
       method: "delete",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
@@ -49,7 +47,7 @@ function emailTemplatesFactory({client, internalAuthTokenProvider}) {
 
   function createSub({token, jwtToken, mainTemplateId, agencyId, headers}) {
     return client({
-      url: "/accounts/sub-email-templates",
+      url: "/sub-email-templates",
       method: "post",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: {mainTemplateId, agencyId}
@@ -59,7 +57,7 @@ function emailTemplatesFactory({client, internalAuthTokenProvider}) {
   const versions = {
     update({token, jwtToken, emailTemplateId, versionId, query = {}, headers}) {
       return client({
-        url: `${basePath}/${emailTemplateId}/versions/${versionId}`,
+        url: `/email-templates/${emailTemplateId}/versions/${versionId}`,
         method: "put",
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
         params: query

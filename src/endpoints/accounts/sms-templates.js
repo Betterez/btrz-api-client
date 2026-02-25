@@ -3,11 +3,9 @@ const {
 } = require("../endpoints_helpers.js");
 
 function smsTemplatesFactory({client, internalAuthTokenProvider}) {
-  const basePath = "/accounts/sms-templates";
-
   function all({token, jwtToken, query = {}, headers}) {
     return client({
-      url: basePath,
+      url: "/sms-templates",
       params: query,
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
@@ -15,7 +13,7 @@ function smsTemplatesFactory({client, internalAuthTokenProvider}) {
 
   function get({token, jwtToken, smsTemplateId, query = {}, headers}) {
     return client({
-      url: `${basePath}/${smsTemplateId}`,
+      url: `/sms-templates/${smsTemplateId}`,
       params: query,
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
@@ -23,7 +21,7 @@ function smsTemplatesFactory({client, internalAuthTokenProvider}) {
 
   function create({token, jwtToken, data, headers}) {
     return client({
-      url: basePath,
+      url: "/sms-templates",
       method: "post",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data
@@ -32,7 +30,7 @@ function smsTemplatesFactory({client, internalAuthTokenProvider}) {
 
   function update({token, jwtToken, smsTemplateId, data, headers}) {
     return client({
-      url: `${basePath}/${smsTemplateId}`,
+      url: `/sms-templates/${smsTemplateId}`,
       method: "put",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data
@@ -41,7 +39,7 @@ function smsTemplatesFactory({client, internalAuthTokenProvider}) {
 
   function remove({token, jwtToken, smsTemplateId, headers}) {
     return client({
-      url: `${basePath}/${smsTemplateId}`,
+      url: `/sms-templates/${smsTemplateId}`,
       method: "delete",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
@@ -49,7 +47,7 @@ function smsTemplatesFactory({client, internalAuthTokenProvider}) {
 
   function createSub({token, jwtToken, mainTemplateId, agencyId, headers}) {
     return client({
-      url: "/accounts/sub-sms-templates",
+      url: "/sub-sms-templates",
       method: "post",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: {mainTemplateId, agencyId}
@@ -59,7 +57,7 @@ function smsTemplatesFactory({client, internalAuthTokenProvider}) {
   const versions = {
     update({token, jwtToken, smsTemplateId, versionId, query = {}, headers}) {
       return client({
-        url: `${basePath}/${smsTemplateId}/versions/${versionId}`,
+        url: `/sms-templates/${smsTemplateId}/versions/${versionId}`,
         method: "put",
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
         params: query
