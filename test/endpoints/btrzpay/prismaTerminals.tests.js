@@ -152,6 +152,24 @@ describe("btrzpay/prisma-terminals", () => {
     });
   });
 
+  it("should update a prisma terminal refund (complete pending payment)", () => {
+    const prismaRefund = {
+      result: {id: "refund-uuid", refundStatus: "CONFIRMED"},
+      pendingTransactionId: "6870086aa339562f5c6bd4fe",
+      referenceNumber: "ref-123"
+    };
+    axiosMock.onPut("/prisma-terminals/refunds/refund-uuid").reply(expectRequest({
+      statusCode: 200, token, jwtToken, query, body: {prismaRefund}
+    }));
+    return api.btrzpay.prismaTerminals.payments.refunds.update({
+      token,
+      jwtToken,
+      query,
+      id: "refund-uuid",
+      prismaRefund
+    });
+  });
+
   it("should create a prisma terminal settlement intent", () => {
     axiosMock.onPost("/prisma-terminals/settlements").reply(expectRequest({
       statusCode: 200, token, jwtToken, query

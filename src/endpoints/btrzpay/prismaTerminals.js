@@ -52,6 +52,15 @@ function prismaTerminalsFactory({client, internalAuthTokenProvider}) {
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
         params: query
       });
+    },
+    update({token, jwtToken, id, prismaRefund, query = {}, headers}) {
+      return client({
+        url: `/prisma-terminals/refunds/${id}`,
+        method: "put",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        params: query,
+        data: {prismaRefund}
+      });
     }
   };
 
