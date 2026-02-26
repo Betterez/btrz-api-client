@@ -60,7 +60,8 @@ function pdfDataFactory({
     if (query.type === "manifest") {
       url = `/pdf-manifests/${itemId}`;
     }
-    if (query.type === "order") {
+    const orderTypes = ["order", "order_confirmation", "cancellation", "change"];
+    if (orderTypes.includes(query.type)) {
       url = `/pdf-orders/${itemId}`;
     }
     if (query.type === "shift") {

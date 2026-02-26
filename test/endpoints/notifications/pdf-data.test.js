@@ -85,6 +85,48 @@ describe("notifications/pdf-data", () => {
     });
   });
 
+  it("should return the proper data for order_confirmation (email template type)", () => {
+    const itemId = "12345";
+    const query = {
+      type: "order_confirmation"
+    };
+    axiosMock.onGet(`/pdf-orders/${itemId}`)
+      .reply(expectRequest({
+        statusCode: 200, token
+      }));
+    return api.notifications.pdfData.get({
+      token, query, itemId
+    });
+  });
+
+  it("should return the proper data for cancellation (email template type)", () => {
+    const itemId = "12345";
+    const query = {
+      type: "cancellation"
+    };
+    axiosMock.onGet(`/pdf-orders/${itemId}`)
+      .reply(expectRequest({
+        statusCode: 200, token
+      }));
+    return api.notifications.pdfData.get({
+      token, query, itemId
+    });
+  });
+
+  it("should return the proper data for change (email template type)", () => {
+    const itemId = "12345";
+    const query = {
+      type: "change"
+    };
+    axiosMock.onGet(`/pdf-orders/${itemId}`)
+      .reply(expectRequest({
+        statusCode: 200, token
+      }));
+    return api.notifications.pdfData.get({
+      token, query, itemId
+    });
+  });
+
   it("should return the proper data for a remainder slip", () => {
     const itemId = "12345";
     const query = {
