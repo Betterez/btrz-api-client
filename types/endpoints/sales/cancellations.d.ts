@@ -15,6 +15,18 @@ export = cancellationEndpointsFactory;
  *      reason: string
  *   }
  * }} CancelSetData
+ *
+ * @typedef {{
+ *   provider: string,
+ *   type: string,
+ *   result: object,
+ *   createdAt: object,
+ *   displayName: string,
+ *   status: string,
+ *   amount: number,
+ *   referenceNumber: string,
+ *   authCode?: string
+ * }} CompletePaymentCancellationData
 */
 declare function cancellationEndpointsFactory({ client, internalAuthTokenProvider }: {
     client: any;
@@ -36,9 +48,16 @@ declare function cancellationEndpointsFactory({ client, internalAuthTokenProvide
             headers: any;
         }) => Promise<any>;
     };
+    update: ({ token, jwtToken, pendingTransactionId, paymentResult, headers }: {
+        token: string;
+        jwtToken: string;
+        pendingTransactionId: string;
+        paymentResult: CompletePaymentCancellationData;
+        headers: any;
+    }) => Promise<any>;
 };
 declare namespace cancellationEndpointsFactory {
-    export { CancelSetData };
+    export { CancelSetData, CompletePaymentCancellationData };
 }
 type CancelSetData = {
     fees: string[];
@@ -54,4 +73,15 @@ type CancelSetData = {
         amount: number;
         reason: string;
     };
+};
+type CompletePaymentCancellationData = {
+    provider: string;
+    type: string;
+    result: object;
+    createdAt: object;
+    displayName: string;
+    status: string;
+    amount: number;
+    referenceNumber: string;
+    authCode?: string;
 };

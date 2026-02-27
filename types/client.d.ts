@@ -3789,6 +3789,13 @@ export function createApiClient(options: {
                     headers: any;
                 }) => Promise<any>;
             };
+            update: ({ token, jwtToken, pendingTransactionId, paymentResult, headers }: {
+                token: string;
+                jwtToken: string;
+                pendingTransactionId: string;
+                paymentResult: CompletePaymentCancellationData;
+                headers: any;
+            }) => Promise<any>;
         };
         __test: {
             client: axios.AxiosInstance;
