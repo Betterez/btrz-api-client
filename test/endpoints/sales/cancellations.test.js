@@ -47,4 +47,32 @@ describe("sales/cancellations", () => {
       headers: {}
     });
   });
+
+  it("should PUT to update (complete) a pending payment for a cancellation transaction", () => {
+    const pendingTransactionId = "507f1f77bcf86cd799439011";
+    const paymentResult = {
+      provider: "prisma",
+      type: "prisma_terminal",
+      referenceNumber: "ref1",
+      result: {id: "1", paymentStatus: "CONFIRMED"},
+      createdAt: {},
+      displayName: "Prisma Terminal",
+      status: "refunded",
+      amount: 10.5
+    };
+    axiosMock.onPut(`/cancellations/${pendingTransactionId}`).reply(expectRequest({
+      statusCode: 200,
+      token,
+      jwtToken,
+      body: {paymentResult}
+    }));
+
+    return api.sales.cancellations.update({
+      token,
+      jwtToken,
+      pendingTransactionId,
+      paymentResult,
+      headers: {}
+    });
+  });
 });

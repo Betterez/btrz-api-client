@@ -16,6 +16,18 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  *      reason: string
  *   }
  * }} CancelSetData
+ *
+ * @typedef {{
+ *   provider: string,
+ *   type: string,
+ *   result: object,
+ *   createdAt: object,
+ *   displayName: string,
+ *   status: string,
+ *   amount: number,
+ *   referenceNumber: string,
+ *   authCode?: string
+ * }} CompletePaymentCancellationData
 */
 
 function cancellationEndpointsFactory({client, internalAuthTokenProvider}) {
@@ -57,13 +69,33 @@ function cancellationEndpointsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * Completes a pending payment for a cancellation transaction (e.g. one terminal refund).
+   * @param {Object} params
+   * @param {string} params.token Public key
+   * @param {string} params.jwtToken Auth token
+   * @param {string} params.pendingTransactionId Negative transaction id (ObjectId)
+   * @param {CompletePaymentCancellationData} params.paymentResult Payment result for one completed terminal refund
+   * @param {Object} params.headers HTTP Headers
+   * @returns {Promise} Updated negative transaction (with remaining pending payments if any)
+   */
+  function updateCompletePayment({token, jwtToken, pendingTransactionId, paymentResult, headers}) {
+    return client({
+      url: `/cancellations/${pendingTransactionId}`,
+      method: "PUT",
+      data: {paymentResult},
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+    });
+  }
+
   return {
     sets: {
       create: createCancelSet
     },
     refunds: {
       create: createRefund
-    }
+    },
+    update: updateCompletePayment
   };
 }
 
