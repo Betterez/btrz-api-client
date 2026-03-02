@@ -5530,6 +5530,22 @@ export function createApiClient(options: {
                 headers: any;
             }) => any;
         };
+        infileJson: {
+            create: ({ token, jwtToken, data, query, headers }: {
+                token: any;
+                jwtToken: any;
+                data: any;
+                query?: {};
+                headers: any;
+            }) => any;
+            validateCreate: ({ token, jwtToken, data, query, headers }: {
+                token: any;
+                jwtToken: any;
+                data: any;
+                query?: {};
+                headers: any;
+            }) => any;
+        };
         system: {
             create: ({ token, jwtToken, data, query, headers }: {
                 token: any;
