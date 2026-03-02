@@ -393,6 +393,7 @@ function createInvoices({baseURL, headers, timeout, overrideFn, internalAuthToke
     providers: require("./endpoints/invoices/providers.js")({client, internalAuthTokenProvider}),
     providersSequences: require("./endpoints/invoices/providersSequences.js")({client, internalAuthTokenProvider}),
     infile: require("./endpoints/invoices/infile.js")({client, internalAuthTokenProvider}),
+    infileJson: require("./endpoints/invoices/infileJson.js")({client, internalAuthTokenProvider}),
     system: require("./endpoints/invoices/system.js")({client, internalAuthTokenProvider}),
     dlink: require("./endpoints/invoices/dlink.js")({client, internalAuthTokenProvider}),
     gti: require("./endpoints/invoices/gti.js")({client, internalAuthTokenProvider}),
