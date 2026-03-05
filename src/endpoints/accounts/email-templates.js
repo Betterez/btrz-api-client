@@ -3,6 +3,13 @@ const {
 } = require("../endpoints_helpers.js");
 
 function emailTemplatesFactory({client, internalAuthTokenProvider}) {
+  function getTypes({token, jwtToken, headers}) {
+    return client({
+      url: "/email-templates/types",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+    });
+  }
+
   function all({token, jwtToken, query = {}, headers}) {
     return client({
       url: "/email-templates",
@@ -66,6 +73,7 @@ function emailTemplatesFactory({client, internalAuthTokenProvider}) {
   };
 
   return {
+    getTypes,
     all,
     get,
     create,

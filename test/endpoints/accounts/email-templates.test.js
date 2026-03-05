@@ -9,6 +9,16 @@ describe("accounts/email-templates", () => {
     axiosMock.restore();
   });
 
+  it("should GET email template types", () => {
+    axiosMock.onGet("/email-templates/types").reply(expectRequest({
+      statusCode: 200,
+      token
+    }));
+    return api.accounts.emailTemplates.getTypes({
+      token
+    });
+  });
+
   it("should GET a list of email templates", () => {
     axiosMock.onGet("/email-templates").reply(expectRequest({
       statusCode: 200,

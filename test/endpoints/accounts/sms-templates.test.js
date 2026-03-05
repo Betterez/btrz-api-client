@@ -9,6 +9,16 @@ describe("accounts/sms-templates", () => {
     axiosMock.restore();
   });
 
+  it("should GET sms template types", () => {
+    axiosMock.onGet("/sms-templates/types").reply(expectRequest({
+      statusCode: 200,
+      token
+    }));
+    return api.accounts.smsTemplates.getTypes({
+      token
+    });
+  });
+
   it("should GET a list of sms templates", () => {
     axiosMock.onGet("/sms-templates").reply(expectRequest({
       statusCode: 200,

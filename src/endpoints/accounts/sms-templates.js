@@ -3,6 +3,13 @@ const {
 } = require("../endpoints_helpers.js");
 
 function smsTemplatesFactory({client, internalAuthTokenProvider}) {
+  function getTypes({token, jwtToken, headers}) {
+    return client({
+      url: "/sms-templates/types",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+    });
+  }
+
   function all({token, jwtToken, query = {}, headers}) {
     return client({
       url: "/sms-templates",
@@ -66,6 +73,7 @@ function smsTemplatesFactory({client, internalAuthTokenProvider}) {
   };
 
   return {
+    getTypes,
     all,
     get,
     create,
