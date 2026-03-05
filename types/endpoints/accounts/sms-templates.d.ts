@@ -3,6 +3,11 @@ declare function smsTemplatesFactory({ client, internalAuthTokenProvider }: {
     client: any;
     internalAuthTokenProvider: any;
 }): {
+    getTypes: ({ token, jwtToken, headers }: {
+        token: any;
+        jwtToken: any;
+        headers: any;
+    }) => any;
     all: ({ token, jwtToken, query, headers }: {
         token: any;
         jwtToken: any;

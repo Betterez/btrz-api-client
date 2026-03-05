@@ -2434,6 +2434,11 @@ declare const _exports: {
             }) => any;
         };
         emailTemplates: {
+            getTypes: ({ token, jwtToken, headers }: {
+                token: any;
+                jwtToken: any;
+                headers: any;
+            }) => any;
             all: ({ token, jwtToken, query, headers }: {
                 token: any;
                 jwtToken: any;
@@ -2485,6 +2490,11 @@ declare const _exports: {
             };
         };
         smsTemplates: {
+            getTypes: ({ token, jwtToken, headers }: {
+                token: any;
+                jwtToken: any;
+                headers: any;
+            }) => any;
             all: ({ token, jwtToken, query, headers }: {
                 token: any;
                 jwtToken: any;

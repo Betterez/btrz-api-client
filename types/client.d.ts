@@ -2480,6 +2480,11 @@ export function createApiClient(options: {
             }) => any;
         };
         emailTemplates: {
+            getTypes: ({ token, jwtToken, headers }: {
+                token: any;
+                jwtToken: any;
+                headers: any;
+            }) => any;
             all: ({ token, jwtToken, query, headers }: {
                 token: any;
                 jwtToken: any;
@@ -2531,6 +2536,11 @@ export function createApiClient(options: {
             };
         };
         smsTemplates: {
+            getTypes: ({ token, jwtToken, headers }: {
+                token: any;
+                jwtToken: any;
+                headers: any;
+            }) => any;
             all: ({ token, jwtToken, query, headers }: {
                 token: any;
                 jwtToken: any;
