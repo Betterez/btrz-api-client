@@ -1,6 +1,6 @@
 const {
   authorizationHeaders
-} = require("./../endpoints_helpers");
+} = require("./../endpoints_helpers.js");
 
 function pdfDataFactory({
   client,
@@ -42,14 +42,41 @@ function pdfDataFactory({
           break;
       }
     }
-    if (query.type === "giftCertificate") {
+
+    if (query.type === "parcel_confirmation") {
+      url = `/pdf-parcels/${itemId}`;
+    }
+    if (query.type === "redeemable_items_confirmation") {
+      url = `/pdf-redeemable-items/${itemId}`;
+    }
+    if (query.type === "sold_item_confirmation") {
+      url = `/pdf-sold-items/${itemId}`;
+    }
+    if (query.type === "customer_card_membership" ||
+      query.type === "scanning_badge" ||
+      query.type === "customer_activation" ||
+      query.type === "customer_activation_mobile" ||
+      query.type === "customer_password_reset" ||
+      query.type === "customer_password_reset_mobile") {
+      url = `/pdf-customer/${itemId}`;
+    }
+    if (query.type === "giftCertificate" || query.type === "gift_certificate_notification") {
       url = `/pdf-gift-certificates/${itemId}`;
     }
-    if (query.type === "voucher") {
+    if (query.type === "user_password_reset") {
+      url = `/pdf-users/${itemId}`;
+    }
+    if (query.type === "voucher" || query.type === "voucher_notification" || query.type === "compensation_voucher") {
       url = `/pdf-vouchers/${itemId}`;
     }
-    if (query.type === "transaction") {
+    if (query.type === "new_account" || query.type === "new_seller_account" || query.type === "interline_provider_invite") {
+      url = `/pdf-accounts/${itemId}`;
+    }
+    if (query.type === "transaction" || query.type === "operator_purchase" || query.type === "operator_ssr") {
       url = `/pdf-transactions/${itemId}`;
+    }
+    if (query.type === "operator_manifest_capacity") {
+      url = `/pdf-operator-manifest-capacities/${itemId}`;
     }
     if (query.type === "ssr") {
       url = `/pdf-ssrs/${itemId}`;
@@ -57,7 +84,10 @@ function pdfDataFactory({
     if (query.type === "passengersManifest") {
       url = `/pdf-passengers-manifests/${itemId}`;
     }
-    if (query.type === "manifest") {
+    if (query.type === "reaccomodation" || query.type === "ticket_movement") {
+      url = `/pdf-reaccomodation/${itemId}`;
+    }
+    if (query.type === "manifest" || query.type === "manifest_notification") {
       url = `/pdf-manifests/${itemId}`;
     }
     const orderTypes = ["order", "order_confirmation", "cancellation", "change"];
