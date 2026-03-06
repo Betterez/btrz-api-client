@@ -1,6 +1,23 @@
+/* eslint-disable max-len */
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
+/**
+ * Factory for users API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ get: function, getV2: function, all: function, create: function, login: function, update: function, createOrUpdateMany: function, impersonate: function, startMfa: function, confirmMfa: function, disableMfa: function, sequences: { get: function, all: function, create: function, update: function, transfer: function } }}
+ */
 function usersFactory({client, internalAuthTokenProvider}) {
+  /**
+   * GET /user/:id - get a user by id (legacy).
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.id - User id (ObjectId)
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function get({token, jwtToken, id, headers} = {}) {
     return client({
       url: `/user/${id}`,
@@ -8,6 +25,15 @@ function usersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * GET /users/:id - get a user by id (v2).
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.id - User id (ObjectId)
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function getV2({token, jwtToken, id, headers} = {}) {
     return client({
       url: `/users/${id}`,
@@ -15,6 +41,15 @@ function usersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * GET /users - list users.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Object} [opts.query] - Query params
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function all({token, jwtToken, query = {}, headers}) {
     return client({
       url: "/users",
@@ -23,6 +58,16 @@ function usersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * POST /users - login (create session).
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Object} [opts.query] - Query params
+   * @param {Object} opts.data - Login payload
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function login({token, jwtToken, query = {}, data, headers}) {
     return client({
       url: "/users",
@@ -33,11 +78,30 @@ function usersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  // Deprecated. Use login instead.
+  /**
+   * @deprecated Use login instead. POST /users - create user (alias for login).
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Object} [opts.query] - Query params
+   * @param {Object} opts.data - User data
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function create({token, jwtToken, query = {}, data, headers}) {
     return login({token, jwtToken, query, data, headers});
   }
 
+  /**
+   * PUT /users/:userId - update a user.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.userId - User id (ObjectId)
+   * @param {Object} opts.user - User payload
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function update({token, jwtToken, userId, user, headers}) {
     return client({
       url: `/users/${userId}`,
@@ -47,6 +111,15 @@ function usersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * POST /users/import - create or update many users.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Array} opts.users - Array of user objects
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function createOrUpdateMany({token, jwtToken, users, headers}) {
     return client({
       url: "/users/import",
@@ -56,6 +129,15 @@ function usersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * POST /users/impersonate - start impersonation session.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.offlineUserId - Offline user id to impersonate
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function impersonate({token, jwtToken, offlineUserId, headers}) {
     return client({
       url: "/users/impersonate",
@@ -65,6 +147,15 @@ function usersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * POST /users/:userId/mfa - start MFA setup.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.userId - User id (ObjectId)
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function startMfa({token, jwtToken, userId, headers}) {
     return client({
       url: `/users/${userId}/mfa`,
@@ -73,6 +164,16 @@ function usersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * PUT /users/:userId/mfa - confirm MFA with TOTP token.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.userId - User id (ObjectId)
+   * @param {string} opts.totpToken - TOTP token from authenticator app
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function confirmMfa({token, jwtToken, userId, totpToken, headers}) {
     return client({
       url: `/users/${userId}/mfa`,
@@ -82,6 +183,15 @@ function usersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * DELETE /users/:userId/mfa - disable MFA for user.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.userId - User id (ObjectId)
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function disableMfa({token, jwtToken, userId, headers}) {
     return client({
       url: `/users/${userId}/mfa`,
@@ -91,12 +201,32 @@ function usersFactory({client, internalAuthTokenProvider}) {
   }
 
   const sequences = {
+    /**
+     * GET /users/:userId/sequences/:sequenceId - get a sequence.
+     * @param {Object} opts
+     * @param {string} [opts.token] - API key
+     * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+     * @param {string} opts.userId - User id (ObjectId)
+     * @param {string} opts.sequenceId - Sequence id (ObjectId)
+     * @param {Object} [opts.headers] - Optional headers
+     * @returns {Promise<import("axios").AxiosResponse>}
+     */
     get({token, jwtToken, userId, sequenceId, headers}) {
       return client({
         url: `/users/${userId}/sequences/${sequenceId}`,
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
       });
     },
+    /**
+     * GET /users/:userId/sequences - list sequences for user.
+     * @param {Object} opts
+     * @param {string} [opts.token] - API key
+     * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+     * @param {string} opts.userId - User id (ObjectId)
+     * @param {Object} [opts.query] - Query params
+     * @param {Object} [opts.headers] - Optional headers
+     * @returns {Promise<import("axios").AxiosResponse>}
+     */
     all({token, jwtToken, userId, query = {}, headers}) {
       return client({
         url: `/users/${userId}/sequences`,
@@ -104,6 +234,16 @@ function usersFactory({client, internalAuthTokenProvider}) {
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
       });
     },
+    /**
+     * POST /users/:userId/sequences - create a sequence.
+     * @param {Object} opts
+     * @param {string} [opts.token] - API key
+     * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+     * @param {string} opts.userId - User id (ObjectId)
+     * @param {Object} opts.sequence - Sequence payload
+     * @param {Object} [opts.headers] - Optional headers
+     * @returns {Promise<import("axios").AxiosResponse>}
+     */
     create({jwtToken, token, userId, sequence, headers}) {
       return client({
         url: `/users/${userId}/sequences`,
@@ -112,6 +252,17 @@ function usersFactory({client, internalAuthTokenProvider}) {
         data: sequence
       });
     },
+    /**
+     * PUT /users/:userId/sequences/:sequenceId - update a sequence.
+     * @param {Object} opts
+     * @param {string} [opts.token] - API key
+     * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+     * @param {string} opts.userId - User id (ObjectId)
+     * @param {string} opts.sequenceId - Sequence id (ObjectId)
+     * @param {Object} opts.sequence - Sequence payload
+     * @param {Object} [opts.headers] - Optional headers
+     * @returns {Promise<import("axios").AxiosResponse>}
+     */
     update({jwtToken, token, userId, sequenceId, sequence, headers}) {
       return client({
         url: `/users/${userId}/sequences/${sequenceId}`,
@@ -120,6 +271,17 @@ function usersFactory({client, internalAuthTokenProvider}) {
         data: sequence
       });
     },
+    /**
+     * PATCH /users/:userId/sequences/:sequenceId - transfer sequence to another user.
+     * @param {Object} opts
+     * @param {string} [opts.token] - API key
+     * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+     * @param {string} opts.userId - User id (ObjectId)
+     * @param {string} opts.sequenceId - Sequence id (ObjectId)
+     * @param {string} opts.newUserId - Target user id (ObjectId)
+     * @param {Object} [opts.headers] - Optional headers
+     * @returns {Promise<import("axios").AxiosResponse>}
+     */
     transfer({jwtToken, token, userId, sequenceId, newUserId, headers}) {
       return client({
         url: `/users/${userId}/sequences/${sequenceId}`,

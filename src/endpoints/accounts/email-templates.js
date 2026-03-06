@@ -1,8 +1,51 @@
+/* eslint-disable max-len */
 const {
   authorizationHeaders
 } = require("../endpoints_helpers.js");
 
+/**
+ * @typedef {Object} EmailTemplatesListQuery
+ * @property {string} [providerId] - Filter by provider account (ObjectId)
+ * @property {string} [type] - Filter by template type
+ * @property {string} [channel] - backoffice | agency-backoffice | websales | agency-websales | any | mobileapp
+ * @property {string} [sort] - relevance | natural | createdAsc | createdDesc | updatedAsc | updatedDesc
+ * @property {string} [templateCollectionId] - default | custom
+ * @property {string} [status] - draft | published
+ * @property {string} [mainTemplateAccountId] - Filter by source provider (ObjectId)
+ * @property {string} [lang] - ISO language code (e.g. en-us)
+ * @property {number} [page] - 1-based page for pagination
+ */
+
+/**
+ * @typedef {Object} EmailTemplatePostData
+ * @property {string} name - Template name
+ * @property {string} type - Template type
+ * @property {string} subject - Subject line (plain text + Liquid)
+ * @property {string} lang - ISO language code (e.g. en-us)
+ * @property {string} htmlTemplate - HTML body (no scripts)
+ * @property {string} txtTemplate - Plain text body (no HTML)
+ * @property {string} [channel] - any (default) or other channel
+ * @property {string} [status] - draft | published
+ * @property {string} [templateCollectionId] - default | custom (required for accountId "")
+ * @property {string} [accountId] - "" for global template (super user)
+ */
+
+/**
+ * Factory for email-templates API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ getTypes: function, all: function, get: function, create: function, update: function, remove: function, createSub: function, versions: { update: function } }}
+ */
 function emailTemplatesFactory({client, internalAuthTokenProvider}) {
+  /**
+   * GET /email-templates/types - returns available template types.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>} response.data contains types array
+   */
   function getTypes({token, jwtToken, headers}) {
     return client({
       url: "/email-templates/types",
@@ -10,6 +53,15 @@ function emailTemplatesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * GET /email-templates - list email templates (paginated when page is provided).
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {EmailTemplatesListQuery} [opts.query] - Query params (providerId, type, channel, sort, status, lang, page, etc.)
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse<{ emailTemplates: Array<object>, next?: string, previous?: string, totalRecords?: number, page?: number }>>}
+   */
   function all({token, jwtToken, query = {}, headers}) {
     return client({
       url: "/email-templates",
@@ -18,6 +70,16 @@ function emailTemplatesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * GET /email-templates/:emailTemplateId - get a single email template.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.emailTemplateId - Template id (ObjectId)
+   * @param {Object} [opts.query] - Optional query params
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse<{ emailTemplate: object }>>}
+   */
   function get({token, jwtToken, emailTemplateId, query = {}, headers}) {
     return client({
       url: `/email-templates/${emailTemplateId}`,
@@ -26,6 +88,15 @@ function emailTemplatesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * POST /email-templates - create an email template.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {EmailTemplatePostData} opts.data - Template payload (name, type, subject, lang, htmlTemplate, txtTemplate required)
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse<{ emailTemplate: object }>>}
+   */
   function create({token, jwtToken, data, headers}) {
     return client({
       url: "/email-templates",
@@ -35,6 +106,16 @@ function emailTemplatesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * PUT /email-templates/:emailTemplateId - update an email template.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.emailTemplateId - Template id (ObjectId)
+   * @param {Partial<EmailTemplatePostData>} opts.data - Fields to update (lang is read-only)
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse<{ emailTemplate: object }>>}
+   */
   function update({token, jwtToken, emailTemplateId, data, headers}) {
     return client({
       url: `/email-templates/${emailTemplateId}`,
@@ -44,6 +125,15 @@ function emailTemplatesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * DELETE /email-templates/:emailTemplateId - delete an email template.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.emailTemplateId - Template id (ObjectId)
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function remove({token, jwtToken, emailTemplateId, headers}) {
     return client({
       url: `/email-templates/${emailTemplateId}`,
@@ -52,6 +142,16 @@ function emailTemplatesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * POST /sub-email-templates - create a sub (agency) email template linked to a main template.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.mainTemplateId - Main template id (ObjectId)
+   * @param {string} opts.agencyId - Agency id (ObjectId)
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function createSub({token, jwtToken, mainTemplateId, agencyId, headers}) {
     return client({
       url: "/sub-email-templates",
@@ -62,6 +162,17 @@ function emailTemplatesFactory({client, internalAuthTokenProvider}) {
   }
 
   const versions = {
+    /**
+     * PUT /email-templates/:emailTemplateId/versions/:versionId - update a template version.
+     * @param {Object} opts
+     * @param {string} [opts.token] - API key
+     * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+     * @param {string} opts.emailTemplateId - Template id (ObjectId)
+     * @param {string} opts.versionId - Version id (ObjectId)
+     * @param {Object} [opts.query] - Optional query params
+     * @param {Object} [opts.headers] - Optional headers
+     * @returns {Promise<import("axios").AxiosResponse>}
+     */
     update({token, jwtToken, emailTemplateId, versionId, query = {}, headers}) {
       return client({
         url: `/email-templates/${emailTemplateId}/versions/${versionId}`,

@@ -1,4 +1,15 @@
-function docsFactory({client}) {
+/**
+ * Factory for API docs (btrz-api-operations).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {Object} docs API methods
+ */
+function docsFactory({client, internalAuthTokenProvider: _internalAuthTokenProvider}) {
+  /**
+   * GET /api-docs-v2 - get API docs.
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function get() {
     return client.get("/api-docs-v2", {});
   }

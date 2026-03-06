@@ -1,9 +1,31 @@
-const { authorizationHeaders } = require("./../endpoints_helpers");
+/* eslint-disable max-len */
+const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
-function cartPromoFactory({ client, internalAuthTokenProvider }) {
+/**
+ * @typedef {Object} CartPromoQuery
+ * @property {string} [providerId] - Provider account ID
+ */
 
-  function create({ token, jwtToken, cartId, query = {}, headers }) {
-    return client({ 
+/**
+ * Factory for cart promos API (btrz-api-sales).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ create: function, remove: function }}
+ */
+function cartPromoFactory({client, internalAuthTokenProvider}) {
+  /**
+   * POST /cart/:cartId/promos - add promo to cart.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.cartId - Cart id
+   * @param {CartPromoQuery} [opts.query] - Query params
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
+  function create({token, jwtToken, cartId, query = {}, headers}) {
+    return client({
       url: `/cart/${cartId}/promos`,
       method: "post",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
@@ -11,7 +33,17 @@ function cartPromoFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  function remove({ token, jwtToken, cartId, query = {}, headers }) {
+  /**
+   * DELETE /cart/:cartId - remove cart promo.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.cartId - Cart id
+   * @param {CartPromoQuery} [opts.query] - Query params
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
+  function remove({token, jwtToken, cartId, query = {}, headers}) {
     return client({
       url: `/cart/${cartId}`,
       method: "delete",
@@ -20,7 +52,7 @@ function cartPromoFactory({ client, internalAuthTokenProvider }) {
     });
   }
 
-  return { 
+  return {
     create,
     remove
   };

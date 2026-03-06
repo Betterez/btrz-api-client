@@ -2,7 +2,23 @@ const {
   authorizationHeaders
 } = require("../endpoints_helpers.js");
 
+/**
+ * Factory for getnet-terminals API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, remove: function, update: function }}
+ */
 function getnetTerminalFactory({client, internalAuthTokenProvider}) {
+  /**
+   * GET /getnet-terminals - list getnet terminals.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Object} [opts.query] - Query params
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function all({
     token,
     jwtToken,
@@ -15,6 +31,15 @@ function getnetTerminalFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * GET /getnet-terminals/:getnetTerminalId - get a getnet terminal.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.getnetTerminalId - Getnet terminal id
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function get({
     getnetTerminalId,
     token,
@@ -26,6 +51,15 @@ function getnetTerminalFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * POST /getnet-terminals - create getnet terminal.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Object} opts.getnetTerminal - Getnet terminal payload
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function create({
     jwtToken,
     token,
@@ -42,6 +76,15 @@ function getnetTerminalFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * DELETE /getnet-terminals/:getnetTerminalId - remove getnet terminal.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.getnetTerminalId - Getnet terminal id
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function remove({
     jwtToken,
     getnetTerminalId,
@@ -55,6 +98,16 @@ function getnetTerminalFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * PUT /getnet-terminals/:getnetTerminalId - update getnet terminal.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.getnetTerminalId - Getnet terminal id
+   * @param {Object} opts.getnetTerminal - Getnet terminal payload
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function update({
     jwtToken,
     token,

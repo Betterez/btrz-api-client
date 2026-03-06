@@ -1,11 +1,35 @@
+/* eslint-disable max-len */
 const {
   authorizationHeaders
 } = require("./../endpoints_helpers.js");
 
+/**
+ * @typedef {Object} PdfDataGetQuery
+ * @property {string} type - Document type; determines path. E.g. "product", "giftCertificate", "voucher", "transaction", "ssr", "manifest", "passengersManifest", "order", "order_confirmation", "cancellation", "change", "shift", "invoice", "parcelManifest", "parcel_confirmation", "redeemable_items_confirmation", "sold_item_confirmation", "customer_card_membership", "user_password_reset", "new_account", "operator_manifest_capacity", "reaccomodation", "ticket_movement", "manifest_notification", "startingBalance", "partialShiftDeposits", "shiftLocationClosure", "bankDepositSlip", "terminalVoucher", "manualTickets", etc.
+ * @property {string} [family] - When type is "product": "ticket" | "reservation" | "paid in" | "paid out" | "parcel" | "flexpass" | "bundle"
+ */
+
+/**
+ * Factory for PDF data (JSON) endpoints (btrz-api-notifications). Resolves URL by query.type (and query.family when type is "product").
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ get: function }}
+ */
 function pdfDataFactory({
   client,
   internalAuthTokenProvider
 }) {
+  /**
+   * GET PDF data (JSON) by item id and type.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {PdfDataGetQuery} [opts.query] - type (required for correct path); family when type is "product"
+   * @param {string} opts.itemId - Item id (ObjectId)
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>} response.data is JSON (structure depends on type)
+   */
   // eslint-disable-next-line max-statements
   function get({
     token,

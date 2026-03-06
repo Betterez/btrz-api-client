@@ -1,11 +1,33 @@
 const {
   authorizationHeaders
-} = require("./../endpoints_helpers");
+} = require("../endpoints_helpers.js");
 
+/**
+ * Query params for manifest-notifications endpoints (btrz-api-notifications). Forwarded to API as-is.
+ * @typedef {Object} ManifestNotificationsQuery
+ */
+
+/**
+ * Factory for manifest-notifications API (btrz-api-notifications).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ create: function, all: function }}
+ */
 function manifestNotificationsFactory({
   client,
   internalAuthTokenProvider
 }) {
+  /**
+   * POST /manifest-notifications - create a manifest notification.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {ManifestNotificationsQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {Object} opts.data - Request body
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function create({
     token, jwtToken, query = {}, data, headers
   }) {
@@ -18,6 +40,14 @@ function manifestNotificationsFactory({
     });
   }
 
+  /**
+   * GET /manifest-notifications - list manifest notifications.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {ManifestNotificationsQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function all({
     token,
     query = {},

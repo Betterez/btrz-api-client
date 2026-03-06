@@ -1,9 +1,28 @@
 const {
   authorizationHeaders
-} = require("./../endpoints_helpers");
+} = require("./../endpoints_helpers.js");
 
+/**
+ * Query params for payment-terminals endpoints (btrz-api-inventory). Forwarded to API as-is.
+ * @typedef {Object} InventoryPaymentTerminalsQuery
+ */
+
+/**
+ * Factory for payment-terminals API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, update: function, remove: function }}
+ */
 function paymentTerminalFactory({client, internalAuthTokenProvider}) {
-
+  /**
+   * GET /payment-terminals - list payment terminals.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {InventoryPaymentTerminalsQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function all({
     token,
     query = {},
@@ -15,13 +34,30 @@ function paymentTerminalFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * GET /payment-terminals/:paymentTerminalId - get payment terminal by id.
+   * @param {Object} opts
+   * @param {string} opts.paymentTerminalId - Payment terminal id
+   * @param {string} [opts.token] - API key
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function get({paymentTerminalId, token, headers}) {
     return client.get(`/payment-terminals/${paymentTerminalId}`, {
       headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
     });
   }
 
-  function create({ jwtToken, token, paymentTerminal, headers }) {
+  /**
+   * POST /payment-terminals - create payment terminal.
+   * @param {Object} opts
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} [opts.token] - API key
+   * @param {Object} opts.paymentTerminal - Payment terminal payload
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
+  function create({jwtToken, token, paymentTerminal, headers}) {
     return client({
       url: "/payment-terminals",
       method: "post",
@@ -32,7 +68,16 @@ function paymentTerminalFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function remove({ jwtToken, paymentTerminalId, token, headers }) {
+  /**
+   * DELETE /payment-terminals/:paymentTerminalId - remove payment terminal.
+   * @param {Object} opts
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.paymentTerminalId - Payment terminal id
+   * @param {string} [opts.token] - API key
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
+  function remove({jwtToken, paymentTerminalId, token, headers}) {
     return client({
       url: `/payment-terminals/${paymentTerminalId}`,
       method: "delete",
@@ -40,6 +85,16 @@ function paymentTerminalFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * PUT /payment-terminals/:paymentTerminalId - update payment terminal.
+   * @param {Object} opts
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} [opts.token] - API key
+   * @param {string} opts.paymentTerminalId - Payment terminal id
+   * @param {Object} opts.paymentTerminal - Payment terminal payload
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function update({jwtToken, token, paymentTerminalId, paymentTerminal, headers}) {
     return client({
       url: `/payment-terminals/${paymentTerminalId}`,

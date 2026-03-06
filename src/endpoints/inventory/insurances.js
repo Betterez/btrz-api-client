@@ -1,10 +1,30 @@
 const {
   authorizationHeaders
-} = require("./../endpoints_helpers");
+} = require("./../endpoints_helpers.js");
 
+/**
+ * Query params for insurances endpoints (btrz-api-inventory). Forwarded to API as-is.
+ * @typedef {Object} InventoryInsurancesQuery
+ */
+
+/**
+ * Factory for insurances API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, create: function, get: function, update: function, remove: function }}
+ */
 function insurancesFactory({
   client, internalAuthTokenProvider
 }) {
+  /**
+   * GET /insurances - list insurances.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {InventoryInsurancesQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function all({
     token, query = {}, headers
   }) {
@@ -16,6 +36,14 @@ function insurancesFactory({
     });
   }
 
+  /**
+   * GET /insurances/:insuranceId - get insurance by id.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} opts.insuranceId - Insurance id
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function get({
     token, insuranceId, headers
   }) {
@@ -26,6 +54,15 @@ function insurancesFactory({
     });
   }
 
+  /**
+   * POST /insurances - create insurance.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {Object} opts.insurance - Insurance payload
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function create({
     token, insurance, jwtToken, headers
   }) {
@@ -39,6 +76,16 @@ function insurancesFactory({
     });
   }
 
+  /**
+   * PUT /insurances/:insuranceId - update insurance.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {Object} opts.insurance - Insurance payload
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.insuranceId - Insurance id
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function update({
     token, insurance, jwtToken, insuranceId, headers
   }) {
@@ -52,6 +99,15 @@ function insurancesFactory({
     });
   }
 
+  /**
+   * DELETE /insurances/:insuranceId - remove insurance.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.insuranceId - Insurance id
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function remove({
     token, jwtToken, insuranceId, headers
   }) {

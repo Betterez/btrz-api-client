@@ -1,6 +1,23 @@
-const {authorizationHeaders} = require("./../endpoints_helpers");
+const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
+/**
+ * Factory for application-settings API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ get: function, update: function, remove: function, regenerateKeys: function, create: function }}
+ */
 function applicationSettingsFactory({client, internalAuthTokenProvider}) {
+  /**
+   * GET /application-settings/:providerId - get application settings for provider.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.providerId - Provider id (ObjectId)
+   * @param {Object} [opts.query] - Query params
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function get({token, providerId, jwtToken, query = {}, headers}) {
     return client.get(`/application-settings/${providerId}`, {
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
@@ -8,6 +25,16 @@ function applicationSettingsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * PUT /application-settings/:id - update application settings.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.id - Application settings id (ObjectId)
+   * @param {Object} opts.application - Application payload
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function update({jwtToken, token, id, application, headers}) {
     return client({
       url: `/application-settings/${id}`,
@@ -17,6 +44,15 @@ function applicationSettingsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * DELETE /application-settings/:id - remove application settings.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.id - Application settings id (ObjectId)
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function remove({jwtToken, token, id, headers}) {
     return client({
       url: `/application-settings/${id}`,
@@ -25,6 +61,15 @@ function applicationSettingsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * POST /application-settings/:id/keys - regenerate application keys.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.id - Application settings id (ObjectId)
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function regenerateKeys({jwtToken, token, id, headers}) {
     return client({
       url: `/application-settings/${id}/keys`,
@@ -33,6 +78,15 @@ function applicationSettingsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * POST /application-settings - create application settings.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Object} opts.application - Application payload
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function create({jwtToken, token, application, headers}) {
     return client({
       url: "/application-settings",

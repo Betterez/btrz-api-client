@@ -1,0 +1,23 @@
+---
+description: JSDoc rules for endpoint files - be accurate, never invent params or query
+globs: src/endpoints/**/*.js
+alwaysApply: false
+---
+
+# Endpoint JSDoc accuracy
+
+When writing or reviewing JSDoc in `src/endpoints/`:
+
+1. **Do not document parameters the function does not receive.**  
+   If the function has no parameters (e.g. `function get()`), do **not** add `@param {Object} [opts]` or any opts. Only document parameters that exist in the function signature.
+
+2. **Document only what the code uses.**  
+   For each method, document exactly the properties that are destructured from the single options argument (e.g. `opts.token`, `opts.query`, `opts.id`). Do not add `opts` or `opts.*` that are not used in the function.
+
+3. **Query parameters — use the API as the source of truth and a named typedef:**  
+   - Only document `opts.query` if the **backend API** for that endpoint actually accepts query parameters (e.g. check the API swagger or route definitions).  
+   - If the API does **not** accept query for that route, do **not** document `opts.query` in the client.  
+   - When the API does support query, document it with a **named `@typedef`** (e.g. `EmailTemplatesListQuery`, `PrismaTerminalsQuery`) that lists each query property with `@property {type} [name] - description`. Then use `@param {YourQueryTypedef} [opts.query]` in the method — **do not** use `@param {Object} [opts.query]`. Get property names and meaning from the API spec; do not invent them.
+
+4. **POST and other methods:**  
+   Same rule: document query only if that specific endpoint in the backend API accepts query parameters. Verify against the API, not just the client code.

@@ -1,9 +1,28 @@
 const {
   authorizationHeaders
-} = require("./../endpoints_helpers");
+} = require("./../endpoints_helpers.js");
 
+/**
+ * Query params for seatfees endpoints (btrz-api-inventory). Forwarded to API as-is.
+ * @typedef {Object} InventorySeatfeesQuery
+ */
+
+/**
+ * Factory for seat-fees API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, update: function }}
+ */
 function seatfeesFactory({client, internalAuthTokenProvider}) {
-  
+  /**
+   * GET /seat-fees - list seat fees.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {InventorySeatfeesQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function all({
     token,
     query = {},
@@ -15,13 +34,30 @@ function seatfeesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * GET /seat-fees/:seatfeeId - get seat fee by id.
+   * @param {Object} opts
+   * @param {string} opts.seatfeeId - Seat fee id
+   * @param {string} [opts.token] - API key
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function get({seatfeeId, token, headers}) {
     return client.get(`/seat-fees/${seatfeeId}`, {
       headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
     });
   }
 
-  function create({ jwtToken, token, seatfee, headers }) {
+  /**
+   * POST /seat-fees - create seat fee.
+   * @param {Object} opts
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} [opts.token] - API key
+   * @param {Object} opts.seatfee - Seat fee payload
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
+  function create({jwtToken, token, seatfee, headers}) {
     return client({
       url: "/seat-fees",
       method: "post",
@@ -32,6 +68,16 @@ function seatfeesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * PUT /seat-fees/:seatfeeId - update seat fee.
+   * @param {Object} opts
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} [opts.token] - API key
+   * @param {string} opts.seatfeeId - Seat fee id
+   * @param {Object} opts.seatfee - Seat fee payload
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function update({jwtToken, token, seatfeeId, seatfee, headers}) {
     return client({
       url: `/seat-fees/${seatfeeId}`,

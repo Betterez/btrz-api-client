@@ -2,7 +2,23 @@ const {
   authorizationHeaders
 } = require("./../endpoints_helpers.js");
 
+/**
+ * Factory for shift-settings API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ get: function, update: function }}
+ */
 function shiftSettingsFactory({client, internalAuthTokenProvider}) {
+  /**
+   * GET /shift-settings - get shift settings.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Object} [opts.query] - Query params
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function get({token, jwtToken, query, headers}) {
     return client({
       url: "/shift-settings",
@@ -11,6 +27,15 @@ function shiftSettingsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * PUT /shift-settings - update shift settings.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Object} opts.shiftSettings - Settings payload
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function update({jwtToken, token, shiftSettings, headers}) {
     return client({
       url: "/shift-settings",

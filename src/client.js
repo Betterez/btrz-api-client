@@ -38,6 +38,21 @@ function clientFactory(opts) {
 
 /** MODULES */
 
+/**
+ * @typedef {Object} CreateModuleOptions
+ * @property {string} [baseURL] - Base URL for the HTTP client
+ * @property {Object} [headers] - Optional headers (e.g. x-amzn-trace-id)
+ * @property {number} [timeout] - Request timeout in ms
+ * @property {function(string): string} [overrideFn] - Optional function to override baseURL per request
+ * @property {{ getToken: function(): string }} [internalAuthTokenProvider] - Provider for service-to-service auth token
+ * @property {{ httpAgent?: import("http").Agent, httpsAgent?: import("https").Agent }} [agents] - Optional HTTP/HTTPS agents
+ */
+
+/**
+ * Creates the inventory API client with all inventory endpoint namespaces (amenities, banks, routes, products, etc.).
+ * @param {CreateModuleOptions} opts - Client options
+ * @returns {Object} Object with inventory endpoint namespaces and __test.client
+ */
 function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
   const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
@@ -118,6 +133,11 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
   };
 }
 
+/**
+ * Creates the trips API client (trips, segmentsInformationTables). Uses inventory base path.
+ * @param {CreateModuleOptions} opts - Client options
+ * @returns {Object} Object with trips and segmentsInformationTables endpoint namespaces and __test_trips.client
+ */
 function createTrips({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
   const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
@@ -130,6 +150,11 @@ function createTrips({baseURL, headers, timeout, overrideFn, internalAuthTokenPr
   };
 }
 
+/**
+ * Creates the Coltrane API client (docs, paths, mergedFareTables).
+ * @param {CreateModuleOptions} opts - Client options
+ * @returns {Object} Object with coltrane endpoint namespaces and __test.client
+ */
 function createColtrane({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
   const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
@@ -143,6 +168,11 @@ function createColtrane({baseURL, headers, timeout, overrideFn, internalAuthToke
   };
 }
 
+/**
+ * Creates the accounts API client (accounts, emailTemplates, users, lexicons, shifts, etc.).
+ * @param {CreateModuleOptions} opts - Client options
+ * @returns {Object} Object with accounts endpoint namespaces and __test.client
+ */
 function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
   const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
@@ -212,6 +242,11 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
   };
 }
 
+/**
+ * Creates the sales API client (cart, order, cancellations, parcelQuotes, etc.).
+ * @param {CreateModuleOptions} opts - Client options
+ * @returns {Object} Object with sales endpoint namespaces and __test.client
+ */
 function createSales({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
   const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
@@ -237,6 +272,11 @@ function createSales({baseURL, headers, timeout, overrideFn, internalAuthTokenPr
   };
 }
 
+/**
+ * Creates the operations API client (manifest, tickets, transactions, vouchers, parcels, etc.).
+ * @param {CreateModuleOptions} opts - Client options
+ * @returns {Object} Object with operations endpoint namespaces and __test.client
+ */
 function createOperations({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
   const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
@@ -275,6 +315,11 @@ function createOperations({baseURL, headers, timeout, overrideFn, internalAuthTo
   };
 }
 
+/**
+ * Creates the reports API client (reportTypes, customReports, reportEmail, tripManifests).
+ * @param {CreateModuleOptions} opts - Client options
+ * @returns {Object} Object with reports endpoint namespaces and __test.client
+ */
 function createReports({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
   const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
@@ -290,6 +335,11 @@ function createReports({baseURL, headers, timeout, overrideFn, internalAuthToken
   };
 }
 
+/**
+ * Creates the notifications API client (pdfs, pdfData, email, twilio, notify, etc.).
+ * @param {CreateModuleOptions} opts - Client options
+ * @returns {Object} Object with notifications endpoint namespaces and __test.client
+ */
 function createNotifications({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
   const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
@@ -310,6 +360,11 @@ function createNotifications({baseURL, headers, timeout, overrideFn, internalAut
   };
 }
 
+/**
+ * Creates the uploads API client (files, images).
+ * @param {CreateModuleOptions} opts - Client options
+ * @returns {Object} Object with uploads endpoint namespaces and __test.client
+ */
 function createUploads({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
   const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
@@ -322,6 +377,11 @@ function createUploads({baseURL, headers, timeout, overrideFn, internalAuthToken
   };
 }
 
+/**
+ * Creates the loyalty API client (programs, movements).
+ * @param {CreateModuleOptions} opts - Client options
+ * @returns {Object} Object with loyalty endpoint namespaces and __test.client
+ */
 function createLoyalty({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
   const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
@@ -334,6 +394,11 @@ function createLoyalty({baseURL, headers, timeout, overrideFn, internalAuthToken
   };
 }
 
+/**
+ * Creates the webhooks API client (subscriptions, events, undelivered, webhooks).
+ * @param {CreateModuleOptions} opts - Client options
+ * @returns {Object} Object with webhooks endpoint namespaces and __test.client
+ */
 function createWebhooks({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
   const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
@@ -348,6 +413,11 @@ function createWebhooks({baseURL, headers, timeout, overrideFn, internalAuthToke
   };
 }
 
+/**
+ * Creates the seatmaps API client (accessTicket, seat).
+ * @param {CreateModuleOptions} opts - Client options
+ * @returns {Object} Object with seatmaps endpoint namespaces and __test.client
+ */
 function createSeatmaps({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
   const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
@@ -360,6 +430,11 @@ function createSeatmaps({baseURL, headers, timeout, overrideFn, internalAuthToke
   };
 }
 
+/**
+ * Creates the BtrzPay API client (paymentMethods, terminals, payments, oxxo, etc.).
+ * @param {CreateModuleOptions} opts - Client options
+ * @returns {Object} Object with btrzpay endpoint namespaces and __test.client
+ */
 function createBtrzPay({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
   const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
@@ -385,6 +460,11 @@ function createBtrzPay({baseURL, headers, timeout, overrideFn, internalAuthToken
   };
 }
 
+/**
+ * Creates the invoices API client (providers, infile, system, invoices, etc.).
+ * @param {CreateModuleOptions} opts - Client options
+ * @returns {Object} Object with invoices endpoint namespaces and __test.client
+ */
 function createInvoices({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
   const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
@@ -407,6 +487,11 @@ function createInvoices({baseURL, headers, timeout, overrideFn, internalAuthToke
   };
 }
 
+/**
+ * Creates the GPS API client (scannerAppLocation).
+ * @param {CreateModuleOptions} opts - Client options
+ * @returns {Object} Object with gps endpoint namespaces and __test.client
+ */
 function createGPS({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
   const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
@@ -418,6 +503,11 @@ function createGPS({baseURL, headers, timeout, overrideFn, internalAuthTokenProv
   };
 }
 
+/**
+ * Creates the Ratality API client (auth, clients, integrations). Does not use internalAuthTokenProvider.
+ * @param {Omit<CreateModuleOptions, "internalAuthTokenProvider">} opts - Client options (no internalAuthTokenProvider)
+ * @returns {Object} Object with ratality endpoint namespaces and __test.client
+ */
 function createRatality({baseURL, headers, timeout, overrideFn, agents}) {
   const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
   const version = "v2";

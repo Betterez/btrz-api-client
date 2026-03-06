@@ -1,12 +1,42 @@
-const {authorizationHeaders} = require("./../endpoints_helpers");
+const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
+/**
+ * @typedef {Object} StationsQuery
+ * @property {string} [providerId] - Provider account ID
+ */
+
+/**
+ * Factory for stations API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ get: function, all: function, create: function, update: function }}
+ */
 function stationsFactory({client, internalAuthTokenProvider}) {
+  /**
+   * GET /stations/:id - get station by id.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.id - Station id
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function get({token, id, headers}) {
     return client.get(`/stations/${id}`, {
       headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
     });
   }
 
+  /**
+   * GET /stations - list stations.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {StationsQuery} [opts.query] - Query params
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function all({token, query = {}, headers}) {
     return client.get("/stations", {
       params: query,
@@ -14,6 +44,15 @@ function stationsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * POST /stations - create station.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Object} opts.data - Station payload
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function create({token, jwtToken, data, headers}) {
     return client({
       url: "/stations",
@@ -25,12 +64,22 @@ function stationsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
-  function update({ token, jwtToken, stationId, station, headers}) {
+  /**
+   * PUT /station/:stationId - update station.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.stationId - Station id
+   * @param {Object} opts.station - Station payload
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
+  function update({token, jwtToken, stationId, station, headers}) {
     return client({
-      url: "/station/" + stationId,
+      url: `/station/${stationId}`,
       method: "put",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
-      data: { station }
+      data: {station}
     });
   }
 

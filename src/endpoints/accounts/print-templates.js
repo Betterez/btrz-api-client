@@ -1,8 +1,23 @@
 const {
   authorizationHeaders
-} = require("./../endpoints_helpers");
+} = require("./../endpoints_helpers.js");
 
+/**
+ * Factory for print-templates API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, update: function, create: function, remove: function, versions: { update: function } }}
+ */
 function printSettingsFactory({client, internalAuthTokenProvider}) {
+  /**
+   * GET /print-templates - list print templates.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {Object} [opts.query] - Query params
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function all({token, query, headers}) {
     return client({
       url: "/print-templates",
@@ -11,6 +26,15 @@ function printSettingsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * GET /print-templates/:printTemplateId - get a print template.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {Object} [opts.query] - Query params
+   * @param {string} opts.printTemplateId - Print template id (ObjectId)
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function get({token, query, headers, printTemplateId}) {
     return client({
       url: `/print-templates/${printTemplateId}`,
@@ -19,6 +43,17 @@ function printSettingsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * PUT /print-templates/:printTemplateId - update a print template.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.printTemplateId - Print template id (ObjectId)
+   * @param {Object} opts.printTemplate - Print template payload
+   * @param {Object} [opts.query] - Query params
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function update({jwtToken, token, printTemplateId, printTemplate, headers, query}) {
     return client({
       url: `/print-templates/${printTemplateId}`,
@@ -33,6 +68,15 @@ function printSettingsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * POST /print-templates - create a print template.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Object} opts.printTemplate - Print template payload
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function create({jwtToken, token, printTemplate, headers}) {
     return client({
       url: "/print-templates",
@@ -46,6 +90,15 @@ function printSettingsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * DELETE /print-templates/:printTemplateId - remove a print template.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.printTemplateId - Print template id (ObjectId)
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function remove({printTemplateId, token, jwtToken, headers}) {
     return client({
       url: `/print-templates/${printTemplateId}`,
@@ -57,12 +110,23 @@ function printSettingsFactory({client, internalAuthTokenProvider}) {
   }
 
   const versions = {
+    /**
+     * PUT /print-templates/:printTemplateId/versions/:versionId - update a print template version.
+     * @param {Object} opts
+     * @param {string} [opts.token] - API key
+     * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+     * @param {string} opts.printTemplateId - Print template id (ObjectId)
+     * @param {string} opts.versionId - Version id (ObjectId)
+     * @param {Object} [opts.query] - Query params
+     * @param {Object} [opts.headers] - Optional headers
+     * @returns {Promise<import("axios").AxiosResponse>}
+     */
     update({printTemplateId, token, jwtToken, headers, query, versionId}) {
       return client({
-        url: "/print-templates/" + printTemplateId + "/versions/" + versionId,
+        url: `/print-templates/${printTemplateId}/versions/${versionId}`,
         method: "put",
         headers: authorizationHeaders({
-          token: token, jwtToken: jwtToken, internalAuthTokenProvider: internalAuthTokenProvider, headers: headers
+          token, jwtToken, internalAuthTokenProvider, headers
         }),
         params: query
       });

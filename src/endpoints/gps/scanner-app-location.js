@@ -1,7 +1,30 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
-//TODO: add docs function when docs published
+/**
+ * Query params for GET /scanner-app-location (used by websales; GPS API).
+ * @typedef {Object} ScannerAppLocationQuery
+ * @property {string} [scheduleId] - Schedule id
+ * @property {string} [routeId] - Route id
+ * @property {string} [date] - Date (e.g. YYYY-MM-DD); defaults to today when omitted in websales
+ * @property {boolean} [includeTravelledPath] - Whether to include travelled path
+ */
+
+/**
+ * Factory for scanner app location API (GPS).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ get: function }}
+ */
 function scannerAppLocationFactory({client}) {
+  /**
+   * GET /scanner-app-location - get scanner app location.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {ScannerAppLocationQuery} [opts.query] - Query params (scheduleId, routeId, date, includeTravelledPath)
+   * @param {Object} [opts.headers] - Optional request headers
+   * @returns {Promise<import("axios").AxiosResponse>} response.data may contain location
+   */
   function get({token, query = {}, headers}) {
     return client({
       url: "/scanner-app-location",

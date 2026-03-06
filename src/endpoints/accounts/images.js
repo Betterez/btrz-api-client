@@ -1,7 +1,23 @@
 /* eslint-disable import/extensions */
 const {authorizationHeaders} = require("./../endpoints_helpers");
 
+/**
+ * Factory for images API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, remove: function }}
+ */
 function ImagesFactory({client, internalAuthTokenProvider}) {
+  /**
+   * GET /images - list images.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Object} [opts.query] - Query params
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function all({token, jwtToken, query = {}, headers}) {
     return client({
       params: query,
@@ -10,6 +26,16 @@ function ImagesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * GET /images/:imageId - get an image.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Object} [opts.query] - Query params
+   * @param {string} opts.imageId - Image id (ObjectId)
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function get({token, jwtToken, query = {}, headers, imageId}) {
     return client({
       params: query,
@@ -18,18 +44,37 @@ function ImagesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * POST /images - create an image.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Object} opts.image - Image payload
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function create({jwtToken, token, image, headers}) {
     return client({
       url: "/images",
       method: "post",
       headers: authorizationHeaders({
-        token, jwtToken, internalAuthTokenProvider, headers}),
+        token, jwtToken, internalAuthTokenProvider, headers
+      }),
       data: {
         image
       }
     });
   }
 
+  /**
+   * DELETE /images/:imageId - remove an image.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.imageId - Image id (ObjectId)
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function remove({imageId, token, jwtToken, headers}) {
     return client({
       url: `/images/${imageId}`,

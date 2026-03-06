@@ -2,7 +2,28 @@ const {
   authorizationHeaders
 } = require("./../endpoints_helpers.js");
 
+/**
+ * @typedef {Object} FinancingCostsQuery
+ * @property {string} [providerId] - Provider account ID
+ */
+
+/**
+ * Factory for financing-costs API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, update: function, remove: function }}
+ */
 function financingCostsFactory({client, internalAuthTokenProvider}) {
+  /**
+   * GET /financing-costs - list financing costs.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {FinancingCostsQuery} [opts.query] - Query params
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function all({
     token,
     jwtToken,
@@ -15,6 +36,16 @@ function financingCostsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * GET /financing-costs/:id - get financing cost by id.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.id - Financing cost id
+   * @param {FinancingCostsQuery} [opts.query] - Query params
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function get({
     id,
     token,
@@ -28,6 +59,15 @@ function financingCostsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * POST /financing-costs - create financing cost.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Object} opts.financingCost - Financing cost payload
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function create({jwtToken, token, financingCost, headers}) {
     return client({
       url: "/financing-costs",
@@ -39,6 +79,16 @@ function financingCostsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * DELETE /financing-costs/:id - remove financing cost.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.id - Financing cost id
+   * @param {FinancingCostsQuery} [opts.query] - Query params
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function remove({jwtToken, id, token, headers, query = {}}) {
     return client({
       url: `/financing-costs/${id}`,
@@ -48,6 +98,16 @@ function financingCostsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * PUT /financing-costs/:id - update financing cost.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.id - Financing cost id
+   * @param {Object} opts.financingCost - Financing cost payload
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function update({jwtToken, token, id, financingCost, headers}) {
     return client({
       url: `/financing-costs/${id}`,

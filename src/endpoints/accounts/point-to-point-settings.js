@@ -2,7 +2,22 @@ const {
   authorizationHeaders
 } = require("../endpoints_helpers.js");
 
+/**
+ * Factory for point-to-point-settings API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ get: function, update: function }}
+ */
 function pointToPointSettingsFactory({client, internalAuthTokenProvider}) {
+  /**
+   * GET /point-to-point-settings - get point-to-point settings.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function get({token, jwtToken, headers}) {
     return client({
       url: "/point-to-point-settings",
@@ -10,6 +25,15 @@ function pointToPointSettingsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * PUT /point-to-point-settings - update point-to-point settings.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Object} opts.pointToPointSettings - Settings payload
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function update({token, jwtToken, pointToPointSettings, headers}) {
     return client({
       url: "/point-to-point-settings",

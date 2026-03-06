@@ -1,6 +1,22 @@
-const {authorizationHeaders} = require("./../endpoints_helpers");
+const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
+/**
+ * Factory for travellers API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, update: function, remove: function, create: function }}
+ */
 function travellersFactory({client, internalAuthTokenProvider}) {
+  /**
+   * GET /travellers - list travellers.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Object} [opts.query] - Query params
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function all({token, jwtToken, query, headers}) {
     return client({
       url: "/travellers",
@@ -9,6 +25,16 @@ function travellersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * GET /travellers/:id - get a traveller.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.id - Traveller id (ObjectId)
+   * @param {Object} [opts.query] - Query params
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function get({token, jwtToken, id, query = {}, headers}) {
     return client({
       url: `/travellers/${id}`,
@@ -18,6 +44,17 @@ function travellersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * PUT /travellers/:id - update a traveller.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.id - Traveller id (ObjectId)
+   * @param {Object} opts.data - Traveller payload
+   * @param {Object} [opts.query] - Query params
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function update({token, jwtToken, id, data, query = {}, headers}) {
     return client({
       url: `/travellers/${id}`,
@@ -28,6 +65,16 @@ function travellersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * DELETE /travellers/:id - remove a traveller.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.id - Traveller id (ObjectId)
+   * @param {Object} [opts.query] - Query params
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function remove({token, jwtToken, id, query = {}, headers}) {
     return client({
       url: `/travellers/${id}`,
@@ -37,6 +84,16 @@ function travellersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * POST /travellers - create a traveller.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Object} [opts.query] - Query params
+   * @param {Object} opts.data - Traveller payload
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function create({token, jwtToken, query = {}, data, headers}) {
     return client({
       url: "/travellers",

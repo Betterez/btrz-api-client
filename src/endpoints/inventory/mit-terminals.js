@@ -2,7 +2,28 @@ const {
   authorizationHeaders
 } = require("../endpoints_helpers.js");
 
+/**
+ * @typedef {Object} MitTerminalsQuery
+ * @property {string} [providerId] - Provider account ID
+ */
+
+/**
+ * Factory for mit-terminals API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, update: function, remove: function }}
+ */
 function mitTerminalFactory({client, internalAuthTokenProvider}) {
+  /**
+   * GET /mit-terminals - list MIT terminals.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {MitTerminalsQuery} [opts.query] - Query params
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function all({
     token,
     query = {},
@@ -14,12 +35,30 @@ function mitTerminalFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * GET /mit-terminals/:mitTerminalId - get MIT terminal by id.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.mitTerminalId - MIT terminal id
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function get({mitTerminalId, token, headers}) {
     return client.get(`/mit-terminals/${mitTerminalId}`, {
       headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
     });
   }
 
+  /**
+   * POST /mit-terminals - create MIT terminal.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Object} opts.mitTerminal - MIT terminal payload
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function create({jwtToken, token, mitTerminal, headers}) {
     return client({
       url: "/mit-terminals",
@@ -31,6 +70,15 @@ function mitTerminalFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * DELETE /mit-terminals/:mitTerminalId - remove MIT terminal.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.mitTerminalId - MIT terminal id
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function remove({jwtToken, mitTerminalId, token, headers}) {
     return client({
       url: `/mit-terminals/${mitTerminalId}`,
@@ -39,6 +87,16 @@ function mitTerminalFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * PUT /mit-terminals/:mitTerminalId - update MIT terminal.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.mitTerminalId - MIT terminal id
+   * @param {Object} opts.mitTerminal - MIT terminal payload
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function update({jwtToken, token, mitTerminalId, mitTerminal, headers}) {
     return client({
       url: `/mit-terminals/${mitTerminalId}`,

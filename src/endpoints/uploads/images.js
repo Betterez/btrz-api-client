@@ -1,10 +1,24 @@
-"use strict";
+/* eslint-disable max-len */
+const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
-const { authorizationHeaders } = require("./../endpoints_helpers");
-
-function imagesFactory({ client, internalAuthTokenProvider }) {
-
-  function create({ token, jwtToken, formData, headers }) {
+/**
+ * Factory for upload images API (btrz-api-uploads).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ create: function }}
+ */
+function imagesFactory({client, internalAuthTokenProvider}) {
+  /**
+   * POST /images - upload image.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {import("form-data")} opts.formData - Form data with image
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
+  function create({token, jwtToken, formData, headers}) {
     // Only required to support integration tests
     const formHeaders = typeof formData.getHeaders === "function" ? formData.getHeaders() : {};
 
@@ -20,7 +34,7 @@ function imagesFactory({ client, internalAuthTokenProvider }) {
   }
 
   return {
-    create,
+    create
   };
 }
 

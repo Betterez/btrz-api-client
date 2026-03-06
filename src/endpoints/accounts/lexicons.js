@@ -1,10 +1,27 @@
+/* eslint-disable max-len */
 const {
   authorizationHeaders
 } = require("./../endpoints_helpers.js");
 
+/**
+ * Factory for lexicons API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, create: function, createOrUpdateMany: function, updateMany: function, getByText: function, suggestions: { list: function, getById: function, update: function, delete: function, create: function } }}
+ */
 function lexiconsFactory({
   client, internalAuthTokenProvider
 }) {
+  /**
+   * GET lexicons/buscompany - list lexicons for bus company context.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} opts.context - Context (e.g. buscompany)
+   * @param {Object} [opts.query] - Query params
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function all({
     token,
     context,
@@ -20,6 +37,15 @@ function lexiconsFactory({
     });
   }
 
+  /**
+   * POST /lexicons - create lexicon entries.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Array} opts.lexiconEntries - Entries to create
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function create({
     token,
     jwtToken,
@@ -36,6 +62,15 @@ function lexiconsFactory({
     });
   }
 
+  /**
+   * PUT /lexicons - create or update many lexicon entries.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Array} opts.entries - Entries to create or update
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function createOrUpdateMany({
     token,
     jwtToken,
@@ -54,6 +89,15 @@ function lexiconsFactory({
     });
   }
 
+  /**
+   * PATCH /lexicons - update many lexicon entries.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Array} opts.updates - Updates to apply
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
   function updateMany({
     token,
     jwtToken,
