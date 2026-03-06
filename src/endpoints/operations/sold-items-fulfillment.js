@@ -1,8 +1,9 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * @typedef {Object} SoldItemsFulfillmentQuery
- * @property {string} [providerId] - Provider account ID
+ * Query params for GET /sold-items/fulfillment (btrz-api-operations). See 01-get-fulfillment-handler getSpec().
+ * @typedef {Object} SoldItemsFulfillmentListQuery
+ * @property {string} soldItemIds - Comma-separated sold item IDs (required)
  */
 
 /**
@@ -18,7 +19,7 @@ function soldItemsFulfillmentFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {SoldItemsFulfillmentQuery} [opts.query] - Query params
+   * @param {SoldItemsFulfillmentListQuery} [opts.query] - Query params (soldItemIds required)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

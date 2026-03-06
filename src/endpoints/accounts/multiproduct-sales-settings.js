@@ -11,7 +11,7 @@ const {
  */
 function multiproductSalesSettingsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /multiproduct-sales-settings - get multiproduct sales settings.
+   * GET /multiproduct-sales-settings - get multiproduct sales settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -26,7 +26,7 @@ function multiproductSalesSettingsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /multiproduct-sales-settings - update multiproduct sales settings.
+   * PUT /multiproduct-sales-settings - update multiproduct sales settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

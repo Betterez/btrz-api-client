@@ -9,12 +9,11 @@ const {authorizationHeaders} = require("../endpoints_helpers.js");
  */
 function manifestLegForTicketsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /manifest-leg-for-tickets/:ticketId - get manifest leg for ticket.
+   * GET /manifest-leg-for-tickets/:ticketId - get manifest leg for ticket. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.ticketId - Ticket id
-   * @param {Object} [opts.params] - Query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

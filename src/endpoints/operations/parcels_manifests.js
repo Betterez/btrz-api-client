@@ -15,12 +15,6 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 
 /**
- * POST /parcels-manifests, POST .../parcels, POST .../vehicles do not define query params in backend getSpec.
- * Use for optional query keys forwarded as-is.
- * @typedef {Object} ParcelsManifestsPostQuery
- */
-
-/**
  * Factory for parcels-manifests API (btrz-api-operations).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -46,7 +40,7 @@ function parcelsManifestsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /parcels-manifests/:id - get parcels manifest by id.
+   * GET /parcels-manifests/:id - get parcels manifest by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -85,7 +79,7 @@ function parcelsManifestsFactory({client, internalAuthTokenProvider}) {
 
   const parcels = {
     /**
-     * DELETE /parcels-manifests/:manifestId/parcels/:parcelId - remove parcel from manifest.
+     * DELETE /parcels-manifests/:manifestId/parcels/:parcelId - remove parcel from manifest. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -102,14 +96,12 @@ function parcelsManifestsFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * POST /parcels-manifests/:manifestId/parcels - create parcel on manifest. Body: ParcelsManifestsPostData.
-     * Backend getSpec does not define query params; query is passed through as-is if provided.
+     * POST /parcels-manifests/:manifestId/parcels - create parcel on manifest. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.manifestId - Parcel manifest id (ObjectId)
-     * @param {ParcelsManifestsPostQuery} [opts.query] - Optional query params (backend getSpec has none; forwarded as-is)
-     * @param {Object} opts.data - Parcel payload (parcelsmanifests / ParcelsManifestsPostData: parcels, optional overrideOandD)
+     * @param {Object} opts.data - Parcel payload (parcels, optional overrideOandD)
      * @param {Object} [opts.headers] - Optional request headers
      * @returns {Promise<import("axios").AxiosResponse>} PostParcelsManifestsResponse; 400 WRONG_DATA, 404, 409 CAN_ADD_PARCEL_TO_MANIFEST_BECAUSE_OF_CUTOFF
      */
@@ -126,14 +118,12 @@ function parcelsManifestsFactory({client, internalAuthTokenProvider}) {
 
   const vehicles = {
     /**
-     * POST /parcels-manifests/:manifestId/vehicles - create or update vehicle on manifest. Body: ParcelManifestVehiclePostData.
-     * Backend getSpec does not define query params; query is passed through as-is if provided.
+     * POST /parcels-manifests/:manifestId/vehicles - create or update vehicle on manifest. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.manifestId - Parcel manifest id (ObjectId)
-     * @param {ParcelsManifestsPostQuery} [opts.query] - Optional query params (backend getSpec has none; forwarded as-is)
-     * @param {Object} opts.data - Vehicle payload (sent as parcelManifestVehicle in body; vehicleId required)
+     * @param {Object} opts.data - Vehicle payload (vehicleId required)
      * @param {Object} [opts.headers] - Optional request headers
      * @returns {Promise<import("axios").AxiosResponse>} PostVehicleManifestsResponse; 400 WRONG_DATA, 404 MANIFEST_NOT_FOUND, 409 MANIFEST_HAS_PASSENGERS
      */

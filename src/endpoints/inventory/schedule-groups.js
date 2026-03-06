@@ -1,6 +1,12 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
+ * Query params for GET /schedule-groups (btrz-api-inventory). See get-handler getSpec().
+ * @typedef {Object} ScheduleGroupsListQuery
+ * @property {number} [page] - Page number to retrieve
+ */
+
+/**
  * Factory for schedule-groups API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -13,6 +19,7 @@ function scheduleGroupsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {ScheduleGroupsListQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -24,7 +31,7 @@ function scheduleGroupsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /schedule-groups/:scheduleGroupId - get schedule group by id.
+   * GET /schedule-groups/:scheduleGroupId - get schedule group by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -40,7 +47,7 @@ function scheduleGroupsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /schedule-groups - create schedule group.
+   * POST /schedule-groups - create schedule group. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -58,7 +65,7 @@ function scheduleGroupsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /schedule-groups/:scheduleGroupId - update schedule group.
+   * PUT /schedule-groups/:scheduleGroupId - update schedule group. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

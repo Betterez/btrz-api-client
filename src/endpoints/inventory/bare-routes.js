@@ -1,8 +1,16 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * @typedef {Object} BareRoutesQuery
- * @property {string} [providerId] - Provider account ID
+ * Query params for GET /bare-routes (btrz-api-inventory). See get-bare-routes getSpec().
+ * @typedef {Object} BareRoutesListQuery
+ * @property {string} [providerIds] - Comma-separated provider IDs
+ * @property {string} [productIds] - Comma-separated product IDs
+ */
+
+/**
+ * Query params for GET /bare-routes/:routeId (btrz-api-inventory). See get-bare-routes-id getSpec().
+ * @typedef {Object} BareRoutesGetQuery
+ * @property {string} [providerIds] - Comma-separated provider IDs
  */
 
 /**
@@ -18,7 +26,7 @@ function bareRoutesFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {BareRoutesQuery} [opts.query] - Query params
+   * @param {BareRoutesListQuery} [opts.query] - Query params (providerIds, productIds)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -36,7 +44,7 @@ function bareRoutesFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.routeId - Route id
-   * @param {BareRoutesQuery} [opts.query] - Query params
+   * @param {BareRoutesGetQuery} [opts.query] - Query params (providerIds)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

@@ -2,15 +2,39 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * @typedef {Object} ShiftsQuery
- * @property {string} [includeActivity] - Set to 'false' to avoid returning sales activity (default 'true')
- * @property {string} [status] - One of 'open' or 'closed'
- * @property {string} [pendingShiftClosure] - Return shifts that need to be added to a shift closure ('true'|'false')
- * @property {string} [locationId] - Filter shifts by location (ObjectId)
+ * Query params for GET /shifts (btrz-api-accounts). See get-shifts handler getSpec().
+ * @typedef {Object} ShiftsListQuery
+ * @property {string} [includeActivity] - 'true'|'false'; default 'true' (include sales activity)
+ * @property {string} [status] - open | closed (ignored if pendingShiftClosure is true)
+ * @property {string} [pendingShiftClosure] - 'true'|'false'; return shifts that need shift closure
+ * @property {string} [locationId] - Filter by location (ObjectId)
  * @property {string} [providerId] - Provider for payments (ObjectId)
- * @property {string} [sort] - Sort order: 'closedAsc'|'closedDesc'|'openedAsc'
- * @property {string} [fromDate] - Start date (YYYY-MM-DD)
- * @property {string} [toDate] - End date (YYYY-MM-DD)
+ * @property {string} [sort] - closedAsc | closedDesc | openedAsc
+ * @property {string} [fromDate] - Start date (YYYY-MM-DD); requires toDate
+ * @property {string} [toDate] - End date (YYYY-MM-DD); requires fromDate
+ */
+
+/**
+ * Query params for GET /shifts/location-closures (btrz-api-accounts). See get-location-closures handler getSpec().
+ * @typedef {Object} LocationClosuresListQuery
+ * @property {string} [sort] - createdAsc | createdDesc | updatedAsc | updatedDesc
+ * @property {number} [page] - Page number
+ * @property {string} [fromDate] - Start date (YYYY-MM-DD); requires toDate
+ * @property {string} [toDate] - End date (YYYY-MM-DD); requires fromDate
+ */
+
+/**
+ * Query params for GET /shifts/:locationId/purchase-limit-payments (btrz-api-accounts). See getSpec().
+ * @typedef {Object} PurchaseLimitPaymentsQuery
+ * @property {string} day - Date of payments (YYYY-MM-DD). Required.
+ */
+
+/**
+ * Query params for GET /shifts/:shiftId/sales-summary (btrz-api-accounts). See get-shift-sales-summary getSpec().
+ * @typedef {Object} ShiftSalesSummaryQuery
+ * @property {string} [type] - 'revenueOperatingCompany' to aggregate by revenue operating company
+ * @property {boolean} [depositable] - Get only depositable payment types
+ * @property {boolean} [paymentsAndRefundsDetails] - Include payments and refunds details per payment type and currency
  */
 
 /**
@@ -26,7 +50,7 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {ShiftsQuery} [opts.query] - Query params
+   * @param {ShiftsListQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -40,7 +64,7 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /shift/user/:userId - get shift for user.
+   * GET /shift/user/:userId - get shift for user. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} opts.userId - User id (ObjectId)
@@ -74,13 +98,12 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PATCH /shifts/:shiftId - update a shift (operations).
+   * PATCH /shifts/:shiftId - update a shift (operations). API getSpec() does not define query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.shiftId - Shift id (ObjectId)
    * @param {Object} opts.operations - Operations payload
-   * @param {ShiftsQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -169,7 +192,7 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-     * @param {ShiftsQuery} [opts.query] - Query params
+     * @param {ShiftsListQuery} [opts.query] - Query params
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
@@ -182,7 +205,7 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * GET /shifts/location-closures/:locationClosureId - get a location closure.
+     * GET /shifts/location-closures/:locationClosureId - get a location closure. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -470,7 +493,7 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.locationId - Location id (ObjectId)
-     * @param {ShiftsQuery} [opts.query] - Query params
+     * @param {PurchaseLimitPaymentsQuery} [opts.query] - Query params; day (YYYY-MM-DD) is required
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
@@ -490,7 +513,7 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.shiftId - Shift id (ObjectId)
-     * @param {ShiftsQuery} [opts.query] - Query params
+     * @param {ShiftSalesSummaryQuery} [opts.query] - Query params (type, depositable, paymentsAndRefundsDetails)
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */

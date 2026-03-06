@@ -2,8 +2,13 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * Query params for invoice providers endpoints (btrz-api-invoices). Forwarded to API as-is.
- * @typedef {Object} InvoiceProvidersQuery
+ * Query params for GET /providers (btrz-api-invoices). See providers get-handler getSpec().
+ * @typedef {Object} ProvidersListQuery
+ * @property {boolean} [enabled] - If the provider is enabled or not
+ * @property {string} [invoiceProviderType] - The type of the provider
+ * @property {string} [channel] - Filter by channel (must be one of the allowed channels)
+ * @property {string} [country] - ISO code of the provider's country
+ * @property {string} [operatingCompany] - Operating company id associated with the provider
  */
 
 /**
@@ -19,7 +24,7 @@ function providersFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {InvoiceProvidersQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {ProvidersListQuery} [opts.query] - Query params (all optional)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -33,12 +38,11 @@ function providersFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /providers/:id - get invoice provider by id.
+   * GET /providers/:id - get invoice provider by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.id - Provider id
-   * @param {InvoiceProvidersQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -52,13 +56,12 @@ function providersFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /providers/:id - update invoice provider.
+   * PUT /providers/:id - update invoice provider. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.id - Provider id
    * @param {Object} opts.data - Request body
-   * @param {InvoiceProvidersQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -73,12 +76,11 @@ function providersFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /providers/:id - remove invoice provider.
+   * DELETE /providers/:id - remove invoice provider. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.id - Provider id
-   * @param {InvoiceProvidersQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -92,12 +94,11 @@ function providersFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /providers - create invoice provider.
+   * POST /providers - create invoice provider. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} opts.data - Request body
-   * @param {InvoiceProvidersQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

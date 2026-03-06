@@ -3,8 +3,18 @@ const {
 } = require("../endpoints_helpers.js");
 
 /**
- * @typedef {Object} TerminalPaymentsQuery
- * @property {string} [providerId] - Provider account ID
+ * Query params for GET /terminal-payments/mit/:id (btrz-api-payments). See get-mit-by-id-handler getSpec().
+ * @typedef {Object} TerminalPaymentsMitGetQuery
+ * @property {string} [providerId] - Account provider (operator) ID; used by agencies/sellers
+ * @property {string} [branchId] - Branch id where payment started (required for GET)
+ * @property {string} [companyId] - Company id where payment started (required for GET)
+ * @property {string} [date] - Date when payment started; format dd/mm/yyyy (required for GET)
+ */
+
+/**
+ * Query params for PUT /terminal-payments/mit/:id (btrz-api-payments). See put-mit-handler getSpec().
+ * @typedef {Object} TerminalPaymentsMitPutQuery
+ * @property {string} [providerId] - Account provider (operator) ID; used by agencies/sellers
  */
 
 /**
@@ -23,7 +33,7 @@ function terminalPaymentsFactory({client, internalAuthTokenProvider}) {
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.id - Terminal payment id
      * @param {Object} opts.terminalPayment - Terminal payment payload
-     * @param {TerminalPaymentsQuery} [opts.query] - Query params
+     * @param {TerminalPaymentsMitPutQuery} [opts.query] - Query params (providerId)
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
@@ -42,7 +52,7 @@ function terminalPaymentsFactory({client, internalAuthTokenProvider}) {
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.id - Terminal payment id
-     * @param {TerminalPaymentsQuery} [opts.query] - Query params
+     * @param {TerminalPaymentsMitGetQuery} [opts.query] - Query params (providerId, branchId, companyId, date)
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
@@ -56,7 +66,7 @@ function terminalPaymentsFactory({client, internalAuthTokenProvider}) {
 
   const webhooks = {
     /**
-     * POST /terminal-payments/webhooks/getnet/:providerId - Getnet webhook.
+     * POST /terminal-payments/webhooks/getnet/:providerId - Getnet webhook. API does not accept query params.
      * @param {Object} opts
      * @param {Object} opts.data - Request body
      * @param {string} opts.providerId - Provider id

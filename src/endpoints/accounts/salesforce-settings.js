@@ -11,7 +11,7 @@ const {
  */
 function salesforceSettingsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /salesforce-settings - get Salesforce settings.
+   * GET /salesforce-settings - get Salesforce settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -27,7 +27,7 @@ function salesforceSettingsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /salesforce-settings - update Salesforce settings.
+   * PUT /salesforce-settings - update Salesforce settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

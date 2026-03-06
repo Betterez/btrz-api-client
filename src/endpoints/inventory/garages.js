@@ -32,7 +32,7 @@ function garagesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /garages/:garageId - get garage by id.
+   * GET /garages/:garageId - get garage by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -47,7 +47,7 @@ function garagesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /garages - create garage.
+   * POST /garages - create garage. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -88,7 +88,7 @@ function garagesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /garages/:garageId - remove garage.
+   * DELETE /garages/:garageId - remove garage. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

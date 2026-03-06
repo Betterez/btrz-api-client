@@ -11,7 +11,7 @@ const {
  */
 function shiftSettingsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /shift-settings - get shift settings.
+   * GET /shift-settings - get shift settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -27,7 +27,7 @@ function shiftSettingsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /shift-settings - update shift settings.
+   * PUT /shift-settings - update shift settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

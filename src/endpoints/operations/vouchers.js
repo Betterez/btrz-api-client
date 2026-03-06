@@ -4,11 +4,6 @@ const {
 } = require("../endpoints_helpers.js");
 
 /**
- * @typedef {Object} VouchersQuery
- * @property {string} [providerId] - Provider account ID
- */
-
-/**
  * Factory for vouchers API (btrz-api-operations).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -19,12 +14,11 @@ function vouchersFactory({
   client, internalAuthTokenProvider
 }) {
   /**
-   * POST /vouchers - create voucher.
+   * POST /vouchers - create voucher. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} [opts.headers] - Optional headers
-   * @param {VouchersQuery} [opts.query] - Query params
    * @param {Object} [opts.voucher] - Voucher payload
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -46,12 +40,11 @@ function vouchersFactory({
   }
 
   /**
-   * POST /vouchers/compensations - create compensation.
+   * POST /vouchers/compensations - create compensation. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} opts.compensation - Compensation payload
-   * @param {VouchersQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

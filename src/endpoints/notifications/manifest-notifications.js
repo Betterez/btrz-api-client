@@ -3,8 +3,9 @@ const {
 } = require("../endpoints_helpers.js");
 
 /**
- * Query params for manifest-notifications endpoints (btrz-api-notifications). Forwarded to API as-is.
- * @typedef {Object} ManifestNotificationsQuery
+ * Query params for GET /manifest-notifications (btrz-api-notifications). See get-manifest-notifications-handler getSpec().
+ * @typedef {Object} ManifestNotificationsListQuery
+ * @property {string} [manifestId] - Manifest id (ObjectId format)
  */
 
 /**
@@ -44,7 +45,7 @@ function manifestNotificationsFactory({
    * GET /manifest-notifications - list manifest notifications.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {ManifestNotificationsQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {ManifestNotificationsListQuery} [opts.query] - Query params (manifestId optional)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

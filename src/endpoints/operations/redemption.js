@@ -9,7 +9,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function redemptionFactory({client, internalAuthTokenProvider}) {
   /**
-   * POST /redemptions - create redemption.
+   * POST /redemptions - create redemption. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -27,12 +27,12 @@ function redemptionFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /redemptions/validate/:passId - validate redemption.
+   * GET /redemptions/validate/:passId - validate redemption. Query: timezone (required per getSpec).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.passId - Pass id
-   * @param {string} [opts.timezone] - Timezone (query param)
+   * @param {string} opts.timezone - Timezone (required query param per btrz-api-operations getSpec)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -46,7 +46,7 @@ function redemptionFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /unredeem - unredeem.
+   * POST /unredeem - unredeem. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

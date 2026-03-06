@@ -12,7 +12,7 @@ const {
  * @property {string} [productType] - Product type of the voucher
  * @property {string} [from] - Station "from" to validate if voucher has routes
  * @property {string} [to] - Station "to" to validate if voucher has routes
- * @property {string} [fareTypes] - (DEPRECATED) Validates if voucher has one fare
+ * @property {string} [fareTypes] - (DEPRECATED) Validates if voucher has one fare; use fareIds instead
  * @property {string} [fareIds] - Validates if voucher has one fare ID
  * @property {string} [displayCurrencyCode] - Display currency code for multi-currency accounts
  */

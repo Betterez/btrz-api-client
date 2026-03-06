@@ -3,6 +3,7 @@ const {
 } = require("../endpoints_helpers.js");
 
 /**
+ * Query params for GET /getnet-terminals (btrz-api-inventory). See get-handler getSpec().
  * @typedef {Object} GetnetTerminalsQuery
  * @property {number} [page] - The page number to retrieve
  * @property {string} [stationId] - Filter terminals by station (location) ID
@@ -39,7 +40,7 @@ function getnetTerminalFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /getnet-terminals/:getnetTerminalId - get a getnet terminal.
+   * GET /getnet-terminals/:getnetTerminalId - get a getnet terminal. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -84,7 +85,7 @@ function getnetTerminalFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /getnet-terminals/:getnetTerminalId - remove getnet terminal.
+   * DELETE /getnet-terminals/:getnetTerminalId - remove getnet terminal. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -106,7 +107,7 @@ function getnetTerminalFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /getnet-terminals/:getnetTerminalId - update getnet terminal.
+   * PUT /getnet-terminals/:getnetTerminalId - update getnet terminal. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

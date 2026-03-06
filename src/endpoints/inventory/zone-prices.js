@@ -3,8 +3,13 @@ const {
 } = require("./../endpoints_helpers.js");
 
 /**
- * Query params for zone-prices endpoints (btrz-api-inventory). Forwarded to API as-is.
- * @typedef {Object} InventoryZonePricesQuery
+ * Query params for GET /zone-prices (btrz-api-inventory). See get-handler getSpec().
+ * @typedef {Object} ZonePricesListQuery
+ * @property {number} [page] - Page number (20 records per page)
+ * @property {number} [weight] - Weight in grams
+ * @property {string} [serviceTypeIds] - Service type id(s), comma-separated
+ * @property {string} [departureZones] - Departure zone(s), comma-separated
+ * @property {string} [arrivalZones] - Arrival zone(s), comma-separated
  */
 
 /**
@@ -19,7 +24,7 @@ function zonePriceFactory({client, internalAuthTokenProvider}) {
    * GET /zone-prices - list zone prices.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {InventoryZonePricesQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {ZonePricesListQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -35,7 +40,7 @@ function zonePriceFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /zone-prices/:zonePriceId - get zone price by id.
+   * GET /zone-prices/:zonePriceId - get zone price by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} opts.zonePriceId - Zone price id
    * @param {string} [opts.token] - API key
@@ -49,7 +54,7 @@ function zonePriceFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /zone-prices - create zone price.
+   * POST /zone-prices - create zone price. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} [opts.token] - API key
@@ -69,7 +74,7 @@ function zonePriceFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /zone-prices/:zonePriceId - remove zone price.
+   * DELETE /zone-prices/:zonePriceId - remove zone price. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.zonePriceId - Zone price id
@@ -86,7 +91,7 @@ function zonePriceFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /zone-prices/:zonePriceId - update zone price.
+   * PUT /zone-prices/:zonePriceId - update zone price. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} [opts.token] - API key

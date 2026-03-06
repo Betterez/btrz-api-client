@@ -3,8 +3,10 @@ const {
 } = require("./../endpoints_helpers.js");
 
 /**
- * Query params for custom-content endpoints (btrz-api-inventory). Forwarded to API as-is.
+ * Query params for GET /custom-content (btrz-api-inventory). See get-custom-contents getSpec().
  * @typedef {Object} InventoryCustomContentQuery
+ * @property {string} [enabled] - Filter by enabled (true, false)
+ * @property {string} [pageId] - The page for the content
  */
 
 /**
@@ -20,7 +22,7 @@ function customContentFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {InventoryCustomContentQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {InventoryCustomContentQuery} [opts.query] - Query params (enabled, pageId)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -36,7 +38,7 @@ function customContentFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /custom-content/:customContentId - get custom content by id.
+   * GET /custom-content/:customContentId - get custom content by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -51,7 +53,7 @@ function customContentFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /custom-content - create custom content.
+   * POST /custom-content - create custom content. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -71,7 +73,7 @@ function customContentFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /custom-content/:customContentId - remove custom content.
+   * DELETE /custom-content/:customContentId - remove custom content. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -88,7 +90,7 @@ function customContentFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /custom-content/:customContentId - update custom content.
+   * PUT /custom-content/:customContentId - update custom content. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

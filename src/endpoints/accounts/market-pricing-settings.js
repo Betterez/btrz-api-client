@@ -11,7 +11,7 @@ const {
  */
 function marketPricingSettingsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /market-pricing-settings - get market pricing settings.
+   * GET /market-pricing-settings - get market pricing settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -26,7 +26,7 @@ function marketPricingSettingsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /market-pricing-settings - update market pricing settings.
+   * PUT /market-pricing-settings - update market pricing settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

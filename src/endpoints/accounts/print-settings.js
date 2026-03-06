@@ -11,7 +11,7 @@ const {
  */
 function printSettingsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /print-settings - list/get print settings.
+   * GET /print-settings - list/get print settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {Object} [opts.headers] - Optional headers
@@ -26,7 +26,7 @@ function printSettingsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /print-settings - update print settings.
+   * PUT /print-settings - update print settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

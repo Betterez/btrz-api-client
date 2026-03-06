@@ -10,7 +10,7 @@ const {authorizationHeaders} = require("../endpoints_helpers");
  */
 function exchangeReceiptsFactory({client, internalAuthTokenProvider}) {
   /**
-   * PUT /exchange-receipt-settings - update exchange receipt settings.
+   * PUT /exchange-receipt-settings - update exchange receipt settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -28,7 +28,7 @@ function exchangeReceiptsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /exchange-receipt-settings - get exchange receipt settings.
+   * GET /exchange-receipt-settings - get exchange receipt settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

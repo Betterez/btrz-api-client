@@ -3,6 +3,15 @@ const {
 } = require("../endpoints_helpers.js");
 
 /**
+ * Query params for GET /prisma-terminals (btrz-api-inventory). See get-handler getSpec().
+ * @typedef {Object} PrismaTerminalsListQuery
+ * @property {number} [page] - Page number
+ * @property {string} [providerId] - Account provider (operator) ID
+ * @property {string} [name] - Filter by terminal name (exact match)
+ * @property {string} [externalId] - Filter by terminal externalId (exact match)
+ */
+
+/**
  * Factory for prisma-terminals API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -15,6 +24,7 @@ function prismaTerminalFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {PrismaTerminalsListQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -46,7 +56,7 @@ function prismaTerminalFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /prisma-terminals - create prisma terminal.
+   * POST /prisma-terminals - create prisma terminal. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -66,7 +76,7 @@ function prismaTerminalFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /prisma-terminals/:prismaTerminalId - remove prisma terminal.
+   * DELETE /prisma-terminals/:prismaTerminalId - remove prisma terminal. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -83,7 +93,7 @@ function prismaTerminalFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /prisma-terminals/:prismaTerminalId - update prisma terminal.
+   * PUT /prisma-terminals/:prismaTerminalId - update prisma terminal. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

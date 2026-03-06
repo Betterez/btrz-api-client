@@ -2,9 +2,9 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * Query params for POST /system (btrz-api-invoices getSpec).
+ * Query params for POST /system (btrz-api-invoices). See post-system-handler getSpec().
  * @typedef {Object} InvoiceSystemPostQuery
- * @property {string} [onlyValidateRequest] - If set to true, only validates the payload and does not process it
+ * @property {string|boolean} [onlyValidateRequest] - If true, only validates the payload and does not process it
  */
 
 /**

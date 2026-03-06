@@ -1,7 +1,8 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * Query params for GET /scanner-app-location (used by websales; GPS API).
+ * Query params for GET /scanner-app-location (GPS API). API is external (not in workspace);
+ * shape from btrz-vue-websales and client usage.
  * @typedef {Object} ScannerAppLocationQuery
  * @property {string} [scheduleId] - Schedule id
  * @property {string} [routeId] - Route id
@@ -22,7 +23,7 @@ function scannerAppLocationFactory({client}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {ScannerAppLocationQuery} [opts.query] - Query params (scheduleId, routeId, date, includeTravelledPath)
-   * @param {Object} [opts.headers] - Optional request headers
+   * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>} response.data may contain location
    */
   function get({token, query = {}, headers}) {

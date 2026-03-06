@@ -11,7 +11,7 @@ const {
  */
 function squareWebhooksFactory({client, internalAuthTokenProvider}) {
   /**
-   * POST /square-webhooks/:providerId - create Square webhook.
+   * POST /square-webhooks/:providerId - create Square webhook. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -43,7 +43,7 @@ function squareWebhooksFactory({client, internalAuthTokenProvider}) {
  */
 function squareTerminalsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /square-terminals - get Square terminals.
+   * GET /square-terminals - get Square terminals. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

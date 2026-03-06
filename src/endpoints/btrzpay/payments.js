@@ -9,7 +9,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function paymentsFactory({client, internalAuthTokenProvider}) {
   /**
-   * POST /payments - create payments.
+   * POST /payments - create payments. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -27,7 +27,7 @@ function paymentsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /transactions/:transactionId - get transaction.
+   * GET /transactions/:transactionId - get transaction. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

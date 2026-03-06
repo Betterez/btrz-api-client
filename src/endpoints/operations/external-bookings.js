@@ -1,11 +1,6 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * @typedef {Object} ExternalBookingsQuery
- * @property {string} [providerId] - Provider account ID
- */
-
-/**
  * Factory for external-bookings API (btrz-api-operations).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -14,13 +9,12 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function externalBookingsFactory({client, internalAuthTokenProvider}) {
   /**
-   * POST /external-bookings - create external booking.
+   * POST /external-bookings - create external booking. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} opts.externalBooking - External booking payload
    * @param {Object} [opts.headers] - Optional headers
-   * @param {ExternalBookingsQuery} [opts.query] - Query params
    * @returns {Promise<import("axios").AxiosResponse>}
    */
   function create({jwtToken, token, externalBooking, headers, query = {}}) {
@@ -34,7 +28,7 @@ function externalBookingsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /external-bookings/:ticketId - remove external booking.
+   * DELETE /external-bookings/:ticketId - remove external booking. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

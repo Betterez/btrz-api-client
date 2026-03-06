@@ -9,7 +9,7 @@ const {authorizationHeaders} = require("../endpoints_helpers.js");
  */
 function customersFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /payment-methods/:paymentMethodId/customers/:customerId - get customer.
+   * GET /payment-methods/:paymentMethodId/customers/:customerId - get customer. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -26,7 +26,7 @@ function customersFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /payment-methods/:paymentMethodId/customers - create customer.
+   * POST /payment-methods/:paymentMethodId/customers - create customer. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -45,7 +45,7 @@ function customersFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /payment-methods/:paymentMethodId/customers/:customerId - remove customer.
+   * DELETE /payment-methods/:paymentMethodId/customers/:customerId - remove customer. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

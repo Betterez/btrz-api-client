@@ -11,7 +11,7 @@ const {
  */
 function operationSettingsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /operation-settings - get operation settings.
+   * GET /operation-settings - get operation settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -27,7 +27,7 @@ function operationSettingsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /operation-settings - update operation settings.
+   * PUT /operation-settings - update operation settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

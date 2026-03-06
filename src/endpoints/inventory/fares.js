@@ -1,8 +1,14 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * Query params for fares endpoints (btrz-api-inventory). Forwarded to API as-is.
+ * Query params for GET /fares (btrz-api-inventory). See get-fares getSpec().
  * @typedef {Object} InventoryFaresQuery
+ * @property {string} [providerIds] - Comma-separated provider IDs to get fares for
+ * @property {string} [productIds] - Comma-separated product IDs to get fares for
+ * @property {string} [productTypes] - Product type names to get fares for
+ * @property {string} [channels] - Filter by channels (must be allowed channel values)
+ * @property {string} [isBaseFare] - Filter by base fare [true, false]
+ * @property {string} [enabled] - Filter by enabled [true, false]
  */
 
 /**
@@ -17,7 +23,7 @@ function faresFactory({client, internalAuthTokenProvider}) {
    * GET /fares - list fares.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {InventoryFaresQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {InventoryFaresQuery} [opts.query] - Query params (providerIds, productIds, productTypes, channels, isBaseFare, enabled)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -29,7 +35,7 @@ function faresFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /fare/:id - get fare by id.
+   * GET /fare/:id - get fare by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} opts.id - Fare id
@@ -43,7 +49,7 @@ function faresFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /fares - create fare.
+   * POST /fares - create fare. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -61,7 +67,7 @@ function faresFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /fare/:fareId - update fare.
+   * PUT /fare/:fareId - update fare. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -81,7 +87,7 @@ function faresFactory({client, internalAuthTokenProvider}) {
 
   const adjustments = {
     /**
-     * POST /fares/:fareId/adjustments-overrides - create adjustments override.
+     * POST /fares/:fareId/adjustments-overrides - create adjustments override. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -100,7 +106,7 @@ function faresFactory({client, internalAuthTokenProvider}) {
     },
 
     /**
-     * DELETE /fares/:fareId/adjustments-override/:adjustmentId - remove adjustments override.
+     * DELETE /fares/:fareId/adjustments-override/:adjustmentId - remove adjustments override. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol

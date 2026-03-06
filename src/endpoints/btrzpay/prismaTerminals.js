@@ -3,8 +3,9 @@ const {
 } = require("../endpoints_helpers.js");
 
 /**
+ * Query params for GET payment/reversal/refund and PUT refund (btrz-api-payments). See get-by-id-* and put-refunds getSpec().
  * @typedef {Object} PrismaTerminalsQuery
- * @property {string} [providerId] - Account provider/operator ID for agencies/sellers
+ * @property {string} [providerId] - Account provider (operator) ID; used by agencies/sellers
  * @property {boolean} [validateRefund] - (PUT refunds only) If true, fetch current state from Prisma before applying
  */
 
@@ -23,7 +24,7 @@ function prismaTerminalsFactory({client, internalAuthTokenProvider}) {
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.id - Reversal id
-     * @param {PrismaTerminalsQuery} [opts.query] - Query params
+     * @param {PrismaTerminalsQuery} [opts.query] - Query params (providerId)
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
@@ -34,13 +35,12 @@ function prismaTerminalsFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * POST /prisma-terminals/payments/:id/reversals - create reversal.
+     * POST /prisma-terminals/payments/:id/reversals - create reversal. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.id - Payment id
      * @param {Object} opts.prismaReversal - Prisma reversal payload
-     * @param {PrismaTerminalsQuery} [opts.query] - Query params
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
@@ -54,12 +54,11 @@ function prismaTerminalsFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * DELETE /prisma-terminals/reversals/:id - delete reversal.
+     * DELETE /prisma-terminals/reversals/:id - delete reversal. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.id - Reversal id
-     * @param {PrismaTerminalsQuery} [opts.query] - Query params
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
@@ -80,7 +79,7 @@ function prismaTerminalsFactory({client, internalAuthTokenProvider}) {
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.id - Refund id
-     * @param {PrismaTerminalsQuery} [opts.query] - Query params
+     * @param {PrismaTerminalsQuery} [opts.query] - Query params (providerId)
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
@@ -91,13 +90,12 @@ function prismaTerminalsFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * POST /prisma-terminals/payments/:id/refunds - create refund.
+     * POST /prisma-terminals/payments/:id/refunds - create refund. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.id - Payment id
      * @param {Object} opts.prismaRefund - Prisma refund payload
-     * @param {PrismaTerminalsQuery} [opts.query] - Query params
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
@@ -111,12 +109,11 @@ function prismaTerminalsFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * DELETE /prisma-terminals/refunds/:id - delete refund.
+     * DELETE /prisma-terminals/refunds/:id - delete refund. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.id - Refund id
-     * @param {PrismaTerminalsQuery} [opts.query] - Query params
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
@@ -135,7 +132,7 @@ function prismaTerminalsFactory({client, internalAuthTokenProvider}) {
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.id - Refund id
      * @param {Object} opts.prismaRefund - Prisma refund payload
-     * @param {PrismaTerminalsQuery} [opts.query] - Query params
+     * @param {PrismaTerminalsQuery} [opts.query] - Query params (providerId, validateRefund)
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
@@ -157,7 +154,7 @@ function prismaTerminalsFactory({client, internalAuthTokenProvider}) {
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.id - Payment id
-     * @param {PrismaTerminalsQuery} [opts.query] - Query params
+     * @param {PrismaTerminalsQuery} [opts.query] - Query params (providerId)
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
@@ -168,12 +165,11 @@ function prismaTerminalsFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * POST /prisma-terminals/payments - create payment.
+     * POST /prisma-terminals/payments - create payment. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {Object} opts.prismaPayment - Prisma payment payload
-     * @param {PrismaTerminalsQuery} [opts.query] - Query params
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
@@ -187,12 +183,11 @@ function prismaTerminalsFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * DELETE /prisma-terminals/payments/:id - delete payment.
+     * DELETE /prisma-terminals/payments/:id - delete payment. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.id - Payment id
-     * @param {PrismaTerminalsQuery} [opts.query] - Query params
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
@@ -205,13 +200,12 @@ function prismaTerminalsFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * PUT /prisma-terminals/payments/:id - update payment.
+     * PUT /prisma-terminals/payments/:id - update payment. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.id - Payment id
      * @param {Object} opts.prismaPayment - Prisma payment payload
-     * @param {PrismaTerminalsQuery} [opts.query] - Query params
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
@@ -230,12 +224,11 @@ function prismaTerminalsFactory({client, internalAuthTokenProvider}) {
 
   const settlements = {
     /**
-     * POST /prisma-terminals/settlements - create settlement.
+     * POST /prisma-terminals/settlements - create settlement. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {Object} opts.settlement - Settlement payload
-     * @param {PrismaTerminalsQuery} [opts.query] - Query params
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */

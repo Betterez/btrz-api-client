@@ -3,11 +3,6 @@ const {
 } = require("./../endpoints_helpers.js");
 
 /**
- * Query params for payment-terminals endpoints (btrz-api-inventory). Forwarded to API as-is.
- * @typedef {Object} InventoryPaymentTerminalsQuery
- */
-
-/**
  * Factory for payment-terminals API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -16,10 +11,9 @@ const {
  */
 function paymentTerminalFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /payment-terminals - list payment terminals.
+   * GET /payment-terminals - list payment terminals. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {InventoryPaymentTerminalsQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -35,7 +29,7 @@ function paymentTerminalFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /payment-terminals/:paymentTerminalId - get payment terminal by id.
+   * GET /payment-terminals/:paymentTerminalId - get payment terminal by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} opts.paymentTerminalId - Payment terminal id
    * @param {string} [opts.token] - API key
@@ -49,7 +43,7 @@ function paymentTerminalFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /payment-terminals - create payment terminal.
+   * POST /payment-terminals - create payment terminal. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} [opts.token] - API key
@@ -69,7 +63,7 @@ function paymentTerminalFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /payment-terminals/:paymentTerminalId - remove payment terminal.
+   * DELETE /payment-terminals/:paymentTerminalId - remove payment terminal. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.paymentTerminalId - Payment terminal id
@@ -86,7 +80,7 @@ function paymentTerminalFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /payment-terminals/:paymentTerminalId - update payment terminal.
+   * PUT /payment-terminals/:paymentTerminalId - update payment terminal. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} [opts.token] - API key

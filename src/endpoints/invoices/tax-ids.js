@@ -2,7 +2,7 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * Query params for GET /tax-ids (btrz-api-invoices getSpec).
+ * Query params for GET /tax-ids (btrz-api-invoices). See tax-ids get-handler getSpec().
  * @typedef {Object} TaxIdsListQuery
  * @property {string} taxNumber - Tax number to look up (required)
  * @property {string} country - ISO code of the country of the tax information (required)

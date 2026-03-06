@@ -11,7 +11,7 @@ const {
  */
 function subPrintTemplatesFactory({client, internalAuthTokenProvider}) {
   /**
-   * POST /sub-print-templates - create a sub print template.
+   * POST /sub-print-templates - create a sub print template. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

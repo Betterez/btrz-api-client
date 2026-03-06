@@ -9,7 +9,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function s3BucketsFactory({client, internalAuthTokenProvider}) {
   /**
-   * PUT /account/s3Buckets/:bucketId - update an S3 bucket.
+   * PUT /account/s3Buckets/:bucketId - update an S3 bucket. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -28,7 +28,7 @@ function s3BucketsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /account/s3Buckets/:bucketId - remove an S3 bucket.
+   * DELETE /account/s3Buckets/:bucketId - remove an S3 bucket. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -45,7 +45,7 @@ function s3BucketsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /account/s3Buckets - create an S3 bucket.
+   * POST /account/s3Buckets - create an S3 bucket. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

@@ -3,8 +3,13 @@ const {
 } = require("../endpoints_helpers.js");
 
 /**
- * @typedef {Object} AccountingItemsQuery
- * @property {string} [providerId] - Provider account ID
+ * Query params for GET /accounting-items (btrz-api-operations). See accounting-items get-handler getSpec().
+ * @typedef {Object} AccountingItemsListQuery
+ * @property {number} [page] - Page number (20 records per page)
+ * @property {string} [shiftId] - Shift id (ObjectId format)
+ * @property {string} [type] - "account_payable" | "account_receivable"
+ * @property {string} [trxId] - Transaction id (ObjectId format)
+ * @property {string} [status] - Comma-separated statuses: created, paid, waiting for payment
  */
 
 /**
@@ -21,7 +26,7 @@ function accountingItemsFactory({
    * GET /accounting-items - list accounting items.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {AccountingItemsQuery} [opts.query] - Query params
+   * @param {AccountingItemsListQuery} [opts.query] - Query params (all optional)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -41,7 +46,7 @@ function accountingItemsFactory({
   }
 
   /**
-   * GET /accounting-items/:accountingItemId - get accounting item by id.
+   * GET /accounting-items/:accountingItemId - get accounting item by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} opts.accountingItemId - Accounting item id

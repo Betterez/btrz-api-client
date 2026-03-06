@@ -2,11 +2,6 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * @typedef {Object} CartPromoQuery
- * @property {string} [providerId] - Provider account ID
- */
-
-/**
  * Factory for cart promos API (btrz-api-sales).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -15,12 +10,11 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function cartPromoFactory({client, internalAuthTokenProvider}) {
   /**
-   * POST /cart/:cartId/promos - add promo to cart.
+   * POST /cart/:cartId/promos - add promo to cart. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.cartId - Cart id
-   * @param {CartPromoQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -34,12 +28,11 @@ function cartPromoFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /cart/:cartId - remove cart promo.
+   * DELETE /cart/:cartId - remove cart promo. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.cartId - Cart id
-   * @param {CartPromoQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

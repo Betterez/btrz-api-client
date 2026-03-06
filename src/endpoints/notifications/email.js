@@ -3,8 +3,13 @@ const {
 } = require("../endpoints_helpers.js");
 
 /**
- * Query params for POST /email (btrz-api-notifications). Define recipient, template, etc. Forwarded to API as-is.
+ * Query params for POST /email (btrz-api-notifications). See post-emails getSpec().
  * @typedef {Object} NotificationsEmailPostQuery
+ * @property {string} trxId - Cart/transaction id to send by email (required)
+ * @property {string} [lang] - Email language (e.g. en-us, es-ar, de-de, fr-fr, nl-nl)
+ * @property {string} [channel] - Channel of the request
+ * @property {string} [appName] - App name of the request
+ * @property {string} [customEmail] - Email address different than customer.email (backoffice only)
  */
 
 /**
@@ -18,11 +23,11 @@ function emailFactory({
   client, internalAuthTokenProvider
 }) {
   /**
-   * POST /email - send email (query params define recipient/template etc.).
+   * POST /email - send email to customer for the given cart (trxId).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {NotificationsEmailPostQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {NotificationsEmailPostQuery} [opts.query] - Query params (trxId required)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

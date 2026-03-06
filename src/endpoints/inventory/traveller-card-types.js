@@ -1,8 +1,9 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * Query params for GET /traveller-card-types (btrz-api-inventory). Forwarded to API as-is.
- * @typedef {Object} InventoryTravellerCardTypesListQuery
+ * Query params for GET /traveller-card-types (btrz-api-inventory). See get-handler getSpec().
+ * @typedef {Object} TravellerCardTypesListQuery
+ * @property {string} [providerIds] - Provider ids to get traveller card types for
  */
 
 /**
@@ -18,7 +19,7 @@ function travellerCardTypesFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {InventoryTravellerCardTypesListQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {TravellerCardTypesListQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -31,7 +32,7 @@ function travellerCardTypesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /traveller-card-types - create traveller card type.
+   * POST /traveller-card-types - create traveller card type. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -49,7 +50,7 @@ function travellerCardTypesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /traveller-card-types/:travellerCardTypeId - update traveller card type.
+   * PUT /traveller-card-types/:travellerCardTypeId - update traveller card type. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} [opts.token] - API key
@@ -85,7 +86,7 @@ function travellerCardTypesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /traveller-card-types/:travellerCardTypeId - remove traveller card type.
+   * DELETE /traveller-card-types/:travellerCardTypeId - remove traveller card type. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} opts.travellerCardTypeId - Traveller card type id

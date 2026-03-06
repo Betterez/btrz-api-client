@@ -11,7 +11,7 @@ const {
  */
 function goalSettingsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /goal-settings - get goal settings.
+   * GET /goal-settings - get goal settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -27,7 +27,7 @@ function goalSettingsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /goal-settings - update goal settings.
+   * PUT /goal-settings - update goal settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

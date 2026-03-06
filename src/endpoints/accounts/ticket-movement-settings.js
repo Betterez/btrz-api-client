@@ -11,7 +11,7 @@ const {
  */
 function ticketMovementSettingsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /ticket-movement-settings - get ticket movement settings.
+   * GET /ticket-movement-settings - get ticket movement settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -26,7 +26,7 @@ function ticketMovementSettingsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /ticket-movement-settings - update ticket movement settings.
+   * PUT /ticket-movement-settings - update ticket movement settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

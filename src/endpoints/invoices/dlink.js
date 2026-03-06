@@ -2,9 +2,10 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * Query params for POST /dlink (btrz-api-invoices). onlyValidateRequest optional.
+ * Query params for POST /dlink (btrz-api-invoices). See post-dlink-handler getSpec().
  * @typedef {Object} InvoiceDlinkPostQuery
- * @property {string} [onlyValidateRequest] - If true, only validates the payload and does not process it
+ * @property {string|boolean} [onlyValidateRequest] - If true, only validates the payload and does not process it
+ * @property {string} [providerId] - Invoice provider id to use
  */
 
 /**

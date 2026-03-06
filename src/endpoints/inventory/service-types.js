@@ -3,11 +3,6 @@ const {
 } = require("./../endpoints_helpers.js");
 
 /**
- * Query params for GET /service-types (btrz-api-inventory). Forwarded to API as-is.
- * @typedef {Object} InventoryServiceTypesListQuery
- */
-
-/**
  * Factory for service-types API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -16,10 +11,9 @@ const {
  */
 function serviceTypesFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /service-types - list service types.
+   * GET /service-types - list service types. API does not accept query params (getSpec has no query parameters).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {InventoryServiceTypesListQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -35,7 +29,7 @@ function serviceTypesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /service-types/:serviceTypeId - get service type by id.
+   * GET /service-types/:serviceTypeId - get service type by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} opts.serviceTypeId - Service type id
    * @param {string} [opts.token] - API key
@@ -49,7 +43,7 @@ function serviceTypesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /service-types - create service type.
+   * POST /service-types - create service type. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} [opts.token] - API key
@@ -69,7 +63,7 @@ function serviceTypesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /service-types/:serviceTypeId - remove service type.
+   * DELETE /service-types/:serviceTypeId - remove service type. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.serviceTypeId - Service type id
@@ -86,7 +80,7 @@ function serviceTypesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /service-types/:serviceTypeId - update service type.
+   * PUT /service-types/:serviceTypeId - update service type. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} [opts.token] - API key

@@ -3,11 +3,6 @@ const {
 } = require("../endpoints_helpers.js");
 
 /**
- * Query params for POST /orders-rules-validations (btrz-api-notifications). Forwarded to API as-is.
- * @typedef {Object} OrdersRulesValidationsPostQuery
- */
-
-/**
  * Factory for orders-rules-validations API (btrz-api-notifications).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -19,12 +14,11 @@ function ordersRulesValidations({
   internalAuthTokenProvider
 }) {
   /**
-   * POST /orders-rules-validations - create an order rules validation (notification).
+   * POST /orders-rules-validations - validate a rule using the data (body only). API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {OrdersRulesValidationsPostQuery} [opts.query] - Optional query params (forwarded to API)
-   * @param {Object} opts.orderRulesValidation - Validation payload
+   * @param {Object} opts.orderRulesValidation - Validation payload (rule and facts)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

@@ -3,11 +3,6 @@ const {
 } = require("./../endpoints_helpers.js");
 
 /**
- * @typedef {Object} BanksQuery
- * @property {string} [providerId] - Provider account ID
- */
-
-/**
  * Factory for banks API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -16,11 +11,10 @@ const {
  */
 function banksFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /banks - list banks.
+   * GET /banks - list banks. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {BanksQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -37,7 +31,7 @@ function banksFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /banks/:bankId - get bank by id.
+   * GET /banks/:bankId - get bank by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -52,7 +46,7 @@ function banksFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /banks - create bank.
+   * POST /banks - create bank. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -72,7 +66,7 @@ function banksFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /banks/:bankId - remove bank.
+   * DELETE /banks/:bankId - remove bank. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -89,7 +83,7 @@ function banksFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /banks/:bankId - update bank.
+   * PUT /banks/:bankId - update bank. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

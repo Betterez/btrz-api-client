@@ -2,11 +2,6 @@
 const {authorizationHeaders} = require("./../endpoints_helpers");
 
 /**
- * @typedef {Object} ImagesQuery
- * @property {number} [page] - The page number to retrieve (for list)
- */
-
-/**
  * Factory for images API (btrz-api-accounts).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -15,11 +10,10 @@ const {authorizationHeaders} = require("./../endpoints_helpers");
  */
 function ImagesFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /images - list images.
+   * GET /images - list images. API getSpec() does not define query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {ImagesQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -32,7 +26,7 @@ function ImagesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /images/:imageId - get an image.
+   * GET /images/:imageId - get an image. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

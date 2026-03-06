@@ -10,7 +10,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function mergedFareTablesFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /coltrane/routes/:routeId/merged-fare-tables/:productId - get merged fare table.
+   * GET /coltrane/routes/:routeId/merged-fare-tables/:productId - get merged fare table. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

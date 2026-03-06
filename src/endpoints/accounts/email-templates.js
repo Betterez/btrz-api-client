@@ -4,6 +4,7 @@ const {
 } = require("../endpoints_helpers.js");
 
 /**
+ * Query params for GET /email-templates (btrz-api-accounts). See get-handler getSpec().
  * @typedef {Object} EmailTemplatesListQuery
  * @property {string} [providerId] - Filter by provider account (ObjectId)
  * @property {string} [type] - Filter by template type
@@ -14,6 +15,14 @@ const {
  * @property {string} [mainTemplateAccountId] - Filter by source provider (ObjectId)
  * @property {string} [lang] - ISO language code (e.g. en-us)
  * @property {number} [page] - 1-based page for pagination
+ */
+
+/**
+ * Query params for GET /email-templates/:emailTemplateId (btrz-api-accounts). See get-by-id-handler getSpec().
+ * @typedef {Object} EmailTemplateGetByIdQuery
+ * @property {string} [providerId] - Filter by provider; template must belong to this account, current account, or be global (ObjectId)
+ * @property {string} [superUserId] - Super user ID for authentication (ObjectId)
+ * @property {string} [superUserHash] - Super user hash for authentication
  */
 
 /**
@@ -76,6 +85,7 @@ function emailTemplatesFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.emailTemplateId - Template id (ObjectId)
+   * @param {EmailTemplateGetByIdQuery} [opts.query] - Query params (providerId, superUserId, superUserHash)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<{ emailTemplate: object }>>}
    */

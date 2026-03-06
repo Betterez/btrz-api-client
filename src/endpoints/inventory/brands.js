@@ -1,8 +1,12 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * @typedef {Object} BrandsQuery
- * @property {string} [providerId] - Provider account ID
+ * Query params for GET /brands (btrz-api-inventory). See get-brands getSpec().
+ * @typedef {Object} BrandsListQuery
+ * @property {string} [providerIds] - Comma-separated provider IDs
+ * @property {string} [enabled] - Filter by enabled status
+ * @property {number} [page] - Page for pagination
+ * @property {number} [pageSize] - Results per page
  */
 
 /**
@@ -18,7 +22,7 @@ function brandsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {BrandsQuery} [opts.query] - Query params
+   * @param {BrandsListQuery} [opts.query] - Query params (providerIds, enabled, page, pageSize)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -31,7 +35,7 @@ function brandsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /brands - create brand.
+   * POST /brands - create brand. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -49,7 +53,7 @@ function brandsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /brands/:brandId - update brand.
+   * PUT /brands/:brandId - update brand. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -68,7 +72,7 @@ function brandsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /brands/:brandId - get brand by id.
+   * GET /brands/:brandId - get brand by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

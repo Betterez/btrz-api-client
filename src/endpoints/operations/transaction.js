@@ -9,7 +9,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function transactionFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /transaction/:id - get transaction by id.
+   * GET /transaction/:id - get transaction by id. providerId passed as query param in URL.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

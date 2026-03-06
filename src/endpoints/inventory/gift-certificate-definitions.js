@@ -1,8 +1,11 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * Query params for gift-certificate-definitions endpoints (btrz-api-inventory). Forwarded to API as-is.
- * @typedef {Object} InventoryGiftCertificateDefinitionsQuery
+ * Query params for GET /gift-certificate-definitions (btrz-api-inventory). See get-handler getSpec().
+ * @typedef {Object} GiftCertificateDefinitionsListQuery
+ * @property {string[]} [channels] - Filter by channels
+ * @property {string[]} [currencies] - Filter by currencies
+ * @property {string} providerId - Provider id (required by API)
  */
 
 /**
@@ -17,7 +20,7 @@ function giftCertificateDefinitionsFactory({client, internalAuthTokenProvider}) 
    * GET /gift-certificate-definitions - list gift certificate definitions.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {InventoryGiftCertificateDefinitionsQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {GiftCertificateDefinitionsListQuery} [opts.query] - Query params (channels, currencies, providerId)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -29,12 +32,11 @@ function giftCertificateDefinitionsFactory({client, internalAuthTokenProvider}) 
   }
 
   /**
-   * GET /gift-certificate-definitions/:giftcertificateId - get gift certificate definition by id.
+   * GET /gift-certificate-definitions/:giftcertificateId - get gift certificate definition by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.giftcertificateId - Gift certificate definition id
-   * @param {InventoryGiftCertificateDefinitionsQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -48,12 +50,11 @@ function giftCertificateDefinitionsFactory({client, internalAuthTokenProvider}) 
   }
 
   /**
-   * POST /gift-certificate-definitions - create gift certificate definition.
+   * POST /gift-certificate-definitions - create gift certificate definition. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} opts.giftcertificate - Gift certificate payload
-   * @param {InventoryGiftCertificateDefinitionsQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -68,13 +69,12 @@ function giftCertificateDefinitionsFactory({client, internalAuthTokenProvider}) 
   }
 
   /**
-   * PUT /gift-certificate-definitions/:giftcertificateId - update gift certificate definition.
+   * PUT /gift-certificate-definitions/:giftcertificateId - update gift certificate definition. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.giftcertificateId - Gift certificate definition id
    * @param {Object} opts.giftcertificate - Gift certificate payload
-   * @param {InventoryGiftCertificateDefinitionsQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -89,12 +89,11 @@ function giftCertificateDefinitionsFactory({client, internalAuthTokenProvider}) 
   }
 
   /**
-   * DELETE /gift-certificate-definitions/:giftcertificateId - remove gift certificate definition.
+   * DELETE /gift-certificate-definitions/:giftcertificateId - remove gift certificate definition. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.giftcertificateId - Gift certificate definition id
-   * @param {InventoryGiftCertificateDefinitionsQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

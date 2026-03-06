@@ -1,11 +1,6 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * @typedef {Object} MovementsQuery
- * @property {string} [providerId] - Provider account ID
- */
-
-/**
  * Factory for movements API (btrz-api-operations).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -14,12 +9,11 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function movementsFactory({client, internalAuthTokenProvider}) {
   /**
-   * POST /movements - create movement.
+   * POST /movements - create movement. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} opts.movement - Movement payload
-   * @param {MovementsQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

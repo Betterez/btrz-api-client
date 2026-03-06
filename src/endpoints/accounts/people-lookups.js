@@ -1,6 +1,24 @@
+/* eslint-disable max-len */
 const {
   authorizationHeaders
 } = require("./../endpoints_helpers.js");
+
+/**
+ * Query params for GET /people-lookups (btrz-api-accounts). See get-handler getSpec().
+ * @typedef {Object} PeopleLookupsListQuery
+ * @property {string} [dynamicFormId] - If provided, only include this dynamic form's data in response
+ * @property {string} [documentNumber] - Document number to search for
+ * @property {string} [documentTypeId] - Document type id to search for
+ * @property {string} [email] - Email to search for
+ * @property {string} [customerNumber] - Customer number to search for
+ * @property {string} [phone] - Phone to search for
+ */
+
+/**
+ * Query params for GET /people-lookups/:personId (btrz-api-accounts). See get-by-id-handler getSpec().
+ * @typedef {Object} PeopleLookupGetByIdQuery
+ * @property {string} [dynamicFormId] - If provided, only include this dynamic form's data in response
+ */
 
 /**
  * Factory for people-lookups API (btrz-api-accounts).
@@ -15,7 +33,8 @@ function peopleLookupsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} [opts.providerId] - Provider id (ObjectId)
+   * @param {PeopleLookupsListQuery} [opts.query] - Query params (dynamicFormId, documentNumber, documentTypeId, email, customerNumber, phone)
+   * @param {string} [opts.providerId] - Provider id (ObjectId); merged into query for provider context
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -34,7 +53,8 @@ function peopleLookupsFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.personId - Person id (ObjectId)
-   * @param {string} [opts.providerId] - Provider id (ObjectId)
+   * @param {PeopleLookupGetByIdQuery} [opts.query] - Query params: dynamicFormId
+   * @param {string} [opts.providerId] - Provider id (ObjectId); merged into query for provider context
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -49,13 +69,13 @@ function peopleLookupsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /people-lookups/:personId - update a person lookup.
+   * PUT /people-lookups/:personId - update a person lookup. API getSpec() does not define query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.personId - Person id (ObjectId)
    * @param {Object} opts.person - Person payload
-   * @param {string} [opts.providerId] - Provider id (ObjectId)
+   * @param {string} [opts.providerId] - Provider id (ObjectId); sent as query for provider context
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -76,12 +96,12 @@ function peopleLookupsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /people-lookups - create a person lookup.
+   * POST /people-lookups - create a person lookup. API getSpec() does not define query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} opts.person - Person payload
-   * @param {string} [opts.providerId] - Provider id (ObjectId)
+   * @param {string} [opts.providerId] - Provider id (ObjectId); sent as query for provider context
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -102,7 +122,7 @@ function peopleLookupsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /people-lookups/:personId - remove a person lookup.
+   * DELETE /people-lookups/:personId - remove a person lookup. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

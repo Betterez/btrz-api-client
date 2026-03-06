@@ -1,8 +1,13 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * @typedef {Object} AmenityGroupsQuery
- * @property {string} [providerId] - Provider account ID
+ * Query params for GET /amenity-groups (btrz-api-inventory). See get-amenity-groups getSpec().
+ * @typedef {Object} AmenityGroupsListQuery
+ * @property {string} [name] - Filter by name
+ * @property {string} [amenityId] - Filter by amenity ID
+ * @property {string} [enabled] - Filter by enabled status
+ * @property {number} [page] - Page for pagination
+ * @property {number} [pageSize] - Results per page
  */
 
 /**
@@ -18,7 +23,7 @@ function amenityGroupsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {AmenityGroupsQuery} [opts.query] - Query params
+   * @param {AmenityGroupsListQuery} [opts.query] - Query params (name, amenityId, enabled, page, pageSize)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -30,12 +35,11 @@ function amenityGroupsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /amenity-groups/:amenityGroupId - get amenity group by id.
+   * GET /amenity-groups/:amenityGroupId - get amenity group by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.amenityGroupId - Amenity group id
-   * @param {AmenityGroupsQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -47,7 +51,7 @@ function amenityGroupsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /amenity-groups - create amenity group.
+   * POST /amenity-groups - create amenity group. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -65,7 +69,7 @@ function amenityGroupsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /amenity-groups/:amenityGroupId - update amenity group.
+   * PUT /amenity-groups/:amenityGroupId - update amenity group. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

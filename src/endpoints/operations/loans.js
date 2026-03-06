@@ -3,8 +3,14 @@ const {
 } = require("./../endpoints_helpers.js");
 
 /**
- * @typedef {Object} LoansQuery
- * @property {string} [providerId] - Provider account ID
+ * Query params for GET /loans (btrz-api-operations). See loans get-handler getSpec().
+ * @typedef {Object} LoansListQuery
+ * @property {number} [page] - Page number (20 records per page)
+ * @property {string} [shiftId] - Shift id (ObjectId format)
+ * @property {string} [type] - "loan" | "re-payment"
+ * @property {string} [trxId] - Transaction id (ObjectId format)
+ * @property {string} [status] - Comma-separated statuses: created, paid, waiting for payment
+ * @property {string} [providerId] - Provider id (for agencies)
  */
 
 /**
@@ -21,7 +27,7 @@ function loansFactory({
    * GET /loans - list loans.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {LoansQuery} [opts.query] - Query params
+   * @param {LoansListQuery} [opts.query] - Query params (all optional)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -41,7 +47,7 @@ function loansFactory({
   }
 
   /**
-   * GET /loans/:loanId - get loan by id.
+   * GET /loans/:loanId - get loan by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} opts.loanId - Loan id

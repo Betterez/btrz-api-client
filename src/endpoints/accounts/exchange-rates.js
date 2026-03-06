@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable import/extensions */
 const {authorizationHeaders} = require("./../endpoints_helpers");
 
@@ -10,11 +11,11 @@ const {authorizationHeaders} = require("./../endpoints_helpers");
  */
 function exchangeRatesFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /exchange-rates/:isoCode - get exchange rates by ISO code.
+   * GET /exchange-rates/:isoCode - get exchange rates by ISO code. API does not define query params in getSpec().
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.isoCode - Currency ISO code
+   * @param {string} opts.isoCode - Currency ISO code (3 characters)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

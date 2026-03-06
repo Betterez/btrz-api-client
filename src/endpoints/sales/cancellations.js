@@ -32,7 +32,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 function cancellationEndpointsFactory({client, internalAuthTokenProvider}) {
   /**
-   * Creates a set of refundable items and payments to be refunded
+   * Creates a set of refundable items and payments to be refunded. API does not accept query params.
    * @param {Object} params
    * @param {string} params.token Public key
    * @param {string} params.jwtToken Auth token
@@ -70,7 +70,7 @@ function cancellationEndpointsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * Completes a pending payment for a cancellation transaction (e.g. one terminal refund).
+   * Completes a pending payment for a cancellation transaction (e.g. one terminal refund). API does not accept query params.
    * @param {Object} params
    * @param {string} params.token Public key
    * @param {string} params.jwtToken Auth token

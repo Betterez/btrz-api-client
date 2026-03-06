@@ -3,11 +3,6 @@ const {
 } = require("../endpoints_helpers.js");
 
 /**
- * Query params for GET /twilio/phone-numbers/:isocode (btrz-api-notifications). Forwarded to API as-is.
- * @typedef {Object} TwilioPhoneNumbersListQuery
- */
-
-/**
  * Factory for twilio API (btrz-api-notifications).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -20,12 +15,11 @@ function twilioFactory({
   return {
     phoneNumbers: {
       /**
-       * GET /twilio/phone-numbers/:isocode - list Twilio phone numbers for country isocode.
+       * GET /twilio/phone-numbers/:isocode - list Twilio phone numbers for country isocode. API does not accept query params.
        * @param {Object} opts
        * @param {string} opts.isocode - Country ISO code
        * @param {string} [opts.token] - API key
        * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-       * @param {TwilioPhoneNumbersListQuery} [opts.query] - Optional query params (forwarded to API)
        * @param {Object} [opts.headers] - Optional headers
        * @returns {Promise<import("axios").AxiosResponse>}
        */

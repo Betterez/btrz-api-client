@@ -3,8 +3,28 @@ const {
 } = require("../endpoints_helpers.js");
 
 /**
- * Query params for customers notification endpoints (btrz-api-notifications). Forwarded to API as-is.
- * @typedef {Object} NotificationsCustomersQuery
+ * Query params for POST /customers/reset (btrz-api-notifications). See post-customers-reset-password getSpec().
+ * @typedef {Object} CustomersResetPostQuery
+ * @property {string} providerId - Account id of the customer (required)
+ * @property {string} lang - Language of the email (required)
+ * @property {string} [customerNumber] - Customer number (include at least one of customerNumber or email)
+ * @property {string} [email] - Customer email (include at least one of customerNumber or email)
+ * @property {string} [channel] - Channel the customer is using to restore the pass
+ * @property {string} [platform] - "ios" | "android" | "web"
+ * @property {string} [appName] - Name of the app
+ * @property {string} [appVersion] - Version of the app
+ * @property {string} [cartPath] - (Deprecated) Initial path of the cart websales endpoint
+ */
+
+/**
+ * Query params for POST /customers/activation (btrz-api-notifications). See post-customers-activation getSpec().
+ * @typedef {Object} CustomersActivationPostQuery
+ * @property {string} providerId - Account id of the customer (required)
+ * @property {string} [lang] - Language of the email (default en-us)
+ * @property {string} [channel] - Channel (e.g. "mobileapp")
+ * @property {string} [platform] - "ios" | "android" | "web"
+ * @property {string} [appVersion] - Version of the client app
+ * @property {string} [appName] - Name of the client app
  */
 
 /**
@@ -22,7 +42,7 @@ function customersFactory({
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {NotificationsCustomersQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {CustomersResetPostQuery} [opts.query] - Query params (providerId, lang required)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -41,8 +61,8 @@ function customersFactory({
    * POST /customers/activation - send activation email to customer.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {NotificationsCustomersQuery} [opts.query] - Optional query params (forwarded to API)
-   * @param {Object} [opts.data] - Request body
+   * @param {CustomersActivationPostQuery} [opts.query] - Query params (providerId required)
+   * @param {Object} [opts.data] - Request body (CustomerForActivation)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

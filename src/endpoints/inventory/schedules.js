@@ -2,6 +2,20 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
+ * Query params for GET /routes/schedules (btrz-api-inventory). See get-schedules getSpec().
+ * @typedef {Object} SchedulesListQuery
+ * @property {string} [displayName] - Exact schedule name (case sensitive)
+ * @property {string} [stationId] - Schedules that contain this station on legs
+ * @property {string} [routeId] - Filter by route id
+ * @property {string} [labelId] - Filter by label id
+ * @property {string} [onlyActive] - Get active schedules (mutually exclusive with onlyInactive)
+ * @property {string} [onlyInactive] - Get inactive schedules (mutually exclusive with onlyActive)
+ * @property {string} [date] - Schedules active on this date (MM/DD/YYYY)
+ * @property {number} [page] - Page for pagination
+ * @property {string} [providerId] - Filter by provider
+ */
+
+/**
  * Factory for schedules API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -14,6 +28,7 @@ function schedulesFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {SchedulesListQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -25,7 +40,7 @@ function schedulesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /routes/:routeId/schedules/:scheduleId - get schedule by id.
+   * GET /routes/:routeId/schedules/:scheduleId - get schedule by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -42,7 +57,7 @@ function schedulesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /routes/:routeId/schedules - create schedule.
+   * POST /routes/:routeId/schedules - create schedule. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -63,7 +78,7 @@ function schedulesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /routes/:routeId/schedules/:scheduleId - update schedule.
+   * PUT /routes/:routeId/schedules/:scheduleId - update schedule. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -85,7 +100,7 @@ function schedulesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /routes/:routeId/schedules/:scheduleId - delete schedule.
+   * DELETE /routes/:routeId/schedules/:scheduleId - delete schedule. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -107,7 +122,7 @@ function schedulesFactory({client, internalAuthTokenProvider}) {
   /** @type {{ create: function, delete: function }} */
   const autoBouncing = {
     /**
-     * POST /routes/schedules/auto-bouncing - create auto bouncing.
+     * POST /routes/schedules/auto-bouncing - create auto bouncing. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -126,7 +141,7 @@ function schedulesFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * DELETE /routes/:routeId/schedules/:parentScheduleId/auto-bouncing - delete auto bouncing.
+     * DELETE /routes/:routeId/schedules/:parentScheduleId/auto-bouncing - delete auto bouncing. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -149,7 +164,7 @@ function schedulesFactory({client, internalAuthTokenProvider}) {
   /** @type {{ create: function, delete: function, update: function }} */
   const exceptions = {
     /**
-     * POST /schedules/:scheduleId/schedule-exceptions - create schedule exception.
+     * POST /schedules/:scheduleId/schedule-exceptions - create schedule exception. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -169,7 +184,7 @@ function schedulesFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * DELETE /schedules/:scheduleId/schedule-exceptions/:exceptionId - delete schedule exception.
+     * DELETE /schedules/:scheduleId/schedule-exceptions/:exceptionId - delete schedule exception. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -188,7 +203,7 @@ function schedulesFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * PUT /schedules/:scheduleId/schedule-exceptions/:exceptionId - update schedule exception.
+     * PUT /schedules/:scheduleId/schedule-exceptions/:exceptionId - update schedule exception. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol

@@ -11,7 +11,7 @@ const {
  */
 function transportRegulationSettingsForCNRT({client, internalAuthTokenProvider}) {
   /**
-   * GET /transport-regulation-settings/cnrt - get CNRT transport regulation settings.
+   * GET /transport-regulation-settings/cnrt - get CNRT transport regulation settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -26,7 +26,7 @@ function transportRegulationSettingsForCNRT({client, internalAuthTokenProvider})
   }
 
   /**
-   * PUT /transport-regulation-settings/cnrt - update CNRT transport regulation settings.
+   * PUT /transport-regulation-settings/cnrt - update CNRT transport regulation settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

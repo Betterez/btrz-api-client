@@ -1,8 +1,12 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * @typedef {Object} AmenitiesQuery
- * @property {string} [providerId] - Provider account ID
+ * Query params for GET /amenities (btrz-api-inventory). See get-amenities getSpec().
+ * @typedef {Object} AmenitiesListQuery
+ * @property {string} [name] - Filter by name
+ * @property {string} [amenityId] - Filter by amenity ID
+ * @property {string} [enabled] - Filter by enabled status
+ * @property {number} [page] - Page for pagination
  */
 
 /**
@@ -18,7 +22,7 @@ function amenitiesFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {AmenitiesQuery} [opts.query] - Query params
+   * @param {AmenitiesListQuery} [opts.query] - Query params (name, amenityId, enabled, page)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -30,12 +34,11 @@ function amenitiesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /amenities/:amenityId - get amenity by id.
+   * GET /amenities/:amenityId - get amenity by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.amenityId - Amenity id
-   * @param {AmenitiesQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -47,7 +50,7 @@ function amenitiesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /amenities - create amenity.
+   * POST /amenities - create amenity. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -65,7 +68,7 @@ function amenitiesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /amenities/:amenityId - update amenity.
+   * PUT /amenities/:amenityId - update amenity. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

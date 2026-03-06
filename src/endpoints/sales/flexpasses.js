@@ -2,11 +2,6 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * @typedef {Object} FlexpassGetQuery
- * @property {string} [providerId] - Provider account ID
- */
-
-/**
  * Factory for flexpasses API (btrz-api-sales).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -15,12 +10,11 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function flexpassesEndpointsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /flexpasses/:flexpassId - get flexpass by id.
+   * GET /flexpasses/:flexpassId - get flexpass by id. API does not accept query params (btrz-api-sales).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.flexpassId - Flexpass id
-   * @param {FlexpassGetQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

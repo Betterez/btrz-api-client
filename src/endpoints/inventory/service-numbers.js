@@ -3,8 +3,11 @@ const {
 } = require("./../endpoints_helpers.js");
 
 /**
- * Query params for service-numbers endpoints (btrz-api-inventory). Forwarded to API as-is.
- * @typedef {Object} InventoryServiceNumbersQuery
+ * Query params for GET /service-numbers (btrz-api-inventory). See get-handler getSpec().
+ * @typedef {Object} ServiceNumbersListQuery
+ * @property {string} [name] - Filter by service number name
+ * @property {boolean} [enabled] - Filter enabled/disabled
+ * @property {number} [page] - Page for pagination
  */
 
 /**
@@ -23,7 +26,7 @@ function serviceNumbersFactory({
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {InventoryServiceNumbersQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {ServiceNumbersListQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -38,7 +41,7 @@ function serviceNumbersFactory({
   }
 
   /**
-   * POST /service-numbers - create service number.
+   * POST /service-numbers - create service number. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -60,7 +63,7 @@ function serviceNumbersFactory({
   }
 
   /**
-   * PUT /service-numbers/:serviceNumberId - update service number.
+   * PUT /service-numbers/:serviceNumberId - update service number. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} [opts.token] - API key
@@ -83,7 +86,7 @@ function serviceNumbersFactory({
   }
 
   /**
-   * GET /service-numbers/:serviceNumberId - get service number by id.
+   * GET /service-numbers/:serviceNumberId - get service number by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} opts.serviceNumberId - Service number id

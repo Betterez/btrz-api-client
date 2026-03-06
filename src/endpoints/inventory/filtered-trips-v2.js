@@ -9,7 +9,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function filteredTripsV2Factory({client, internalAuthTokenProvider}) {
   /**
-   * POST /v2/filtered-trips - create filtered trip.
+   * POST /v2/filtered-trips - create filtered trip. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

@@ -1,7 +1,8 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * @typedef {Object} TicketsQuery
+ * Query params for GET /tickets list (btrz-api-operations). providerId merged when opts.providerId set.
+ * @typedef {Object} TicketsListQuery
  * @property {string} [providerId] - Provider account ID
  */
 
@@ -14,13 +15,12 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function ticketsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /tickets/:id - get ticket by id.
+   * GET /tickets/:id - get ticket by id. API does not accept query params (btrz-api-operations).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.id - Ticket id
    * @param {Object} [opts.headers] - Optional headers
-   * @param {TicketsQuery} [opts.query] - Query params
    * @returns {Promise<import("axios").AxiosResponse>}
    */
   function get({token, jwtToken, id, headers, query}) {
@@ -73,7 +73,7 @@ function ticketsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {TicketsQuery} [opts.query] - Query params
+   * @param {TicketsListQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @param {string} [opts.providerId] - Provider id
    * @returns {Promise<import("axios").AxiosResponse>}

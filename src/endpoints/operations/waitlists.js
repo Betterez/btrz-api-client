@@ -36,7 +36,7 @@ function waitlistsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /waitlists/:waitlistId - get waitlist by id.
+   * GET /waitlists/:waitlistId - get waitlist by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -70,7 +70,7 @@ function waitlistsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /waitlists - create waitlist.
+   * POST /waitlists - create waitlist. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

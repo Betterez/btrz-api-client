@@ -1,8 +1,9 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * Query params for marital-status endpoints (btrz-api-inventory). Forwarded to API as-is.
- * @typedef {Object} InventoryMaritalStatusQuery
+ * Query params for GET /marital-status (btrz-api-inventory). See get-handler getSpec().
+ * @typedef {Object} MaritalStatusListQuery
+ * @property {string} [providerIds] - Provider IDs to get marital status for
  */
 
 /**
@@ -18,7 +19,7 @@ function maritalStatusFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {InventoryMaritalStatusQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {MaritalStatusListQuery} [opts.query] - Query params (providerIds)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -32,12 +33,11 @@ function maritalStatusFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /marital-status/:id - get marital status by id.
+   * GET /marital-status/:id - get marital status by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.id - Marital status id
-   * @param {InventoryMaritalStatusQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -51,13 +51,12 @@ function maritalStatusFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /marital-status/:id - update marital status.
+   * PUT /marital-status/:id - update marital status. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.id - Marital status id
    * @param {Object} opts.data - Request body
-   * @param {InventoryMaritalStatusQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -72,12 +71,11 @@ function maritalStatusFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /marital-status/:id - remove marital status.
+   * DELETE /marital-status/:id - remove marital status. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.id - Marital status id
-   * @param {InventoryMaritalStatusQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -91,12 +89,11 @@ function maritalStatusFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /marital-status - create marital status.
+   * POST /marital-status - create marital status. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} opts.data - Request body
-   * @param {InventoryMaritalStatusQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

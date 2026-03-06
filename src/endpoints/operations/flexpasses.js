@@ -9,7 +9,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function flexpassesFactory({client, internalAuthTokenProvider}) {
   /**
-   * DELETE /flexpasses/:flexpassId/scannings/:tripId - delete scan by trip id.
+   * DELETE /flexpasses/:flexpassId/scannings/:tripId - delete scan by trip id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

@@ -2,9 +2,23 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * Query params for GET /payment-methods (btrz-api-payments). Passed through as-is when no backend spec found.
+ * Query params for GET /payment-methods (btrz-api-payments). See get-payment-methods getSpec().
  * @typedef {Object} PaymentMethodsListQuery
- * @property {string} [providerName] - Filter by provider name (deprecated; use getByProviderName for single provider)
+ * @property {string} [providerName] - The provider name to filter the payment methods (deprecated; use getByProviderName)
+ * @property {string} [channel] - The channel to get payment methods for
+ * @property {boolean} [enabled] - Filter by enabled [true, false]; if omitted returns both
+ * @property {boolean} [excludePredefined] - Exclude predefined methods; default included
+ * @property {string} [providerId] - Account provider (operator) ID; used by agencies/sellers
+ * @property {string} [domain] - Filter by domain
+ * @property {string} [externalType] - Reference external type
+ * @property {boolean} [allowToRefundTo] - Filter by ability to accept refunds [true, false]
+ * @property {string} [flows] - Flows in which the method is available (comma-separated); channel required
+ */
+
+/**
+ * Query params for GET /payment-methods/:paymentMethodId (btrz-api-payments). See get-payment-method getSpec().
+ * @typedef {Object} PaymentMethodGetQuery
+ * @property {string} [providerId] - Account provider ID; used by agencies
  */
 
 /**
@@ -21,7 +35,7 @@ function paymentMethodsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {PaymentMethodsListQuery} [opts.query] - Optional query params (e.g. providerName)
+   * @param {PaymentMethodsListQuery} [opts.query] - Query params (providerName, channel, enabled, etc.)
    * @param {Object} [opts.headers] - Optional request headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -33,7 +47,7 @@ function paymentMethodsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /payment-methods?providerName= - get by provider name (deprecated).
+   * GET /payment-methods?providerName= - get by provider name (deprecated). API accepts providerName only.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -50,7 +64,7 @@ function paymentMethodsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /payment-methods - create payment method.
+   * POST /payment-methods - create payment method. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -73,7 +87,7 @@ function paymentMethodsFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.paymentMethodId - Payment method id
-   * @param {PaymentMethodsListQuery} [opts.query] - Optional query params (e.g. providerName); forwarded to API
+   * @param {PaymentMethodGetQuery} [opts.query] - Query params (providerId for agencies)
    * @param {Object} [opts.headers] - Optional request headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -85,7 +99,7 @@ function paymentMethodsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /payment-methods/:paymentMethodId - update payment method.
+   * PUT /payment-methods/:paymentMethodId - update payment method. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -104,7 +118,7 @@ function paymentMethodsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /payment-methods-to-agencies - set payment methods to agency.
+   * POST /payment-methods-to-agencies - set payment methods to agency. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -124,7 +138,7 @@ function paymentMethodsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /default-payment-methods - create default payment methods.
+   * POST /default-payment-methods - create default payment methods. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -141,7 +155,7 @@ function paymentMethodsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /payment-methods/:paymentMethodId/customers - delete customers credit card info.
+   * DELETE /payment-methods/:paymentMethodId/customers - delete customers credit card info. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -157,7 +171,7 @@ function paymentMethodsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /payment-methods/domains/:domain - delete payment methods domain.
+   * DELETE /payment-methods/domains/:domain - delete payment methods domain. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

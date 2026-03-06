@@ -32,7 +32,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function stationsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /stations/:id - get station by id.
+   * GET /stations/:id - get station by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -63,7 +63,7 @@ function stationsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /stations - create station.
+   * POST /stations - create station. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -83,7 +83,7 @@ function stationsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /station/:stationId - update station.
+   * PUT /station/:stationId - update station. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

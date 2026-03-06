@@ -1,8 +1,10 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * Query params for fare-classes endpoints (btrz-api-inventory). Forwarded to API as-is.
+ * Query params for GET /fare-classes (btrz-api-inventory). See get-fare-classes getSpec().
  * @typedef {Object} InventoryFareClassesQuery
+ * @property {string} [providerId] - Provider whose fare classes to return
+ * @property {string} [productIds] - Comma-separated product IDs to get fare classes for
  */
 
 /**
@@ -18,7 +20,7 @@ function fareClassesFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {InventoryFareClassesQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {InventoryFareClassesQuery} [opts.query] - Query params (providerId, productIds)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -31,7 +33,7 @@ function fareClassesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /fare-classes - create fare class.
+   * POST /fare-classes - create fare class. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -49,7 +51,7 @@ function fareClassesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PATCH /fare-classes/:fareClassId - update fare class.
+   * PATCH /fare-classes/:fareClassId - update fare class. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

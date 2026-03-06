@@ -1,8 +1,10 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
+ * Query params for GET /bundle/:bundleId/product/:productId (btrz-api-inventory). See get-bundle-fares getSpec().
  * @typedef {Object} BundleFaresQuery
- * @property {string} [providerId] - Provider account ID
+ * @property {string} [providerIds] - Comma-separated provider IDs
+ * @property {string} [channel] - Channel filter
  */
 
 /**
@@ -20,7 +22,7 @@ function bundleFaresFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.bundleId - Bundle id
    * @param {string} opts.productId - Product id
-   * @param {BundleFaresQuery} [opts.query] - Query params
+   * @param {BundleFaresQuery} [opts.query] - Query params (providerIds, channel)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

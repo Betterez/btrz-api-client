@@ -1,8 +1,11 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * Query params for custom-fields endpoints (btrz-api-inventory). Forwarded to API as-is.
+ * Query params for GET /custom-fields (btrz-api-inventory). See get-custom-fields getSpec().
  * @typedef {Object} InventoryCustomFieldsQuery
+ * @property {string} [enabled] - Required value of the disabled field
+ * @property {string} [required] - Required value of the required field
+ * @property {string} [modelName] - Filter by model (Transactions, Stations)
  */
 
 /**
@@ -18,7 +21,7 @@ function customFieldsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {InventoryCustomFieldsQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {InventoryCustomFieldsQuery} [opts.query] - Query params (enabled, required, modelName)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -31,12 +34,11 @@ function customFieldsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /custom-fields/:fieldId - get custom field by id.
+   * GET /custom-fields/:fieldId - get custom field by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.fieldId - Field id
-   * @param {InventoryCustomFieldsQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -49,7 +51,7 @@ function customFieldsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /custom-fields - create custom field.
+   * POST /custom-fields - create custom field. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -67,7 +69,7 @@ function customFieldsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /custom-fields/:fieldId - update custom field.
+   * PUT /custom-fields/:fieldId - update custom field. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -88,7 +90,7 @@ function customFieldsFactory({client, internalAuthTokenProvider}) {
   /** @type {{ all: function }} */
   const types = {
     /**
-     * GET /custom-fields/types - list custom field types.
+     * GET /custom-fields/types - list custom field types. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {Object} [opts.headers] - Optional headers

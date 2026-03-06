@@ -2,8 +2,9 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * @typedef {Object} CustomFieldsQuery
- * @property {string} [providerId] - Provider account ID
+ * Query params for GET /custom-fields (btrz-api-sales get-custom-fields getSpec).
+ * @typedef {Object} CustomFieldsListQuery
+ * @property {string} [providerIds] - One or more provider account ids (comma-separated)
  */
 
 /**
@@ -18,7 +19,7 @@ function customFieldsFactory({client, internalAuthTokenProvider}) {
    * GET /custom-fields - list custom fields.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {CustomFieldsQuery} [opts.query] - Query params
+   * @param {CustomFieldsListQuery} [opts.query] - Query params (providerIds)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

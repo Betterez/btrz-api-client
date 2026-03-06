@@ -9,7 +9,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function referenceNumbersFactory({client, internalAuthTokenProvider}) {
   /**
-   * POST /reference-numbers - create reference number.
+   * POST /reference-numbers - create reference number. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

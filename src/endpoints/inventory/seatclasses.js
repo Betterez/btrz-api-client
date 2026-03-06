@@ -2,11 +2,6 @@
 const {authorizationHeaders} = require("./../endpoints_helpers");
 
 /**
- * Query params for seat-classes endpoints (btrz-api-inventory). Forwarded to API as-is.
- * @typedef {Object} InventorySeatclassesQuery
- */
-
-/**
  * Factory for seat-classes API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -15,11 +10,10 @@ const {authorizationHeaders} = require("./../endpoints_helpers");
  */
 function seatClassesFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /seat-classes - list seat classes.
+   * GET /seat-classes - list seat classes. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {InventorySeatclassesQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -33,12 +27,11 @@ function seatClassesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /seat-classes/:id - get seat class by id.
+   * GET /seat-classes/:id - get seat class by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.id - Seat class id
-   * @param {InventorySeatclassesQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -52,13 +45,12 @@ function seatClassesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /seat-classes/:id - update seat class.
+   * PUT /seat-classes/:id - update seat class. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.id - Seat class id
    * @param {Object} opts.data - Request body
-   * @param {InventorySeatclassesQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -73,12 +65,11 @@ function seatClassesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /seat-classes/:id - remove seat class.
+   * DELETE /seat-classes/:id - remove seat class. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.id - Seat class id
-   * @param {InventorySeatclassesQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -92,12 +83,11 @@ function seatClassesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /seat-classes - create seat class.
+   * POST /seat-classes - create seat class. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} opts.data - Request body
-   * @param {InventorySeatclassesQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

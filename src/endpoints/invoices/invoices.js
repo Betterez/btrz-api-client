@@ -2,8 +2,15 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * Query params for invoices endpoints (btrz-api-invoices). Forwarded to API as-is.
- * @typedef {Object} InvoicesQuery
+ * Query params for GET /invoices (btrz-api-invoices). See get-handler getSpec().
+ * @typedef {Object} InvoicesListQuery
+ * @property {string} transactionId - Transaction id of the invoice (required)
+ */
+
+/**
+ * Query params for GET /failures (btrz-api-invoices). See get-failures-handler getSpec().
+ * @typedef {Object} InvoicesFailuresQuery
+ * @property {string} [transactionId] - Transaction id of the invoice failure
  */
 
 /**
@@ -19,7 +26,7 @@ function invoicesFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {InvoicesQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {InvoicesListQuery} [opts.query] - Query params (transactionId required)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -33,12 +40,11 @@ function invoicesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /invoices/:id - get invoice by id.
+   * GET /invoices/:id - get invoice by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.id - Invoice id
-   * @param {InvoicesQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -56,7 +62,7 @@ function invoicesFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {InvoicesQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {InvoicesFailuresQuery} [opts.query] - Query params (transactionId optional)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -70,12 +76,11 @@ function invoicesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /retry - retry invoicing.
+   * POST /retry - retry invoicing. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} opts.data - Request body
-   * @param {InvoicesQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -90,12 +95,11 @@ function invoicesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /retry - override buyer and retry invoicing.
+   * PUT /retry - override buyer and retry invoicing. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} opts.data - Request body
-   * @param {InvoicesQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

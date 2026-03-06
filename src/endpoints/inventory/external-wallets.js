@@ -13,7 +13,7 @@ function externalWalletsFactory({client, internalAuthTokenProvider}) {
   /** @type {{ all: function, create: function, get: function, update: function, movements: object }} */
   const saldoMax = {
     /**
-     * GET /external-wallets/saldo-max - list saldo max wallets.
+     * GET /external-wallets/saldo-max - list saldo max wallets. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -27,7 +27,7 @@ function externalWalletsFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * POST /external-wallets/saldo-max - create saldo max wallet.
+     * POST /external-wallets/saldo-max - create saldo max wallet. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -44,7 +44,7 @@ function externalWalletsFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * GET /external-wallets/saldo-max/:walletId - get saldo max wallet.
+     * GET /external-wallets/saldo-max/:walletId - get saldo max wallet. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -58,7 +58,7 @@ function externalWalletsFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * PUT /external-wallets/saldo-max/:externalWallet._id - update saldo max wallet.
+     * PUT /external-wallets/saldo-max/:externalWallet._id - update saldo max wallet. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -85,7 +85,7 @@ function externalWalletsFactory({client, internalAuthTokenProvider}) {
     /** @type {{ create: function }} */
     movements: {
       /**
-       * PUT /external-wallets/saldo-max/:walletId/movements - create movement.
+       * PUT /external-wallets/saldo-max/:walletId/movements - create movement. API does not accept query params.
        * @param {Object} opts
        * @param {string} [opts.token] - API key
        * @param {string} [opts.jwtToken] - JWT or internal auth symbol

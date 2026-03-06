@@ -1,8 +1,9 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * Query params for parcel-zones endpoints (btrz-api-inventory). Forwarded to API as-is.
- * @typedef {Object} InventoryParcelZonesQuery
+ * Query params for GET /parcel-zones (btrz-api-inventory). See get-parcel-zones getSpec().
+ * @typedef {Object} ParcelZonesListQuery
+ * @property {string} [providerIds] - Provider IDs to get parcel zones for
  */
 
 /**
@@ -17,7 +18,7 @@ function parcelZonesFactory({client, internalAuthTokenProvider}) {
    * GET /parcel-zones - list parcel zones.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {InventoryParcelZonesQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {ParcelZonesListQuery} [opts.query] - Query params (providerIds)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -29,7 +30,7 @@ function parcelZonesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /parcel-zones - create parcel zone.
+   * POST /parcel-zones - create parcel zone. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {Object} opts.parcelZone - Parcel zone payload
@@ -47,7 +48,7 @@ function parcelZonesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /parcel-zone/:parcelZoneId - update parcel zone.
+   * PUT /parcel-zone/:parcelZoneId - update parcel zone. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} [opts.token] - API key

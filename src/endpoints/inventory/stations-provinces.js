@@ -11,7 +11,7 @@ const {
  */
 function stationsProvincesFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /stations/provinces - list station provinces.
+   * GET /stations/provinces - list station provinces. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

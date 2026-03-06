@@ -2,6 +2,27 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
+ * Query params for GET /routes (btrz-api-inventory). See get-routes getSpec().
+ * @typedef {Object} RoutesListQuery
+ * @property {string} [disabled] - Get enabled or disabled routes [true, false]
+ * @property {string} [productId] - Filter by product id (object id)
+ * @property {string} [routeGTFSID] - Filter by route external ID (GTFS)
+ * @property {string} [providerId] - Filter by provider
+ * @property {string} [name] - Filter by exact name (case sensitive)
+ * @property {string} [partialName] - Filter by partial name (case insensitive)
+ * @property {number} [page] - Page for pagination
+ * @property {boolean} [minimalPayload] - If true, schedules not included in response
+ */
+
+/**
+ * Query params for GET /routes/proration-tables (btrz-api-inventory). See get-proration-tables getSpec().
+ * @typedef {Object} RoutesProrationTablesListQuery
+ * @property {string} [routeId] - Route id
+ * @property {string} [providerId] - Provider id
+ * @property {string} [productId] - Product id (journey pricing)
+ */
+
+/**
  * Factory for routes API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -10,7 +31,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function routesFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /routes/:routeId - get route by id.
+   * GET /routes/:routeId - get route by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -27,14 +48,15 @@ function routesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /routes/prices - get route prices.
+   * GET /routes/prices - get route prices. Client merges productId, originId, destinationId, channel into query.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.productId - Product id
-   * @param {string} opts.originId - Origin id
-   * @param {string} opts.destinationId - Destination id
-   * @param {string} opts.channel - Channel
+   * @param {string} opts.productId - Product id (merged into query)
+   * @param {string} opts.originId - Origin id (merged into query)
+   * @param {string} opts.destinationId - Destination id (merged into query)
+   * @param {string} opts.channel - Channel (merged into query)
+   * @param {Object} [opts.query] - Additional query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -53,6 +75,7 @@ function routesFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {RoutesListQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -64,7 +87,7 @@ function routesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /routes/:routeId/stations - get route stations.
+   * GET /routes/:routeId/stations - get route stations. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -80,7 +103,7 @@ function routesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /routes - create route.
+   * POST /routes - create route. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -100,7 +123,7 @@ function routesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /routes/:routeId - update route.
+   * PUT /routes/:routeId - update route. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -121,7 +144,7 @@ function routesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /routes/:routeId - remove route.
+   * DELETE /routes/:routeId - remove route. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -142,7 +165,7 @@ function routesFactory({client, internalAuthTokenProvider}) {
   /** @type {{ all: function, create: function, update: function }} */
   const fareTables = {
     /**
-     * GET /routes/fare-tables - list fare tables.
+     * GET /routes/fare-tables - list fare tables. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -161,7 +184,7 @@ function routesFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * POST /routes/:routeId/fare-tables - create fare table.
+     * POST /routes/:routeId/fare-tables - create fare table. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -185,7 +208,7 @@ function routesFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * PUT /routes/:routeId/fare-tables/:fareTableId - update fare table.
+     * PUT /routes/:routeId/fare-tables/:fareTableId - update fare table. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -213,7 +236,7 @@ function routesFactory({client, internalAuthTokenProvider}) {
   /** @type {{ create: function }} */
   const stops = {
     /**
-     * POST /routes/:routeId/stops - create stop.
+     * POST /routes/:routeId/stops - create stop. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -237,7 +260,7 @@ function routesFactory({client, internalAuthTokenProvider}) {
   /** @type {{ get: function, create: function, update: function, remove: function }} */
   const fareRules = {
     /**
-     * GET /routes/:routeId/fare-rules - get fare rules.
+     * GET /routes/:routeId/fare-rules - get fare rules. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -254,7 +277,7 @@ function routesFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * POST /routes/:routeId/fare-rules - create fare rule.
+     * POST /routes/:routeId/fare-rules - create fare rule. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -276,7 +299,7 @@ function routesFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * PUT /routes/:routeId/fare-rules/:fareRuleId - update fare rule.
+     * PUT /routes/:routeId/fare-rules/:fareRuleId - update fare rule. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -299,7 +322,7 @@ function routesFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * DELETE /routes/:routeId/fare-rules/:fareRuleId - remove fare rule.
+     * DELETE /routes/:routeId/fare-rules/:fareRuleId - remove fare rule. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -322,7 +345,7 @@ function routesFactory({client, internalAuthTokenProvider}) {
   /** @type {{ get: function, create: function, update: function, remove: function }} */
   const priceBuckets = {
     /**
-     * GET /routes/:routeId/price-buckets - get price buckets.
+     * GET /routes/:routeId/price-buckets - get price buckets. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -339,7 +362,7 @@ function routesFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * POST /routes/:routeId/price-buckets - create price bucket.
+     * POST /routes/:routeId/price-buckets - create price bucket. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -361,7 +384,7 @@ function routesFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * PUT /routes/:routeId/price-buckets/:bucketId - update price bucket.
+     * PUT /routes/:routeId/price-buckets/:bucketId - update price bucket. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -384,7 +407,7 @@ function routesFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * DELETE /routes/:routeId/price-buckets/:bucketId - remove price bucket.
+     * DELETE /routes/:routeId/price-buckets/:bucketId - remove price bucket. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -407,7 +430,7 @@ function routesFactory({client, internalAuthTokenProvider}) {
   /** @type {{ get: function, update: function }} */
   const crossBorderDistances = {
     /**
-     * GET /routes/:routeId/cross-border-distances - get cross border distances.
+     * GET /routes/:routeId/cross-border-distances - get cross border distances. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -424,7 +447,7 @@ function routesFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * PUT /routes/:routeId/cross-border-distances - update cross border distances.
+     * PUT /routes/:routeId/cross-border-distances - update cross border distances. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -455,6 +478,7 @@ function routesFactory({client, internalAuthTokenProvider}) {
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+     * @param {RoutesProrationTablesListQuery} [opts.query] - Query params (routeId, providerId, productId)
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
@@ -473,7 +497,7 @@ function routesFactory({client, internalAuthTokenProvider}) {
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.routeId - Route id
-     * @param {string} [opts.productId] - Product id (optional query)
+     * @param {string} [opts.productId] - Product id (optional query; filters by product)
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
@@ -488,7 +512,7 @@ function routesFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * PUT /routes/:routeId/proration-tables - update proration table by route id.
+     * PUT /routes/:routeId/proration-tables - update proration table by route id. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol

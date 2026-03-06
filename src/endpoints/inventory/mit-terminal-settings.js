@@ -11,7 +11,7 @@ const {
  */
 function mitTerminalFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /mit-terminals-settings - list MIT terminal settings.
+   * GET /mit-terminals-settings - list MIT terminal settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -31,7 +31,7 @@ function mitTerminalFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /mit-terminals-settings/:id - get MIT terminal setting by id.
+   * GET /mit-terminals-settings/:id - get MIT terminal setting by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -46,7 +46,7 @@ function mitTerminalFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /mit-terminals-settings - create MIT terminal settings.
+   * POST /mit-terminals-settings - create MIT terminal settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -66,7 +66,7 @@ function mitTerminalFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /mit-terminals-settings/:id - remove MIT terminal settings.
+   * DELETE /mit-terminals-settings/:id - remove MIT terminal settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -83,7 +83,7 @@ function mitTerminalFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /mit-terminals-settings/:id - update MIT terminal settings.
+   * PUT /mit-terminals-settings/:id - update MIT terminal settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

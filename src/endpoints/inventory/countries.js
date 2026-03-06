@@ -1,6 +1,12 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
+ * Query params for GET /countries (btrz-api-inventory). See get-countries getSpec().
+ * @typedef {Object} CountriesListQuery
+ * @property {string} [isoCode] - Country 2 or 3 letter ISO code
+ */
+
+/**
  * Factory for countries API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -13,6 +19,7 @@ function countriesFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {CountriesListQuery} [opts.query] - Query params (isoCode)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -25,7 +32,7 @@ function countriesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /countries/:id - get country by id.
+   * GET /countries/:id - get country by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

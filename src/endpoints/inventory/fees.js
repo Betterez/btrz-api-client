@@ -1,8 +1,12 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * Query params for fees endpoints (btrz-api-inventory). Forwarded to API as-is.
+ * Query params for GET /fees (btrz-api-inventory). See fees get-handler getSpec().
  * @typedef {Object} InventoryFeesQuery
+ * @property {string} [providerIds] - Provider IDs to get fees for
+ * @property {string} [rules] - Rules where the fees apply
+ * @property {string} [productId] - Product ID for the fee
+ * @property {string} [internalId] - Fee internal id
  */
 
 /**
@@ -29,7 +33,7 @@ function feesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /fees/:feeId - get fee by id.
+   * GET /fees/:feeId - get fee by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -44,7 +48,7 @@ function feesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /fees - create fee.
+   * POST /fees - create fee. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -62,7 +66,7 @@ function feesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /fees/:feeId - update fee.
+   * PUT /fees/:feeId - update fee. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

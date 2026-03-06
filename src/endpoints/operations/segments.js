@@ -1,9 +1,9 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * Query params for GET /products/:productId/segments/:ticketId (btrz-api-operations). Client passes providerId as query.
+ * Query param for GET /products/:productId/segments/:ticketId (btrz-api-operations getSpec). Client passes via opts.providerId.
  * @typedef {Object} SegmentsListQuery
- * @property {string} [providerId] - Provider/account id
+ * @property {string} [providerId] - Provider/account id (Id of the provider account)
  */
 
 /**

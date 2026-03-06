@@ -9,11 +9,6 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 
 /**
- * PUT and POST /passenger-check-in-info do not define query params in backend getSpec. Use for optional query keys forwarded as-is.
- * @typedef {Object} PassengerCheckInInfoPostQuery
- */
-
-/**
  * Factory for passenger-check-in-info API (btrz-api-operations).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -39,7 +34,7 @@ function passengerCheckInInfoFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /passenger-check-in-info/:id - get passenger check-in info by id.
+   * GET /passenger-check-in-info/:id - get passenger check-in info by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -56,13 +51,12 @@ function passengerCheckInInfoFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /passenger-check-in-info/:id - update passenger check-in info. Backend getSpec has no query params; query is passed through.
+   * PUT /passenger-check-in-info/:id - update passenger check-in info. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.id - Passenger check-in info id (ObjectId)
    * @param {Object} opts.data - PassengerCheckInInfoPutData
-   * @param {PassengerCheckInInfoPostQuery} [opts.query] - Optional query params (backend getSpec has none; forwarded as-is)
    * @param {Object} [opts.headers] - Optional request headers
    * @returns {Promise<import("axios").AxiosResponse>} 404 PASSENGERCHECKININFO_NOT_FOUND
    */
@@ -85,11 +79,10 @@ function passengerCheckInInfoFactory({client, internalAuthTokenProvider}) {
   // }
 
   /**
-   * POST /passenger-check-in-info - create passenger check-in info. Backend getSpec has no query params; query is passed through.
+   * POST /passenger-check-in-info - create passenger check-in info. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {PassengerCheckInInfoPostQuery} [opts.query] - Optional query params (backend getSpec has none; forwarded as-is)
    * @param {Object} opts.data - PassengerCheckInInfoPostData (passengercheckininfo: ticketId, trxId, information, type)
    * @param {Object} [opts.headers] - Optional request headers
    * @returns {Promise<import("axios").AxiosResponse>}

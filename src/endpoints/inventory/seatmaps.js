@@ -2,6 +2,38 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
+ * Query params for GET /seatmaps (btrz-api-inventory). See get-handler getSpec().
+ * @typedef {Object} SeatmapsListQuery
+ * @property {string} [vehicleId] - Return only seatmaps assigned to this vehicle; disables pagination
+ * @property {string} [name] - Filter by name (case-insensitive partial match)
+ * @property {string} [amenityGroupId] - Filter by amenity group id
+ * @property {string} [brandId] - Filter by brand id
+ * @property {number} [capacity] - Filter by exact capacity
+ * @property {boolean} [standard] - Filter by standard seatmap flag
+ * @property {boolean} [originalOnly] - When true, only original seatmaps (no manifest copies)
+ * @property {boolean} [newdesign] - When true, query new design collection; otherwise legacy
+ * @property {number} [page] - Page number (1-based, 20 per page); ignored when vehicleId provided
+ */
+
+/**
+ * Query params for GET /seatmaps/:seatmapId/available-seats/... (btrz-api-inventory). See get-seatmaps-id-available-seats getSpec().
+ * @typedef {Object} SeatmapsAvailableSeatsQuery
+ * @property {boolean} [newdesign] - If true and account uses new design, return new structure
+ * @property {string} [originId] - Origin station for segment (required for API)
+ * @property {string} [destinationId] - Destination station for segment (required for API)
+ * @property {string} [providerId] - Provider id; defaults to account
+ * @property {string} [legFromIndex] - Departure station index in schedule (0-based)
+ * @property {string} [legToIndex] - Arrival station index in schedule (0-based)
+ * @property {string} [channel] - Channel: agency, agency-backoffice, backoffice, websales, agency-websales
+ */
+
+/**
+ * Query for GET /seatmaps/:seatmapId/occupied-seats (btrz-api-inventory). See get-occupied-seats getSpec().
+ * @typedef {Object} SeatmapsOccupiedSeatsQuery
+ * @property {boolean} newdesign - Must be true; required for new-design seatmaps
+ */
+
+/**
  * Factory for seatmaps API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -14,6 +46,7 @@ function seatmapsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {SeatmapsListQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -32,6 +65,7 @@ function seatmapsFactory({client, internalAuthTokenProvider}) {
    * @param {string} opts.routeId - Route id
    * @param {string} opts.scheduleId - Schedule id
    * @param {string} opts.manifestDate - Manifest date
+   * @param {SeatmapsAvailableSeatsQuery} [opts.query] - Query params (originId, destinationId, etc.)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -48,6 +82,7 @@ function seatmapsFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.seatmapId - Seatmap id
+   * @param {string} [opts.providerId] - Optional account id to scope lookup (query)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -59,7 +94,7 @@ function seatmapsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /seatmaps - create seatmap.
+   * POST /seatmaps - create seatmap. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -79,7 +114,7 @@ function seatmapsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /seatmaps/:seatmapId - update seatmap.
+   * PUT /seatmaps/:seatmapId - update seatmap. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -100,7 +135,7 @@ function seatmapsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /seatmaps/:seatmapId - remove seatmap.
+   * DELETE /seatmaps/:seatmapId - remove seatmap. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -117,11 +152,12 @@ function seatmapsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /seatmaps/:seatmapId/occupied-seats - get occupied seats.
+   * GET /seatmaps/:seatmapId/occupied-seats - get occupied seats. Requires newdesign=true in query.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.seatmapId - Seatmap id
+   * @param {SeatmapsOccupiedSeatsQuery} [opts.query] - Query (newdesign required)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

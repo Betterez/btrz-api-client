@@ -2,8 +2,27 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * Query params for promos endpoints (btrz-api-inventory). Forwarded to API as-is.
- * @typedef {Object} InventoryPromosQuery
+ * Query params for GET /promos (btrz-api-inventory). See get-promos getSpec().
+ * @typedef {Object} PromosListQuery
+ * @property {string} [providerIds] - Provider IDs to get promos for
+ * @property {string} [productId] - Product id
+ * @property {string} [productIds] - Comma-separated product IDs (mutually exclusive with productId)
+ * @property {string} [promoCode] - Promo internal id
+ * @property {string} [name] - Promo name
+ * @property {string} [campaign] - Campaign the promo belongs to
+ * @property {string} [origin] - Departure station name
+ * @property {string} [destination] - Destination station name
+ * @property {string} [fareIds] - Comma-separated fare IDs
+ * @property {string} [tripType] - 'oneway' or 'roundtrip'
+ * @property {string} [channels] - Filter by channels (mandatory if promoCode not given)
+ * @property {boolean} [autoApply] - Filter only auto-applied promos
+ * @property {string} [includeExpired] - Include expired promos (deprecated)
+ * @property {string} [searchOutboundTravelDate] - Outbound travel date for validity
+ * @property {string} [searchReturnTravelDate] - Return travel date for validity
+ * @property {string} [qty] - Number of tickets
+ * @property {number} [page] - Page for pagination
+ * @property {string} [orderBy] - Field to order by
+ * @property {string} [orderDir] - 'asc' (1) or 'desc' (-1)
  */
 
 /**
@@ -19,7 +38,7 @@ function promosFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {InventoryPromosQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {PromosListQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -31,12 +50,11 @@ function promosFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /promos/:promoId - get promo by id.
+   * GET /promos/:promoId - get promo by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.promoId - Promo id
-   * @param {InventoryPromosQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -48,7 +66,7 @@ function promosFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /promos - create promo.
+   * POST /promos - create promo. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -66,7 +84,7 @@ function promosFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /promos/:promoId - remove promo.
+   * DELETE /promos/:promoId - remove promo. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -83,7 +101,7 @@ function promosFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PATCH /promos/:promoId - update promo.
+   * PATCH /promos/:promoId - update promo. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -103,7 +121,7 @@ function promosFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PATCH /promo/:promoId - patch promo with operations.
+   * PATCH /promo/:promoId - patch promo with operations. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -122,7 +140,7 @@ function promosFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /promos/:promoId/rules - add promo rule.
+   * POST /promos/:promoId/rules - add promo rule. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -141,7 +159,7 @@ function promosFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /promos/:promoId/rules/:ruleId - update promo rule.
+   * PUT /promos/:promoId/rules/:ruleId - update promo rule. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

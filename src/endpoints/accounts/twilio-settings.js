@@ -11,7 +11,7 @@ const {
  */
 function twilioSettingsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /twilio-settings - get Twilio settings.
+   * GET /twilio-settings - get Twilio settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -27,7 +27,7 @@ function twilioSettingsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /twilio-settings - update Twilio settings.
+   * PUT /twilio-settings - update Twilio settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

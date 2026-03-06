@@ -11,7 +11,7 @@ const {
  */
 function journeyPricesSettingsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /journey-prices-settings - get journey prices settings.
+   * GET /journey-prices-settings - get journey prices settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -26,7 +26,7 @@ function journeyPricesSettingsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /journey-prices-settings - update journey prices settings.
+   * PUT /journey-prices-settings - update journey prices settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

@@ -1,8 +1,22 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * @typedef {Object} ParcelsQuery
+ * Query params for GET /parcels list (btrz-api-operations). See get-parcel-handler getSpec().
+ * @typedef {Object} ParcelsListQuery
+ * @property {string} [trxId] - Transaction ID
+ * @property {string} [transactionId] - Transaction ID (alias)
+ * @property {string} [parcelId] - Parcel ID
+ * @property {string} [dateFrom] - Filter from date
+ * @property {string} [dateTo] - Filter to date
+ * @property {string} [originId] - Origin station ID
+ * @property {string} [destinationId] - Destination station ID
+ * @property {string} [trackingStatus] - Tracking status
+ * @property {boolean} [notInManifest] - Exclude parcels already in a manifest
  * @property {string} [providerId] - Provider account ID (also set via opts.providerId)
+ * @property {string} [lookupSearchParams] - Search for lookup
+ * @property {number} [page] - Page number
+ * @property {number} [recordsPerPage] - Records per page
+ * @property {boolean} [assignableToManifest] - Only parcels assignable to manifest
  */
 
 /**
@@ -14,7 +28,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function parcelFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /parcels/:id - get parcel by id.
+   * GET /parcels/:id - get parcel by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -34,7 +48,7 @@ function parcelFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {ParcelsQuery} [opts.query] - Query params (providerId merged if opts.providerId set)
+   * @param {ParcelsListQuery} [opts.query] - Query params (providerId merged if opts.providerId set)
    * @param {string} [opts.providerId] - Provider id (merged into query)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
@@ -49,7 +63,7 @@ function parcelFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /parcels/:id/scans - add scan to parcel.
+   * POST /parcels/:id/scans - add scan to parcel. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -69,7 +83,7 @@ function parcelFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /parcels/:id/user-comments - add comment to parcel.
+   * POST /parcels/:id/user-comments - add comment to parcel. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -88,7 +102,7 @@ function parcelFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /parcels/:id/user-comments/:commentId - delete parcel comment.
+   * DELETE /parcels/:id/user-comments/:commentId - delete parcel comment. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

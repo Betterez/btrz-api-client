@@ -2,9 +2,9 @@
 const {authorizationHeaders} = require("../endpoints_helpers.js");
 
 /**
- * Query params for POST /gti (btrz-api-invoices). onlyValidateRequest optional.
+ * Query params for POST /gti (btrz-api-invoices). See post-gti-handler getSpec().
  * @typedef {Object} InvoiceGtiPostQuery
- * @property {string} [onlyValidateRequest] - If true, only validates the payload and does not process it
+ * @property {string|boolean} [onlyValidateRequest] - If true, only validates the payload and does not process it
  */
 
 /**

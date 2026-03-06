@@ -2,8 +2,9 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * Query params for GET /pdfs (btrz-api-invoices). Forwarded to API as-is.
- * @typedef {Object} InvoicePdfsListQuery
+ * Query params for GET /pdfs (btrz-api-invoices). See pdfs get-handler getSpec().
+ * @typedef {Object} PdfsListQuery
+ * @property {string} transactionId - Transaction id of the invoice (required)
  */
 
 /**
@@ -19,7 +20,7 @@ function pdfsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {InvoicePdfsListQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {PdfsListQuery} [opts.query] - Query params (transactionId required)
    * @param {string} [opts.responseType] - Response type (e.g. "json", "blob")
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}

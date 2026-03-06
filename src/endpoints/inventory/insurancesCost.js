@@ -3,8 +3,11 @@ const {
 } = require("./../endpoints_helpers.js");
 
 /**
- * Query params for insurances cost endpoints (btrz-api-inventory). Forwarded to API as-is.
- * @typedef {Object} InventoryInsurancesCostQuery
+ * Query params for GET /insurances/:productId/cost (btrz-api-inventory). See GetInsuranceCostsHandler getSpec().
+ * Client merges opts.declaredValue into query.
+ * @typedef {Object} InsurancesCostQuery
+ * @property {*} declaredValue - Declared value (required by API; may be passed as opts.declaredValue)
+ * @property {string} [providerId] - Provider id
  */
 
 /**
@@ -18,12 +21,12 @@ function insurancesCostFactory({
   client, internalAuthTokenProvider
 }) {
   /**
-   * GET /insurances/:productId/cost - get insurance cost for product.
+   * GET /insurances/:productId/cost - get insurance cost for product. Client merges opts.declaredValue into query.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} opts.productId - Product id
-   * @param {*} opts.declaredValue - Declared value (merged into query)
-   * @param {InventoryInsurancesCostQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {*} opts.declaredValue - Declared value (required; merged into query)
+   * @param {InsurancesCostQuery} [opts.query] - Additional query params (e.g. providerId)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

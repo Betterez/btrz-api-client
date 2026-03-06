@@ -2,6 +2,13 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
+ * Query params for GET /websales-config (btrz-api-accounts). See get-handler getSpec().
+ * @typedef {Object} WebsalesConfigListQuery
+ * @property {string} [domain] - Filter by domain
+ * @property {string} [providerId] - Provider id for websales-config (ObjectId)
+ */
+
+/**
  * Factory for websales-config API (btrz-api-accounts).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -10,10 +17,11 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function websalesConfigFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /websales-config - get websales config (list when no id).
+   * GET /websales-config - get websales config (list).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {WebsalesConfigListQuery} [opts.query] - Query params (domain, providerId)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -26,7 +34,7 @@ function websalesConfigFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /websales-config/:websalesConfigId - update websales config.
+   * PUT /websales-config/:websalesConfigId - update websales config. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

@@ -2,8 +2,10 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
+ * Query params for GET /bundles (btrz-api-sales get-bundles getSpec).
  * @typedef {Object} BundlesListQuery
- * @property {string} [providerId] - Provider account ID
+ * @property {string} [providerId] - Provider account id to get bundles for
+ * @property {string} type - Filter bundles by bundle type (required)
  */
 
 /**
@@ -18,7 +20,7 @@ function bundlesFactory({client, internalAuthTokenProvider}) {
    * GET /bundles - list bundles.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {BundlesListQuery} [opts.query] - Query params
+   * @param {BundlesListQuery} [opts.query] - Query params (type required)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

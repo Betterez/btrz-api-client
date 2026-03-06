@@ -12,7 +12,7 @@ const {
  */
 function parcelQuotesFactory({client, internalAuthTokenProvider}) {
   /**
-   * POST /parcel-quotes - get parcel quote.
+   * POST /parcel-quotes - get parcel quote. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {Object} opts.parcelQuoteData - Parcel quote request payload

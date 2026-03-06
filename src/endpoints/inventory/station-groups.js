@@ -3,6 +3,12 @@ const {
 } = require("./../endpoints_helpers.js");
 
 /**
+ * Query params for GET /station-groups (btrz-api-inventory). See get-handler getSpec().
+ * @typedef {Object} StationGroupsListQuery
+ * @property {string} [providerIds] - Provider ids to get station groups for
+ */
+
+/**
  * Factory for station-groups API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -15,6 +21,7 @@ function stationGroupsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {StationGroupsListQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

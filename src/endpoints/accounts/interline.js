@@ -12,7 +12,7 @@ const {
 function interlineFactory({client, internalAuthTokenProvider}) {
   const invitations = {
     /**
-     * GET /interline/invitations - list interline invitations.
+     * GET /interline/invitations - list interline invitations. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -27,7 +27,7 @@ function interlineFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * GET /interline/invitations/:invitationId - get an invitation.
+     * GET /interline/invitations/:invitationId - get an invitation. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} opts.invitationId - Invitation id (ObjectId)
@@ -78,7 +78,7 @@ function interlineFactory({client, internalAuthTokenProvider}) {
 
   const consumers = {
     /**
-     * GET /interline/consumers - list interline consumers.
+     * GET /interline/consumers - list interline consumers. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -96,7 +96,7 @@ function interlineFactory({client, internalAuthTokenProvider}) {
 
   const providers = {
     /**
-     * GET /interline/providers - list interline providers.
+     * GET /interline/providers - list interline providers. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -114,7 +114,7 @@ function interlineFactory({client, internalAuthTokenProvider}) {
 
   const network = {
     /**
-     * GET /interline/:interlineId/network - get interline network.
+     * GET /interline/:interlineId/network - get interline network. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} opts.interlineId - Interline id (ObjectId)

@@ -2,11 +2,6 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * Query params for provider sequences endpoints (btrz-api-invoices). Backend getSpec for list has no query; forwarded as-is.
- * @typedef {Object} InvoiceProvidersSequencesQuery
- */
-
-/**
  * Factory for invoice provider sequences API (btrz-api-invoices).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -15,12 +10,11 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function providersSequencesFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /providers/:invoiceProviderId/sequences - list provider sequences.
+   * GET /providers/:invoiceProviderId/sequences - list provider sequences. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.invoiceProviderId - Invoice provider id
-   * @param {InvoiceProvidersSequencesQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>} 404 PROVIDER_NOT_FOUND
    */
@@ -34,13 +28,12 @@ function providersSequencesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /providers/:invoiceProviderId/sequences/:invoiceProviderSequenceId - get provider sequence.
+   * GET /providers/:invoiceProviderId/sequences/:invoiceProviderSequenceId - get provider sequence. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.invoiceProviderId - Invoice provider id
    * @param {string} opts.invoiceProviderSequenceId - Sequence id
-   * @param {InvoiceProvidersSequencesQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -54,13 +47,12 @@ function providersSequencesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /providers/:invoiceProviderId/sequences/:id - remove provider sequence.
+   * DELETE /providers/:invoiceProviderId/sequences/:id - remove provider sequence. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.invoiceProviderId - Invoice provider id
    * @param {string} opts.id - Sequence id
-   * @param {InvoiceProvidersSequencesQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -74,13 +66,12 @@ function providersSequencesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /providers/:invoiceProviderId/sequences - create provider sequence.
+   * POST /providers/:invoiceProviderId/sequences - create provider sequence. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.invoiceProviderId - Invoice provider id
    * @param {Object} opts.data - Request body
-   * @param {InvoiceProvidersSequencesQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -95,14 +86,13 @@ function providersSequencesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /providers/:invoiceProviderId/sequences/:invoiceProviderSequenceId - update provider sequence.
+   * PUT /providers/:invoiceProviderId/sequences/:invoiceProviderSequenceId - update provider sequence. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.invoiceProviderId - Invoice provider id
    * @param {string} opts.invoiceProviderSequenceId - Sequence id
    * @param {Object} opts.data - Request body
-   * @param {InvoiceProvidersSequencesQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

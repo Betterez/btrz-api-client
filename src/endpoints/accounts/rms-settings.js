@@ -11,7 +11,7 @@ const {
  */
 function revenueManagementSettingsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /rms-settings - get revenue management settings.
+   * GET /rms-settings - get revenue management settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -26,7 +26,7 @@ function revenueManagementSettingsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /rms-settings - update revenue management settings.
+   * PUT /rms-settings - update revenue management settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

@@ -3,8 +3,11 @@ const {
 } = require("./../endpoints_helpers.js");
 
 /**
- * Query params for seatfees endpoints (btrz-api-inventory). Forwarded to API as-is.
- * @typedef {Object} InventorySeatfeesQuery
+ * Query params for GET /seat-fees (btrz-api-inventory). See get-handler getSpec().
+ * @typedef {Object} SeatFeesListQuery
+ * @property {string} [disabled] - Filter disabled/enabled [true, false]
+ * @property {string} [providerId] - Provider account id to get seat fees for
+ * @property {string} [currency] - ISO 4217 currency code; defaults to account currency
  */
 
 /**
@@ -19,7 +22,7 @@ function seatfeesFactory({client, internalAuthTokenProvider}) {
    * GET /seat-fees - list seat fees.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {InventorySeatfeesQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {SeatFeesListQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -35,7 +38,7 @@ function seatfeesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /seat-fees/:seatfeeId - get seat fee by id.
+   * GET /seat-fees/:seatfeeId - get seat fee by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} opts.seatfeeId - Seat fee id
    * @param {string} [opts.token] - API key
@@ -49,7 +52,7 @@ function seatfeesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /seat-fees - create seat fee.
+   * POST /seat-fees - create seat fee. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} [opts.token] - API key
@@ -69,7 +72,7 @@ function seatfeesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /seat-fees/:seatfeeId - update seat fee.
+   * PUT /seat-fees/:seatfeeId - update seat fee. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} [opts.token] - API key

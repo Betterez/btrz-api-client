@@ -3,8 +3,13 @@ const {
 } = require("../endpoints_helpers.js");
 
 /**
- * @typedef {Object} VehicleAssignmentsQuery
- * @property {string} [providerId] - Provider account ID
+ * Query params for GET /vehicle-assignments list (btrz-api-operations get-handler getSpec).
+ * @typedef {Object} VehicleAssignmentsListQuery
+ * @property {string} [name] - Partial or full name of the vehicle assignment
+ * @property {string} [effectiveFrom] - Valid-from date (format per API)
+ * @property {string} [effectiveTo] - Valid-to date (format per API)
+ * @property {string} [status] - Status, comma-separated; valid: draft, published
+ * @property {number} [page] - Page number (20 records per page)
  */
 
 /**
@@ -33,7 +38,7 @@ function vehicleAssignmentFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * GET /vehicle-assignments/:vehicleAssignmentId - get vehicle assignment by id.
+     * GET /vehicle-assignments/:vehicleAssignmentId - get vehicle assignment by id. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -47,7 +52,7 @@ function vehicleAssignmentFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * POST /vehicle-assignments - create vehicle assignment.
+     * POST /vehicle-assignments - create vehicle assignment. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -64,7 +69,7 @@ function vehicleAssignmentFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * PUT /vehicle-assignments/:vehicleAssignmentId - update vehicle assignment.
+     * PUT /vehicle-assignments/:vehicleAssignmentId - update vehicle assignment. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol

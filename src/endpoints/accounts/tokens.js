@@ -1,6 +1,13 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
+ * Query params for GET /tokens (btrz-api-accounts). See get-tokens handler getSpec().
+ * @typedef {Object} TokensGetQuery
+ * @property {string} token - Token ID (required)
+ * @property {string} type - Token type (required; see API Token.getTypes())
+ */
+
+/**
  * Factory for tokens (applications) API (btrz-api-accounts).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -9,10 +16,11 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function applicationsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /tokens - get tokens (applications).
+   * GET /tokens - get a token by ID and type.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {TokensGetQuery} [opts.query] - Query params: token (id), type (required)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -24,7 +32,7 @@ function applicationsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /tokens - create a token (application).
+   * POST /tokens - create a token (application). API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

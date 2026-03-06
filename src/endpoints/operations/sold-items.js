@@ -1,8 +1,17 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * @typedef {Object} SoldItemsQuery
- * @property {string} [providerId] - Provider account ID
+ * Query params for GET /sold-items list (btrz-api-operations). See get-handler getSpec().
+ * @typedef {Object} SoldItemsListQuery
+ * @property {number} [page] - Page number to retrieve
+ * @property {string} [from] - Ticket manifest date from (yyyy-mm-dd; range max 31 days)
+ * @property {string} [to] - Ticket manifest date to (yyyy-mm-dd; range max 31 days)
+ */
+
+/**
+ * Query params for GET /sold-items/:soldItemId (btrz-api-operations). See get-by-id-handler getSpec().
+ * @typedef {Object} SoldItemsGetQuery
+ * @property {string} [providerId] - Provider account id (ObjectId)
  */
 
 /**
@@ -19,8 +28,8 @@ function soldItems({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.soldItemId - Sold item id
+   * @param {SoldItemsGetQuery} [opts.query] - Optional query (providerId)
    * @param {Object} [opts.headers] - Optional headers
-   * @param {SoldItemsQuery} [opts.query] - Query params
    * @returns {Promise<import("axios").AxiosResponse>}
    */
   function get({token, jwtToken, soldItemId, headers, query}) {
@@ -35,8 +44,8 @@ function soldItems({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {SoldItemsListQuery} [opts.query] - Query params (page, from, to)
    * @param {Object} [opts.headers] - Optional headers
-   * @param {SoldItemsQuery} [opts.query] - Query params
    * @returns {Promise<import("axios").AxiosResponse>}
    */
   function all({token, jwtToken, headers, query}) {

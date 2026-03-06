@@ -2,6 +2,13 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
+ * Query params for GET /users/:userId/sequences (btrz-api-accounts). See get-user-sequences-handler getSpec().
+ * @typedef {Object} UserSequencesListQuery
+ * @property {string} [status] - inUse | notAvailable
+ * @property {boolean} [nextSequenceNumber] - Include next sequence number
+ */
+
+/**
  * Factory for users API (btrz-api-accounts).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -10,7 +17,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function usersFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /user/:id - get a user by id (legacy).
+   * GET /user/:id - get a user by id (legacy). API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -26,7 +33,7 @@ function usersFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /users/:id - get a user by id (v2).
+   * GET /users/:id - get a user by id (v2). API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -42,7 +49,7 @@ function usersFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /users - list users.
+   * GET /users - list users. API getSpec() does not define query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -199,7 +206,7 @@ function usersFactory({client, internalAuthTokenProvider}) {
 
   const sequences = {
     /**
-     * GET /users/:userId/sequences/:sequenceId - get a sequence.
+     * GET /users/:userId/sequences/:sequenceId - get a sequence. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -220,6 +227,7 @@ function usersFactory({client, internalAuthTokenProvider}) {
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.userId - User id (ObjectId)
+     * @param {UserSequencesListQuery} [opts.query] - Query params (status, nextSequenceNumber)
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */

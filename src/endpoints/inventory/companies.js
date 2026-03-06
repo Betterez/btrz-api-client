@@ -1,8 +1,11 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * Query params for companies endpoints (btrz-api-inventory). Forwarded to API as-is.
+ * Query params for GET /companies (btrz-api-inventory). See get-companies getSpec().
  * @typedef {Object} InventoryCompaniesQuery
+ * @property {string} [search] - Term to find companies (required by API for getBySearch)
+ * @property {string} [disabled] - Filter by disabled [true, false]
+ * @property {string} [providerId] - Get items from the provider
  */
 
 /**
@@ -18,7 +21,7 @@ function companiesFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {InventoryCompaniesQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {InventoryCompaniesQuery} [opts.query] - Query params (search, disabled, providerId)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

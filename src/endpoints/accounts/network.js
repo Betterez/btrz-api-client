@@ -13,7 +13,7 @@ const {
 function networkFactory({client, internalAuthTokenProvider}) {
   const agencies = {
     /**
-     * GET /network/agencies - list agencies.
+     * GET /network/agencies - list agencies. API getSpec() does not define query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -28,10 +28,10 @@ function networkFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * GET /network/agencies/:sellerId - get an agency by seller id.
+     * GET /network/agencies/:agencyId - get an agency by id. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
-     * @param {string} opts.sellerId - Seller/agency id (ObjectId)
+     * @param {string} opts.sellerId - Seller/agency id (ObjectId), maps to path agencyId
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
@@ -43,7 +43,7 @@ function networkFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * PUT /network/agencies/:sellerId - update an agency.
+     * PUT /network/agencies/:sellerId - update an agency. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -87,7 +87,7 @@ function networkFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * PUT /network/agencies/remove-product - remove product from agency.
+     * PUT /network/agencies/remove-product - remove product from agency. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -108,7 +108,7 @@ function networkFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * PUT /network/agencies/remove-fare - remove fare from agency.
+     * PUT /network/agencies/remove-fare - remove fare from agency. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol

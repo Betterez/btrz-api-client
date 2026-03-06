@@ -1,7 +1,8 @@
 const {authorizationHeaders} = require("../endpoints_helpers.js");
 
 /**
- * @typedef {Object} OperationReasonsQuery
+ * Query params for GET /operation-reasons (btrz-api-inventory). See get-handler getSpec().
+ * @typedef {Object} OperationReasonsListQuery
  * @property {number} [page] - The page number to retrieve
  */
 
@@ -18,7 +19,7 @@ function operationReasonFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {OperationReasonsQuery} [opts.query] - Query params
+   * @param {OperationReasonsListQuery} [opts.query] - Query params (page)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -32,12 +33,11 @@ function operationReasonFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /operation-reasons/:id - get operation reason by id.
+   * GET /operation-reasons/:id - get operation reason by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.id - Operation reason id
-   * @param {OperationReasonsQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -51,13 +51,12 @@ function operationReasonFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /operation-reasons/:id - update operation reason.
+   * PUT /operation-reasons/:id - update operation reason. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.id - Operation reason id
    * @param {Object} opts.operationReason - Operation reason payload
-   * @param {OperationReasonsQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -72,12 +71,11 @@ function operationReasonFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /operation-reasons/:id - remove operation reason.
+   * DELETE /operation-reasons/:id - remove operation reason. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.id - Operation reason id
-   * @param {OperationReasonsQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -91,12 +89,11 @@ function operationReasonFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /operation-reasons - create operation reason.
+   * POST /operation-reasons - create operation reason. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} opts.operationReason - Operation reason payload
-   * @param {OperationReasonsQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

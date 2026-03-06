@@ -7,11 +7,6 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 
 /**
- * PUT and POST /scheduled-notifications do not define query params in backend getSpec. Use for optional query keys forwarded as-is.
- * @typedef {Object} ScheduledNotificationsPostQuery
- */
-
-/**
  * Factory for scheduled-notifications API (btrz-api-operations).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -37,7 +32,7 @@ function scheduledNotificationsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /scheduled-notifications/:id - get scheduled notification by id.
+   * GET /scheduled-notifications/:id - get scheduled notification by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -54,13 +49,12 @@ function scheduledNotificationsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /scheduled-notifications/:id - update scheduled notification. Backend getSpec has no query params; query is passed through.
+   * PUT /scheduled-notifications/:id - update scheduled notification. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.id - Scheduled notification id (ObjectId)
    * @param {Object} opts.data - ScheduledNotificationPostData
-   * @param {ScheduledNotificationsPostQuery} [opts.query] - Optional query params (backend getSpec has none; forwarded as-is)
    * @param {Object} [opts.headers] - Optional request headers
    * @returns {Promise<import("axios").AxiosResponse>} 404 SCHEDULEDNOTIFICATION_NOT_FOUND, 409 SCHEDULED_NOTIFICATION_EXISTS
    */
@@ -75,7 +69,7 @@ function scheduledNotificationsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /scheduled-notifications/:id - remove scheduled notification.
+   * DELETE /scheduled-notifications/:id - remove scheduled notification. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -92,11 +86,10 @@ function scheduledNotificationsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /scheduled-notifications - create scheduled notification. Backend getSpec has no query params; query is passed through.
+   * POST /scheduled-notifications - create scheduled notification. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {ScheduledNotificationsPostQuery} [opts.query] - Optional query params (backend getSpec has none; forwarded as-is)
    * @param {Object} opts.data - ScheduledNotificationPostData
    * @param {Object} [opts.headers] - Optional request headers
    * @returns {Promise<import("axios").AxiosResponse>} 409 SCHEDULED_NOTIFICATION_EXISTS

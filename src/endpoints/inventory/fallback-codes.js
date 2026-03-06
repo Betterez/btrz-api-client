@@ -1,6 +1,13 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
+ * Query params for GET /fallback-codes (btrz-api-inventory). See get-fallback-codes getSpec().
+ * @typedef {Object} FallbackCodesListQuery
+ * @property {string} [enabled] - Filter by enabled [true, false]
+ * @property {string} [lastUpdatedAt] - Filter by last updated (yyyy-mm-ddTHH:mm:ss.SSSZ)
+ */
+
+/**
  * Factory for fallback-codes API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -13,6 +20,7 @@ function fallbackCodesFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {FallbackCodesListQuery} [opts.query] - Query params (enabled, lastUpdatedAt)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -24,7 +32,7 @@ function fallbackCodesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /fallback-code/:id - get fallback code by id.
+   * GET /fallback-code/:id - get fallback code by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} opts.id - Fallback code id
@@ -38,7 +46,7 @@ function fallbackCodesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /fallback-codes - create fallback code.
+   * POST /fallback-codes - create fallback code. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -56,7 +64,7 @@ function fallbackCodesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /fallback-code/:fallbackCodeId - update fallback code.
+   * PUT /fallback-code/:fallbackCodeId - update fallback code. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

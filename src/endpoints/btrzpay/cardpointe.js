@@ -11,7 +11,7 @@ const {
  */
 function cardpointeTerminalsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /cardpointe-terminals - list Cardpointe terminals.
+   * GET /cardpointe-terminals - list Cardpointe terminals. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -28,7 +28,7 @@ function cardpointeTerminalsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /cardpointe-terminals/:merchantId/:terminalId - remove terminal.
+   * DELETE /cardpointe-terminals/:merchantId/:terminalId - remove terminal. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -47,7 +47,7 @@ function cardpointeTerminalsFactory({client, internalAuthTokenProvider}) {
 
   const readCard = {
     /**
-     * GET /cardpointe-terminals/read-card/:readCardResultId - get read card result.
+     * GET /cardpointe-terminals/read-card/:readCardResultId - get read card result. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -62,7 +62,7 @@ function cardpointeTerminalsFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * POST /cardpointe-terminals/read-card - create read card.
+     * POST /cardpointe-terminals/read-card - create read card. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -83,7 +83,7 @@ function cardpointeTerminalsFactory({client, internalAuthTokenProvider}) {
 
   const ping = {
     /**
-     * POST /cardpointe-terminals/ping - create ping.
+     * POST /cardpointe-terminals/ping - create ping. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol

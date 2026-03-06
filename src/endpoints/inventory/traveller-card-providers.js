@@ -1,11 +1,6 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * Query params for GET /traveller-card-providers (btrz-api-inventory). Forwarded to API as-is.
- * @typedef {Object} InventoryTravellerCardProvidersListQuery
- */
-
-/**
  * Factory for traveller-card-providers API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -14,11 +9,10 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function travellerCardProvidersFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /traveller-card-providers - list traveller card providers.
+   * GET /traveller-card-providers - list traveller card providers. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {InventoryTravellerCardProvidersListQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -49,7 +43,7 @@ function travellerCardProvidersFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /traveller-card-providers/:travellerCardProviderId - update traveller card provider.
+   * PUT /traveller-card-providers/:travellerCardProviderId - update traveller card provider. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} [opts.token] - API key
@@ -68,7 +62,7 @@ function travellerCardProvidersFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /traveller-card-providers/:travellerCardProviderId - get traveller card provider by id.
+   * GET /traveller-card-providers/:travellerCardProviderId - get traveller card provider by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} opts.travellerCardProviderId - Traveller card provider id

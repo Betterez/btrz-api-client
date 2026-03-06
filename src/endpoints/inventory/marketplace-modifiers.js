@@ -3,8 +3,17 @@ const {
 } = require("../endpoints_helpers.js");
 
 /**
- * Query params for marketplace-modifiers endpoints (btrz-api-inventory). Forwarded to API as-is.
- * @typedef {Object} InventoryMarketplaceModifiersQuery
+ * Query params for GET /marketplace-modifiers (btrz-api-inventory). See get-handler getSpec().
+ * @typedef {Object} MarketplaceModifiersListQuery
+ * @property {string} [externalField1] - Filter by externalField1
+ * @property {string} [externalField2] - Filter by externalField2
+ * @property {string} [externalField3] - Filter by externalField3
+ * @property {string} [createdBy] - Comma-separated user IDs (created by)
+ * @property {string} [updatedBy] - Comma-separated user IDs (updated by)
+ * @property {string} [earliestPurchaseDate] - ISO 8601 datetime (purchase on or after)
+ * @property {string} [latestPurchaseDate] - ISO 8601 datetime (purchase on or before)
+ * @property {string} [earliestTravelDate] - ISO 8601 datetime (trip depart on or after)
+ * @property {string} [latestTravelDate] - ISO 8601 datetime (trip depart on or before)
  */
 
 /**
@@ -19,7 +28,7 @@ function marketplaceModifierFactory({client, internalAuthTokenProvider}) {
    * GET /marketplace-modifiers - list marketplace modifiers.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {InventoryMarketplaceModifiersQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {MarketplaceModifiersListQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -35,7 +44,7 @@ function marketplaceModifierFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /marketplace-modifiers/:marketplaceModifierId - get marketplace modifier by id.
+   * GET /marketplace-modifiers/:marketplaceModifierId - get marketplace modifier by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} opts.marketplaceModifierId - Marketplace modifier id
    * @param {string} [opts.token] - API key
@@ -49,7 +58,7 @@ function marketplaceModifierFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /marketplace-modifiers - create marketplace modifier.
+   * POST /marketplace-modifiers - create marketplace modifier. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} [opts.token] - API key
@@ -69,7 +78,7 @@ function marketplaceModifierFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /marketplace-modifiers/:marketplaceModifierId - remove marketplace modifier.
+   * DELETE /marketplace-modifiers/:marketplaceModifierId - remove marketplace modifier. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.marketplaceModifierId - Marketplace modifier id
@@ -86,7 +95,7 @@ function marketplaceModifierFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /marketplace-modifiers/:marketplaceModifierId - update marketplace modifier.
+   * PUT /marketplace-modifiers/:marketplaceModifierId - update marketplace modifier. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} [opts.token] - API key

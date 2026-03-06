@@ -1,6 +1,31 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
+ * Query params for GET /products (btrz-api-inventory). See get-products getSpec().
+ * @typedef {Object} ProductsListQuery
+ * @property {string} [providerIds] - Provider IDs to get products for
+ * @property {string} [channels] - Filter by channels
+ * @property {string} [enabled] - 'true', 'false' or 'any' (default 'true')
+ * @property {string} [pricingType] - One of point-to-point, distance, journey, etc.
+ * @property {string} [hasRoutes] - 'true' or 'false' (deprecated, use family)
+ * @property {string} [hasDates] - 'true' or 'false' (deprecated)
+ * @property {string} [hasPassengerInfo] - 'true' or 'false' (deprecated)
+ * @property {string} [isParcel] - 'true' or 'false' (deprecated)
+ * @property {string} [family] - One of bundle, parcel, paid in, paid out, reservation, flexpass, ticket
+ * @property {string} [domain] - Filter by domain
+ * @property {string} [parentProductId] - Child products of this parent
+ * @property {string} [dynamicFormId] - Filter by dynamic form
+ */
+
+/**
+ * Query params for GET /products/:productId (btrz-api-inventory). See get-products-id getSpec().
+ * @typedef {Object} ProductGetQuery
+ * @property {string} [providerIds] - Provider IDs to get product for
+ * @property {string} [channels] - Filter by channels
+ * @property {string} [enabled] - 'true', 'false' or 'any'
+ */
+
+/**
  * Factory for products API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -13,6 +38,7 @@ function productsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {ProductsListQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -30,6 +56,7 @@ function productsFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.productId - Product id
+   * @param {ProductGetQuery} [opts.query] - Query params (providerIds, channels, enabled)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -42,7 +69,7 @@ function productsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /products - create product.
+   * POST /products - create product. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -60,7 +87,7 @@ function productsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /products/:productId - update product.
+   * PUT /products/:productId - update product. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -81,7 +108,7 @@ function productsFactory({client, internalAuthTokenProvider}) {
   /** @type {{ remove: function }} */
   const domains = {
     /**
-     * DELETE /products/domains/:domain - remove product domain.
+     * DELETE /products/domains/:domain - remove product domain. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -101,7 +128,7 @@ function productsFactory({client, internalAuthTokenProvider}) {
   /** @type {{ all: function }} */
   const families = {
     /**
-     * GET /products/families - list product families.
+     * GET /products/families - list product families. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol

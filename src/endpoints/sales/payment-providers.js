@@ -2,8 +2,11 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * @typedef {Object} PaymentProvidersQuery
- * @property {string} [providerId] - Provider account ID
+ * Query params for GET /payment-providers (btrz-api-sales get-payment-providers getSpec).
+ * @typedef {Object} PaymentProvidersListQuery
+ * @property {string} [providerId] - Provider id to get payment providers for
+ * @property {string} [channel] - Channel to get payment providers for
+ * @property {string} [enabled] - Filter by enabled [true, false]
  */
 
 /**
@@ -19,7 +22,7 @@ function paymentProvidersFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {PaymentProvidersQuery} [opts.query] - Query params
+   * @param {PaymentProvidersListQuery} [opts.query] - Query params (providerId, channel, enabled)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

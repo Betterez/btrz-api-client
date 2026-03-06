@@ -1,8 +1,17 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * Query params for operation-messages endpoints (btrz-api-inventory). Forwarded to API as-is.
- * @typedef {Object} InventoryOperationMessagesQuery
+ * Query params for GET /operation-messages (btrz-api-inventory). See get-operation-messages getSpec().
+ * @typedef {Object} OperationMessagesListQuery
+ * @property {string} [providerId] - Provider id to get operation messages for
+ * @property {number} [page] - Page number (default 1)
+ * @property {string} [name] - Full or partial name (non case sensitive)
+ * @property {string} [type] - Operation message type
+ * @property {string} [stationId] - Station id of the operation message
+ * @property {string} [avoidPagination] - Any value = true to avoid pagination
+ * @property {string} [active] - Filter active/inactive [true, false]
+ * @property {string} [effectiveDateTimeStartBefore] - ISO datetime (start before/at)
+ * @property {string} [effectiveDateTimeEndAfter] - ISO datetime (end after/at)
  */
 
 /**
@@ -17,7 +26,7 @@ function operationMessagesFactory({client, internalAuthTokenProvider}) {
    * GET /operation-messages - list operation messages.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {InventoryOperationMessagesQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {OperationMessagesListQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -31,7 +40,7 @@ function operationMessagesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /operation-messages - create operation message.
+   * POST /operation-messages - create operation message. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -49,7 +58,7 @@ function operationMessagesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /operation-messages/:operationMessageId - update operation message.
+   * PUT /operation-messages/:operationMessageId - update operation message. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -68,7 +77,7 @@ function operationMessagesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /operation-messages/:operationMessageId - get operation message by id.
+   * GET /operation-messages/:operationMessageId - get operation message by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} opts.operationMessageId - Operation message id
@@ -84,7 +93,7 @@ function operationMessagesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /operation-messages/:operationMessageId - remove operation message.
+   * DELETE /operation-messages/:operationMessageId - remove operation message. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.operationMessageId - Operation message id

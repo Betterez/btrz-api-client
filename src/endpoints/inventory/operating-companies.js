@@ -1,6 +1,14 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
+ * Query params for GET /operating-companies (btrz-api-inventory). See get-operating-companies getSpec().
+ * @typedef {Object} OperatingCompaniesListQuery
+ * @property {string} [providerIds] - Provider IDs to get operating companies for
+ * @property {string} [enabled] - Filter by enabled [true, false]
+ * @property {number} [page] - Page number (1-based); null for unpaginated
+ */
+
+/**
  * Factory for operating-companies API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -13,6 +21,7 @@ function operatingCompaniesFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {OperatingCompaniesListQuery} [opts.query] - Query params (providerIds, enabled, page)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -25,7 +34,7 @@ function operatingCompaniesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /operating-companies - create operating company.
+   * POST /operating-companies - create operating company. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -43,7 +52,7 @@ function operatingCompaniesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /operating-companies/:operatingCompanyId - update operating company.
+   * PUT /operating-companies/:operatingCompanyId - update operating company. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -62,7 +71,7 @@ function operatingCompaniesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /operating-companies/:operatingCompanyId - get operating company by id.
+   * GET /operating-companies/:operatingCompanyId - get operating company by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -81,7 +90,7 @@ function operatingCompaniesFactory({client, internalAuthTokenProvider}) {
   /** @type {{ create: function, all: function, get: function, update: function }} */
   const sequences = {
     /**
-     * POST /operating-companies/:operatingCompanyId/sequences - create sequence.
+     * POST /operating-companies/:operatingCompanyId/sequences - create sequence. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -99,7 +108,7 @@ function operatingCompaniesFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * GET /operating-companies/:operatingCompanyId/sequences - list sequences.
+     * GET /operating-companies/:operatingCompanyId/sequences - list sequences. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -115,7 +124,7 @@ function operatingCompaniesFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * GET /operating-companies/:operatingCompanyId/sequences/:sequenceId - get sequence.
+     * GET /operating-companies/:operatingCompanyId/sequences/:sequenceId - get sequence. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -132,7 +141,7 @@ function operatingCompaniesFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * PUT /operating-companies/:operatingCompanyId/sequences/:sequenceId - update sequence.
+     * PUT /operating-companies/:operatingCompanyId/sequences/:sequenceId - update sequence. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol

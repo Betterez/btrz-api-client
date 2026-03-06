@@ -2,8 +2,19 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * @typedef {Object} RedeemableItemsQuery
- * @property {string} [providerId] - Provider account ID
+ * Query params for GET /redeemable-items/:redeemableItemId (btrz-api-sales get-redeemable-item getSpec).
+ * @typedef {Object} RedeemableItemsGetQuery
+ * @property {string} [providerId] - Provider account id
+ * @property {string} [providerIds] - One or more provider account ids (comma-separated)
+ * @property {string} [cartId] - Current cart id (item can be redeemed once per cart)
+ */
+
+/**
+ * Query params for GET /redeemable-items list (btrz-api-sales get-redeemable-items getSpec).
+ * @typedef {Object} RedeemableItemsListQuery
+ * @property {string} [ids] - Redeemable item display ID or _id, comma-separated
+ * @property {string} [providerId] - Provider account id
+ * @property {string} [cartId] - Current cart id
  */
 
 /**
@@ -18,8 +29,8 @@ function redeemableItemsFactory({client, internalAuthTokenProvider}) {
    * GET /redeemable-items/:redeemableItemId - get redeemable item by id.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {string} opts.redeemableItemId - Redeemable item id
-   * @param {RedeemableItemsQuery} [opts.query] - Query params
+   * @param {string} opts.redeemableItemId - Redeemable item display ID or _id
+   * @param {RedeemableItemsGetQuery} [opts.query] - Query params (providerId, providerIds, cartId)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -36,7 +47,7 @@ function redeemableItemsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {RedeemableItemsQuery} [opts.query] - Query params
+   * @param {RedeemableItemsListQuery} [opts.query] - Query params (ids, providerId, cartId)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

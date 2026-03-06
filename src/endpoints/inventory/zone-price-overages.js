@@ -3,11 +3,6 @@ const {
 } = require("./../endpoints_helpers.js");
 
 /**
- * Query params for zone-price-overages endpoints (btrz-api-inventory). Forwarded to API as-is.
- * @typedef {Object} InventoryZonePriceOveragesQuery
- */
-
-/**
  * Factory for zone-price-overages API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -16,10 +11,9 @@ const {
  */
 function zonePriceOverageFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /zone-price-overages - list zone price overages.
+   * GET /zone-price-overages - list zone price overages. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {InventoryZonePriceOveragesQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -35,7 +29,7 @@ function zonePriceOverageFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /zone-price-overages/:zonePriceOverageId - get zone price overage by id.
+   * GET /zone-price-overages/:zonePriceOverageId - get zone price overage by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} opts.zonePriceOverageId - Zone price overage id
    * @param {string} [opts.token] - API key
@@ -49,7 +43,7 @@ function zonePriceOverageFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /zone-price-overages - create zone price overage(s).
+   * POST /zone-price-overages - create zone price overage(s). API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} [opts.token] - API key
@@ -86,7 +80,7 @@ function zonePriceOverageFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /zone-price-overages/:zonePriceOverageId - update zone price overage.
+   * PUT /zone-price-overages/:zonePriceOverageId - update zone price overage. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} [opts.token] - API key

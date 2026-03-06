@@ -4,8 +4,75 @@ const {
 } = require("./../endpoints_helpers.js");
 
 /**
- * @typedef {Object} ManifestQuery
- * @property {string} [providerId] - Provider account ID
+ * Query params for GET /manifests (btrz-api-operations). See get-manifests getSpec().
+ * @typedef {Object} ManifestsListQuery
+ * @property {string} [providerIds] - Provider IDs of the manifests
+ * @property {string} [routeIds] - Route IDs
+ * @property {string} [scheduleIds] - Schedule IDs
+ * @property {string} [date] - Date (yyyy-mm-dd)
+ * @property {string} [dateFrom] - Start date range (yyyy-mm-dd)
+ * @property {string} [dateTo] - End date range (yyyy-mm-dd)
+ * @property {string} [seatmapId] - Seatmap ID
+ * @property {string} [vehicleId] - Vehicle ID
+ * @property {string} [assignedUserId] - Assigned user ID
+ * @property {boolean} [dispatched] - If manifest was dispatched
+ * @property {boolean} [reviewed] - If manifest was reviewed
+ * @property {string} [sendToSAP] - If manifest should be sent to SAP
+ * @property {string} [operatingCompanyId] - Operating company ID
+ * @property {number} [vehicleFrom] - First vehicle id (range)
+ * @property {number} [vehicleTo] - Last vehicle id (range)
+ * @property {string} [dispatchedStatus] - Filter by dispatched status
+ * @property {boolean} [manifestOnly] - If only manifest (no ticket info)
+ * @property {string} [status] - Comma-separated manifest statuses
+ */
+
+/**
+ * Query params for PUT /manifests (btrz-api-operations). See put-manifest getSpec().
+ * @typedef {Object} ManifestSaveQuery
+ * @property {string} providerId - Provider ID (required)
+ * @property {string} [manifestId] - Manifest ID to update (omit to create)
+ * @property {boolean} [bypassBusValidation] - Bypass bus validation
+ */
+
+/**
+ * Query params for PATCH /manifests (btrz-api-operations). See patch-manifest getSpec().
+ * @typedef {Object} ManifestPatchQuery
+ * @property {string} providerId - Provider ID (required)
+ * @property {string} [routeId] - Route ID for update_schedule
+ * @property {string} [scheduleId] - New schedule ID for update_schedule
+ * @property {string} [oldScheduleId] - Old schedule ID for update_schedule
+ * @property {string} [accommodateOnAnySeat] - "true" to assign missing seats to any available
+ * @property {string} [newdesign] - "true" when using new seatmap design
+ */
+
+/**
+ * Query params for GET /outlook-manifests (btrz-api-operations). See get-outlook-manifests getSpec().
+ * @typedef {Object} OutlookManifestsListQuery
+ * @property {string} providerId - Provider ID (required)
+ * @property {string} productId - Product ID (required)
+ * @property {string} from - Start date (required, yyyy-mm-dd)
+ * @property {string} to - End date (required, yyyy-mm-dd, max 1 month range)
+ * @property {string} [scheduleName] - Schedule name filter
+ * @property {string} [loadFactorFrom] - Min load factor
+ * @property {string} [loadFactorTo] - Max load factor
+ * @property {string} [timeFrom] - Min time filter
+ * @property {string} [timeTo] - Max time filter
+ * @property {string} [originId] - Origin station id
+ * @property {string} [destinationId] - Destination station id
+ * @property {string} [amenityGroupId] - Amenity group id
+ * @property {string} [userId] - Only manifests with this user assigned
+ * @property {string} [withAssignedUsers] - Filter by assigned users (true/false)
+ * @property {string} [status] - Comma-separated statuses (published, paused, planned, canceled)
+ * @property {boolean} [isExtraRun] - Only extra run trips
+ * @property {boolean} [minimalPayload] - Minimal data for five day outlook
+ * @property {string} [labelId] - Label id filter
+ * @property {boolean} [dispatched] - Only dispatched manifests
+ */
+
+/**
+ * Query params for PUT /manifests/:manifestKey/driver-relays (btrz-api-operations). See put-driver-relays-handler getSpec().
+ * @typedef {Object} ManifestDriverRelaysQuery
+ * @property {boolean} [bypassValidations] - If true, bypass driver validations
  */
 
 /**
@@ -56,14 +123,13 @@ function manifestFactory({
   }
 
   /**
-   * POST manifests/:manifestId/dispatches - dispatch manifest.
+   * POST manifests/:manifestId/dispatches - dispatch manifest. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} [opts.headers] - Optional headers
    * @param {string} opts.manifestId - Manifest id
    * @param {Object} opts.data - Request body
-   * @param {ManifestQuery} [opts.query] - Query params
    * @returns {Promise<import("axios").AxiosResponse>}
    */
   function dispatch({token, jwtToken, headers, manifestId, data, query}) {
@@ -81,7 +147,7 @@ function manifestFactory({
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {ManifestQuery} [opts.query] - Query params
+   * @param {ManifestsListQuery} [opts.query] - Query params (all optional)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -95,12 +161,11 @@ function manifestFactory({
   }
 
   /**
-   * GET /manifests/:manifestId - get manifest by id.
+   * GET /manifests/:manifestId - get manifest by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.manifestId - Manifest id
-   * @param {ManifestQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -163,7 +228,7 @@ function manifestFactory({
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {ManifestQuery} [opts.query] - Query params
+   * @param {OutlookManifestsListQuery} [opts.query] - Query params (providerId, productId, from, to required)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -185,7 +250,7 @@ function manifestFactory({
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {ManifestQuery} [opts.query] - Query params
+   * @param {ManifestPatchQuery} [opts.query] - Query params (providerId required)
    * @param {Object} opts.operations - JSON Patch operations
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
@@ -209,10 +274,10 @@ function manifestFactory({
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} [opts.providerId] - Provider id
+   * @param {string} [opts.providerId] - Provider id (required by API as query)
    * @param {Object} opts.data - Request body
    * @param {Object} [opts.headers] - Optional headers
-   * @param {ManifestQuery} [opts.query] - Query params
+   * @param {ManifestSaveQuery} [opts.query] - Query params (providerId required; manifestId, bypassBusValidation optional)
    * @returns {Promise<import("axios").AxiosResponse>}
    */
   function save({
@@ -233,8 +298,7 @@ function manifestFactory({
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.manifestId - Manifest id
-   * @param {ManifestQuery} [opts.query] - Query params
-   * @param {Object} opts.data - Request body
+       * @param {Object} opts.data - Request body
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -280,8 +344,7 @@ function manifestFactory({
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.manifestId - Manifest id
-   * @param {ManifestQuery} [opts.query] - Query params
-   * @param {Object} opts.data - Request body
+       * @param {Object} opts.data - Request body
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -328,8 +391,7 @@ function manifestFactory({
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.manifestId - Manifest id
-   * @param {ManifestQuery} [opts.query] - Query params
-   * @param {Object} opts.data - Request body
+       * @param {Object} opts.data - Request body
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -353,8 +415,7 @@ function manifestFactory({
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.manifestId - Manifest id
-   * @param {ManifestQuery} [opts.query] - Query params
-   * @param {Object} opts.data - Request body
+       * @param {Object} opts.data - Request body
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -378,7 +439,6 @@ function manifestFactory({
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.manifestKey - Manifest key
-   * @param {ManifestQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -402,7 +462,6 @@ function manifestFactory({
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-     * @param {ManifestQuery} [opts.query] - Query params
      * @param {Object} [opts.headers] - Optional headers
      * @param {Object} opts.data - Request body
      * @param {string} opts.manifestId - Manifest id
@@ -425,7 +484,6 @@ function manifestFactory({
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-     * @param {ManifestQuery} [opts.query] - Query params
      * @param {Object} [opts.headers] - Optional headers
      * @param {string} opts.manifestId - Manifest id
      * @param {string} opts.legFromId - Leg from id
@@ -451,7 +509,6 @@ function manifestFactory({
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-     * @param {ManifestQuery} [opts.query] - Query params
      * @param {Object} [opts.headers] - Optional headers
      * @param {string} opts.manifestId - Manifest id
      * @param {string} opts.legFromId - Leg from id
@@ -482,7 +539,6 @@ function manifestFactory({
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {Object} opts.data - Request body
-     * @param {ManifestQuery} [opts.query] - Query params
      * @param {Object} [opts.headers] - Optional headers
      * @param {string} opts.manifestId - Manifest id
      * @param {string} opts.legFromId - Leg from id
@@ -504,8 +560,7 @@ function manifestFactory({
        * @param {string} [opts.token] - API key
        * @param {string} [opts.jwtToken] - JWT or internal auth symbol
        * @param {Object} opts.data - Request body
-       * @param {ManifestQuery} [opts.query] - Query params
-       * @param {Object} [opts.headers] - Optional headers
+     * @param {Object} [opts.headers] - Optional headers
        * @param {string} opts.manifestId - Manifest id
        * @param {string} opts.legFromId - Leg from id
        * @param {string} opts.ticketId - Ticket id
@@ -525,8 +580,7 @@ function manifestFactory({
        * @param {Object} opts
        * @param {string} [opts.token] - API key
        * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-       * @param {ManifestQuery} [opts.query] - Query params
-       * @param {Object} [opts.headers] - Optional headers
+     * @param {Object} [opts.headers] - Optional headers
        * @param {string} opts.manifestId - Manifest id
        * @param {string} opts.legFromId - Leg from id
        * @param {string} opts.ticketId - Ticket id
@@ -549,7 +603,6 @@ function manifestFactory({
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-     * @param {ManifestQuery} [opts.query] - Query params
      * @param {string} [opts.responseType] - Response type (e.g. "json")
      * @param {string} opts.id - Manifest id
      * @param {Object} [opts.headers] - Optional headers
@@ -573,7 +626,6 @@ function manifestFactory({
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.manifestId - Manifest id
-     * @param {ManifestQuery} [opts.query] - Query params
      * @param {Object} [opts.headers] - Optional headers
      * @param {Object} opts.data - Request body
      * @returns {Promise<import("axios").AxiosResponse>}
@@ -613,7 +665,6 @@ function manifestFactory({
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.manifestId - Manifest id
-     * @param {ManifestQuery} [opts.query] - Query params
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
@@ -634,7 +685,7 @@ function manifestFactory({
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.manifestId - Manifest id
-     * @param {ManifestQuery} [opts.query] - Query params
+     * @param {ManifestDriverRelaysQuery} [opts.query] - Query params (bypassValidations optional)
      * @param {Object} [opts.headers] - Optional headers
      * @param {Object} opts.data - Request body
      * @returns {Promise<import("axios").AxiosResponse>}
@@ -659,7 +710,6 @@ function manifestFactory({
      * @param {string} opts.manifestKey - Manifest key
      * @param {Object} opts.manifestException - Manifest exception payload
      * @param {Object} [opts.headers] - Optional headers
-     * @param {ManifestQuery} [opts.query] - Query params
      * @returns {Promise<import("axios").AxiosResponse>}
      */
     update({token, jwtToken, manifestKey, manifestException, headers, query = {}}) {

@@ -1,6 +1,13 @@
 const {authorizationHeaders} = require("../endpoints_helpers.js");
 
 /**
+ * Query params for GET /station-classes (btrz-api-inventory). See get-handler getSpec().
+ * @typedef {Object} StationClassesListQuery
+ * @property {number} [page] - Page number to retrieve
+ * @property {string} [name] - Filter by station class name
+ */
+
+/**
  * Factory for station-classes API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -13,6 +20,7 @@ function stationClassFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {StationClassesListQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -26,7 +34,7 @@ function stationClassFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /station-classes/:stationClassId - get station class by id.
+   * GET /station-classes/:stationClassId - get station class by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -44,7 +52,7 @@ function stationClassFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /station-classes/:stationClassId - update station class.
+   * PUT /station-classes/:stationClassId - update station class. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -63,7 +71,7 @@ function stationClassFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /station-classes/:stationClassId - remove station class.
+   * DELETE /station-classes/:stationClassId - remove station class. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -80,7 +88,7 @@ function stationClassFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /station-classes - create station class.
+   * POST /station-classes - create station class. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

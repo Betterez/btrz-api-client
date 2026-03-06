@@ -2,14 +2,16 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
+ * Query params for POST /orders/:orderId/payments (btrz-api-sales post-payments-handler getSpec).
  * @typedef {Object} OrderPaymentsQuery
- * @property {string} channel - Channel where cart is being purchased (see API for allowed values)
- * @property {string} [providerId] - Account ID the transaction belongs to
+ * @property {string} [channel] - Channel where cart is being purchased (defaults to 'none' when not provided)
+ * @property {string} [providerId] - Account id the transaction belongs to
  */
 
 /**
+ * Query params for GET /order/:orderId (btrz-api-sales get-order getSpec).
  * @typedef {Object} OrderGetQuery
- * @property {string} [providerId] - Account ID for the order
+ * @property {string} [providerId] - Provider account id
  */
 
 /**
@@ -63,7 +65,7 @@ function orderFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts.payments - Payments payload
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} [opts.headers] - Optional headers
-   * @param {OrderPaymentsQuery} [opts.query] - Query params (channel required, providerId optional)
+   * @param {OrderPaymentsQuery} [opts.query] - Query params (channel, providerId)
    * @returns {Promise<import("axios").AxiosResponse>}
    */
   function overwrite({token, orderId, payments, jwtToken, headers, query = {}}) {

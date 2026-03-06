@@ -2,11 +2,6 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * @typedef {Object} TransactionsQuery
- * @property {string} [providerId] - Provider account ID
- */
-
-/**
  * Factory for transactions API (btrz-api-operations).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -15,12 +10,11 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function transactionsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /transactions/:trxId - get transaction by id.
+   * GET /transactions/:trxId - get transaction by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.trxId - Transaction id
-   * @param {TransactionsQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -33,11 +27,10 @@ function transactionsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /transactions - list transactions.
+   * GET /transactions - list transactions. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {TransactionsQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -128,14 +121,14 @@ function transactionsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /transactions/:transactionId/cancellable-items - get cancellable items.
+   * GET /transactions/:transactionId/cancellable-items - get cancellable items. Query: displayAll, channel (channel required per getSpec).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.transactionId - Transaction id
    * @param {Object} [opts.headers] - Optional headers
-   * @param {boolean} [opts.displayAll] - Whether to display all items
-   * @param {string} [opts.channel] - Channel
+   * @param {boolean} [opts.displayAll] - Display all transaction items whether cancellable or not
+   * @param {string} [opts.channel] - Channel (required per btrz-api-operations getSpec)
    * @returns {Promise<import("axios").AxiosResponse>}
    */
   function cancellableItems({token, jwtToken, transactionId, headers, displayAll, channel}) {
@@ -199,12 +192,11 @@ function transactionsFactory({client, internalAuthTokenProvider}) {
 
   const creditNotes = {
     /**
-     * POST /transactions/:transactionId/credit-notes - create credit note.
+     * POST /transactions/:transactionId/credit-notes - create credit note. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.transactionId - Transaction id
-     * @param {TransactionsQuery} [opts.query] - Query params
      * @param {Object} opts.creditNote - Credit note payload
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}

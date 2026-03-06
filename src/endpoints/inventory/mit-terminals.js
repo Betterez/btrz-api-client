@@ -11,7 +11,7 @@ const {
  */
 function mitTerminalFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /mit-terminals - list MIT terminals.
+   * GET /mit-terminals - list MIT terminals. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -30,7 +30,7 @@ function mitTerminalFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /mit-terminals/:mitTerminalId - get MIT terminal by id.
+   * GET /mit-terminals/:mitTerminalId - get MIT terminal by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -45,7 +45,7 @@ function mitTerminalFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /mit-terminals - create MIT terminal.
+   * POST /mit-terminals - create MIT terminal. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -65,7 +65,7 @@ function mitTerminalFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /mit-terminals/:mitTerminalId - remove MIT terminal.
+   * DELETE /mit-terminals/:mitTerminalId - remove MIT terminal. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -82,7 +82,7 @@ function mitTerminalFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /mit-terminals/:mitTerminalId - update MIT terminal.
+   * PUT /mit-terminals/:mitTerminalId - update MIT terminal. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

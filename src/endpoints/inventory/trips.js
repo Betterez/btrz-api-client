@@ -1,11 +1,6 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * Query params for GET /trips (btrz-api-inventory). Forwarded to API as-is.
- * @typedef {Object} InventoryTripsListQuery
- */
-
-/**
  * Factory for trips API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -14,11 +9,10 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function tripsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /trips - list trips.
+   * GET /trips - list trips. API source of truth in btrz-api-inventory-trips; query not documented here.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {InventoryTripsListQuery} [opts.query] - Optional query params (forwarded to API)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -31,7 +25,7 @@ function tripsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /trip/:id - get trip by id.
+   * GET /trip/:id - get trip by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} opts.id - Trip id

@@ -3,8 +3,9 @@ const {
 } = require("./../endpoints_helpers.js");
 
 /**
- * @typedef {Object} StripeTerminalsQuery
- * @property {string} [providerId] - Provider account ID
+ * Query params for GET /stripe-terminals (btrz-api-payments). See get-handler getSpec().
+ * @typedef {Object} StripeTerminalsListQuery
+ * @property {string} [providerId] - Account provider (operator) ID; used by agencies/sellers
  */
 
 /**
@@ -20,8 +21,8 @@ function stripeTerminalsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {StripeTerminalsListQuery} [opts.query] - Query params (providerId)
    * @param {Object} [opts.headers] - Optional headers
-   * @param {StripeTerminalsQuery} [opts.query] - Query params
    * @returns {Promise<import("axios").AxiosResponse>}
    */
   function all({token, jwtToken, headers, query = {}}) {
@@ -34,13 +35,12 @@ function stripeTerminalsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /stripe-terminals/:id/simulate - simulate Stripe payment.
+   * POST /stripe-terminals/:id/simulate - simulate Stripe payment. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.id - Terminal id
    * @param {Object} opts.stripePayment - Stripe payment payload
-   * @param {StripeTerminalsQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

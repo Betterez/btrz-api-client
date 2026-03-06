@@ -2,8 +2,22 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * @typedef {Object} CartQuery
- * @property {string} [providerId] - Provider account ID
+ * Query params for GET /cart/:cartId (btrz-api-sales get-cart getSpec).
+ * @typedef {Object} CartGetQuery
+ * @property {string} [providerId] - Provider account id
+ * @property {string} [transactionStatus] - Filter: 'created' or 'waiting_for_payment'
+ */
+
+/**
+ * Query params for POST /carts/:cartId/financing-costs (btrz-api-sales post-financingcost-handler getSpec).
+ * @typedef {Object} CartFinancingCostsCreateQuery
+ * @property {string} [providerId] - Provider id to get financing costs for
+ */
+
+/**
+ * Query params for DELETE /carts/:cartId/financing-costs (btrz-api-sales delete-financingcost-handler getSpec).
+ * @typedef {Object} CartFinancingCostsDeleteQuery
+ * @property {string} [internalId] - Internal id or code of the financing cost to match
  */
 
 /**
@@ -15,11 +29,11 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function cartFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /cart/:id - get cart by id.
+   * GET /cart/:id - get cart by id. Query: providerId, transactionStatus (per get-cart getSpec).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} opts.id - Cart id
-   * @param {string} [opts.providerId] - Provider id
+   * @param {string} [opts.providerId] - Provider id (sent as query)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -55,7 +69,7 @@ function cartFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /cart/:cartId/items - add items to cart.
+   * POST /cart/:cartId/items - add items to cart. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} opts.cartId - Cart id
@@ -74,7 +88,7 @@ function cartFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /cart/:cartId/items - delete items from cart.
+   * DELETE /cart/:cartId/items - delete items from cart. Query forwarded via opts.params if provided.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} opts.cartId - Cart id
@@ -93,7 +107,7 @@ function cartFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /carts/:cartId/paid-in-items/:itemId - delete paid-in item.
+   * DELETE /carts/:cartId/paid-in-items/:itemId - delete paid-in item. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} opts.cartId - Cart id
@@ -111,7 +125,7 @@ function cartFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /carts/:cartId/paid-in-items - delete paid-in items.
+   * DELETE /carts/:cartId/paid-in-items - delete paid-in items. Query forwarded via opts.params if provided.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} opts.cartId - Cart id
@@ -131,12 +145,11 @@ function cartFactory({client, internalAuthTokenProvider}) {
 
   const loyaltyPointsAmount = {
     /**
-     * GET /carts/:cartId/loyalty-points-amount - get loyalty points amount for cart.
+     * GET /carts/:cartId/loyalty-points-amount - get loyalty points amount for cart. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.cartId - Cart id
-     * @param {CartQuery} [opts.query] - Query params
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
@@ -151,7 +164,7 @@ function cartFactory({client, internalAuthTokenProvider}) {
 
 
   /**
-   * PATCH /cart/:cartId - patch cart.
+   * PATCH /cart/:cartId - patch cart. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -171,7 +184,7 @@ function cartFactory({client, internalAuthTokenProvider}) {
 
   const partialDepositStatus = {
     /**
-     * GET /cart/:shiftId/partial-deposit-status - get partial deposit status.
+     * GET /cart/:shiftId/partial-deposit-status - get partial deposit status. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -188,7 +201,7 @@ function cartFactory({client, internalAuthTokenProvider}) {
 
   const payments = {
     /**
-     * DELETE /carts/:cartId/payments - delete cart payments.
+     * DELETE /carts/:cartId/payments - delete cart payments. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} opts.cartId - Cart id
@@ -204,7 +217,7 @@ function cartFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * PUT /carts/:cartId/payments - put cart payments.
+     * PUT /carts/:cartId/payments - put cart payments. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} opts.cartId - Cart id
@@ -225,7 +238,7 @@ function cartFactory({client, internalAuthTokenProvider}) {
 
   const taxExemptPaymentMethod = {
     /**
-     * POST /carts/:cartId/tax-exempt-payment-method - set tax exempt payment method.
+     * POST /carts/:cartId/tax-exempt-payment-method - set tax exempt payment method. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} opts.cartId - Cart id
@@ -253,7 +266,7 @@ function cartFactory({client, internalAuthTokenProvider}) {
      * @param {Object} [opts.headers] - Optional headers
      * @param {string} opts.cartId - Cart id
      * @param {Object} opts.financingCost - Financing cost payload
-     * @param {CartQuery} [opts.query] - Query params
+     * @param {CartFinancingCostsCreateQuery} [opts.query] - Query params (providerId)
      * @returns {Promise<import("axios").AxiosResponse>}
      */
     create({token, jwtToken, headers, cartId, financingCost, query = {}}) {
@@ -274,7 +287,7 @@ function cartFactory({client, internalAuthTokenProvider}) {
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {Object} [opts.headers] - Optional headers
      * @param {string} opts.cartId - Cart id
-     * @param {CartQuery} [opts.query] - Query params
+     * @param {CartFinancingCostsDeleteQuery} [opts.query] - Query params (internalId)
      * @returns {Promise<import("axios").AxiosResponse>}
      */
     delete({token, jwtToken, headers, cartId, query = {}}) {

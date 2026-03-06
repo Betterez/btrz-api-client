@@ -3,8 +3,9 @@ const {
 } = require("./../endpoints_helpers.js");
 
 /**
- * @typedef {Object} DatalogicQuery
- * @property {string} [providerId] - Provider account ID
+ * Query params for GET /datalogic/payments (btrz-api-payments). See get-payments-handler getSpec().
+ * @typedef {Object} DatalogicPaymentsListQuery
+ * @property {string} [referenceNumber] - The payment reference number
  */
 
 /**
@@ -21,7 +22,7 @@ function datalogicFactory({client}) {
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-     * @param {DatalogicQuery} [opts.query] - Query params
+     * @param {DatalogicPaymentsListQuery} [opts.query] - Query params (referenceNumber)
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
@@ -33,13 +34,12 @@ function datalogicFactory({client}) {
       });
     },
     /**
-     * POST /datalogic/payments/:referenceNumber - update Datalogic payment.
+     * POST /datalogic/payments/:referenceNumber - update Datalogic payment. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.referenceNumber - Reference number
      * @param {Object} [opts.data] - Request body
-     * @param {DatalogicQuery} [opts.query] - Query params
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
@@ -53,13 +53,12 @@ function datalogicFactory({client}) {
       });
     },
     /**
-     * POST /datalogic/reverse/:referenceNumber - reverse Datalogic payment.
+     * POST /datalogic/reverse/:referenceNumber - reverse Datalogic payment. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.referenceNumber - Reference number
      * @param {Object} [opts.data] - Request body
-     * @param {DatalogicQuery} [opts.query] - Query params
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
@@ -76,7 +75,7 @@ function datalogicFactory({client}) {
 
   const referenceNumber = {
     /**
-     * GET /datalogic/reference-number - get reference number.
+     * GET /datalogic/reference-number - get reference number. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -93,7 +92,7 @@ function datalogicFactory({client}) {
 
   const authCode = {
     /**
-     * GET /datalogic/auth-code - get auth code.
+     * GET /datalogic/auth-code - get auth code. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol

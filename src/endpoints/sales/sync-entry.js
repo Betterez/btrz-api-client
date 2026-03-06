@@ -10,7 +10,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function syncEntryFactory({client, internalAuthTokenProvider}) {
   /**
-   * PATCH /sync-entry - patch sync entry.
+   * PATCH /sync-entry - patch sync entry. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {Object} opts.data - Request body

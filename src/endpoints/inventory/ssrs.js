@@ -1,8 +1,16 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * Query params for ssrs endpoints (btrz-api-inventory). Forwarded to API as-is.
- * @typedef {Object} InventorySsrsQuery
+ * Query params for GET /ssrs (btrz-api-inventory). See get-ssrs getSpec().
+ * @typedef {Object} SsrsListQuery
+ * @property {string} [providerIds] - Provider ids to get SSRs for
+ * @property {string} [travelDate] - Travel date (yyyy-mm-dd)
+ * @property {string} [travelTime] - Travel time (HH:MM); required if travelDate provided
+ * @property {string} [tripId] - Trip id to get SSRs for
+ * @property {string} [productIds] - Product type ids
+ * @property {string} [enabled] - Filter enabled/disabled [true, false]
+ * @property {string} [currency] - Currency ISO code
+ * @property {string} [brandIds] - Trip brand ids
  */
 
 /**
@@ -17,7 +25,7 @@ function ssrsFactory({client, internalAuthTokenProvider}) {
    * GET /ssrs - list SSRs.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {InventorySsrsQuery} [opts.query] - Optional query params (forwarded to API)
+   * @param {SsrsListQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

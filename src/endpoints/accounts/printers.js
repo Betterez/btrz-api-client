@@ -11,7 +11,7 @@ const {
  */
 function printersFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /printers - list printers.
+   * GET /printers - list printers. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {Object} [opts.headers] - Optional headers

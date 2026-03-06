@@ -10,7 +10,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function emailSettingsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /email-settings - list email settings.
+   * GET /email-settings - list email settings. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -25,7 +25,7 @@ function emailSettingsFactory({client, internalAuthTokenProvider}) {
     });
   }
   /**
-   * GET /email-settings/:email - get email settings by email.
+   * GET /email-settings/:email - get email settings by email. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

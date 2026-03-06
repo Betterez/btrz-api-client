@@ -13,7 +13,7 @@ const {
 function transportRegulationsFactory({client, internalAuthTokenProvider}) {
   const cnrt = {
     /**
-     * POST /transport-regulations/cnrt/manifests - create CNRT manifest.
+     * POST /transport-regulations/cnrt/manifests - create CNRT manifest. API does not accept query params.
      * @param {Object} opts
      * @param {Object} opts.data - Request body
      * @param {string} [opts.token] - API key

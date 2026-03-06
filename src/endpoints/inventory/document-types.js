@@ -1,6 +1,12 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
+ * Query params for GET /document-types (btrz-api-inventory). See get-document-types getSpec().
+ * @typedef {Object} DocumentTypesListQuery
+ * @property {string} [providerIds] - Comma-separated provider IDs to get document types for
+ */
+
+/**
  * Factory for document-types API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -13,6 +19,7 @@ function documentTypesFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {DocumentTypesListQuery} [opts.query] - Query params (providerIds); opts.providerId merged into query if set
    * @param {string} [opts.providerId] - Provider id (added to query if set)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
@@ -28,7 +35,7 @@ function documentTypesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /document-types/:id - get document type by id.
+   * GET /document-types/:id - get document type by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -48,7 +55,7 @@ function documentTypesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /document-types/:id - update document type.
+   * PUT /document-types/:id - update document type. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -68,7 +75,7 @@ function documentTypesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /document-types/:id - remove document type.
+   * DELETE /document-types/:id - remove document type. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -86,7 +93,7 @@ function documentTypesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /document-types - create document type.
+   * POST /document-types - create document type. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

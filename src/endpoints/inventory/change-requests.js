@@ -1,6 +1,22 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
+ * Query params for GET /change-requests (btrz-api-inventory). See get-change-requests getSpec().
+ * @typedef {Object} ChangeRequestsListQuery
+ * @property {string} [type] - Filter by change request type
+ * @property {string} [status] - Filter by status
+ * @property {string} [createdBy] - Filter by user id
+ * @property {string} [from] - Filter by creation date from (YYYY-MM-DD)
+ * @property {string} [to] - Filter by creation date to (YYYY-MM-DD)
+ * @property {string} [operationId] - Filter by operation ID
+ * @property {string} [operationType] - Filter by operation type
+ * @property {number} [page] - Page number
+ * @property {string} [orderBy] - Field to order by
+ * @property {string} [orderDir] - asc (1) or desc (-1)
+ * @property {number} [pageSize] - Results per page
+ */
+
+/**
  * Factory for change-requests API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -13,6 +29,7 @@ function changeRequestsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {ChangeRequestsListQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -24,7 +41,7 @@ function changeRequestsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /change-requests/:changerequestId/manifests - get change request manifests.
+   * GET /change-requests/:changerequestId/manifests - get change request manifests. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -41,7 +58,7 @@ function changeRequestsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /change-requests/manifests - create change request manifest.
+   * POST /change-requests/manifests - create change request manifest. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -59,7 +76,7 @@ function changeRequestsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /change-requests/:changerequestId/manifests - update change request manifest.
+   * PUT /change-requests/:changerequestId/manifests - update change request manifest. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -80,7 +97,7 @@ function changeRequestsFactory({client, internalAuthTokenProvider}) {
   /** @type {{ get: function, create: function, update: function }} */
   const schedules = {
     /**
-     * GET /change-requests/:changeRequestId/schedules - get change request schedules.
+     * GET /change-requests/:changeRequestId/schedules - get change request schedules. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -97,7 +114,7 @@ function changeRequestsFactory({client, internalAuthTokenProvider}) {
     },
 
     /**
-     * POST /change-requests/schedules - create change request schedule.
+     * POST /change-requests/schedules - create change request schedule. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -115,7 +132,7 @@ function changeRequestsFactory({client, internalAuthTokenProvider}) {
     },
 
     /**
-     * PUT /change-requests/:changeRequestId/schedules - update change request schedule.
+     * PUT /change-requests/:changeRequestId/schedules - update change request schedule. API does not accept query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
