@@ -134,15 +134,16 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
 }
 
 /**
- * Creates the trips API client (trips, segmentsInformationTables). Uses inventory base path.
+ * Creates the trips API client (trips, tripIds, segmentsInformationTables). Uses inventory base path.
  * @param {CreateModuleOptions} opts - Client options
- * @returns {Object} Object with trips and segmentsInformationTables endpoint namespaces and __test_trips.client
+ * @returns {Object} Object with trips, tripIds, segmentsInformationTables endpoint namespaces and __test_trips.client
  */
 function createTrips({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
   const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
   return {
     trips: require("./endpoints/inventory/trips.js")({client, internalAuthTokenProvider}),
+    tripIds: require("./endpoints/inventory/trip-ids.js")({client, internalAuthTokenProvider}),
     segmentsInformationTables: require("./endpoints/inventory/segments-information-tables.js")({client, internalAuthTokenProvider}),
     __test_trips: {
       client
