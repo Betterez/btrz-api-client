@@ -61,6 +61,16 @@ describe("accounts/user/{id}", () => {
     });
   });
 
+  it("should delete a user", () => {
+    const userId = "627a25404a761f0fcbdbdfc1";
+    axiosMock.onDelete(`/users/${userId}`).reply(expectRequest({statusCode: 204, token, jwtToken}));
+    return api.accounts.users.delete({
+      jwtToken,
+      token,
+      id: userId
+    });
+  });
+
   it("should create a user", () => {
     const user = {
       firstName: "Jane",

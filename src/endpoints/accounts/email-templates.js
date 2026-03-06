@@ -12,6 +12,7 @@ const {
  * @property {string} [sort] - relevance | natural | createdAsc | createdDesc | updatedAsc | updatedDesc
  * @property {string} [templateCollectionId] - default | custom
  * @property {string} [status] - draft | published
+ * @property {string} [agencyId] - Filter sub-templates for this agency (ObjectId)
  * @property {string} [mainTemplateAccountId] - Filter by source provider (ObjectId)
  * @property {string} [lang] - ISO language code (e.g. en-us)
  * @property {number} [page] - 1-based page for pagination
@@ -159,7 +160,8 @@ function emailTemplatesFactory({client, internalAuthTokenProvider}) {
    * @param {string} opts.mainTemplateId - Main template id (ObjectId)
    * @param {string} opts.agencyId - Agency id (ObjectId)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ emailTemplate: object }>>}
+   * @throws {import("axios").AxiosError} 400 validation (WRONG_DATA, MAIN_TEMPLATE_IS_NOT_CUSTOM), 401 (MAIN_TEMPLATE_ACCOUNT_MISMATCH, MAIN_TEMPLATE_NOT_FROM_PROVIDER), 404 MAIN_TEMPLATE_NOT_FOUND, 500
    */
   function createSub({token, jwtToken, mainTemplateId, agencyId, headers}) {
     return client({
@@ -172,14 +174,16 @@ function emailTemplatesFactory({client, internalAuthTokenProvider}) {
 
   const versions = {
     /**
-     * PUT /email-templates/:emailTemplateId/versions/:versionId - update a template version.
+     * PUT /email-templates/:emailTemplateId/versions/:versionId - roll back template to a saved version (versionId is zero-based index in versions array).
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.emailTemplateId - Template id (ObjectId)
-     * @param {string} opts.versionId - Version id (ObjectId)
+     * @param {string} opts.versionId - Zero-based version index (e.g. "0", "1")
+     * @param {Object} [opts.query] - Optional query (superUserId, superUserHash for default templates)
      * @param {Object} [opts.headers] - Optional headers
-     * @returns {Promise<import("axios").AxiosResponse>}
+     * @returns {Promise<import("axios").AxiosResponse<{ emailTemplate: object }>>}
+     * @throws {import("axios").AxiosError} 400 WRONG_DATA, 401 NOT_SUPER_USER, 404 EMAIL_TEMPLATE_NOT_FOUND / EMAIL_TEMPLATE_VERSION_NOT_FOUND, 500
      */
     update({token, jwtToken, emailTemplateId, versionId, query = {}, headers}) {
       return client({

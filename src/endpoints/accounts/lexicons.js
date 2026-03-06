@@ -43,13 +43,13 @@ function lexiconsFactory({
   client, internalAuthTokenProvider
 }) {
   /**
-   * GET /lexicons/buscompany - list lexicons (collection buscompany). Query params from get-lexicons getSpec().
+   * GET /lexicons/buscompany – list account translations from buscompany collection. Query params from get-lexicons getSpec().
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.context] - Context of the lexicons to search (merged into query)
    * @param {LexiconsListQuery} [opts.query] - Query params: providerIds, context, accountOnly, key, keys, lang, langs
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ lexicons: Array }>>}
    */
   function all({
     token,
@@ -67,13 +67,13 @@ function lexiconsFactory({
   }
 
   /**
-   * POST /lexicons - create lexicon entries.
+   * POST /lexicons – create lexicon entries. Body: { entries }. Requires BETTEREZ_APP audience.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Array} opts.lexiconEntries - Entries to create
+   * @param {Array} opts.lexiconEntries - Entries to create (accountId, name, values, context per item)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ successes: Array, failures: Array }>>}
    */
   function create({
     token,
@@ -92,13 +92,13 @@ function lexiconsFactory({
   }
 
   /**
-   * PUT /lexicons - create or update many lexicon entries.
+   * PUT /lexicons – create or update many lexicon entries. Body: { entries }. Emits webhook lexicons.updated. Requires BETTEREZ_APP audience.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Array} opts.entries - Entries to create or update
+   * @param {Array} opts.entries - Entries to create or update (key, values per item)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ status: string, entries: Array }>>}
    */
   function createOrUpdateMany({
     token,
@@ -119,13 +119,13 @@ function lexiconsFactory({
   }
 
   /**
-   * PATCH /lexicons - update many lexicon entries.
+   * PATCH /lexicons – update many lexicon entries. Body: { updates } (key, accountId, values and/or context). Requires BETTEREZ_APP audience.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Array} opts.updates - Updates to apply
+   * @param {Array} opts.updates - Updates to apply (key, accountId, values?, context?)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ entries: Array }>>}
    */
   function updateMany({
     token,
@@ -144,14 +144,14 @@ function lexiconsFactory({
   }
 
   /**
-   * Search global lexicons (no account) by partial match on the translation value for the given language.
+   * GET /lexicons/:lang/content – search global lexicons (no account) by partial match on translation value. Requires BETTEREZ_APP audience.
    * @param {Object} opts
    * @param {string} opts.lang - Language code (e.g. en-us, pt-br). Must be a supported language.
    * @param {string} opts.txt - Text to search for (partial, case-insensitive). Required.
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT
    * @param {Object} [opts.headers] - Optional request headers
-   * @returns {Promise<{data: { lexiconTextContentItems: Array }}>}
+   * @returns {Promise<import("axios").AxiosResponse<{ lexiconTextContentItems: Array }>>}
    */
   function getByText({token, jwtToken, headers, lang, txt}) {
     return client({

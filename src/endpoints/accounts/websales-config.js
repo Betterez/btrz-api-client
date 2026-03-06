@@ -17,13 +17,14 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function websalesConfigFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /websales-config - get websales config (list).
+   * GET /websales-config - get websales config list (paginated). Query: domain, providerId.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {WebsalesConfigListQuery} [opts.query] - Query params (domain, providerId)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ websalesConfig: Array, next?: string, previous?: string, count?: number }>>}
+   *   Errors: 401, 500
    */
   function get({token, jwtToken, query = {}, headers}) {
     return client({
@@ -34,14 +35,15 @@ function websalesConfigFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /websales-config/:websalesConfigId - update websales config. API does not accept query params.
+   * PUT /websales-config/:websalesConfigId - update websales config. Emits webhook websalesConfig.updated.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.websalesConfigId - Websales config id (ObjectId)
-   * @param {Object} opts.websalesConfig - Config payload
+   * @param {Object} opts.websalesConfig - Config payload (WebsalesConfigPutData; SSO cannot be updated)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ websalesConfig: Object }>>}
+   *   Errors: 400, 401, 404 (WEBSALESCONFIG_NOT_FOUND), 409, 500
    */
   function update({token, jwtToken, websalesConfigId, websalesConfig, headers}) {
     return client({

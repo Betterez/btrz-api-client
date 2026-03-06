@@ -2,6 +2,24 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
+ * Query params for GET /users (btrz-api-accounts). See get-users getSpec().
+ * @typedef {Object} GetUsersListQuery
+ * @property {number} [page] - Page number (1-based). When provided, response is limited to pageSize items.
+ * @property {string} [deleted] - "true" | "false" to filter by deleted flag
+ * @property {string} [firstName] - Filter by first name (prefix, case-insensitive)
+ * @property {string} [lastName] - Filter by last name (prefix, case-insensitive)
+ * @property {string} [display] - Filter by display name (prefix, case-insensitive)
+ * @property {string} [externalId] - Filter by external ID (exact)
+ * @property {string} [employeeNumber] - Filter by employee number (exact)
+ * @property {string} [email] - Filter by email (prefix, case-insensitive)
+ * @property {string} [assignableToManifest] - "true" | "false"
+ * @property {string} [role] - Filter users that have this role (role key)
+ * @property {string} [excludedRoles] - Comma-separated role keys to exclude
+ * @property {string} [preferredLocationId] - Filter by preferred location ID
+ * @property {string} [preferredLocationIds] - Filter by preferred location IDs
+ */
+
+/**
  * Query params for GET /users/:userId/sequences (btrz-api-accounts). See get-user-sequences-handler getSpec().
  * @typedef {Object} UserSequencesListQuery
  * @property {string} [status] - inUse | notAvailable
@@ -13,7 +31,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
- * @returns {{ get: function, getV2: function, all: function, create: function, login: function, update: function, createOrUpdateMany: function, impersonate: function, startMfa: function, confirmMfa: function, disableMfa: function, sequences: { get: function, all: function, create: function, update: function, transfer: function } }}
+ * @returns {{ get: function, getV2: function, all: function, create: function, login: function, update: function, delete: function, createOrUpdateMany: function, impersonate: function, startMfa: function, confirmMfa: function, disableMfa: function, sequences: { get: function, all: function, create: function, update: function, transfer: function } }}
  */
 function usersFactory({client, internalAuthTokenProvider}) {
   /**
@@ -49,10 +67,11 @@ function usersFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /users - list users. API getSpec() does not define query params.
+   * GET /users - list users with optional pagination and filters.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {GetUsersListQuery} [opts.query] - Query params (page, deleted, firstName, lastName, display, externalId, employeeNumber, email, assignableToManifest, role, excludedRoles, preferredLocationId, preferredLocationIds)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -97,14 +116,14 @@ function usersFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /users/:userId - update a user.
+   * PUT /users/:userId - update a user. Emits webhook user.updated.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.userId - User id (ObjectId)
-   * @param {Object} opts.user - User payload
+   * @param {Object} opts.user - User payload (allowed fields per PUT /users/:userId spec)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ user: Object }>>}
    */
   function update({token, jwtToken, userId, user, headers}) {
     return client({
@@ -112,6 +131,23 @@ function usersFactory({client, internalAuthTokenProvider}) {
       method: "put",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: {user}
+    });
+  }
+
+  /**
+   * DELETE /users/:id - delete a user. Emits webhook user.deleted. Returns 204 on success.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.id - User id (ObjectId)
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
+  function deleteUser({token, jwtToken, id, headers}) {
+    return client({
+      url: `/users/${id}`,
+      method: "delete",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
@@ -306,6 +342,7 @@ function usersFactory({client, internalAuthTokenProvider}) {
     create,
     login,
     update,
+    delete: deleteUser,
     createOrUpdateMany,
     impersonate,
     startMfa,

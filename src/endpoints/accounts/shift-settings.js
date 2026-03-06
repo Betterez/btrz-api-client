@@ -3,7 +3,7 @@ const {
 } = require("./../endpoints_helpers.js");
 
 /**
- * Factory for shift-settings API (btrz-api-accounts).
+ * Factory for shift-settings API (btrz-api-accounts). Requires BETTEREZ_APP audience.
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
@@ -11,12 +11,13 @@ const {
  */
 function shiftSettingsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /shift-settings - get shift settings. API does not accept query params.
+   * GET /shift-settings – get shift settings for the current account. No query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Object} [opts.query] - Optional query params
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ shiftSettings: object }>>}
    */
   function get({token, jwtToken, query, headers}) {
     return client({
@@ -27,13 +28,13 @@ function shiftSettingsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /shift-settings - update shift settings. API does not accept query params.
+   * PUT /shift-settings – update shift settings. Emits shiftsettings.updated webhook.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.shiftSettings - Settings payload
+   * @param {Object} opts.shiftSettings - Settings payload (ShiftSetting)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ shiftSettings: object }>>}
    */
   function update({jwtToken, token, shiftSettings, headers}) {
     return client({

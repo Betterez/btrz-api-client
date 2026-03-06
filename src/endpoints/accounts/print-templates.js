@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const {
   authorizationHeaders
 } = require("./../endpoints_helpers.js");
@@ -15,6 +16,7 @@ const {
  * @property {string} [sort] - relevance | natural | createdAsc | createdDesc | updatedAsc | updatedDesc
  * @property {string} [templateCollectionId] - default | epsontmt88v | zebralp2844 | zebragx420t
  * @property {string} [status] - draft | published
+ * @property {string} [agencyId] - Filter sub-templates for this agency (ObjectId)
  * @property {string} [mainTemplateAccountId] - Filter by source provider (ObjectId)
  * @property {number} [page] - 1-based page for pagination
  */
@@ -43,47 +45,54 @@ const {
  */
 function printSettingsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /print-templates - list print templates.
+   * GET /print-templates - list print templates (paginated when page is provided).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {PrintTemplatesListQuery} [opts.query] - Query params (providerId, type, channel, consumer, format, etc.)
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {PrintTemplatesListQuery} [opts.query] - Query params (providerId, type, channel, agencyId, etc.)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ printTemplates: object[], next?: string, previous?: string, totalRecords?: number, page?: number }>>}
+   *   When page is used, response includes next, previous, totalRecords, page.
+   * @throws {import("axios").AxiosError} 400 WRONG_DATA, INVALID_PRODUCT_ID; 401; 500
    */
-  function all({token, query, headers}) {
+  function all({token, jwtToken, query = {}, headers}) {
     return client({
       url: "/print-templates",
       params: query,
-      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
   /**
-   * GET /print-templates/:printTemplateId - get a print template.
-   * @param {Object} opts
-   * @param {string} [opts.token] - API key
-   * @param {string} opts.printTemplateId - Print template id (ObjectId)
-   * @param {PrintTemplateGetByIdQuery} [opts.query] - Query params (providerId, superUserId, superUserHash)
-   * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
-   */
-  function get({token, query, headers, printTemplateId}) {
-    return client({
-      url: `/print-templates/${printTemplateId}`,
-      params: query,
-      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
-    });
-  }
-
-  /**
-   * PUT /print-templates/:printTemplateId - update a print template. API getSpec() does not define query params.
+   * GET /print-templates/:printTemplateId - get a single print template.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.printTemplateId - Print template id (ObjectId)
-   * @param {Object} opts.printTemplate - Print template payload
+   * @param {PrintTemplateGetByIdQuery} [opts.query] - Query params (providerId, superUserId, superUserHash)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ printTemplate: object }>>}
+   * @throws {import("axios").AxiosError} 400 INVALID_PRINT_TEMPLATE_ID / INVALID_PROVIDER_ID, 401, 404 PRINT_TEMPLATE_NOT_FOUND, 500
+   */
+  function get({token, jwtToken, printTemplateId, query = {}, headers}) {
+    return client({
+      url: `/print-templates/${printTemplateId}`,
+      params: query,
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+    });
+  }
+
+  /**
+   * PUT /print-templates/:printTemplateId - update a print template.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.printTemplateId - Print template id (ObjectId)
+   * @param {Object} opts.printTemplate - Print template payload (name, type; type-specific fields)
+   * @param {Object} [opts.query] - Optional (superUserId, superUserHash)
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse<{ printTemplate: object }>>}
+   * @throws {import("axios").AxiosError} 400 WRONG_DATA, type-specific; 401 NOT_SUPER_USER; 404; 500
    */
   function update({jwtToken, token, printTemplateId, printTemplate, headers, query}) {
     return client({
@@ -100,13 +109,14 @@ function printSettingsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /print-templates - create a print template. API does not accept query params.
+   * POST /print-templates - create a print template. Body: printTemplate (name, type required; type-specific fields).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.printTemplate - Print template payload
+   * @param {Object} opts.printTemplate - Print template payload (see PrintTemplatePostData)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ printTemplate: object }>>}
+   * @throws {import("axios").AxiosError} 400 WRONG_DATA / PRODUCT_* / INVOICE_* / META_* / TEMPLATE_*, 401 NOT_SUPER_USER, 500
    */
   function create({jwtToken, token, printTemplate, headers}) {
     return client({
@@ -122,13 +132,14 @@ function printSettingsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /print-templates/:printTemplateId - remove a print template. API does not accept query params.
+   * DELETE /print-templates/:printTemplateId - delete a print template.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.printTemplateId - Print template id (ObjectId)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ printTemplateId: string }>>}
+   * @throws {import("axios").AxiosError} 400 PRINT_TEMPLATE_ID, 401, 404 PRINT_TEMPLATE_NOT_FOUND, 500
    */
   function remove({printTemplateId, token, jwtToken, headers}) {
     return client({
@@ -142,7 +153,7 @@ function printSettingsFactory({client, internalAuthTokenProvider}) {
 
   const versions = {
     /**
-     * PUT /print-templates/:printTemplateId/versions/:versionId - roll back print template to a version.
+     * PUT /print-templates/:printTemplateId/versions/:versionId - roll back to a saved version (versionId = zero-based index).
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -150,7 +161,8 @@ function printSettingsFactory({client, internalAuthTokenProvider}) {
      * @param {string} opts.versionId - Zero-based version index (e.g. "0", "1")
      * @param {PrintTemplateVersionUpdateQuery} [opts.query] - Query params (superUserId, superUserHash)
      * @param {Object} [opts.headers] - Optional headers
-     * @returns {Promise<import("axios").AxiosResponse>}
+     * @returns {Promise<import("axios").AxiosResponse<{ printTemplate: object }>>}
+     * @throws {import("axios").AxiosError} 400 WRONG_DATA; 401 NOT_SUPER_USER; 404; 500
      */
     update({printTemplateId, token, jwtToken, headers, query, versionId}) {
       return client({

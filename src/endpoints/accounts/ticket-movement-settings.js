@@ -11,12 +11,13 @@ const {
  */
 function ticketMovementSettingsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /ticket-movement-settings - get ticket movement settings. API does not accept query params.
+   * GET /ticket-movement-settings - get ticket movement settings for the account.
+   * No query or path parameters. See get-handler getSpec() in btrz-api-accounts for response schema.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<Object>>} Response body: ticket movement settings object. Errors: 401, 500
    */
   function get({token, jwtToken, headers}) {
     return client({
@@ -26,13 +27,15 @@ function ticketMovementSettingsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /ticket-movement-settings - update ticket movement settings. API does not accept query params.
+   * PUT /ticket-movement-settings - update ticket movement settings for the account.
+   * Body must include all required fields (see put-handler getSpec() in btrz-api-accounts).
+   * Side effect: persists to account.preferences.ticketMovements.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.ticketMovementSettings - Settings payload
+   * @param {Object} opts.ticketMovementSettings - Full settings payload (see put-handler getSpec())
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<Object>>} Updated settings. Errors: 400, 401, 500
    */
   function update({token, jwtToken, ticketMovementSettings, headers}) {
     return client({

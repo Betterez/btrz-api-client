@@ -46,13 +46,14 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function shiftsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /shifts - list shifts.
+   * GET /shifts - list shifts for the account. Returns shifts filtered by query params.
+   * See get-shifts handler getSpec() in btrz-api-accounts for full API details.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {ShiftsListQuery} [opts.query] - Query params
+   * @param {ShiftsListQuery} [opts.query] - Query params (includeActivity, status, pendingShiftClosure, locationId, providerId, sort, fromDate, toDate)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ shifts: Array }>>} Response body: { shifts }. Errors: 400 (validation), 401, 500
    */
   function all({jwtToken, token, query, headers}) {
     return client.get("/shifts", {
@@ -78,13 +79,14 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /shifts - create a shift.
+   * POST /shifts - open a shift for a user. Body: PostShiftRequest (stationId, userId, counterNumber).
+   * See post-shift handler getSpec() in btrz-api-accounts for full API details.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.shiftData - Shift payload
+   * @param {Object} opts.shiftData - Shift payload (stationId, userId, counterNumber)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ shift: Object }>>} Response body: { shift }. Errors: 400, 401, 404 (USER_NOT_FOUND, STATION_NOT_FOUND), 409 (SHIFT_ALREADY_OPEN_FOR_USER, USER_WITHOUT_SHIFT_ENABLED), 500
    */
   function create({jwtToken, token, shiftData, headers}) {
     return client({
@@ -98,14 +100,16 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PATCH /shifts/:shiftId - update a shift (operations). API getSpec() does not define query params.
+   * PATCH /shifts/:shiftId - close a shift. Body: PatchShiftRequest (operations array with comment).
+   * See patch-shift handler getSpec() in btrz-api-accounts for full API details.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.shiftId - Shift id (ObjectId)
-   * @param {Object} opts.operations - Operations payload
+   * @param {Object} opts.operations - Operations payload (e.g. [{ comment }] for close)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @param {Object} [opts.query] - Optional query params
+   * @returns {Promise<import("axios").AxiosResponse<{ shift: Object }>>} Response body: { shift }. Errors: 401, 404 (SHIFT_NOT_FOUND, USER_NOT_FOUND), 409 (SHIFT_ALREADY_CLOSED, COMMENT_IS_MANDATORY_WHEN_VARIANCE_EXISTS, TOTAL_CHANGED), 500
    */
   function update({jwtToken, token, shiftId, operations, headers, query}) {
     return client({

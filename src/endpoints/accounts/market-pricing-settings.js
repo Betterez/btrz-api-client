@@ -3,7 +3,8 @@ const {
 } = require("../endpoints_helpers.js");
 
 /**
- * Factory for market-pricing-settings API (btrz-api-accounts).
+ * Factory for market-pricing-settings API (btrz-api-accounts). Market pricing configuration (e.g. useOnlySpecificFareTable).
+ * Requires user logged in to backoffice app.
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
@@ -11,12 +12,12 @@ const {
  */
 function marketPricingSettingsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /market-pricing-settings - get market pricing settings. API does not accept query params.
+   * GET /market-pricing-settings – Get market pricing settings for the account.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ marketPricingSettings: { useOnlySpecificFareTable: boolean } }>>}
    */
   function get({token, jwtToken, headers}) {
     return client({
@@ -26,13 +27,13 @@ function marketPricingSettingsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /market-pricing-settings - update market pricing settings. API does not accept query params.
+   * PUT /market-pricing-settings – Update market pricing settings. Body: MarketPricingSettings at root (useOnlySpecificFareTable required).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.marketPricingSettings - Settings payload
+   * @param {Object} opts.marketPricingSettings - { useOnlySpecificFareTable: boolean }
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ marketPricingSettings: object }>>}
    */
   function update({token, jwtToken, marketPricingSettings, headers}) {
     return client({

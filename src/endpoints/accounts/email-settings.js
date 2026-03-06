@@ -3,6 +3,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
  * Factory for email-settings API (btrz-api-accounts).
+ * Manage account email settings (identity/verified senders). Path parameter is email address.
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
@@ -10,12 +11,13 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function emailSettingsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /email-settings - list email settings. API does not accept query params.
+   * GET /email-settings – List all email settings for the account.
+   * Response may trigger AWS verification and commIdentity updates. No query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ emailSettings: object[] }>>}
    */
   function all({token, jwtToken, query = {}, headers}) {
     return client({
@@ -25,13 +27,13 @@ function emailSettingsFactory({client, internalAuthTokenProvider}) {
     });
   }
   /**
-   * GET /email-settings/:email - get email settings by email. API does not accept query params.
+   * GET /email-settings/:email – Get one email setting by email address (path param).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.email - Email address
+   * @param {string} opts.email - Email address (path parameter; must match email pattern)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<object>>} response.data is EmailSetting
    */
   function getByEmail({token, jwtToken, email, query = {}, headers}) {
     return client({
@@ -42,13 +44,14 @@ function emailSettingsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /email-settings - create email settings.
+   * POST /email-settings – Create an email setting. Requires BETTEREZ_APP JWT. Emits emailSetting.created.
+   * Body: { emailSetting } or { name, email, active }. Email and domain are verified in AWS.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.data - Email settings payload
+   * @param {string} [opts.jwtToken] - JWT (required for BETTEREZ_APP audience)
+   * @param {Object} opts.data - Body: { name, email, active? } or { emailSetting: { name, email, active? } }
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ emailSetting: object }>>}
    */
   function create({data, token, jwtToken, headers}) {
     return client({
@@ -60,14 +63,14 @@ function emailSettingsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /email-settings/:email - update email settings.
+   * PUT /email-settings/:email – Update an email setting. Requires BETTEREZ_APP JWT. Emits emailSetting.updated.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.email - Email address
-   * @param {Object} opts.data - Email settings payload
+   * @param {string} [opts.jwtToken] - JWT (required for BETTEREZ_APP audience)
+   * @param {string} opts.email - Email address (path parameter)
+   * @param {Object} opts.data - Body: { name, email, active?, ... } or { emailSetting: { ... } }
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ emailSetting: object }>>}
    */
   function update({token, jwtToken, email, data, headers}) {
     return client({
@@ -79,13 +82,14 @@ function emailSettingsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /email-settings/:email - remove email settings.
+   * DELETE /email-settings/:email – Remove an email setting. Requires BETTEREZ_APP JWT. Emits emailSetting.deleted.
+   * Fails with 400 if the email is currently active.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.email - Email address
+   * @param {string} [opts.jwtToken] - JWT (required for BETTEREZ_APP audience)
+   * @param {string} opts.email - Email address (path parameter)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ emailSetting: object }>>}
    */
   function remove({email, token, jwtToken, headers}) {
     return client({

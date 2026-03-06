@@ -4,6 +4,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers");
 
 /**
  * Factory for exchange-rates API (btrz-api-accounts).
+ * Manage account exchange rates by currency ISO code. GET returns paginated list; POST creates a rate and updates account preferences.
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
@@ -11,13 +12,15 @@ const {authorizationHeaders} = require("./../endpoints_helpers");
  */
 function exchangeRatesFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /exchange-rates/:isoCode - get exchange rates by ISO code. API does not define query params in getSpec().
+   * GET /exchange-rates/:isoCode – List exchange rates for the account filtered by currency ISO code (3 letters).
+   * Response is paginated (exchangeRates array + totalRecords, page, etc.).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.isoCode - Currency ISO code (3 characters)
+   * @param {string} opts.isoCode - Currency ISO code (3 uppercase letters, e.g. USD, MXN)
+   * @param {Object} [opts.query] - Optional query (e.g. page for pagination)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ exchangeRates: object[], totalRecords: number, ... }>>}
    */
   function allByIsoCode({token, jwtToken, isoCode, query = {}, headers}) {
     return client({
@@ -28,13 +31,15 @@ function exchangeRatesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /exchange-rates - create an exchange rate.
+   * POST /exchange-rates – Create an exchange rate. Requires BETTEREZ_APP JWT. Currency must be in account preferences and enabled.
+   * Updates account preferences.supportedCurrencies for that currency. Emits exchangeRates.created.
+   * Body: { exchangeRate } or { isoCode, buy, sell }. buy and sell must be > 0.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.data - Exchange rate payload
+   * @param {string} [opts.jwtToken] - JWT (required for BETTEREZ_APP audience)
+   * @param {Object} opts.data - Body: { isoCode, buy, sell } or { exchangeRate: { isoCode, buy, sell } }
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ exchangeRate: object }>>}
    */
   function create({data, token, jwtToken, headers}) {
     return client({

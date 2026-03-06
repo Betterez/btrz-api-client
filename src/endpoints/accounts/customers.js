@@ -1,15 +1,16 @@
+/* eslint-disable max-len */
 const base64 = require("base-64");
 const {
   authorizationHeaders
 } = require("./../endpoints_helpers.js");
 
 /**
- * Query params for GET /customers (btrz-api-accounts). See get-customers getSpec().
+ * Query params for GET /customers (btrz-api-accounts). Response is paginated (customers array + pagination).
  * @typedef {Object} CustomersQuery
- * @property {string} [customerNumber] - A particular customer number; only that customer will be listed
- * @property {string} [externalId] - A particular externalId (same format as when creating the customer)
- * @property {string} [providerIds] - Provider ids to get customers from (comma-separated if more than one)
- * @property {string} [lookupSearchParams] - Lookup search data in format "documentTypeId|DNI,documentNumber|1234567"
+ * @property {string} [customerNumber] - Filter: only that customer will be listed
+ * @property {string} [externalId] - Filter: same format as when creating the customer; only that customer listed
+ * @property {string} [providerIds] - Filter: provider ids to get customers from (comma-separated)
+ * @property {string} [lookupSearchParams] - Lookup search in format "documentTypeId|DNI,documentNumber|1234567" (documentNumber required)
  */
 
 /**
@@ -21,14 +22,14 @@ const {
  */
 function customersFactory({client, internalAuthTokenProvider}) {
   /**
-   * PUT /customers/:customerId - update a customer (full replace).
+   * PUT /customers/:customerId - update a customer (full replace). Requires BETTEREZ_APP or CUSTOMER audience; customer token may only update own record. Side effect: may emit customer.updated webhook.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.customerId - Customer id (ObjectId)
-   * @param {Object} opts.customer - Customer payload
+   * @param {string} opts.customerId - Customer id (24-char hex ObjectId)
+   * @param {Object} opts.customer - Customer payload (CustomerData)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ _id: string, customerNumber: string, ... }>>}
    */
   function put({customerId, customer, token, jwtToken, headers}) {
     return client({
@@ -40,14 +41,14 @@ function customersFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /customers - list customers.
+   * GET /customers - list customers (paginated). Optional filters: customerNumber, externalId, providerIds, lookupSearchParams.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {CustomersQuery} [opts.query] - Query params (customerNumber, externalId, providerIds, lookupSearchParams)
-   * @param {string} [opts.providerId] - Provider id; if set, added to query (convenience for single provider)
+   * @param {CustomersQuery} [opts.query] - Query params; API expects providerIds (comma-separated). Use providerId to send a single id.
+   * @param {string} [opts.providerId] - Convenience: added to query as providerId (single provider)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ customers: Array<object>, total: number, ... }>>}
    */
   function all({token, jwtToken, query = {}, headers, providerId}) {
     const query_ = providerId ? {...query, providerId} : query;
@@ -59,13 +60,14 @@ function customersFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /customer - create a customer.
+   * POST /customer - create a customer. Body: { customer }. If password is included, activation token is created and activation email sent. Side effect: may emit customer.created webhook.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.customer - Customer payload
+   * @param {Object} opts.customer - Customer payload (CustomerPost); email, firstName, lastName required
+   * @param {Object} [opts.query] - Optional: uniqueEmail, lang, channel, platform, appVersion, appName, activateIfExists
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ _id: string, customerNumber: string, ... }>>}
    */
   function create({customer, token, jwtToken, query, headers}) {
     return client({
@@ -125,14 +127,15 @@ function customersFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PATCH /customers/:customerId - partial update a customer.
+   * PATCH /customers/:customerId - apply operations (activate, reset password, activateEmailAndPwd). Body: { operations } array of PatchCustomerOperation. Returns Customer and auth tokens. Side effect: may emit customer.updated webhook.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.customerId - Customer id (ObjectId)
-   * @param {Object} opts.data - Partial customer payload
+   * @param {string} opts.customerId - Customer id (24-char hex ObjectId)
+   * @param {Object} opts.data - Body: { operations } or array of { op, path, value }
+   * @param {Object} [opts.query] - Optional query
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<CustomerWithAuthToken>>}
    */
   function update({customerId, token, jwtToken, data, query, headers}) {
     return client({
@@ -145,13 +148,13 @@ function customersFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /customers/merge - merge source customers into destination.
+   * POST /customers/merge - merge source customers into destination. Requires BETTEREZ_APP. Side effect: emits customers.merged webhook.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.destinationCustomerId - Destination customer id (ObjectId)
-   * @param {Array<string>} opts.sourceCustomerIds - Source customer ids (ObjectIds)
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @param {string} opts.destinationCustomerId - Destination customer id (24-char hex ObjectId)
+   * @param {Array<string>} opts.sourceCustomerIds - Source customer ids (24-char hex ObjectIds)
+   * @returns {Promise<import("axios").AxiosResponse<{ customerMerge: object }>>}
    */
   function merge({destinationCustomerId, sourceCustomerIds, jwtToken, token}) {
     return client({

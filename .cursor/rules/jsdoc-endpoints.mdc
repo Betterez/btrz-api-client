@@ -1,7 +1,7 @@
 ---
 description: JSDoc rules for endpoint files - be accurate, never invent params or query
 globs: src/endpoints/**/*.js
-alwaysApply: false
+alwaysApply: true
 ---
 
 # Endpoint JSDoc accuracy

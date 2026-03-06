@@ -3,7 +3,7 @@ const {
 } = require("./../endpoints_helpers.js");
 
 /**
- * Factory for goal-settings API (btrz-api-accounts).
+ * Factory for goal-settings API (btrz-api-accounts). Goal API integration settings.
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
@@ -11,12 +11,13 @@ const {
  */
 function goalSettingsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /goal-settings - get goal settings. API does not accept query params.
+   * GET /goal-settings – Get goal settings for the account. Requires BETTEREZ_APP JWT.
+   * If user lacks read permission for /admin/integrations/goal, returns 200 with empty goalSettings.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ goalSettings: object }>>}
    */
   function get({token, jwtToken, query, headers}) {
     return client({
@@ -27,13 +28,14 @@ function goalSettingsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /goal-settings - update goal settings. API does not accept query params.
+   * PUT /goal-settings – Update goal settings. Requires BETTEREZ_APP and update permission for
+   * /admin/integrations/goal. Emits goalsettings.updated. Body: { goalSettings }.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.goalSettings - Settings payload
+   * @param {Object} opts.goalSettings - Required: baseUrl, clientId, clientSecret, pushOnManifestStatus
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ goalSettings: object }>>}
    */
   function update({jwtToken, token, goalSettings, headers}) {
     return client({

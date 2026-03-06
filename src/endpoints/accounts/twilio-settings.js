@@ -11,12 +11,14 @@ const {
  */
 function twilioSettingsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /twilio-settings - get Twilio settings. API does not accept query params.
+   * GET /twilio-settings - get Twilio settings for the account. See get-handler getSpec() in btrz-api-accounts.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Object} [opts.query] - Optional query params
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ twilioSettings: Object }>>}
+   *   Errors: 401, 404 (TWILIO_SETTINGS_NOT_FOUND), 500
    */
   function get({jwtToken, token, query, headers}) {
     return client({
@@ -27,13 +29,14 @@ function twilioSettingsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /twilio-settings - update Twilio settings. API does not accept query params.
+   * PUT /twilio-settings - update Twilio settings. See put-handler getSpec() in btrz-api-accounts.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.twilioSettings - Settings payload
+   * @param {Object} opts.twilioSettings - Settings payload (TwilioSettingsPayload: enabled, sendingNumber, etc.)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ twilioSettings: Object }>>}
+   *   Errors: 401, 404, 409, 500
    */
   function update({jwtToken, token, twilioSettings, headers}) {
     return client({

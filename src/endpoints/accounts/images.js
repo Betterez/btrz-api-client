@@ -2,7 +2,7 @@
 const {authorizationHeaders} = require("./../endpoints_helpers");
 
 /**
- * Factory for images API (btrz-api-accounts).
+ * Factory for images API (btrz-api-accounts). Account images (url-based). POST/DELETE require BETTEREZ_APP.
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
@@ -10,12 +10,13 @@ const {authorizationHeaders} = require("./../endpoints_helpers");
  */
 function ImagesFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /images - list images. API getSpec() does not define query params.
+   * GET /images – List images for the account (paginated). Query: page.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Object} [opts.query] - Optional query (e.g. page for pagination)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ images: object[], totalRecords: number, ... }>>}
    */
   function all({token, jwtToken, query = {}, headers}) {
     return client({
@@ -26,13 +27,13 @@ function ImagesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /images/:imageId - get an image. API does not accept query params.
+   * GET /images/:imageId – Get a single image by id (24 hex ObjectId).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.imageId - Image id (ObjectId)
+   * @param {string} opts.imageId - Image id (24 hex characters)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ image: object }>>}
    */
   function get({token, jwtToken, query = {}, headers, imageId}) {
     return client({
@@ -43,13 +44,13 @@ function ImagesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /images - create an image.
+   * POST /images – Create an image. Requires BETTEREZ_APP JWT. Body: { image } with url required. Emits images.created.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.image - Image payload
+   * @param {string} [opts.jwtToken] - JWT (BETTEREZ_APP audience)
+   * @param {Object} opts.image - { url } (required)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ image: object }>>}
    */
   function create({jwtToken, token, image, headers}) {
     return client({
@@ -65,13 +66,13 @@ function ImagesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /images/:imageId - remove an image.
+   * DELETE /images/:imageId – Delete an image. Requires BETTEREZ_APP JWT. Emits images.deleted (data: { imageId }).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.imageId - Image id (ObjectId)
+   * @param {string} opts.imageId - Image id (24 hex ObjectId)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ imageId: string }>>}
    */
   function remove({imageId, token, jwtToken, headers}) {
     return client({

@@ -178,6 +178,7 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
 
   return {
     accounts: require("./endpoints/accounts/accounts.js")({client, internalAuthTokenProvider}),
+    agencies: require("./endpoints/accounts/agencies.js")({client, internalAuthTokenProvider}),
     application: require("./endpoints/accounts/application.js")({client, internalAuthTokenProvider}),
     applications: require("./endpoints/accounts/applications.js")({client, internalAuthTokenProvider}),
     applicationSettings: require("./endpoints/accounts/application-settings.js")({client, internalAuthTokenProvider}),
@@ -193,6 +194,7 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
     smsTemplates: require("./endpoints/accounts/sms-templates.js")({client, internalAuthTokenProvider}),
     exchangeRates: require("./endpoints/accounts/exchange-rates.js")({client, internalAuthTokenProvider}),
     exchangeReceipts: require("./endpoints/accounts/exchange-receipts.js")({client, internalAuthTokenProvider}),
+    externalCustomers: require("./endpoints/accounts/external-customers.js")({client, internalAuthTokenProvider}),
     goalSettings: require("./endpoints/accounts/goal-settings.js")({client, internalAuthTokenProvider}),
     images: require("./endpoints/accounts/images.js")({client, internalAuthTokenProvider}),
     interline: require("./endpoints/accounts/interline.js")({client, internalAuthTokenProvider}),
@@ -231,6 +233,7 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
     trustedMachines: require("./endpoints/accounts/trusted-machines.js")({client, internalAuthTokenProvider}),
     twilioSettings: require("./endpoints/accounts/twilio-settings.js")({client, internalAuthTokenProvider}),
     users: require("./endpoints/accounts/users.js")({client, internalAuthTokenProvider}),
+    verifiedEmails: require("./endpoints/accounts/verified-emails.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     },

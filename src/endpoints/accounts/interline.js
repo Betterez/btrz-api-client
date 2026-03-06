@@ -3,7 +3,8 @@ const {
 } = require("../endpoints_helpers.js");
 
 /**
- * Factory for interline API (btrz-api-accounts).
+ * Factory for interline API (btrz-api-accounts). Interline invitations, consumers, providers, network.
+ * POST/PUT/DELETE require BETTEREZ_APP.
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
@@ -12,12 +13,13 @@ const {
 function interlineFactory({client, internalAuthTokenProvider}) {
   const invitations = {
     /**
-     * GET /interline/invitations - list interline invitations. API does not accept query params.
+     * GET /interline/invitations – List interline invitations (paginated). Query: page.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+     * @param {Object} [opts.query] - Optional query (e.g. page)
      * @param {Object} [opts.headers] - Optional headers
-     * @returns {Promise<import("axios").AxiosResponse>}
+     * @returns {Promise<import("axios").AxiosResponse<{ invitations: object[], totalRecords: number, ... }>>}
      */
     all({token, jwtToken, query = {}, headers}) {
       return client({
@@ -27,12 +29,12 @@ function interlineFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * GET /interline/invitations/:invitationId - get an invitation. API does not accept query params.
+     * GET /interline/invitations/:invitationId – Get a single invitation by id (24 hex ObjectId).
      * @param {Object} opts
      * @param {string} [opts.token] - API key
-     * @param {string} opts.invitationId - Invitation id (ObjectId)
+     * @param {string} opts.invitationId - Invitation id (24 hex characters)
      * @param {Object} [opts.headers] - Optional headers
-     * @returns {Promise<import("axios").AxiosResponse>}
+     * @returns {Promise<import("axios").AxiosResponse<{ invitation: object }>>}
      */
     get({token, invitationId, headers}) {
       return client.get(`/interline/invitations/${invitationId}`, {
@@ -40,13 +42,14 @@ function interlineFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * POST /interline/invitations - create an invitation.
+     * POST /interline/invitations – Create an invitation. Requires BETTEREZ_APP JWT. Emits interlineinvitation.created.
+     * Body: { interline } or InterlineInvitationPost at root.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
-     * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+     * @param {string} [opts.jwtToken] - JWT (BETTEREZ_APP audience)
      * @param {Object} opts.data - Invitation payload
      * @param {Object} [opts.headers] - Optional headers
-     * @returns {Promise<import("axios").AxiosResponse>}
+     * @returns {Promise<import("axios").AxiosResponse<{ invitation: object }>>}
      */
     create({data, token, jwtToken, headers}) {
       return client({
@@ -57,14 +60,15 @@ function interlineFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * PUT /interline/invitations/:invitationId - update an invitation.
+     * PUT /interline/invitations/:invitationId – Update invitation (e.g. accept/reject). Requires BETTEREZ_APP.
+     * Emits interlineinvitation.updated.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-     * @param {string} opts.invitationId - Invitation id (ObjectId)
-     * @param {Object} opts.data - Invitation payload
+     * @param {string} opts.invitationId - Invitation id (24 hex ObjectId)
+     * @param {Object} opts.data - Body (InterlineInvitePutData)
      * @param {Object} [opts.headers] - Optional headers
-     * @returns {Promise<import("axios").AxiosResponse>}
+     * @returns {Promise<import("axios").AxiosResponse<{ invitation: object }>>}
      */
     update({invitationId, data, token, jwtToken, headers}) {
       return client({
@@ -78,12 +82,13 @@ function interlineFactory({client, internalAuthTokenProvider}) {
 
   const consumers = {
     /**
-     * GET /interline/consumers - list interline consumers. API does not accept query params.
+     * GET /interline/consumers – List interline consumers (paginated). Query: page.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+     * @param {Object} [opts.query] - Optional query (e.g. page)
      * @param {Object} [opts.headers] - Optional headers
-     * @returns {Promise<import("axios").AxiosResponse>}
+     * @returns {Promise<import("axios").AxiosResponse<{ consumers: object[], totalRecords: number, ... }>>}
      */
     all({token, jwtToken, query = {}, headers}) {
       return client({
@@ -96,12 +101,13 @@ function interlineFactory({client, internalAuthTokenProvider}) {
 
   const providers = {
     /**
-     * GET /interline/providers - list interline providers. API does not accept query params.
+     * GET /interline/providers – List interline providers (paginated). Query: page.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+     * @param {Object} [opts.query] - Optional query (e.g. page)
      * @param {Object} [opts.headers] - Optional headers
-     * @returns {Promise<import("axios").AxiosResponse>}
+     * @returns {Promise<import("axios").AxiosResponse<{ providers: object[], totalRecords: number, ... }>>}
      */
     all({token, jwtToken, query = {}, headers}) {
       return client({
@@ -114,27 +120,28 @@ function interlineFactory({client, internalAuthTokenProvider}) {
 
   const network = {
     /**
-     * GET /interline/:interlineId/network - get interline network. API does not accept query params.
-     * @param {Object} opts
-     * @param {string} [opts.token] - API key
-     * @param {string} opts.interlineId - Interline id (ObjectId)
-     * @param {Object} [opts.headers] - Optional headers
-     * @returns {Promise<import("axios").AxiosResponse>}
-     */
-    get({token, interlineId, headers}) {
-      return client.get(`/interline/${interlineId}/network`, {
-        headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
-      });
-    },
-    /**
-     * PUT /interline/:interlineId/network - update interline network.
+     * GET /interline/:interlineId/network – Get interline network by interline id (24 hex ObjectId).
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-     * @param {string} opts.interlineId - Interline id (ObjectId)
-     * @param {Object} opts.data - Network payload
+     * @param {string} opts.interlineId - Interline id (24 hex ObjectId)
      * @param {Object} [opts.headers] - Optional headers
-     * @returns {Promise<import("axios").AxiosResponse>}
+     * @returns {Promise<import("axios").AxiosResponse<{ network: object }>>}
+     */
+    get({token, jwtToken, interlineId, headers}) {
+      return client.get(`/interline/${interlineId}/network`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    },
+    /**
+     * PUT /interline/:interlineId/network – Update interline network. Requires BETTEREZ_APP. Emits interlinenetwork.updated.
+     * @param {Object} opts
+     * @param {string} [opts.token] - API key
+     * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+     * @param {string} opts.interlineId - Interline id (24 hex ObjectId)
+     * @param {Object} opts.data - Network payload (InterlinePutData)
+     * @param {Object} [opts.headers] - Optional headers
+     * @returns {Promise<import("axios").AxiosResponse<{ network: object }>>}
      */
     update({interlineId, data, token, jwtToken, headers}) {
       return client({
@@ -152,11 +159,11 @@ function interlineFactory({client, internalAuthTokenProvider}) {
     providers,
     network,
     /**
-     * DELETE /interline/:interlineId - remove an interline.
+     * DELETE /interline/:interlineId – Remove an interline. Requires BETTEREZ_APP. Emits interlinenetwork.deleted.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-     * @param {string} opts.interlineId - Interline id (ObjectId)
+     * @param {string} opts.interlineId - Interline id (24 hex ObjectId)
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */

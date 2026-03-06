@@ -4,6 +4,13 @@ const {
 } = require("../endpoints_helpers.js");
 
 /**
+ * Query params for GET /network/agencies (btrz-api-accounts). See get-agencies-handler getSpec().
+ * @typedef {Object} NetworkAgenciesListQuery
+ * @property {string} [name] - Filter by agency/seller name (prefix, case-insensitive)
+ * @property {number} [page] - Page number (1-based)
+ */
+
+/**
  * Factory for network API (btrz-api-accounts).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -13,12 +20,14 @@ const {
 function networkFactory({client, internalAuthTokenProvider}) {
   const agencies = {
     /**
-     * GET /network/agencies - list agencies. API getSpec() does not define query params.
+     * GET /network/agencies - list agencies (paginated). Query: name, page.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+     * @param {NetworkAgenciesListQuery} [opts.query] - Query params (name, page)
      * @param {Object} [opts.headers] - Optional headers
-     * @returns {Promise<import("axios").AxiosResponse>}
+     * @returns {Promise<import("axios").AxiosResponse<{ agencies: Array, next?: string, previous?: string, count?: number }>>}
+     *   Errors: 401, 500
      */
     all({token, jwtToken, query = {}, headers}) {
       return client({
@@ -28,18 +37,21 @@ function networkFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * GET /network/agencies/:agencyId - get an agency by id. API does not accept query params.
+     * GET /network/agencies/:agencyId - get an agency by id.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
-     * @param {string} opts.sellerId - Seller/agency id (ObjectId), maps to path agencyId
+     * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+     * @param {string} opts.sellerId - Seller/agency id (ObjectId), path param agencyId
+     * @param {Object} [opts.query] - Optional query params
      * @param {Object} [opts.headers] - Optional headers
-     * @returns {Promise<import("axios").AxiosResponse>}
+     * @returns {Promise<import("axios").AxiosResponse<{ agency: Object }>>}
+     *   Errors: 400 (INVALID_AGENCY_ID), 401, 404 (AGENCY_NOT_FOUND), 500
      */
-    get({token, query, headers, sellerId}) {
+    get({token, jwtToken, query, headers, sellerId}) {
       return client({
         url: `/network/agencies/${sellerId}`,
-        params: query,
-        headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+        params: query || {},
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
       });
     },
     /**
@@ -87,13 +99,14 @@ function networkFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * PUT /network/agencies/remove-product - remove product from agency. API does not accept query params.
+     * PUT /network/agencies/remove-product - remove productId from all agencies for the account.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-     * @param {string} opts.productId - Product id (ObjectId)
+     * @param {string} opts.productId - Product id (non-empty string)
      * @param {Object} [opts.headers] - Optional headers
-     * @returns {Promise<import("axios").AxiosResponse>}
+     * @returns {Promise<import("axios").AxiosResponse<{}>>}
+     *   Errors: 400 (WRONG_DATA), 401, 500
      */
     removeProduct({token, jwtToken, productId, headers}) {
       return client({
@@ -108,13 +121,14 @@ function networkFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * PUT /network/agencies/remove-fare - remove fare from agency. API does not accept query params.
+     * PUT /network/agencies/remove-fare - remove fareId from all agencies for the account.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-     * @param {string} opts.fareId - Fare id (ObjectId)
+     * @param {string} opts.fareId - Fare id (non-empty string)
      * @param {Object} [opts.headers] - Optional headers
-     * @returns {Promise<import("axios").AxiosResponse>}
+     * @returns {Promise<import("axios").AxiosResponse<{}>>}
+     *   Errors: 400 (WRONG_DATA), 401, 500
      */
     removeFare({token, jwtToken, fareId, headers}) {
       return client({
