@@ -1,37 +1,33 @@
 export = banksFactory;
+/**
+ * @typedef {Object} BanksQuery
+ * @property {string} [providerId] - Provider account ID
+ */
+/**
+ * Factory for banks API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, update: function, remove: function }}
+ */
 declare function banksFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, jwtToken, query, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ bankId, token, headers, jwtToken }: {
-        bankId: any;
-        token: any;
-        headers: any;
-        jwtToken: any;
-    }) => any;
-    create: ({ jwtToken, token, bank, headers }: {
-        jwtToken: any;
-        token: any;
-        bank: any;
-        headers: any;
-    }) => any;
-    update: ({ jwtToken, token, bankId, bank, headers }: {
-        jwtToken: any;
-        token: any;
-        bankId: any;
-        bank: any;
-        headers: any;
-    }) => any;
-    remove: ({ jwtToken, bankId, token, headers }: {
-        jwtToken: any;
-        bankId: any;
-        token: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+    create: Function;
+    update: Function;
+    remove: Function;
+};
+declare namespace banksFactory {
+    export { BanksQuery };
+}
+type BanksQuery = {
+    /**
+     * - Provider account ID
+     */
+    providerId?: string;
 };

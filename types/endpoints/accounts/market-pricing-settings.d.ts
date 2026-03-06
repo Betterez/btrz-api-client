@@ -1,17 +1,17 @@
 export = marketPricingSettingsFactory;
+/**
+ * Factory for market-pricing-settings API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ get: function, update: function }}
+ */
 declare function marketPricingSettingsFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    get: ({ token, jwtToken, headers }: {
-        token: any;
-        jwtToken: any;
-        headers: any;
-    }) => any;
-    update: ({ token, jwtToken, marketPricingSettings, headers }: {
-        token: any;
-        jwtToken: any;
-        marketPricingSettings: any;
-        headers: any;
-    }) => any;
+    get: Function;
+    update: Function;
 };

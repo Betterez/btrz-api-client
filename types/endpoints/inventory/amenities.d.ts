@@ -1,30 +1,32 @@
 export = amenitiesFactory;
+/**
+ * @typedef {Object} AmenitiesQuery
+ * @property {string} [providerId] - Provider account ID
+ */
+/**
+ * Factory for amenities API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, update: function }}
+ */
 declare function amenitiesFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, query, headers }: {
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ token, amenityId, query, headers }: {
-        token: any;
-        amenityId: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    create: ({ token, jwtToken, amenity, headers }: {
-        token: any;
-        jwtToken: any;
-        amenity: any;
-        headers: any;
-    }) => any;
-    update: ({ token, jwtToken, amenityId, amenity, headers }: {
-        token: any;
-        jwtToken: any;
-        amenityId: any;
-        amenity: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+    create: Function;
+    update: Function;
+};
+declare namespace amenitiesFactory {
+    export { AmenitiesQuery };
+}
+type AmenitiesQuery = {
+    /**
+     * - Provider account ID
+     */
+    providerId?: string;
 };

@@ -1,20 +1,30 @@
 export = stripeTerminalsFactory;
+/**
+ * @typedef {Object} StripeTerminalsQuery
+ * @property {string} [providerId] - Provider account ID
+ */
+/**
+ * Factory for Stripe terminals API (btrz-api-payments).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, simulate: function }}
+ */
 declare function stripeTerminalsFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, jwtToken, headers, query }: {
-        token: any;
-        jwtToken: any;
-        headers: any;
-        query?: {};
-    }) => any;
-    simulate: ({ token, jwtToken, id, stripePayment, query, headers }: {
-        token: any;
-        jwtToken: any;
-        id: any;
-        stripePayment: any;
-        query?: {};
-        headers: any;
-    }) => any;
+    all: Function;
+    simulate: Function;
+};
+declare namespace stripeTerminalsFactory {
+    export { StripeTerminalsQuery };
+}
+type StripeTerminalsQuery = {
+    /**
+     * - Provider account ID
+     */
+    providerId?: string;
 };

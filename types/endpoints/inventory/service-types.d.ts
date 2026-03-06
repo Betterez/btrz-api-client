@@ -1,35 +1,31 @@
 export = serviceTypesFactory;
+/**
+ * Query params for GET /service-types (btrz-api-inventory). Forwarded to API as-is.
+ * @typedef {Object} InventoryServiceTypesListQuery
+ */
+/**
+ * Factory for service-types API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, update: function, remove: function }}
+ */
 declare function serviceTypesFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, query, headers }: {
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ serviceTypeId, token, headers }: {
-        serviceTypeId: any;
-        token: any;
-        headers: any;
-    }) => any;
-    create: ({ jwtToken, token, serviceType, headers }: {
-        jwtToken: any;
-        token: any;
-        serviceType: any;
-        headers: any;
-    }) => any;
-    update: ({ jwtToken, token, serviceTypeId, serviceType, headers }: {
-        jwtToken: any;
-        token: any;
-        serviceTypeId: any;
-        serviceType: any;
-        headers: any;
-    }) => any;
-    remove: ({ jwtToken, serviceTypeId, token, headers }: {
-        jwtToken: any;
-        serviceTypeId: any;
-        token: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+    create: Function;
+    update: Function;
+    remove: Function;
 };
+declare namespace serviceTypesFactory {
+    export { InventoryServiceTypesListQuery };
+}
+/**
+ * Query params for GET /service-types (btrz-api-inventory). Forwarded to API as-is.
+ */
+type InventoryServiceTypesListQuery = any;

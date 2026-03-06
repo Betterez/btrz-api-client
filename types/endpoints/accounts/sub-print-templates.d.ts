@@ -1,12 +1,16 @@
 export = subPrintTemplatesFactory;
+/**
+ * Factory for sub-print-templates API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ create: function }}
+ */
 declare function subPrintTemplatesFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    create: ({ jwtToken, token, subPrintTemplate, headers }: {
-        jwtToken: any;
-        token: any;
-        subPrintTemplate: any;
-        headers: any;
-    }) => any;
+    create: Function;
 };

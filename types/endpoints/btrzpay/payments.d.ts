@@ -1,18 +1,17 @@
 export = paymentsFactory;
+/**
+ * Factory for payments API (btrz-api-payments).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ create: function, get: function }}
+ */
 declare function paymentsFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    create: ({ token, jwtToken, payments, headers }: {
-        token: any;
-        jwtToken: any;
-        payments: any;
-        headers: any;
-    }) => any;
-    get: ({ token, jwtToken, transactionId, headers }: {
-        token: any;
-        jwtToken: any;
-        transactionId: any;
-        headers: any;
-    }) => any;
+    create: Function;
+    get: Function;
 };

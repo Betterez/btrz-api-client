@@ -1,19 +1,17 @@
 export = websalesConfigFactory;
+/**
+ * Factory for websales-config API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ get: function, update: function }}
+ */
 declare function websalesConfigFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    get: ({ token, jwtToken, query, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    update: ({ token, jwtToken, websalesConfigId, websalesConfig, headers }: {
-        token: any;
-        jwtToken: any;
-        websalesConfigId: any;
-        websalesConfig: any;
-        headers: any;
-    }) => any;
+    get: Function;
+    update: Function;
 };

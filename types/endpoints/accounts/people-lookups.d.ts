@@ -1,42 +1,20 @@
 export = peopleLookupsFactory;
+/**
+ * Factory for people-lookups API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, getById: function, update: function, create: function, remove: function }}
+ */
 declare function peopleLookupsFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, jwtToken, query, headers, providerId }: {
-        token: any;
-        jwtToken: any;
-        query: any;
-        headers: any;
-        providerId: any;
-    }) => any;
-    getById: ({ token, jwtToken, query, headers, personId, providerId }: {
-        token: any;
-        jwtToken: any;
-        query: any;
-        headers: any;
-        personId: any;
-        providerId: any;
-    }) => any;
-    update: ({ jwtToken, token, personId, person, headers, providerId }: {
-        jwtToken: any;
-        token: any;
-        personId: any;
-        person: any;
-        headers: any;
-        providerId: any;
-    }) => any;
-    create: ({ jwtToken, token, person, headers, providerId }: {
-        jwtToken: any;
-        token: any;
-        person: any;
-        headers: any;
-        providerId: any;
-    }) => any;
-    remove: ({ personId, token, jwtToken, headers }: {
-        personId: any;
-        token: any;
-        jwtToken: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    getById: Function;
+    update: Function;
+    create: Function;
+    remove: Function;
 };

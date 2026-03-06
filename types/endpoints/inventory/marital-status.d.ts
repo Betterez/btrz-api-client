@@ -1,41 +1,31 @@
 export = maritalStatusFactory;
+/**
+ * Query params for marital-status endpoints (btrz-api-inventory). Forwarded to API as-is.
+ * @typedef {Object} InventoryMaritalStatusQuery
+ */
+/**
+ * Factory for marital-status API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, update: function, remove: function, create: function }}
+ */
 declare function maritalStatusFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, jwtToken, query, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ token, jwtToken, id, query, headers }: {
-        token: any;
-        jwtToken: any;
-        id: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    update: ({ token, jwtToken, id, data, query, headers }: {
-        token: any;
-        jwtToken: any;
-        id: any;
-        data: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    remove: ({ token, jwtToken, id, query, headers }: {
-        token: any;
-        jwtToken: any;
-        id: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    create: ({ token, jwtToken, data, query, headers }: {
-        token: any;
-        jwtToken: any;
-        data: any;
-        query?: {};
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+    update: Function;
+    remove: Function;
+    create: Function;
 };
+declare namespace maritalStatusFactory {
+    export { InventoryMaritalStatusQuery };
+}
+/**
+ * Query params for marital-status endpoints (btrz-api-inventory). Forwarded to API as-is.
+ */
+type InventoryMaritalStatusQuery = any;

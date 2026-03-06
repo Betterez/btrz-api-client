@@ -1,17 +1,17 @@
 export = journeyPricesSettingsFactory;
+/**
+ * Factory for journey-prices-settings API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ get: function, update: function }}
+ */
 declare function journeyPricesSettingsFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    get: ({ token, jwtToken, headers }: {
-        token: any;
-        jwtToken: any;
-        headers: any;
-    }) => any;
-    update: ({ token, jwtToken, journeyPricesSettings, headers }: {
-        token: any;
-        jwtToken: any;
-        journeyPricesSettings: any;
-        headers: any;
-    }) => any;
+    get: Function;
+    update: Function;
 };

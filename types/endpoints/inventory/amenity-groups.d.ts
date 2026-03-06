@@ -1,30 +1,32 @@
 export = amenityGroupsFactory;
+/**
+ * @typedef {Object} AmenityGroupsQuery
+ * @property {string} [providerId] - Provider account ID
+ */
+/**
+ * Factory for amenity-groups API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, update: function }}
+ */
 declare function amenityGroupsFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, query, headers }: {
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ token, amenityGroupId, query, headers }: {
-        token: any;
-        amenityGroupId: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    create: ({ token, jwtToken, amenityGroup, headers }: {
-        token: any;
-        jwtToken: any;
-        amenityGroup: any;
-        headers: any;
-    }) => any;
-    update: ({ token, jwtToken, amenityGroupId, amenityGroup, headers }: {
-        token: any;
-        jwtToken: any;
-        amenityGroupId: any;
-        amenityGroup: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+    create: Function;
+    update: Function;
+};
+declare namespace amenityGroupsFactory {
+    export { AmenityGroupsQuery };
+}
+type AmenityGroupsQuery = {
+    /**
+     * - Provider account ID
+     */
+    providerId?: string;
 };

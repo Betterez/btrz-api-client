@@ -1,19 +1,17 @@
 export = exchangeRatesFactory;
+/**
+ * Factory for exchange-rates API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ allByIsoCode: function, create: function }}
+ */
 declare function exchangeRatesFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    allByIsoCode: ({ token, jwtToken, isoCode, query, headers }: {
-        token: any;
-        jwtToken: any;
-        isoCode: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    create: ({ data, token, jwtToken, headers }: {
-        data: any;
-        token: any;
-        jwtToken: any;
-        headers: any;
-    }) => any;
+    allByIsoCode: Function;
+    create: Function;
 };

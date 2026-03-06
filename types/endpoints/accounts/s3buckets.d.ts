@@ -1,25 +1,18 @@
 export = s3BucketsFactory;
+/**
+ * Factory for s3Buckets (account) API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ update: function, remove: function, create: function }}
+ */
 declare function s3BucketsFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    update: ({ jwtToken, token, bucketId, s3BucketData, headers }: {
-        jwtToken: any;
-        token: any;
-        bucketId: any;
-        s3BucketData: any;
-        headers: any;
-    }) => any;
-    remove: ({ jwtToken, token, bucketId, headers }: {
-        jwtToken: any;
-        token: any;
-        bucketId: any;
-        headers: any;
-    }) => any;
-    create: ({ jwtToken, token, s3BucketData, headers }: {
-        jwtToken: any;
-        token: any;
-        s3BucketData: any;
-        headers: any;
-    }) => any;
+    update: Function;
+    remove: Function;
+    create: Function;
 };

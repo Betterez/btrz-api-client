@@ -1,35 +1,31 @@
 export = zonePriceOverageFactory;
+/**
+ * Query params for zone-price-overages endpoints (btrz-api-inventory). Forwarded to API as-is.
+ * @typedef {Object} InventoryZonePriceOveragesQuery
+ */
+/**
+ * Factory for zone-price-overages API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, update: function, remove: function }}
+ */
 declare function zonePriceOverageFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, query, headers }: {
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ zonePriceOverageId, token, headers }: {
-        zonePriceOverageId: any;
-        token: any;
-        headers: any;
-    }) => any;
-    create: ({ jwtToken, token, zonePriceOverages, headers }: {
-        jwtToken: any;
-        token: any;
-        zonePriceOverages: any;
-        headers: any;
-    }) => any;
-    update: ({ jwtToken, token, zonePriceOverageId, zonePriceOverages, headers }: {
-        jwtToken: any;
-        token: any;
-        zonePriceOverageId: any;
-        zonePriceOverages: any;
-        headers: any;
-    }) => any;
-    remove: ({ jwtToken, zonePriceOverageId, token, headers }: {
-        jwtToken: any;
-        zonePriceOverageId: any;
-        token: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+    create: Function;
+    update: Function;
+    remove: Function;
 };
+declare namespace zonePriceOverageFactory {
+    export { InventoryZonePriceOveragesQuery };
+}
+/**
+ * Query params for zone-price-overages endpoints (btrz-api-inventory). Forwarded to API as-is.
+ */
+type InventoryZonePriceOveragesQuery = any;

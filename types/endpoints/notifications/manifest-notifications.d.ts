@@ -1,18 +1,28 @@
 export = manifestNotificationsFactory;
+/**
+ * Query params for manifest-notifications endpoints (btrz-api-notifications). Forwarded to API as-is.
+ * @typedef {Object} ManifestNotificationsQuery
+ */
+/**
+ * Factory for manifest-notifications API (btrz-api-notifications).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ create: function, all: function }}
+ */
 declare function manifestNotificationsFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    create: ({ token, jwtToken, query, data, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        data: any;
-        headers: any;
-    }) => any;
-    all: ({ token, query, headers }: {
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
+    create: Function;
+    all: Function;
 };
+declare namespace manifestNotificationsFactory {
+    export { ManifestNotificationsQuery };
+}
+/**
+ * Query params for manifest-notifications endpoints (btrz-api-notifications). Forwarded to API as-is.
+ */
+type ManifestNotificationsQuery = any;

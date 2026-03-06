@@ -1,35 +1,31 @@
 export = paymentTerminalFactory;
+/**
+ * Query params for payment-terminals endpoints (btrz-api-inventory). Forwarded to API as-is.
+ * @typedef {Object} InventoryPaymentTerminalsQuery
+ */
+/**
+ * Factory for payment-terminals API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, update: function, remove: function }}
+ */
 declare function paymentTerminalFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, query, headers }: {
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ paymentTerminalId, token, headers }: {
-        paymentTerminalId: any;
-        token: any;
-        headers: any;
-    }) => any;
-    create: ({ jwtToken, token, paymentTerminal, headers }: {
-        jwtToken: any;
-        token: any;
-        paymentTerminal: any;
-        headers: any;
-    }) => any;
-    update: ({ jwtToken, token, paymentTerminalId, paymentTerminal, headers }: {
-        jwtToken: any;
-        token: any;
-        paymentTerminalId: any;
-        paymentTerminal: any;
-        headers: any;
-    }) => any;
-    remove: ({ jwtToken, paymentTerminalId, token, headers }: {
-        jwtToken: any;
-        paymentTerminalId: any;
-        token: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+    create: Function;
+    update: Function;
+    remove: Function;
 };
+declare namespace paymentTerminalFactory {
+    export { InventoryPaymentTerminalsQuery };
+}
+/**
+ * Query params for payment-terminals endpoints (btrz-api-inventory). Forwarded to API as-is.
+ */
+type InventoryPaymentTerminalsQuery = any;

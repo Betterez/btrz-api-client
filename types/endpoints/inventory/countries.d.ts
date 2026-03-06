@@ -1,18 +1,17 @@
 export = countriesFactory;
+/**
+ * Factory for countries API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function }}
+ */
 declare function countriesFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, query, headers }: {
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ token, jwtToken, id, query, headers }: {
-        token: any;
-        jwtToken: any;
-        id: any;
-        query?: {};
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
 };

@@ -1,15 +1,19 @@
 export = clientsFactory;
+/**
+ * Factory for Ratality clients API.
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @param {string} deps.version - API version path
+ * @returns {{ create: function, get: function }}
+ */
 declare function clientsFactory({ client, version }: {
-    client: any;
-    version: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
+    version: string;
 }): {
-    create: ({ jwtToken, data, headers }: {
-        jwtToken: any;
-        data: any;
-        headers: any;
-    }) => any;
-    get: ({ jwtToken, clientId }: {
-        jwtToken: any;
-        clientId: any;
-    }) => any;
+    create: Function;
+    get: Function;
 };

@@ -1,38 +1,20 @@
 export = controlClassesFactory;
+/**
+ * Factory for control-classes API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, update: function, remove: function }}
+ */
 declare function controlClassesFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, jwtToken, query, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ controlClassId, token, headers, jwtToken, query }: {
-        controlClassId: any;
-        token: any;
-        headers: any;
-        jwtToken: any;
-        query?: {};
-    }) => any;
-    create: ({ jwtToken, token, controlClass, headers }: {
-        jwtToken: any;
-        token: any;
-        controlClass: any;
-        headers: any;
-    }) => any;
-    update: ({ jwtToken, token, controlClassId, controlClass, headers }: {
-        jwtToken: any;
-        token: any;
-        controlClassId: any;
-        controlClass: any;
-        headers: any;
-    }) => any;
-    remove: ({ jwtToken, controlClassId, token, headers }: {
-        jwtToken: any;
-        controlClassId: any;
-        token: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+    create: Function;
+    update: Function;
+    remove: Function;
 };

@@ -1,18 +1,17 @@
 export = applicationsFactory;
+/**
+ * Factory for applications (by id/name) API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ get: function, getByName: function }}
+ */
 declare function applicationsFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    get: ({ token, id, jwtToken, headers }: {
-        token: any;
-        id: any;
-        jwtToken: any;
-        headers: any;
-    }) => any;
-    getByName: ({ token, appName, jwtToken, headers }: {
-        token: any;
-        appName: any;
-        jwtToken: any;
-        headers: any;
-    }) => any;
+    get: Function;
+    getByName: Function;
 };

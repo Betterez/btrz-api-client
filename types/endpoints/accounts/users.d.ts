@@ -1,105 +1,33 @@
 export = usersFactory;
+/**
+ * Factory for users API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ get: function, getV2: function, all: function, create: function, login: function, update: function, createOrUpdateMany: function, impersonate: function, startMfa: function, confirmMfa: function, disableMfa: function, sequences: { get: function, all: function, create: function, update: function, transfer: function } }}
+ */
 declare function usersFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    get: ({ token, jwtToken, id, headers }?: {}) => any;
-    getV2: ({ token, jwtToken, id, headers }?: {}) => any;
-    all: ({ token, jwtToken, query, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    create: ({ token, jwtToken, query, data, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        data: any;
-        headers: any;
-    }) => any;
-    login: ({ token, jwtToken, query, data, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        data: any;
-        headers: any;
-    }) => any;
-    update: ({ token, jwtToken, userId, user, headers }: {
-        token: any;
-        jwtToken: any;
-        userId: any;
-        user: any;
-        headers: any;
-    }) => any;
-    createOrUpdateMany: ({ token, jwtToken, users, headers }: {
-        token: any;
-        jwtToken: any;
-        users: any;
-        headers: any;
-    }) => any;
-    impersonate: ({ token, jwtToken, offlineUserId, headers }: {
-        token: any;
-        jwtToken: any;
-        offlineUserId: any;
-        headers: any;
-    }) => any;
-    startMfa: ({ token, jwtToken, userId, headers }: {
-        token: any;
-        jwtToken: any;
-        userId: any;
-        headers: any;
-    }) => any;
-    confirmMfa: ({ token, jwtToken, userId, totpToken, headers }: {
-        token: any;
-        jwtToken: any;
-        userId: any;
-        totpToken: any;
-        headers: any;
-    }) => any;
-    disableMfa: ({ token, jwtToken, userId, headers }: {
-        token: any;
-        jwtToken: any;
-        userId: any;
-        headers: any;
-    }) => any;
+    get: Function;
+    getV2: Function;
+    all: Function;
+    create: Function;
+    login: Function;
+    update: Function;
+    createOrUpdateMany: Function;
+    impersonate: Function;
+    startMfa: Function;
+    confirmMfa: Function;
+    disableMfa: Function;
     sequences: {
-        get({ token, jwtToken, userId, sequenceId, headers }: {
-            token: any;
-            jwtToken: any;
-            userId: any;
-            sequenceId: any;
-            headers: any;
-        }): any;
-        all({ token, jwtToken, userId, query, headers }: {
-            token: any;
-            jwtToken: any;
-            userId: any;
-            query?: {};
-            headers: any;
-        }): any;
-        create({ jwtToken, token, userId, sequence, headers }: {
-            jwtToken: any;
-            token: any;
-            userId: any;
-            sequence: any;
-            headers: any;
-        }): any;
-        update({ jwtToken, token, userId, sequenceId, sequence, headers }: {
-            jwtToken: any;
-            token: any;
-            userId: any;
-            sequenceId: any;
-            sequence: any;
-            headers: any;
-        }): any;
-        transfer({ jwtToken, token, userId, sequenceId, newUserId, headers }: {
-            jwtToken: any;
-            token: any;
-            userId: any;
-            sequenceId: any;
-            newUserId: any;
-            headers: any;
-        }): any;
+        get: Function;
+        all: Function;
+        create: Function;
+        update: Function;
+        transfer: Function;
     };
 };

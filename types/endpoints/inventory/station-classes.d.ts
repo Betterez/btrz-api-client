@@ -1,38 +1,20 @@
 export = stationClassFactory;
+/**
+ * Factory for station-classes API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, update: function, remove: function, create: function }}
+ */
 declare function stationClassFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, jwtToken, query, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ token, jwtToken, stationClassId, query, headers }: {
-        token: any;
-        jwtToken: any;
-        stationClassId: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    update: ({ token, jwtToken, stationClassId, data, headers }: {
-        token: any;
-        jwtToken: any;
-        stationClassId: any;
-        data: any;
-        headers: any;
-    }) => any;
-    remove: ({ token, jwtToken, stationClassId, headers }: {
-        token: any;
-        jwtToken: any;
-        stationClassId: any;
-        headers: any;
-    }) => any;
-    create: ({ token, jwtToken, data, headers }: {
-        token: any;
-        jwtToken: any;
-        data: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+    update: Function;
+    remove: Function;
+    create: Function;
 };

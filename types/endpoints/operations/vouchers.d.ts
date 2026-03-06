@@ -1,22 +1,27 @@
 export = vouchersFactory;
+/**
+ * @typedef {Object} VouchersQuery
+ * @property {string} [providerId] - Provider account ID
+ */
+/**
+ * Factory for vouchers API (btrz-api-operations).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {Object} vouchers API methods
+ */
 declare function vouchersFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
-}): {
-    create: ({ jwtToken, token, headers, query, voucher }: {
-        jwtToken: any;
-        token: any;
-        headers: any;
-        query?: {};
-        voucher?: {};
-    }) => any;
-    compensations: {
-        create: ({ token, jwtToken, compensation, query, headers }: {
-            token: any;
-            jwtToken: any;
-            compensation: any;
-            query?: {};
-            headers: any;
-        }) => any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
     };
+}): any;
+declare namespace vouchersFactory {
+    export { VouchersQuery };
+}
+type VouchersQuery = {
+    /**
+     * - Provider account ID
+     */
+    providerId?: string;
 };

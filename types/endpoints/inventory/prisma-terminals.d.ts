@@ -1,37 +1,33 @@
 export = prismaTerminalFactory;
+/**
+ * @typedef {Object} InventoryPrismaTerminalsQuery
+ * @property {string} [providerId] - Provider account ID
+ */
+/**
+ * Factory for prisma-terminals API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, update: function, remove: function }}
+ */
 declare function prismaTerminalFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, jwtToken, query, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ prismaTerminalId, token, jwtToken, headers }: {
-        prismaTerminalId: any;
-        token: any;
-        jwtToken: any;
-        headers: any;
-    }) => any;
-    create: ({ jwtToken, token, prismaTerminal, headers }: {
-        jwtToken: any;
-        token: any;
-        prismaTerminal: any;
-        headers: any;
-    }) => any;
-    update: ({ jwtToken, token, prismaTerminalId, prismaTerminal, headers }: {
-        jwtToken: any;
-        token: any;
-        prismaTerminalId: any;
-        prismaTerminal: any;
-        headers: any;
-    }) => any;
-    remove: ({ jwtToken, prismaTerminalId, token, headers }: {
-        jwtToken: any;
-        prismaTerminalId: any;
-        token: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+    create: Function;
+    update: Function;
+    remove: Function;
+};
+declare namespace prismaTerminalFactory {
+    export { InventoryPrismaTerminalsQuery };
+}
+type InventoryPrismaTerminalsQuery = {
+    /**
+     * - Provider account ID
+     */
+    providerId?: string;
 };

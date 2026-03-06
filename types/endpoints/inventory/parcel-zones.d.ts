@@ -1,24 +1,29 @@
 export = parcelZonesFactory;
+/**
+ * Query params for parcel-zones endpoints (btrz-api-inventory). Forwarded to API as-is.
+ * @typedef {Object} InventoryParcelZonesQuery
+ */
+/**
+ * Factory for parcel-zones API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, create: function, update: function }}
+ */
 declare function parcelZonesFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, query, headers }: {
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    create: ({ token, parcelZone, jwtToken, headers }: {
-        token: any;
-        parcelZone: any;
-        jwtToken: any;
-        headers: any;
-    }) => any;
-    update: ({ jwtToken, token, parcelZoneId, parcelZone, headers }: {
-        jwtToken: any;
-        token: any;
-        parcelZoneId: any;
-        parcelZone: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    create: Function;
+    update: Function;
 };
+declare namespace parcelZonesFactory {
+    export { InventoryParcelZonesQuery };
+}
+/**
+ * Query params for parcel-zones endpoints (btrz-api-inventory). Forwarded to API as-is.
+ */
+type InventoryParcelZonesQuery = any;

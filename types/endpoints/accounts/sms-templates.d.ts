@@ -1,60 +1,25 @@
 export = smsTemplatesFactory;
+/**
+ * Factory for sms-templates API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ getTypes: function, all: function, get: function, create: function, update: function, remove: function, createSub: function, versions: { update: function } }}
+ */
 declare function smsTemplatesFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    getTypes: ({ token, jwtToken, headers }: {
-        token: any;
-        jwtToken: any;
-        headers: any;
-    }) => any;
-    all: ({ token, jwtToken, query, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ token, jwtToken, smsTemplateId, query, headers }: {
-        token: any;
-        jwtToken: any;
-        smsTemplateId: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    create: ({ token, jwtToken, data, headers }: {
-        token: any;
-        jwtToken: any;
-        data: any;
-        headers: any;
-    }) => any;
-    update: ({ token, jwtToken, smsTemplateId, data, headers }: {
-        token: any;
-        jwtToken: any;
-        smsTemplateId: any;
-        data: any;
-        headers: any;
-    }) => any;
-    remove: ({ token, jwtToken, smsTemplateId, headers }: {
-        token: any;
-        jwtToken: any;
-        smsTemplateId: any;
-        headers: any;
-    }) => any;
-    createSub: ({ token, jwtToken, mainTemplateId, agencyId, headers }: {
-        token: any;
-        jwtToken: any;
-        mainTemplateId: any;
-        agencyId: any;
-        headers: any;
-    }) => any;
+    getTypes: Function;
+    all: Function;
+    get: Function;
+    create: Function;
+    update: Function;
+    remove: Function;
+    createSub: Function;
     versions: {
-        update({ token, jwtToken, smsTemplateId, versionId, query, headers }: {
-            token: any;
-            jwtToken: any;
-            smsTemplateId: any;
-            versionId: any;
-            query?: {};
-            headers: any;
-        }): any;
+        update: Function;
     };
 };

@@ -1,79 +1,22 @@
 export = schedulesFactory;
+/**
+ * Factory for schedules API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, update: function, delete: function, autoBouncing: object, exceptions: object }}
+ */
 declare function schedulesFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, query, headers }: {
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ token, routeId, scheduleId, headers, query }: {
-        token: any;
-        routeId: any;
-        scheduleId: any;
-        headers: any;
-        query?: {};
-    }) => any;
-    create: ({ token, jwtToken, data, routeId, headers }: {
-        token: any;
-        jwtToken: any;
-        data: any;
-        routeId: any;
-        headers: any;
-    }) => any;
-    update: ({ token, jwtToken, data, routeId, scheduleId, headers }: {
-        token: any;
-        jwtToken: any;
-        data: any;
-        routeId: any;
-        scheduleId: any;
-        headers: any;
-    }) => any;
-    delete: ({ token, jwtToken, routeId, scheduleId, headers }: {
-        token: any;
-        jwtToken: any;
-        routeId: any;
-        scheduleId: any;
-        headers: any;
-    }) => any;
-    autoBouncing: {
-        create: ({ token, jwtToken, data, headers }: {
-            token: any;
-            jwtToken: any;
-            data: any;
-            headers: any;
-        }) => any;
-        delete: ({ token, jwtToken, routeId, parentScheduleId, headers }: {
-            token: any;
-            jwtToken: any;
-            routeId: any;
-            parentScheduleId: any;
-            headers: any;
-        }) => any;
-    };
-    exceptions: {
-        create: ({ token, jwtToken, data, scheduleId, headers }: {
-            token: any;
-            jwtToken: any;
-            data: any;
-            scheduleId: any;
-            headers: any;
-        }) => any;
-        delete: ({ token, jwtToken, scheduleId, exceptionId, headers }: {
-            token: any;
-            jwtToken: any;
-            scheduleId: any;
-            exceptionId: any;
-            headers: any;
-        }) => any;
-        update: ({ token, jwtToken, data, scheduleId, exceptionId, headers }: {
-            token: any;
-            jwtToken: any;
-            data: any;
-            scheduleId: any;
-            exceptionId: any;
-            headers: any;
-        }) => any;
-    };
+    all: Function;
+    get: Function;
+    create: Function;
+    update: Function;
+    delete: Function;
+    autoBouncing: object;
+    exceptions: object;
 };

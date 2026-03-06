@@ -1,29 +1,32 @@
 export = stationsFactory;
+/**
+ * @typedef {Object} StationsQuery
+ * @property {string} [providerId] - Provider account ID
+ */
+/**
+ * Factory for stations API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ get: function, all: function, create: function, update: function }}
+ */
 declare function stationsFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    get: ({ token, id, headers }: {
-        token: any;
-        id: any;
-        headers: any;
-    }) => any;
-    all: ({ token, query, headers }: {
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    create: ({ token, jwtToken, data, headers }: {
-        token: any;
-        jwtToken: any;
-        data: any;
-        headers: any;
-    }) => any;
-    update: ({ token, jwtToken, stationId, station, headers }: {
-        token: any;
-        jwtToken: any;
-        stationId: any;
-        station: any;
-        headers: any;
-    }) => any;
+    get: Function;
+    all: Function;
+    create: Function;
+    update: Function;
+};
+declare namespace stationsFactory {
+    export { StationsQuery };
+}
+type StationsQuery = {
+    /**
+     * - Provider account ID
+     */
+    providerId?: string;
 };

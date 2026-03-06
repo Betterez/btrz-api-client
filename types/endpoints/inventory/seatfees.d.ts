@@ -1,29 +1,30 @@
 export = seatfeesFactory;
+/**
+ * Query params for seatfees endpoints (btrz-api-inventory). Forwarded to API as-is.
+ * @typedef {Object} InventorySeatfeesQuery
+ */
+/**
+ * Factory for seat-fees API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, update: function }}
+ */
 declare function seatfeesFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, query, headers }: {
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ seatfeeId, token, headers }: {
-        seatfeeId: any;
-        token: any;
-        headers: any;
-    }) => any;
-    create: ({ jwtToken, token, seatfee, headers }: {
-        jwtToken: any;
-        token: any;
-        seatfee: any;
-        headers: any;
-    }) => any;
-    update: ({ jwtToken, token, seatfeeId, seatfee, headers }: {
-        jwtToken: any;
-        token: any;
-        seatfeeId: any;
-        seatfee: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+    create: Function;
+    update: Function;
 };
+declare namespace seatfeesFactory {
+    export { InventorySeatfeesQuery };
+}
+/**
+ * Query params for seatfees endpoints (btrz-api-inventory). Forwarded to API as-is.
+ */
+type InventorySeatfeesQuery = any;

@@ -1,30 +1,30 @@
 export = feesFactory;
+/**
+ * Query params for fees endpoints (btrz-api-inventory). Forwarded to API as-is.
+ * @typedef {Object} InventoryFeesQuery
+ */
+/**
+ * Factory for fees API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, update: function }}
+ */
 declare function feesFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, query, headers }: {
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ token, jwtToken, feeId, headers }: {
-        token: any;
-        jwtToken: any;
-        feeId: any;
-        headers: any;
-    }) => any;
-    create: ({ token, jwtToken, fee, headers }: {
-        token: any;
-        jwtToken: any;
-        fee: any;
-        headers: any;
-    }) => any;
-    update: ({ token, jwtToken, feeId, fee, headers }: {
-        token: any;
-        jwtToken: any;
-        feeId: any;
-        fee: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+    create: Function;
+    update: Function;
 };
+declare namespace feesFactory {
+    export { InventoryFeesQuery };
+}
+/**
+ * Query params for fees endpoints (btrz-api-inventory). Forwarded to API as-is.
+ */
+type InventoryFeesQuery = any;

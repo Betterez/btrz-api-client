@@ -1,13 +1,27 @@
 export = insurancesCostFactory;
+/**
+ * Query params for insurances cost endpoints (btrz-api-inventory). Forwarded to API as-is.
+ * @typedef {Object} InventoryInsurancesCostQuery
+ */
+/**
+ * Factory for insurances cost API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ get: function }}
+ */
 declare function insurancesCostFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    get: ({ token, productId, declaredValue, query, headers }: {
-        token: any;
-        productId: any;
-        declaredValue: any;
-        query?: {};
-        headers: any;
-    }) => any;
+    get: Function;
 };
+declare namespace insurancesCostFactory {
+    export { InventoryInsurancesCostQuery };
+}
+/**
+ * Query params for insurances cost endpoints (btrz-api-inventory). Forwarded to API as-is.
+ */
+type InventoryInsurancesCostQuery = any;

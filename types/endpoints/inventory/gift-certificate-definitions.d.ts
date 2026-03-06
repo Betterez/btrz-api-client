@@ -1,40 +1,31 @@
 export = giftCertificateDefinitionsFactory;
+/**
+ * Query params for gift-certificate-definitions endpoints (btrz-api-inventory). Forwarded to API as-is.
+ * @typedef {Object} InventoryGiftCertificateDefinitionsQuery
+ */
+/**
+ * Factory for gift-certificate-definitions API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, update: function, remove: function }}
+ */
 declare function giftCertificateDefinitionsFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, query, headers }: {
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ token, jwtToken, giftcertificateId, query, headers }: {
-        token: any;
-        jwtToken: any;
-        giftcertificateId: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    create: ({ token, jwtToken, giftcertificate, query, headers }: {
-        token: any;
-        jwtToken: any;
-        giftcertificate: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    update: ({ token, jwtToken, giftcertificateId, giftcertificate, query, headers }: {
-        token: any;
-        jwtToken: any;
-        giftcertificateId: any;
-        giftcertificate: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    remove: ({ token, jwtToken, giftcertificateId, query, headers }: {
-        token: any;
-        jwtToken: any;
-        giftcertificateId: any;
-        query?: {};
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+    create: Function;
+    update: Function;
+    remove: Function;
 };
+declare namespace giftCertificateDefinitionsFactory {
+    export { InventoryGiftCertificateDefinitionsQuery };
+}
+/**
+ * Query params for gift-certificate-definitions endpoints (btrz-api-inventory). Forwarded to API as-is.
+ */
+type InventoryGiftCertificateDefinitionsQuery = any;

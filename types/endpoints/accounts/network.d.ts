@@ -1,46 +1,23 @@
 export = networkFactory;
+/**
+ * Factory for network API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ agencies: { all: function, get: function, update: function, create: function, removeProduct: function, removeFare: function } }}
+ */
 declare function networkFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
     agencies: {
-        all({ token, jwtToken, query, headers }: {
-            token: any;
-            jwtToken: any;
-            query?: {};
-            headers: any;
-        }): any;
-        get({ token, query, headers, sellerId }: {
-            token: any;
-            query: any;
-            headers: any;
-            sellerId: any;
-        }): any;
-        update({ jwtToken, token, sellerId, agency, headers, query }: {
-            jwtToken: any;
-            token: any;
-            sellerId: any;
-            agency: any;
-            headers: any;
-            query: any;
-        }): any;
-        create({ jwtToken, token, agency, headers }: {
-            jwtToken: any;
-            token: any;
-            agency: any;
-            headers: any;
-        }): any;
-        removeProduct({ token, jwtToken, productId, headers }: {
-            token: any;
-            jwtToken: any;
-            productId: any;
-            headers: any;
-        }): any;
-        removeFare({ token, jwtToken, fareId, headers }: {
-            token: any;
-            jwtToken: any;
-            fareId: any;
-            headers: any;
-        }): any;
+        all: Function;
+        get: Function;
+        update: Function;
+        create: Function;
+        removeProduct: Function;
+        removeFare: Function;
     };
 };

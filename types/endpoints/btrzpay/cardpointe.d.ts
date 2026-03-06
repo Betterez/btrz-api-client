@@ -1,39 +1,18 @@
+/**
+ * Factory for Cardpointe terminals API (btrz-api-payments).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, remove: function, readCard: Object, ping: Object }}
+ */
 export function cardpointeTerminalsFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, jwtToken, headers }: {
-        token: any;
-        jwtToken: any;
-        headers: any;
-    }) => any;
-    remove: ({ token, jwtToken, merchantId, terminalId, headers }: {
-        token: any;
-        jwtToken: any;
-        merchantId: any;
-        terminalId: any;
-        headers: any;
-    }) => any;
-    readCard: {
-        get({ token, jwtToken, readCardResultId, headers }: {
-            token: any;
-            jwtToken: any;
-            readCardResultId: any;
-            headers: any;
-        }): any;
-        create({ token, jwtToken, readCard, headers }: {
-            token: any;
-            jwtToken: any;
-            readCard: any;
-            headers: any;
-        }): any;
-    };
-    ping: {
-        create({ token, jwtToken, ping, headers }: {
-            token: any;
-            jwtToken: any;
-            ping: any;
-            headers: any;
-        }): any;
-    };
+    all: Function;
+    remove: Function;
+    readCard: any;
+    ping: any;
 };

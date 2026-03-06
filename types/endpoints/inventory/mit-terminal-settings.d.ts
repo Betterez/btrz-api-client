@@ -1,37 +1,33 @@
 export = mitTerminalFactory;
+/**
+ * @typedef {Object} MitTerminalSettingsQuery
+ * @property {string} [providerId] - Provider account ID
+ */
+/**
+ * Factory for mit-terminals-settings API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, update: function, remove: function }}
+ */
 declare function mitTerminalFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, jwtToken, query, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ id, token, jwtToken, headers }: {
-        id: any;
-        token: any;
-        jwtToken: any;
-        headers: any;
-    }) => any;
-    create: ({ jwtToken, token, mitTerminalSettings, headers }: {
-        jwtToken: any;
-        token: any;
-        mitTerminalSettings: any;
-        headers: any;
-    }) => any;
-    update: ({ jwtToken, token, id, mitTerminalSettings, headers }: {
-        jwtToken: any;
-        token: any;
-        id: any;
-        mitTerminalSettings: any;
-        headers: any;
-    }) => any;
-    remove: ({ jwtToken, id, token, headers }: {
-        jwtToken: any;
-        id: any;
-        token: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+    create: Function;
+    update: Function;
+    remove: Function;
+};
+declare namespace mitTerminalFactory {
+    export { MitTerminalSettingsQuery };
+}
+type MitTerminalSettingsQuery = {
+    /**
+     * - Provider account ID
+     */
+    providerId?: string;
 };

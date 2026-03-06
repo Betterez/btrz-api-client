@@ -1,12 +1,29 @@
 export = paymentProvidersFactory;
+/**
+ * @typedef {Object} PaymentProvidersQuery
+ * @property {string} [providerId] - Provider account ID
+ */
+/**
+ * Factory for payment-providers API (btrz-api-sales).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function }}
+ */
 declare function paymentProvidersFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, jwtToken, query, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
+    all: Function;
+};
+declare namespace paymentProvidersFactory {
+    export { PaymentProvidersQuery };
+}
+type PaymentProvidersQuery = {
+    /**
+     * - Provider account ID
+     */
+    providerId?: string;
 };

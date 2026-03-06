@@ -1,47 +1,23 @@
 export = printSettingsFactory;
+/**
+ * Factory for print-templates API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, update: function, create: function, remove: function, versions: { update: function } }}
+ */
 declare function printSettingsFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, query, headers }: {
-        token: any;
-        query: any;
-        headers: any;
-    }) => any;
-    get: ({ token, query, headers, printTemplateId }: {
-        token: any;
-        query: any;
-        headers: any;
-        printTemplateId: any;
-    }) => any;
-    update: ({ jwtToken, token, printTemplateId, printTemplate, headers, query }: {
-        jwtToken: any;
-        token: any;
-        printTemplateId: any;
-        printTemplate: any;
-        headers: any;
-        query: any;
-    }) => any;
-    create: ({ jwtToken, token, printTemplate, headers }: {
-        jwtToken: any;
-        token: any;
-        printTemplate: any;
-        headers: any;
-    }) => any;
-    remove: ({ printTemplateId, token, jwtToken, headers }: {
-        printTemplateId: any;
-        token: any;
-        jwtToken: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+    update: Function;
+    create: Function;
+    remove: Function;
     versions: {
-        update({ printTemplateId, token, jwtToken, headers, query, versionId }: {
-            printTemplateId: any;
-            token: any;
-            jwtToken: any;
-            headers: any;
-            query: any;
-            versionId: any;
-        }): any;
+        update: Function;
     };
 };

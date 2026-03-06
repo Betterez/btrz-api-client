@@ -1,12 +1,16 @@
 export = imagesFactory;
+/**
+ * Factory for upload images API (btrz-api-uploads).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ create: function }}
+ */
 declare function imagesFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    create: ({ token, jwtToken, formData, headers }: {
-        token: any;
-        jwtToken: any;
-        formData: any;
-        headers: any;
-    }) => any;
+    create: Function;
 };

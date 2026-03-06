@@ -1,41 +1,32 @@
 export = operationMessagesFactory;
+/**
+ * Query params for operation-messages endpoints (btrz-api-inventory). Forwarded to API as-is.
+ * @typedef {Object} InventoryOperationMessagesQuery
+ */
+/**
+ * Factory for operation-messages API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ get: function, all: function, create: function, update: function, remove: function, getByStation: function }}
+ */
 declare function operationMessagesFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    get: ({ token, operationMessageId, headers }: {
-        token: any;
-        operationMessageId: any;
-        headers: any;
-    }) => any;
-    all: ({ token, query, headers }: {
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    create: ({ token, jwtToken, opMsgData, headers }: {
-        token: any;
-        jwtToken: any;
-        opMsgData: any;
-        headers: any;
-    }) => any;
-    update: ({ token, jwtToken, operationMessageId, opMsgData, headers }: {
-        token: any;
-        jwtToken: any;
-        operationMessageId: any;
-        opMsgData: any;
-        headers: any;
-    }) => any;
-    remove: ({ jwtToken, operationMessageId, token, headers }: {
-        jwtToken: any;
-        operationMessageId: any;
-        token: any;
-        headers: any;
-    }) => any;
-    getByStation: ({ token, jwtToken, opMsgData, headers }: {
-        token: any;
-        jwtToken: any;
-        opMsgData: any;
-        headers: any;
-    }) => any;
+    get: Function;
+    all: Function;
+    create: Function;
+    update: Function;
+    remove: Function;
+    getByStation: Function;
 };
+declare namespace operationMessagesFactory {
+    export { InventoryOperationMessagesQuery };
+}
+/**
+ * Query params for operation-messages endpoints (btrz-api-inventory). Forwarded to API as-is.
+ */
+type InventoryOperationMessagesQuery = any;

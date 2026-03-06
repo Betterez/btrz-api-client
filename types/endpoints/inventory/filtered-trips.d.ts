@@ -1,18 +1,17 @@
 export = filteredTripsFactory;
+/**
+ * Factory for filtered-trips API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, create: function }}
+ */
 declare function filteredTripsFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, jwtToken, query, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    create: ({ token, jwtToken, tripSegmentsId, headers }: {
-        token: any;
-        jwtToken: any;
-        tripSegmentsId: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    create: Function;
 };

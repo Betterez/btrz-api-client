@@ -1,31 +1,19 @@
 export = ImagesFactory;
+/**
+ * Factory for images API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, remove: function }}
+ */
 declare function ImagesFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, jwtToken, query, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ token, jwtToken, query, headers, imageId }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-        imageId: any;
-    }) => any;
-    create: ({ jwtToken, token, image, headers }: {
-        jwtToken: any;
-        token: any;
-        image: any;
-        headers: any;
-    }) => any;
-    remove: ({ imageId, token, jwtToken, headers }: {
-        imageId: any;
-        token: any;
-        jwtToken: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+    create: Function;
+    remove: Function;
 };

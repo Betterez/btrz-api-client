@@ -1,24 +1,18 @@
 export = trustedMachinesFactory;
+/**
+ * Factory for trusted-machines API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ create: function, get: function, all: function }}
+ */
 declare function trustedMachinesFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    create: ({ token, jwtToken, data, headers }: {
-        token: any;
-        jwtToken: any;
-        data: any;
-        headers: any;
-    }) => any;
-    get: ({ token, jwtToken, id, headers }: {
-        token: any;
-        jwtToken: any;
-        id: any;
-        headers: any;
-    }) => any;
-    all: ({ token, jwtToken, query, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
+    create: Function;
+    get: Function;
+    all: Function;
 };

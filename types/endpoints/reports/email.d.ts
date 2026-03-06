@@ -1,12 +1,16 @@
 export = reportEmailFactory;
+/**
+ * Factory for report email API (btrz-api-reports).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ post: function }}
+ */
 declare function reportEmailFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    post: ({ token, jwtToken, report, headers }: {
-        token: any;
-        jwtToken: any;
-        report: any;
-        headers: any;
-    }) => any;
+    post: Function;
 };

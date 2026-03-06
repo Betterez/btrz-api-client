@@ -1,13 +1,14 @@
 export = transactionFactory;
+/**
+ * Factory for single transaction API (btrz-api-operations).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {Object} transaction API methods
+ */
 declare function transactionFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
-}): {
-    get: ({ token, jwtToken, id, providerId, headers }: {
-        token: any;
-        jwtToken: any;
-        id: any;
-        providerId: any;
-        headers: any;
-    }) => any;
-};
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
+}): any;

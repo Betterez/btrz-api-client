@@ -1,41 +1,31 @@
 export = providersFactory;
+/**
+ * Query params for invoice providers endpoints (btrz-api-invoices). Forwarded to API as-is.
+ * @typedef {Object} InvoiceProvidersQuery
+ */
+/**
+ * Factory for invoice providers API (btrz-api-invoices).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, update: function, remove: function, create: function }}
+ */
 declare function providersFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, jwtToken, query, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ token, jwtToken, id, query, headers }: {
-        token: any;
-        jwtToken: any;
-        id: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    update: ({ token, jwtToken, id, data, query, headers }: {
-        token: any;
-        jwtToken: any;
-        id: any;
-        data: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    remove: ({ token, jwtToken, id, query, headers }: {
-        token: any;
-        jwtToken: any;
-        id: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    create: ({ token, jwtToken, data, query, headers }: {
-        token: any;
-        jwtToken: any;
-        data: any;
-        query?: {};
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+    update: Function;
+    remove: Function;
+    create: Function;
 };
+declare namespace providersFactory {
+    export { InvoiceProvidersQuery };
+}
+/**
+ * Query params for invoice providers endpoints (btrz-api-invoices). Forwarded to API as-is.
+ */
+type InvoiceProvidersQuery = any;

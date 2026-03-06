@@ -1,12 +1,16 @@
 export = syncEntryFactory;
+/**
+ * Factory for sync-entry API (btrz-api-sales).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ patch: function }}
+ */
 declare function syncEntryFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    patch: ({ token, data, jwtToken, headers }: {
-        token: any;
-        data: any;
-        jwtToken: any;
-        headers: any;
-    }) => any;
+    patch: Function;
 };

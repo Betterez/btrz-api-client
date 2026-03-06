@@ -1,35 +1,31 @@
 export = insurancesFactory;
+/**
+ * Query params for insurances endpoints (btrz-api-inventory). Forwarded to API as-is.
+ * @typedef {Object} InventoryInsurancesQuery
+ */
+/**
+ * Factory for insurances API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, create: function, get: function, update: function, remove: function }}
+ */
 declare function insurancesFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, query, headers }: {
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    create: ({ token, insurance, jwtToken, headers }: {
-        token: any;
-        insurance: any;
-        jwtToken: any;
-        headers: any;
-    }) => any;
-    get: ({ token, insuranceId, headers }: {
-        token: any;
-        insuranceId: any;
-        headers: any;
-    }) => any;
-    update: ({ token, insurance, jwtToken, insuranceId, headers }: {
-        token: any;
-        insurance: any;
-        jwtToken: any;
-        insuranceId: any;
-        headers: any;
-    }) => any;
-    remove: ({ token, jwtToken, insuranceId, headers }: {
-        token: any;
-        jwtToken: any;
-        insuranceId: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    create: Function;
+    get: Function;
+    update: Function;
+    remove: Function;
 };
+declare namespace insurancesFactory {
+    export { InventoryInsurancesQuery };
+}
+/**
+ * Query params for insurances endpoints (btrz-api-inventory). Forwarded to API as-is.
+ */
+type InventoryInsurancesQuery = any;

@@ -1,42 +1,20 @@
 export = itemsFactory;
+/**
+ * Factory for items API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, update: function, tickets: object }}
+ */
 declare function itemsFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
-}): {
-    all: ({ token, query, jwtToken, headers }: {
-        token: any;
-        query?: {};
-        jwtToken: any;
-        headers: any;
-    }) => any;
-    get: ({ itemId, token, jwtToken, query, headers }: {
-        itemId: any;
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    create: ({ jwtToken, item, token, headers }: {
-        jwtToken: any;
-        item: any;
-        token: any;
-        headers: any;
-    }) => any;
-    update: ({ jwtToken, token, itemId, item, headers }: {
-        jwtToken: any;
-        token: any;
-        itemId: any;
-        item: any;
-        headers: any;
-    }) => any;
-    tickets: {
-        update({ jwtToken, token, soldItemId, ticketId, headers, query }: {
-            jwtToken: any;
-            token: any;
-            soldItemId: any;
-            ticketId: any;
-            headers: any;
-            query: any;
-        }): any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
     };
+}): {
+    all: Function;
+    get: Function;
+    create: Function;
+    update: Function;
+    tickets: object;
 };

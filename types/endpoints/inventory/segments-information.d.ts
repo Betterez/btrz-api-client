@@ -1,37 +1,33 @@
 export = segmentsInformationFactory;
+/**
+ * @typedef {Object} SegmentsInformationQuery
+ * @property {string} [providerId] - Provider account ID
+ */
+/**
+ * Factory for segments-information API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, update: function, remove: function }}
+ */
 declare function segmentsInformationFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, jwtToken, query, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ segmentInformationId, token, headers, jwtToken }: {
-        segmentInformationId: any;
-        token: any;
-        headers: any;
-        jwtToken: any;
-    }) => any;
-    create: ({ jwtToken, token, segmentInformation, headers }: {
-        jwtToken: any;
-        token: any;
-        segmentInformation: any;
-        headers: any;
-    }) => any;
-    update: ({ jwtToken, token, segmentInformationId, segmentInformation, headers }: {
-        jwtToken: any;
-        token: any;
-        segmentInformationId: any;
-        segmentInformation: any;
-        headers: any;
-    }) => any;
-    remove: ({ jwtToken, segmentInformationId, token, headers }: {
-        jwtToken: any;
-        segmentInformationId: any;
-        token: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+    create: Function;
+    update: Function;
+    remove: Function;
+};
+declare namespace segmentsInformationFactory {
+    export { SegmentsInformationQuery };
+}
+type SegmentsInformationQuery = {
+    /**
+     * - Provider account ID
+     */
+    providerId?: string;
 };

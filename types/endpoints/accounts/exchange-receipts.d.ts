@@ -1,17 +1,17 @@
 export = exchangeReceiptsFactory;
+/**
+ * Factory for exchange-receipt-settings API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ update: function, get: function }}
+ */
 declare function exchangeReceiptsFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    update: ({ data, token, jwtToken, headers }: {
-        data: any;
-        token: any;
-        jwtToken: any;
-        headers: any;
-    }) => any;
-    get: ({ token, jwtToken, headers }: {
-        token: any;
-        jwtToken: any;
-        headers: any;
-    }) => any;
+    update: Function;
+    get: Function;
 };

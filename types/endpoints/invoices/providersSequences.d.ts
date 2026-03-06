@@ -1,46 +1,31 @@
 export = providersSequencesFactory;
+/**
+ * Query params for provider sequences endpoints (btrz-api-invoices). Backend getSpec for list has no query; forwarded as-is.
+ * @typedef {Object} InvoiceProvidersSequencesQuery
+ */
+/**
+ * Factory for invoice provider sequences API (btrz-api-invoices).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, remove: function, create: function, update: function }}
+ */
 declare function providersSequencesFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, jwtToken, invoiceProviderId, query, headers }: {
-        token: any;
-        jwtToken: any;
-        invoiceProviderId: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ token, jwtToken, invoiceProviderId, invoiceProviderSequenceId, query, headers }: {
-        token: any;
-        jwtToken: any;
-        invoiceProviderId: any;
-        invoiceProviderSequenceId: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    remove: ({ token, jwtToken, invoiceProviderId, id, query, headers }: {
-        token: any;
-        jwtToken: any;
-        invoiceProviderId: any;
-        id: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    create: ({ token, jwtToken, invoiceProviderId, data, query, headers }: {
-        token: any;
-        jwtToken: any;
-        invoiceProviderId: any;
-        data: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    update: ({ token, jwtToken, invoiceProviderId, invoiceProviderSequenceId, data, query, headers }: {
-        token: any;
-        jwtToken: any;
-        invoiceProviderId: any;
-        invoiceProviderSequenceId: any;
-        data: any;
-        query?: {};
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+    remove: Function;
+    create: Function;
+    update: Function;
 };
+declare namespace providersSequencesFactory {
+    export { InvoiceProvidersSequencesQuery };
+}
+/**
+ * Query params for provider sequences endpoints (btrz-api-invoices). Backend getSpec for list has no query; forwarded as-is.
+ */
+type InvoiceProvidersSequencesQuery = any;

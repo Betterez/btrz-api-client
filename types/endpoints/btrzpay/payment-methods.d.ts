@@ -1,61 +1,32 @@
 export = paymentMethodsFactory;
+/**
+ * Query params for GET /payment-methods (btrz-api-payments). Passed through as-is when no backend spec found.
+ * @typedef {Object} PaymentMethodsListQuery
+ * @property {string} [providerName] - Filter by provider name (deprecated; use getByProviderName for single provider)
+ */
+/**
+ * Factory for payment methods API (btrz-api-payments).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {Object} methods all, getByProviderName, create, get, update, setToAgency,
+ *   createDefaultPaymentMethods, deleteCustomersCreditCardInfo, deletePaymentMethodsDomain
+ */
 declare function paymentMethodsFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
-}): {
-    all: ({ token, jwtToken, query, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    getByProviderName: ({ token, jwtToken, providerName, headers }: {
-        token: any;
-        jwtToken: any;
-        providerName: any;
-        headers: any;
-    }) => any;
-    create: ({ token, jwtToken, paymentMethod, headers }: {
-        token: any;
-        jwtToken: any;
-        paymentMethod: any;
-        headers: any;
-    }) => any;
-    get: ({ token, jwtToken, paymentMethodId, headers, query }: {
-        token: any;
-        jwtToken: any;
-        paymentMethodId: any;
-        headers: any;
-        query?: {};
-    }) => any;
-    setToAgency: ({ token, jwtToken, agencyId, providerId, paymentMethodNames, headers }: {
-        token: any;
-        jwtToken: any;
-        agencyId: any;
-        providerId: any;
-        paymentMethodNames: any;
-        headers: any;
-    }) => any;
-    update: ({ token, jwtToken, paymentMethodId, paymentMethod, headers }: {
-        token: any;
-        jwtToken: any;
-        paymentMethodId: any;
-        paymentMethod: any;
-        headers: any;
-    }) => any;
-    createDefaultPaymentMethods: ({ token, jwtToken, accountId }: {
-        token: any;
-        jwtToken: any;
-        accountId: any;
-    }) => any;
-    deleteCustomersCreditCardInfo: ({ token, jwtToken, paymentMethodId }: {
-        token: any;
-        jwtToken: any;
-        paymentMethodId: any;
-    }) => any;
-    deletePaymentMethodsDomain: ({ token, jwtToken, domain }: {
-        token: any;
-        jwtToken: any;
-        domain: any;
-    }) => any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
+}): any;
+declare namespace paymentMethodsFactory {
+    export { PaymentMethodsListQuery };
+}
+/**
+ * Query params for GET /payment-methods (btrz-api-payments). Passed through as-is when no backend spec found.
+ */
+type PaymentMethodsListQuery = {
+    /**
+     * - Filter by provider name (deprecated; use getByProviderName for single provider)
+     */
+    providerName?: string;
 };

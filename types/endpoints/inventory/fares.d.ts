@@ -1,45 +1,34 @@
 export = faresFactory;
+/**
+ * Query params for fares endpoints (btrz-api-inventory). Forwarded to API as-is.
+ * @typedef {Object} InventoryFaresQuery
+ */
+/**
+ * Factory for fares API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, update: function, create: function, adjustments: { create: function, remove: function } }}
+ */
 declare function faresFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, query, headers }: {
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ token, id, headers }: {
-        token: any;
-        id: any;
-        headers: any;
-    }) => any;
-    update: ({ token, jwtToken, fareId, fare, headers }: {
-        token: any;
-        jwtToken: any;
-        fareId: any;
-        fare: any;
-        headers: any;
-    }) => any;
-    create: ({ token, jwtToken, fare, headers }: {
-        token: any;
-        jwtToken: any;
-        fare: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+    update: Function;
+    create: Function;
     adjustments: {
-        create({ token, jwtToken, fareId, adjustmentsOverride, headers }: {
-            token: any;
-            jwtToken: any;
-            fareId: any;
-            adjustmentsOverride: any;
-            headers: any;
-        }): any;
-        remove({ token, jwtToken, fareId, adjustmentId, headers }: {
-            token: any;
-            jwtToken: any;
-            fareId: any;
-            adjustmentId: any;
-            headers: any;
-        }): any;
+        create: Function;
+        remove: Function;
     };
 };
+declare namespace faresFactory {
+    export { InventoryFaresQuery };
+}
+/**
+ * Query params for fares endpoints (btrz-api-inventory). Forwarded to API as-is.
+ */
+type InventoryFaresQuery = any;

@@ -1,31 +1,32 @@
 export = brandsFactory;
+/**
+ * @typedef {Object} BrandsQuery
+ * @property {string} [providerId] - Provider account ID
+ */
+/**
+ * Factory for brands API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, create: function, update: function, get: function }}
+ */
 declare function brandsFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, jwtToken, query, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    create: ({ token, jwtToken, brand, headers }: {
-        token: any;
-        jwtToken: any;
-        brand: any;
-        headers: any;
-    }) => any;
-    update: ({ jwtToken, token, brandId, brand, headers }: {
-        jwtToken: any;
-        token: any;
-        brandId: any;
-        brand: any;
-        headers: any;
-    }) => any;
-    get: ({ token, brandId, jwtToken, headers }: {
-        token: any;
-        brandId: any;
-        jwtToken: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    create: Function;
+    update: Function;
+    get: Function;
+};
+declare namespace brandsFactory {
+    export { BrandsQuery };
+}
+type BrandsQuery = {
+    /**
+     * - Provider account ID
+     */
+    providerId?: string;
 };

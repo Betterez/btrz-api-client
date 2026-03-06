@@ -1,48 +1,27 @@
 export = ticketsFactory;
+/**
+ * @typedef {Object} TicketsQuery
+ * @property {string} [providerId] - Provider account ID
+ */
+/**
+ * Factory for tickets API (btrz-api-operations).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {Object} tickets API methods
+ */
 declare function ticketsFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
-}): {
-    get: ({ token, jwtToken, id, headers, query }: {
-        token: any;
-        jwtToken: any;
-        id: any;
-        headers: any;
-        query: any;
-    }) => any;
-    all: ({ token, jwtToken, query, headers, providerId }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-        providerId: any;
-    }) => any;
-    patch: ({ token, jwtToken, id, operations, warningsEnabled, headers }: {
-        token: any;
-        jwtToken: any;
-        id: any;
-        operations: any;
-        warningsEnabled: any;
-        headers: any;
-    }) => any;
-    companionTickets: ({ token, jwtToken, ticketId, headers }: {
-        token: any;
-        jwtToken: any;
-        ticketId: any;
-        headers: any;
-    }) => any;
-    updateDelivery: ({ token, jwtToken, ticketId, data, headers }: {
-        token: any;
-        jwtToken: any;
-        ticketId: any;
-        data: any;
-        headers: any;
-    }) => any;
-    updatePassenger: ({ token, jwtToken, ticketId, data, headers }: {
-        token: any;
-        jwtToken: any;
-        ticketId: any;
-        data: any;
-        headers: any;
-    }) => any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
+}): any;
+declare namespace ticketsFactory {
+    export { TicketsQuery };
+}
+type TicketsQuery = {
+    /**
+     * - Provider account ID
+     */
+    providerId?: string;
 };

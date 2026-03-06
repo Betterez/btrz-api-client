@@ -1,15 +1,16 @@
 export = printedTicketsFactory;
+/**
+ * Factory for printed-tickets API (btrz-api-notifications).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ get: function }}
+ */
 declare function printedTicketsFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    get: ({ token, jwtToken, responseType, trxId, lang, date, headers }: {
-        token: any;
-        jwtToken: any;
-        responseType?: string;
-        trxId: any;
-        lang: any;
-        date: any;
-        headers: any;
-    }) => any;
+    get: Function;
 };

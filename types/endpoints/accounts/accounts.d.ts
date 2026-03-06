@@ -1,20 +1,19 @@
 export = accountsFactory;
+/**
+ * Factory for accounts API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ get: function, defaultUsers: { create: function } }}
+ */
 declare function accountsFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    get: ({ jwtToken, accountId, headers }: {
-        jwtToken: any;
-        accountId: any;
-        headers: any;
-    }) => any;
+    get: Function;
     defaultUsers: {
-        create({ token, jwtToken, accountId, data, headers }: {
-            token: any;
-            jwtToken: any;
-            accountId: any;
-            data: any;
-            headers: any;
-        }): any;
+        create: Function;
     };
 };

@@ -1,48 +1,31 @@
 export = datalogicFactory;
+/**
+ * @typedef {Object} DatalogicQuery
+ * @property {string} [providerId] - Provider account ID
+ */
+/**
+ * Factory for Datalogic API (btrz-api-payments).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ payments: Object, referenceNumber: Object, authCode: Object }}
+ */
 declare function datalogicFactory({ client }: {
-    client: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    payments: {
-        all({ token, jwtToken, headers, query, internalAuthTokenProvider }: {
-            token: any;
-            jwtToken: any;
-            headers: any;
-            query: any;
-            internalAuthTokenProvider: any;
-        }): any;
-        update({ token, jwtToken, headers, query, referenceNumber, data, internalAuthTokenProvider }: {
-            token: any;
-            jwtToken: any;
-            headers: any;
-            query: any;
-            referenceNumber: any;
-            data: any;
-            internalAuthTokenProvider: any;
-        }): any;
-        reverse({ token, jwtToken, headers, query, referenceNumber, data, internalAuthTokenProvider }: {
-            token: any;
-            jwtToken: any;
-            headers: any;
-            query: any;
-            referenceNumber: any;
-            data: any;
-            internalAuthTokenProvider: any;
-        }): any;
-    };
-    referenceNumber: {
-        get({ token, jwtToken, headers, internalAuthTokenProvider }: {
-            token: any;
-            jwtToken: any;
-            headers: any;
-            internalAuthTokenProvider: any;
-        }): any;
-    };
-    authCode: {
-        get({ token, jwtToken, headers, internalAuthTokenProvider }: {
-            token: any;
-            jwtToken: any;
-            headers: any;
-            internalAuthTokenProvider: any;
-        }): any;
-    };
+    payments: any;
+    referenceNumber: any;
+    authCode: any;
+};
+declare namespace datalogicFactory {
+    export { DatalogicQuery };
+}
+type DatalogicQuery = {
+    /**
+     * - Provider account ID
+     */
+    providerId?: string;
 };

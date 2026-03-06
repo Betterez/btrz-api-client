@@ -1,37 +1,31 @@
 export = travellerCardTypesFactory;
+/**
+ * Query params for GET /traveller-card-types (btrz-api-inventory). Forwarded to API as-is.
+ * @typedef {Object} InventoryTravellerCardTypesListQuery
+ */
+/**
+ * Factory for traveller-card-types API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, create: function, update: function, get: function, remove: function }}
+ */
 declare function travellerCardTypesFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, jwtToken, query, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    create: ({ token, jwtToken, travellerCardType, headers }: {
-        token: any;
-        jwtToken: any;
-        travellerCardType: any;
-        headers: any;
-    }) => any;
-    update: ({ jwtToken, token, travellerCardTypeId, travellerCardType, headers }: {
-        jwtToken: any;
-        token: any;
-        travellerCardTypeId: any;
-        travellerCardType: any;
-        headers: any;
-    }) => any;
-    get: ({ token, travellerCardTypeId, jwtToken, headers }: {
-        token: any;
-        travellerCardTypeId: any;
-        jwtToken: any;
-        headers: any;
-    }) => any;
-    remove: ({ token, travellerCardTypeId, jwtToken, headers }: {
-        token: any;
-        travellerCardTypeId: any;
-        jwtToken: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    create: Function;
+    update: Function;
+    get: Function;
+    remove: Function;
 };
+declare namespace travellerCardTypesFactory {
+    export { InventoryTravellerCardTypesListQuery };
+}
+/**
+ * Query params for GET /traveller-card-types (btrz-api-inventory). Forwarded to API as-is.
+ */
+type InventoryTravellerCardTypesListQuery = any;

@@ -1,17 +1,30 @@
 export = bareRoutesFactory;
+/**
+ * @typedef {Object} BareRoutesQuery
+ * @property {string} [providerId] - Provider account ID
+ */
+/**
+ * Factory for bare-routes API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function }}
+ */
 declare function bareRoutesFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, query, headers }: {
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ routeId, token, query, headers }: {
-        routeId: any;
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+};
+declare namespace bareRoutesFactory {
+    export { BareRoutesQuery };
+}
+type BareRoutesQuery = {
+    /**
+     * - Provider account ID
+     */
+    providerId?: string;
 };

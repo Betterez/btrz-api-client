@@ -1,6 +1,9 @@
-export let baseURL: string;
-export let timeout: number;
-export namespace baseURLOverride {
-    function inventory(url: any): string;
-    function trips(url: any): string;
-}
+declare const _exports: {
+    baseURL: string;
+    timeout: number;
+    baseURLOverride: {
+        inventory: (arg0: string) => string;
+        trips: (arg0: string) => string;
+    };
+};
+export = _exports;

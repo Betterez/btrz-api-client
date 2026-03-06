@@ -1,53 +1,34 @@
 export = vehiclesFactory;
+/**
+ * @typedef {Object} VehiclesQuery
+ * @property {string} [providerId] - Provider account ID
+ */
+/**
+ * Factory for vehicles API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, update: function, remove: function, seatmaps: object }}
+ */
 declare function vehiclesFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
-}): {
-    all: ({ token, query, headers }: {
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ vehicleId, token, headers }: {
-        vehicleId: any;
-        token: any;
-        headers: any;
-    }) => any;
-    create: ({ jwtToken, token, vehicle, headers }: {
-        jwtToken: any;
-        token: any;
-        vehicle: any;
-        headers: any;
-    }) => any;
-    update: ({ jwtToken, token, vehicleId, vehicle, headers }: {
-        jwtToken: any;
-        token: any;
-        vehicleId: any;
-        vehicle: any;
-        headers: any;
-    }) => any;
-    remove: ({ jwtToken, vehicleId, token, headers }: {
-        jwtToken: any;
-        vehicleId: any;
-        token: any;
-        headers: any;
-    }) => any;
-    seatmaps: {
-        create({ jwtToken, token, vehicleId, seatmap, headers, newdesign }: {
-            jwtToken: any;
-            token: any;
-            vehicleId: any;
-            seatmap: any;
-            headers: any;
-            newdesign: any;
-        }): any;
-        remove({ jwtToken, vehicleId, seatMapId, token, headers, newdesign }: {
-            jwtToken: any;
-            vehicleId: any;
-            seatMapId: any;
-            token: any;
-            headers: any;
-            newdesign: any;
-        }): any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
     };
+}): {
+    all: Function;
+    get: Function;
+    create: Function;
+    update: Function;
+    remove: Function;
+    seatmaps: object;
+};
+declare namespace vehiclesFactory {
+    export { VehiclesQuery };
+}
+type VehiclesQuery = {
+    /**
+     * - Provider account ID
+     */
+    providerId?: string;
 };

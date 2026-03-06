@@ -1,18 +1,30 @@
 export = bundlesFactory;
+/**
+ * @typedef {Object} InventoryBundlesQuery
+ * @property {string} [providerId] - Provider account ID
+ */
+/**
+ * Factory for bundles API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function }}
+ */
 declare function bundlesFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, jwtToken, query, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ token, jwtToken, bundleId, headers }: {
-        token: any;
-        jwtToken: any;
-        bundleId: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+};
+declare namespace bundlesFactory {
+    export { InventoryBundlesQuery };
+}
+type InventoryBundlesQuery = {
+    /**
+     * - Provider account ID
+     */
+    providerId?: string;
 };

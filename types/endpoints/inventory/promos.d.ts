@@ -1,58 +1,34 @@
 export = promosFactory;
+/**
+ * Query params for promos endpoints (btrz-api-inventory). Forwarded to API as-is.
+ * @typedef {Object} InventoryPromosQuery
+ */
+/**
+ * Factory for promos API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, update: function, patch: function, remove: function, addRule: function, updateRule: function }}
+ */
 declare function promosFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, query, headers }: {
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ promoId, token, query, headers }: {
-        promoId: any;
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    create: ({ jwtToken, promo, token, headers }: {
-        jwtToken: any;
-        promo: any;
-        token: any;
-        headers: any;
-    }) => any;
-    update: ({ jwtToken, token, promoId, update, headers }: {
-        jwtToken: any;
-        token: any;
-        promoId: any;
-        update: any;
-        headers: any;
-    }) => any;
-    patch: ({ jwtToken, token, promoId, operations, headers }: {
-        jwtToken: any;
-        token: any;
-        promoId: any;
-        operations: any;
-        headers: any;
-    }) => any;
-    remove: ({ jwtToken, promoId, token, headers }: {
-        jwtToken: any;
-        promoId: any;
-        token: any;
-        headers: any;
-    }) => any;
-    addRule: ({ jwtToken, token, promoId, rule, headers }: {
-        jwtToken: any;
-        token: any;
-        promoId: any;
-        rule: any;
-        headers: any;
-    }) => any;
-    updateRule: ({ jwtToken, token, promoId, ruleId, rule, headers }: {
-        jwtToken: any;
-        token: any;
-        promoId: any;
-        ruleId: any;
-        rule: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+    create: Function;
+    update: Function;
+    patch: Function;
+    remove: Function;
+    addRule: Function;
+    updateRule: Function;
 };
+declare namespace promosFactory {
+    export { InventoryPromosQuery };
+}
+/**
+ * Query params for promos endpoints (btrz-api-inventory). Forwarded to API as-is.
+ */
+type InventoryPromosQuery = any;

@@ -1,111 +1,40 @@
 export = cartFactory;
+/**
+ * @typedef {Object} CartQuery
+ * @property {string} [providerId] - Provider account ID
+ */
+/**
+ * Factory for cart API (btrz-api-sales).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ get: function, create: function, add: function, deleteItems: function, deletePaidInItem: function, deletePaidInItems: function, loyaltyPointsAmount: Object, patch: function, partialDepositStatus: Object, payments: Object, taxExemptPaymentMethod: Object, financingCosts: Object }}
+ */
 declare function cartFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    get: ({ token, id, providerId, headers }: {
-        token: any;
-        id: any;
-        providerId: any;
-        headers: any;
-    }) => any;
-    create: ({ token, cart, jwtToken, headers }: {
-        token: any;
-        cart: any;
-        jwtToken: any;
-        headers: any;
-    }) => any;
-    add: ({ token, cartId, cart, jwtToken, headers }: {
-        token: any;
-        cartId: any;
-        cart: any;
-        jwtToken: any;
-        headers: any;
-    }) => any;
-    deleteItems: ({ token, cartId, params, jwtToken, headers }: {
-        token: any;
-        cartId: any;
-        params: any;
-        jwtToken: any;
-        headers: any;
-    }) => any;
-    deletePaidInItem: ({ token, cartId, itemId, jwtToken, headers }: {
-        token: any;
-        cartId: any;
-        itemId: any;
-        jwtToken: any;
-        headers: any;
-    }) => any;
-    deletePaidInItems: ({ token, cartId, params, jwtToken, headers }: {
-        token: any;
-        cartId: any;
-        params: any;
-        jwtToken: any;
-        headers: any;
-    }) => any;
-    loyaltyPointsAmount: {
-        get({ token, jwtToken, cartId, query, headers }: {
-            token: any;
-            jwtToken: any;
-            cartId: any;
-            query?: {};
-            headers: any;
-        }): any;
-    };
-    patch: ({ token, jwtToken, cartId, data, headers }: {
-        token: any;
-        jwtToken: any;
-        cartId: any;
-        data: any;
-        headers: any;
-    }) => any;
-    partialDepositStatus: {
-        get({ token, jwtToken, shiftId, headers }: {
-            token: any;
-            jwtToken: any;
-            shiftId: any;
-            headers: any;
-        }): any;
-    };
-    payments: {
-        delete({ token, cartId, jwtToken, headers }: {
-            token: any;
-            cartId: any;
-            jwtToken: any;
-            headers: any;
-        }): any;
-        put({ token, cartId, jwtToken, headers, payment }: {
-            token: any;
-            cartId: any;
-            jwtToken: any;
-            headers: any;
-            payment: any;
-        }): any;
-    };
-    taxExemptPaymentMethod: {
-        post({ token, cartId, jwtToken, headers, data }: {
-            token: any;
-            cartId: any;
-            jwtToken: any;
-            headers: any;
-            data?: {};
-        }): any;
-    };
-    financingCosts: {
-        create({ token, jwtToken, headers, cartId, financingCost, query }: {
-            token: any;
-            jwtToken: any;
-            headers: any;
-            cartId: any;
-            financingCost: any;
-            query?: {};
-        }): any;
-        delete({ token, jwtToken, headers, cartId, query }: {
-            token: any;
-            jwtToken: any;
-            headers: any;
-            cartId: any;
-            query?: {};
-        }): any;
-    };
+    get: Function;
+    create: Function;
+    add: Function;
+    deleteItems: Function;
+    deletePaidInItem: Function;
+    deletePaidInItems: Function;
+    loyaltyPointsAmount: any;
+    patch: Function;
+    partialDepositStatus: any;
+    payments: any;
+    taxExemptPaymentMethod: any;
+    financingCosts: any;
+};
+declare namespace cartFactory {
+    export { CartQuery };
+}
+type CartQuery = {
+    /**
+     * - Provider account ID
+     */
+    providerId?: string;
 };

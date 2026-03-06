@@ -1,21 +1,17 @@
 export = referencedPaymentsFactory;
+/**
+ * Factory for referenced payments API (btrz-api-payments).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ getStatus: function, update: function }}
+ */
 declare function referencedPaymentsFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    getStatus: ({ token, jwtToken, transactionId, referenceNumber, headers }: {
-        token: any;
-        jwtToken: any;
-        transactionId: any;
-        referenceNumber: any;
-        headers: any;
-    }) => any;
-    update: ({ token, jwtToken, externalType, referenceNumber, paymentResult, headers }: {
-        token: any;
-        jwtToken: any;
-        externalType: any;
-        referenceNumber: any;
-        paymentResult: any;
-        headers: any;
-    }) => any;
+    getStatus: Function;
+    update: Function;
 };

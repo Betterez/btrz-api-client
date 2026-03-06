@@ -1,38 +1,31 @@
 export = journeyPricesFactory;
+/**
+ * Query params for journey-prices endpoints (btrz-api-inventory). Forwarded to API as-is.
+ * @typedef {Object} InventoryJourneyPricesQuery
+ */
+/**
+ * Factory for journey-prices API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, deleteById: function, get: function, create: function, update: function }}
+ */
 declare function journeyPricesFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, jwtToken, query, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    deleteById: ({ token, jwtToken, id, headers }: {
-        token: any;
-        jwtToken: any;
-        id: any;
-        headers: any;
-    }) => any;
-    get: ({ id, token, jwtToken, query, headers }: {
-        id: any;
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    create: ({ token, jwtToken, journeyPrice, headers }: {
-        token: any;
-        jwtToken: any;
-        journeyPrice: any;
-        headers: any;
-    }) => any;
-    update: ({ token, jwtToken, journeyPriceId, journeyPrice, headers }: {
-        token: any;
-        jwtToken: any;
-        journeyPriceId: any;
-        journeyPrice: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    deleteById: Function;
+    get: Function;
+    create: Function;
+    update: Function;
 };
+declare namespace journeyPricesFactory {
+    export { InventoryJourneyPricesQuery };
+}
+/**
+ * Query params for journey-prices endpoints (btrz-api-inventory). Forwarded to API as-is.
+ */
+type InventoryJourneyPricesQuery = any;

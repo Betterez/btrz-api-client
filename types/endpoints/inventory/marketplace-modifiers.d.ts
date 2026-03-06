@@ -1,35 +1,31 @@
 export = marketplaceModifierFactory;
+/**
+ * Query params for marketplace-modifiers endpoints (btrz-api-inventory). Forwarded to API as-is.
+ * @typedef {Object} InventoryMarketplaceModifiersQuery
+ */
+/**
+ * Factory for marketplace-modifiers API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, update: function, remove: function }}
+ */
 declare function marketplaceModifierFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, query, headers }: {
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ marketplaceModifierId, token, headers }: {
-        marketplaceModifierId: any;
-        token: any;
-        headers: any;
-    }) => any;
-    create: ({ jwtToken, token, marketplaceModifier, headers }: {
-        jwtToken: any;
-        token: any;
-        marketplaceModifier: any;
-        headers: any;
-    }) => any;
-    update: ({ jwtToken, token, marketplaceModifierId, marketplaceModifier, headers }: {
-        jwtToken: any;
-        token: any;
-        marketplaceModifierId: any;
-        marketplaceModifier: any;
-        headers: any;
-    }) => any;
-    remove: ({ jwtToken, marketplaceModifierId, token, headers }: {
-        jwtToken: any;
-        marketplaceModifierId: any;
-        token: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+    create: Function;
+    update: Function;
+    remove: Function;
 };
+declare namespace marketplaceModifierFactory {
+    export { InventoryMarketplaceModifiersQuery };
+}
+/**
+ * Query params for marketplace-modifiers endpoints (btrz-api-inventory). Forwarded to API as-is.
+ */
+type InventoryMarketplaceModifiersQuery = any;

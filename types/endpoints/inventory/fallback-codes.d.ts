@@ -1,30 +1,19 @@
 export = fallbackCodesFactory;
+/**
+ * Factory for fallback-codes API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, update: function }}
+ */
 declare function fallbackCodesFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, jwtToken, query, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ token, id, headers }: {
-        token: any;
-        id: any;
-        headers: any;
-    }) => any;
-    create: ({ token, jwtToken, fallbackCode, headers }: {
-        token: any;
-        jwtToken: any;
-        fallbackCode: any;
-        headers: any;
-    }) => any;
-    update: ({ token, jwtToken, fallbackCodeId, fallbackCode, headers }: {
-        token: any;
-        jwtToken: any;
-        fallbackCodeId: any;
-        fallbackCode: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+    create: Function;
+    update: Function;
 };

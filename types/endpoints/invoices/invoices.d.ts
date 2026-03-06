@@ -1,39 +1,31 @@
 export = invoicesFactory;
+/**
+ * Query params for invoices endpoints (btrz-api-invoices). Forwarded to API as-is.
+ * @typedef {Object} InvoicesQuery
+ */
+/**
+ * Factory for invoices API (btrz-api-invoices).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, getInvoicesFailures: function, retryInvoicing: function, overrideBuyerRetryInvoicing: function }}
+ */
 declare function invoicesFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, jwtToken, query, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ token, jwtToken, id, query, headers }: {
-        token: any;
-        jwtToken: any;
-        id: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    getInvoicesFailures: ({ token, jwtToken, query, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    retryInvoicing: ({ token, jwtToken, data, query, headers }: {
-        token: any;
-        jwtToken: any;
-        data: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    overrideBuyerRetryInvoicing: ({ token, jwtToken, data, query, headers }: {
-        token: any;
-        jwtToken: any;
-        data: any;
-        query?: {};
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+    getInvoicesFailures: Function;
+    retryInvoicing: Function;
+    overrideBuyerRetryInvoicing: Function;
 };
+declare namespace invoicesFactory {
+    export { InvoicesQuery };
+}
+/**
+ * Query params for invoices endpoints (btrz-api-invoices). Forwarded to API as-is.
+ */
+type InvoicesQuery = any;

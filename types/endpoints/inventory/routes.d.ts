@@ -1,178 +1,28 @@
 export = routesFactory;
+/**
+ * Factory for routes API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ get: function, prices: function, all: function, stations: function, create: function, update: function, remove: function, fareTables: object, stops: object, fareRules: object, priceBuckets: object, crossBorderDistances: object, prorationTables: object }}
+ */
 declare function routesFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    get: ({ routeId, token, query, headers }: {
-        routeId: any;
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    prices: ({ token, productId, originId, destinationId, channel, query, headers }: {
-        token: any;
-        productId: any;
-        originId: any;
-        destinationId: any;
-        channel: any;
-        query: any;
-        headers: any;
-    }) => any;
-    all: ({ token, query, headers }: {
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    stations: ({ token, routeId, headers }: {
-        token: any;
-        routeId: any;
-        headers: any;
-    }) => any;
-    create: ({ token, jwtToken, data, headers }: {
-        token: any;
-        jwtToken: any;
-        data: any;
-        headers: any;
-    }) => any;
-    update: ({ token, jwtToken, data, routeId, headers }: {
-        token: any;
-        jwtToken: any;
-        data: any;
-        routeId: any;
-        headers: any;
-    }) => any;
-    remove: ({ token, jwtToken, routeId, headers }: {
-        token: any;
-        jwtToken: any;
-        routeId: any;
-        headers: any;
-    }) => any;
-    fareTables: {
-        all({ token, query, headers }: {
-            token: any;
-            query?: {};
-            headers: any;
-        }): any;
-        create({ token, jwtToken, routeId, fareTable, headers }: {
-            token: any;
-            jwtToken: any;
-            routeId: any;
-            fareTable: any;
-            headers: any;
-        }): any;
-        update({ token, jwtToken, routeId, fareTableId, fareTable, headers }: {
-            token: any;
-            jwtToken: any;
-            routeId: any;
-            fareTableId: any;
-            fareTable: any;
-            headers: any;
-        }): any;
-    };
-    stops: {
-        create({ token, jwtToken, routeId, stop, headers }: {
-            token: any;
-            jwtToken: any;
-            routeId: any;
-            stop: any;
-            headers: any;
-        }): any;
-    };
-    fareRules: {
-        get({ token, jwtToken, routeId, headers }: {
-            token: any;
-            jwtToken: any;
-            routeId: any;
-            headers: any;
-        }): any;
-        create({ token, jwtToken, routeId, fareRule, headers }: {
-            token: any;
-            jwtToken: any;
-            routeId: any;
-            fareRule: any;
-            headers: any;
-        }): any;
-        update({ token, jwtToken, routeId, fareRuleId, fareRule, headers }: {
-            token: any;
-            jwtToken: any;
-            routeId: any;
-            fareRuleId: any;
-            fareRule: any;
-            headers: any;
-        }): any;
-        remove({ token, jwtToken, routeId, fareRuleId, headers }: {
-            token: any;
-            jwtToken: any;
-            routeId: any;
-            fareRuleId: any;
-            headers: any;
-        }): any;
-    };
-    priceBuckets: {
-        get({ token, jwtToken, routeId, headers }: {
-            token: any;
-            jwtToken: any;
-            routeId: any;
-            headers: any;
-        }): any;
-        create({ token, jwtToken, routeId, bucket, headers }: {
-            token: any;
-            jwtToken: any;
-            routeId: any;
-            bucket: any;
-            headers: any;
-        }): any;
-        update({ token, jwtToken, routeId, bucketId, bucket, headers }: {
-            token: any;
-            jwtToken: any;
-            routeId: any;
-            bucketId: any;
-            bucket: any;
-            headers: any;
-        }): any;
-        remove({ token, jwtToken, routeId, bucketId, headers }: {
-            token: any;
-            jwtToken: any;
-            routeId: any;
-            bucketId: any;
-            headers: any;
-        }): any;
-    };
-    crossBorderDistances: {
-        get({ token, jwtToken, routeId, headers }: {
-            token: any;
-            jwtToken: any;
-            routeId: any;
-            headers: any;
-        }): any;
-        update({ token, jwtToken, routeId, crossBorderDistances, headers }: {
-            token: any;
-            jwtToken: any;
-            routeId: any;
-            crossBorderDistances: any;
-            headers: any;
-        }): any;
-    };
-    prorationTables: {
-        all({ token, jwtToken, query, headers }: {
-            token: any;
-            jwtToken: any;
-            query?: {};
-            headers: any;
-        }): any;
-        getByRouteId({ token, jwtToken, routeId, productId, headers }: {
-            token: any;
-            jwtToken: any;
-            routeId: any;
-            productId: any;
-            headers: any;
-        }): any;
-        updateByRouteId({ token, jwtToken, routeId, prorationTable: prorationTableData, headers }: {
-            token: any;
-            jwtToken: any;
-            routeId: any;
-            prorationTable: any;
-            headers: any;
-        }): any;
-    };
+    get: Function;
+    prices: Function;
+    all: Function;
+    stations: Function;
+    create: Function;
+    update: Function;
+    remove: Function;
+    fareTables: object;
+    stops: object;
+    fareRules: object;
+    priceBuckets: object;
+    crossBorderDistances: object;
+    prorationTables: object;
 };

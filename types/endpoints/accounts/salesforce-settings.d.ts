@@ -1,18 +1,17 @@
 export = salesforceSettingsFactory;
+/**
+ * Factory for salesforce-settings API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ get: function, update: function }}
+ */
 declare function salesforceSettingsFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    get: ({ jwtToken, token, query, headers }: {
-        jwtToken: any;
-        token: any;
-        query: any;
-        headers: any;
-    }) => any;
-    update: ({ jwtToken, token, salesforceSettings, headers }: {
-        jwtToken: any;
-        token: any;
-        salesforceSettings: any;
-        headers: any;
-    }) => any;
+    get: Function;
+    update: Function;
 };

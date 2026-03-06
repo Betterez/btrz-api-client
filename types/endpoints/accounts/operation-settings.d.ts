@@ -1,18 +1,17 @@
 export = operationSettingsFactory;
+/**
+ * Factory for operation-settings API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ get: function, update: function }}
+ */
 declare function operationSettingsFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    get: ({ token, jwtToken, query, headers }: {
-        token: any;
-        jwtToken: any;
-        query: any;
-        headers: any;
-    }) => any;
-    update: ({ jwtToken, token, operationSettings, headers }: {
-        jwtToken: any;
-        token: any;
-        operationSettings: any;
-        headers: any;
-    }) => any;
+    get: Function;
+    update: Function;
 };

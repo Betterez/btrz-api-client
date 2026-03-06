@@ -1,37 +1,36 @@
 export = twilioFactory;
+/**
+ * Query params for GET /twilio/phone-numbers/:isocode (btrz-api-notifications). Forwarded to API as-is.
+ * @typedef {Object} TwilioPhoneNumbersListQuery
+ */
+/**
+ * Factory for twilio API (btrz-api-notifications).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ phoneNumbers: { all: function, create: function }, sms: { create: function }, whatsapp: { create: function } }}
+ */
 declare function twilioFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
     phoneNumbers: {
-        all({ isocode, token, jwtToken, query, headers }: {
-            isocode: any;
-            token: any;
-            jwtToken: any;
-            query?: {};
-            headers: any;
-        }): any;
-        create({ token, jwtToken, phoneNumberData, headers }: {
-            token: any;
-            jwtToken: any;
-            phoneNumberData?: {};
-            headers: any;
-        }): any;
+        all: Function;
+        create: Function;
     };
     sms: {
-        create({ token, jwtToken, smsMsg, headers }: {
-            token: any;
-            jwtToken: any;
-            smsMsg?: {};
-            headers: any;
-        }): any;
+        create: Function;
     };
     whatsapp: {
-        create({ token, jwtToken, whatsappMsg, headers }: {
-            token: any;
-            jwtToken: any;
-            whatsappMsg?: {};
-            headers: any;
-        }): any;
+        create: Function;
     };
 };
+declare namespace twilioFactory {
+    export { TwilioPhoneNumbersListQuery };
+}
+/**
+ * Query params for GET /twilio/phone-numbers/:isocode (btrz-api-notifications). Forwarded to API as-is.
+ */
+type TwilioPhoneNumbersListQuery = any;

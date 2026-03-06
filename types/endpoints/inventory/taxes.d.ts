@@ -1,63 +1,33 @@
 export = taxesFactory;
+/**
+ * @typedef {Object} TaxesQuery
+ * @property {string} [providerId] - Provider account ID
+ */
+/**
+ * Factory for taxes API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, update: function, exceptions: object }}
+ */
 declare function taxesFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
-}): {
-    all: ({ token, query, headers }: {
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ taxId, token, query, headers }: {
-        taxId: any;
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    create: ({ jwtToken, tax, token, headers }: {
-        jwtToken: any;
-        tax: any;
-        token: any;
-        headers: any;
-    }) => any;
-    update: ({ jwtToken, token, taxId, tax, headers }: {
-        jwtToken: any;
-        token: any;
-        taxId: any;
-        tax: any;
-        headers: any;
-    }) => any;
-    exceptions: {
-        create({ jwtToken, token, taxException, headers }: {
-            jwtToken: any;
-            token: any;
-            taxException: any;
-            headers: any;
-        }): any;
-        update({ jwtToken, token, taxExceptionId, taxException, headers }: {
-            jwtToken: any;
-            token: any;
-            taxExceptionId: any;
-            taxException: any;
-            headers: any;
-        }): any;
-        get({ jwtToken, token, taxExceptionId, headers }: {
-            jwtToken: any;
-            token: any;
-            taxExceptionId: any;
-            headers: any;
-        }): any;
-        all({ jwtToken, token, query, headers }: {
-            jwtToken: any;
-            token: any;
-            query?: {};
-            headers: any;
-        }): any;
-        delete({ jwtToken, token, taxExceptionId, headers }: {
-            jwtToken: any;
-            token: any;
-            taxExceptionId: any;
-            headers: any;
-        }): any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
     };
+}): {
+    all: Function;
+    get: Function;
+    create: Function;
+    update: Function;
+    exceptions: object;
+};
+declare namespace taxesFactory {
+    export { TaxesQuery };
+}
+type TaxesQuery = {
+    /**
+     * - Provider account ID
+     */
+    providerId?: string;
 };

@@ -1,35 +1,31 @@
 export = zonePriceFactory;
+/**
+ * Query params for zone-prices endpoints (btrz-api-inventory). Forwarded to API as-is.
+ * @typedef {Object} InventoryZonePricesQuery
+ */
+/**
+ * Factory for zone-prices API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, update: function, remove: function }}
+ */
 declare function zonePriceFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, query, headers }: {
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ zonePriceId, token, headers }: {
-        zonePriceId: any;
-        token: any;
-        headers: any;
-    }) => any;
-    create: ({ jwtToken, token, zonePrice, headers }: {
-        jwtToken: any;
-        token: any;
-        zonePrice: any;
-        headers: any;
-    }) => any;
-    update: ({ jwtToken, token, zonePriceId, zonePrice, headers }: {
-        jwtToken: any;
-        token: any;
-        zonePriceId: any;
-        zonePrice: any;
-        headers: any;
-    }) => any;
-    remove: ({ jwtToken, zonePriceId, token, headers }: {
-        jwtToken: any;
-        zonePriceId: any;
-        token: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+    create: Function;
+    update: Function;
+    remove: Function;
 };
+declare namespace zonePriceFactory {
+    export { InventoryZonePricesQuery };
+}
+/**
+ * Query params for zone-prices endpoints (btrz-api-inventory). Forwarded to API as-is.
+ */
+type InventoryZonePricesQuery = any;

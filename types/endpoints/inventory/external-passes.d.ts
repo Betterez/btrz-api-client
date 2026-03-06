@@ -1,18 +1,30 @@
 export = externalPassesFactory;
+/**
+ * @typedef {Object} ExternalPassesQuery
+ * @property {string} [providerId] - Provider account ID
+ */
+/**
+ * Factory for external-passes API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function }}
+ */
 declare function externalPassesFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, jwtToken, query, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ externalPassId, token, jwtToken, headers }: {
-        externalPassId: any;
-        token: any;
-        jwtToken: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+};
+declare namespace externalPassesFactory {
+    export { ExternalPassesQuery };
+}
+type ExternalPassesQuery = {
+    /**
+     * - Provider account ID
+     */
+    providerId?: string;
 };

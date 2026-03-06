@@ -1,41 +1,20 @@
 export = operationReasonFactory;
+/**
+ * Factory for operation-reasons API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, update: function, remove: function, create: function }}
+ */
 declare function operationReasonFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, jwtToken, query, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ token, jwtToken, id, query, headers }: {
-        token: any;
-        jwtToken: any;
-        id: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    update: ({ token, jwtToken, id, operationReason, query, headers }: {
-        token: any;
-        jwtToken: any;
-        id: any;
-        operationReason: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    remove: ({ token, jwtToken, id, query, headers }: {
-        token: any;
-        jwtToken: any;
-        id: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    create: ({ token, jwtToken, operationReason, query, headers }: {
-        token: any;
-        jwtToken: any;
-        operationReason: any;
-        query?: {};
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+    update: Function;
+    remove: Function;
+    create: Function;
 };

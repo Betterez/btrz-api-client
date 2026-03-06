@@ -1,102 +1,35 @@
 export = prismaTerminalsFactory;
+/**
+ * @typedef {Object} PrismaTerminalsQuery
+ * @property {string} [providerId] - Account provider/operator ID for agencies/sellers
+ * @property {boolean} [validateRefund] - (PUT refunds only) If true, fetch current state from Prisma before applying
+ */
+/**
+ * Factory for Prisma terminals API (btrz-api-payments).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ payments: Object, settlements: Object }}
+ */
 declare function prismaTerminalsFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    payments: {
-        get({ token, jwtToken, id, query, headers }: {
-            token: any;
-            jwtToken: any;
-            id: any;
-            query?: {};
-            headers: any;
-        }): any;
-        create({ token, jwtToken, prismaPayment, query, headers }: {
-            token: any;
-            jwtToken: any;
-            prismaPayment: any;
-            query?: {};
-            headers: any;
-        }): any;
-        delete({ token, jwtToken, id, query, headers }: {
-            token: any;
-            jwtToken: any;
-            id: any;
-            query?: {};
-            headers: any;
-        }): any;
-        update({ token, jwtToken, id, prismaPayment, query, headers }: {
-            token: any;
-            jwtToken: any;
-            id: any;
-            prismaPayment: any;
-            query?: {};
-            headers: any;
-        }): any;
-        reversals: {
-            get({ token, jwtToken, id, query, headers }: {
-                token: any;
-                jwtToken: any;
-                id: any;
-                query?: {};
-                headers: any;
-            }): any;
-            create({ token, jwtToken, id, prismaReversal, query, headers }: {
-                token: any;
-                jwtToken: any;
-                id: any;
-                prismaReversal: any;
-                query?: {};
-                headers: any;
-            }): any;
-            delete({ token, jwtToken, id, query, headers }: {
-                token: any;
-                jwtToken: any;
-                id: any;
-                query?: {};
-                headers: any;
-            }): any;
-        };
-        refunds: {
-            get({ token, jwtToken, id, query, headers }: {
-                token: any;
-                jwtToken: any;
-                id: any;
-                query?: {};
-                headers: any;
-            }): any;
-            create({ token, jwtToken, id, prismaRefund, query, headers }: {
-                token: any;
-                jwtToken: any;
-                id: any;
-                prismaRefund: any;
-                query?: {};
-                headers: any;
-            }): any;
-            delete({ token, jwtToken, id, query, headers }: {
-                token: any;
-                jwtToken: any;
-                id: any;
-                query?: {};
-                headers: any;
-            }): any;
-            update({ token, jwtToken, id, prismaRefund, query, headers }: {
-                token: any;
-                jwtToken: any;
-                id: any;
-                prismaRefund: any;
-                query?: {};
-                headers: any;
-            }): any;
-        };
-    };
-    settlements: {
-        create({ token, jwtToken, settlement, query, headers }: {
-            token: any;
-            jwtToken: any;
-            settlement: any;
-            query?: {};
-            headers: any;
-        }): any;
-    };
+    payments: any;
+    settlements: any;
+};
+declare namespace prismaTerminalsFactory {
+    export { PrismaTerminalsQuery };
+}
+type PrismaTerminalsQuery = {
+    /**
+     * - Account provider/operator ID for agencies/sellers
+     */
+    providerId?: string;
+    /**
+     * - (PUT refunds only) If true, fetch current state from Prisma before applying
+     */
+    validateRefund?: boolean;
 };

@@ -1,35 +1,31 @@
 export = customContentFactory;
+/**
+ * Query params for custom-content endpoints (btrz-api-inventory). Forwarded to API as-is.
+ * @typedef {Object} InventoryCustomContentQuery
+ */
+/**
+ * Factory for custom-content API (btrz-api-inventory).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, get: function, create: function, update: function, remove: function }}
+ */
 declare function customContentFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, query, headers }: {
-        token: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    get: ({ customContentId, token, headers }: {
-        customContentId: any;
-        token: any;
-        headers: any;
-    }) => any;
-    create: ({ jwtToken, token, customContent, headers }: {
-        jwtToken: any;
-        token: any;
-        customContent: any;
-        headers: any;
-    }) => any;
-    update: ({ jwtToken, token, customContentId, customContent, headers }: {
-        jwtToken: any;
-        token: any;
-        customContentId: any;
-        customContent: any;
-        headers: any;
-    }) => any;
-    remove: ({ jwtToken, customContentId, token, headers }: {
-        jwtToken: any;
-        customContentId: any;
-        token: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    get: Function;
+    create: Function;
+    update: Function;
+    remove: Function;
 };
+declare namespace customContentFactory {
+    export { InventoryCustomContentQuery };
+}
+/**
+ * Query params for custom-content endpoints (btrz-api-inventory). Forwarded to API as-is.
+ */
+type InventoryCustomContentQuery = any;

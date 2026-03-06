@@ -1,68 +1,27 @@
 export = dynamicFormsFactory;
+/**
+ * Factory for dynamic-forms API (btrz-api-accounts).
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ get: function, all: function, create: function, update: function, remove: function, fields: { get: function, all: function, create: function, update: function, remove: function } }}
+ */
 declare function dynamicFormsFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    get: ({ token, jwtToken, dynamicFormId, query, headers, providerId }: {
-        token: any;
-        jwtToken: any;
-        dynamicFormId: any;
-        query?: {};
-        headers: any;
-        providerId: any;
-    }) => any;
-    all: ({ token, jwtToken, query, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    create: ({ token, jwtToken, query, data, headers }: {
-        token: any;
-        jwtToken: any;
-        query?: {};
-        data: any;
-        headers: any;
-    }) => any;
-    update: ({ token, jwtToken, dynamicFormId, data, headers }: {
-        token: any;
-        jwtToken: any;
-        dynamicFormId: any;
-        data: any;
-        headers: any;
-    }) => any;
-    remove: ({ dynamicFormId, token, jwtToken, headers }: {
-        dynamicFormId: any;
-        token: any;
-        jwtToken: any;
-        headers: any;
-    }) => any;
+    get: Function;
+    all: Function;
+    create: Function;
+    update: Function;
+    remove: Function;
     fields: {
-        get({ token, jwtToken, dynamicFormFieldId, headers }?: {}): any;
-        all({ token, jwtToken, query, headers }: {
-            token: any;
-            jwtToken: any;
-            query?: {};
-            headers: any;
-        }): any;
-        create({ jwtToken, token, data, headers }: {
-            jwtToken: any;
-            token: any;
-            data: any;
-            headers: any;
-        }): any;
-        update({ jwtToken, token, dynamicFormFieldId, data, headers }: {
-            jwtToken: any;
-            token: any;
-            dynamicFormFieldId: any;
-            data: any;
-            headers: any;
-        }): any;
-        remove({ dynamicFormFieldId, token, jwtToken, headers }: {
-            dynamicFormFieldId: any;
-            token: any;
-            jwtToken: any;
-            headers: any;
-        }): any;
+        get: Function;
+        all: Function;
+        create: Function;
+        update: Function;
+        remove: Function;
     };
 };

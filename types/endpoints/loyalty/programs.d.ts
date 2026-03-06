@@ -1,25 +1,40 @@
 export = programsFactory;
+/**
+ * Query params for GET /programs (loyalty). Client merges context into query.
+ * @typedef {Object} LoyaltyProgramsListQuery
+ * @property {string} [context] - Context (merged from opts.context by client)
+ * @property {string} [providerId] - Provider id (if supported by backend)
+ */
+/**
+ * Factory for loyalty programs API.
+ * @param {Object} deps
+ * @param {import("axios").AxiosInstance} deps.client
+ * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
+ * @returns {{ all: function, create: function, put: function }}
+ */
 declare function programsFactory({ client, internalAuthTokenProvider }: {
-    client: any;
-    internalAuthTokenProvider: any;
+    client: import("axios").AxiosInstance;
+    internalAuthTokenProvider?: {
+        getToken: () => string;
+    };
 }): {
-    all: ({ token, context, query, headers }: {
-        token: any;
-        context: any;
-        query?: {};
-        headers: any;
-    }) => any;
-    create: ({ token, jwtToken, program, headers }: {
-        token: any;
-        jwtToken: any;
-        program: any;
-        headers: any;
-    }) => any;
-    put: ({ token, jwtToken, programId, program, headers }: {
-        token: any;
-        jwtToken: any;
-        programId: any;
-        program: any;
-        headers: any;
-    }) => any;
+    all: Function;
+    create: Function;
+    put: Function;
+};
+declare namespace programsFactory {
+    export { LoyaltyProgramsListQuery };
+}
+/**
+ * Query params for GET /programs (loyalty). Client merges context into query.
+ */
+type LoyaltyProgramsListQuery = {
+    /**
+     * - Context (merged from opts.context by client)
+     */
+    context?: string;
+    /**
+     * - Provider id (if supported by backend)
+     */
+    providerId?: string;
 };
