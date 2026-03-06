@@ -1,8 +1,9 @@
 const {authorizationHeaders} = require("../endpoints_helpers.js");
 
 /**
+ * Query params for GET /taxes (btrz-api-inventory). See get-handler getSpec().
  * @typedef {Object} TaxesQuery
- * @property {string} [providerId] - Provider account ID
+ * @property {string} [providerIds] - The id of the providers to get taxes for
  */
 
 /**
@@ -18,7 +19,7 @@ function taxesFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {TaxesQuery} [opts.query] - Query params
+   * @param {TaxesQuery} [opts.query] - Query params (providerIds)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -30,12 +31,11 @@ function taxesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /taxes/:taxId - get tax by id.
+   * GET /taxes/:taxId - get tax by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.taxId - Tax id
-   * @param {TaxesQuery} [opts.query] - Query params
+   * @param {string} opts.taxId - Tax id (ObjectId format)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -140,7 +140,6 @@ function taxesFactory({client, internalAuthTokenProvider}) {
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-     * @param {TaxesQuery} [opts.query] - Query params
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */

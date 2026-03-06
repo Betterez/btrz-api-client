@@ -2,6 +2,20 @@
 const {authorizationHeaders} = require("../endpoints_helpers.js");
 
 /**
+ * Query params for GET /dynamic-forms (btrz-api-accounts). See get-handler getSpec().
+ * @typedef {Object} DynamicFormsQuery
+ * @property {string} [dynamicFormFieldId] - Get all dynamic forms for the given field id (ObjectId)
+ * @property {string} [providerId] - Get all dynamic forms for the given provider id (ObjectId)
+ * @property {string} [type] - Filter by type: "reservation" | "parcel" | "checkin" | "paid_in" | "pay_on_account"
+ */
+
+/**
+ * Query params for GET /dynamic-forms/:dynamicFormId (btrz-api-accounts). See get-by-id-handler getSpec().
+ * @typedef {Object} DynamicFormByIdQuery
+ * @property {string} [providerId] - Fetch the dynamic form for the given providerId (ObjectId)
+ */
+
+/**
  * Factory for dynamic-forms API (btrz-api-accounts).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -15,8 +29,8 @@ function dynamicFormsFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.dynamicFormId - Dynamic form id (ObjectId)
-   * @param {Object} [opts.query] - Query params
-   * @param {string} [opts.providerId] - Provider id (ObjectId)
+   * @param {DynamicFormByIdQuery} [opts.query] - Query params (providerId)
+   * @param {string} [opts.providerId] - Provider id; if set, added to query (convenience)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -34,7 +48,7 @@ function dynamicFormsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} [opts.query] - Query params
+   * @param {DynamicFormsQuery} [opts.query] - Query params (dynamicFormFieldId, providerId, type)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -51,7 +65,6 @@ function dynamicFormsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} [opts.query] - Query params
    * @param {Object} opts.data - Form payload
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
@@ -123,7 +136,6 @@ function dynamicFormsFactory({client, internalAuthTokenProvider}) {
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-     * @param {Object} [opts.query] - Query params
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */

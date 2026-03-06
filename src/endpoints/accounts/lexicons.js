@@ -18,7 +18,6 @@ function lexiconsFactory({
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} opts.context - Context (e.g. buscompany)
-   * @param {Object} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

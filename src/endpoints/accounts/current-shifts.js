@@ -3,6 +3,11 @@ const {
 } = require("./../endpoints_helpers.js");
 
 /**
+ * @typedef {Object} CurrentShiftsQuery
+ * @property {string} [includeActivity] - Set to 'false' to avoid returning sales activity data for the shift (default 'true')
+ */
+
+/**
  * Factory for current-shift (per user) API (btrz-api-accounts).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -15,7 +20,7 @@ function currentShiftsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} opts.userId - User id (ObjectId)
-   * @param {Object} [opts.query] - Query params
+   * @param {CurrentShiftsQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

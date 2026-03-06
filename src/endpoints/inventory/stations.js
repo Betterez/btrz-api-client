@@ -1,8 +1,26 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
+ * Query params for GET /stations (btrz-api-inventory). See get-stations getSpec().
  * @typedef {Object} StationsQuery
- * @property {string} [providerId] - Provider account ID
+ * @property {string} [providerId] - The id of the provider to get stations for
+ * @property {string} [providerIds] - The ids of the providers to get stations for
+ * @property {string} [productId] - The id of the product
+ * @property {string} [departure] - The id of the origin station
+ * @property {string} [province] - The province of the station
+ * @property {string} [zone] - The zone of the station
+ * @property {string} [type] - The type name of the station
+ * @property {string} [name] - The full name of the station
+ * @property {string} [partialName] - Full or partial name (case-insensitive match)
+ * @property {string} [enabled] - Filter by enabled: "true" | "false"
+ * @property {number} [page] - Page for pagination
+ * @property {string} [orderBy] - Field to order by
+ * @property {string} [orderDir] - Order direction: asc (1) or desc (-1), default 1
+ * @property {string} [stationIds] - Comma-separated station ids to return
+ * @property {string} [filterHeadStations] - Filter stations that are grouping any station
+ * @property {string} [includesStationsGroupFor] - Include stations that group/include the sent station id
+ * @property {string} [externalId] - The id of the station in the external system
+ * @property {string} [shortcode] - The shortcode of the station to filter by
  */
 
 /**
@@ -33,7 +51,7 @@ function stationsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {StationsQuery} [opts.query] - Query params
+   * @param {StationsQuery} [opts.query] - Query params (providerId, productId, name, page, etc.)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

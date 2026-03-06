@@ -14,7 +14,6 @@ function printSettingsFactory({client, internalAuthTokenProvider}) {
    * GET /print-templates - list print templates.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {Object} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -30,7 +29,6 @@ function printSettingsFactory({client, internalAuthTokenProvider}) {
    * GET /print-templates/:printTemplateId - get a print template.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {Object} [opts.query] - Query params
    * @param {string} opts.printTemplateId - Print template id (ObjectId)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
@@ -50,7 +48,6 @@ function printSettingsFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.printTemplateId - Print template id (ObjectId)
    * @param {Object} opts.printTemplate - Print template payload
-   * @param {Object} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -117,7 +114,6 @@ function printSettingsFactory({client, internalAuthTokenProvider}) {
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.printTemplateId - Print template id (ObjectId)
      * @param {string} opts.versionId - Version id (ObjectId)
-     * @param {Object} [opts.query] - Query params
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */

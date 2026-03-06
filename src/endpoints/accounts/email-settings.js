@@ -14,7 +14,6 @@ function emailSettingsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -31,7 +30,6 @@ function emailSettingsFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.email - Email address
-   * @param {Object} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

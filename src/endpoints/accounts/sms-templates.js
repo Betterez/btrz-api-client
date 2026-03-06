@@ -31,7 +31,6 @@ function smsTemplatesFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -49,7 +48,6 @@ function smsTemplatesFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.smsTemplateId - Template id (ObjectId)
-   * @param {Object} [opts.query] - Optional query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -142,7 +140,6 @@ function smsTemplatesFactory({client, internalAuthTokenProvider}) {
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.smsTemplateId - Template id (ObjectId)
      * @param {string} opts.versionId - Version id (ObjectId)
-     * @param {Object} [opts.query] - Optional query params
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */

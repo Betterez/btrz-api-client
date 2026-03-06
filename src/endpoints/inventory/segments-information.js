@@ -3,8 +3,10 @@ const {
 } = require("./../endpoints_helpers.js");
 
 /**
+ * Query params for GET /segments-information (btrz-api-inventory). See get-handler getSpec().
  * @typedef {Object} SegmentsInformationQuery
- * @property {string} [providerId] - Provider account ID
+ * @property {string} [originId] - Filter by origin ID (ObjectId format)
+ * @property {string} [destinationId] - Filter by destination ID (ObjectId format)
  */
 
 /**
@@ -20,7 +22,7 @@ function segmentsInformationFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {SegmentsInformationQuery} [opts.query] - Query params
+   * @param {SegmentsInformationQuery} [opts.query] - Query params (originId, destinationId)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

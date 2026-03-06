@@ -3,6 +3,13 @@ const {
 } = require("../endpoints_helpers.js");
 
 /**
+ * @typedef {Object} GetnetTerminalsQuery
+ * @property {number} [page] - The page number to retrieve
+ * @property {string} [stationId] - Filter terminals by station (location) ID
+ * @property {string} [serialNumber] - Filter terminals by serial number
+ */
+
+/**
  * Factory for getnet-terminals API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -15,7 +22,7 @@ function getnetTerminalFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} [opts.query] - Query params
+   * @param {GetnetTerminalsQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

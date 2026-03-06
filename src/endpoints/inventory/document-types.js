@@ -1,11 +1,6 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * @typedef {Object} DocumentTypesQuery
- * @property {string} [providerId] - Provider account ID (also set via opts.providerId)
- */
-
-/**
  * Factory for document-types API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -18,7 +13,6 @@ function documentTypesFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {DocumentTypesQuery} [opts.query] - Query params
    * @param {string} [opts.providerId] - Provider id (added to query if set)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
@@ -39,7 +33,6 @@ function documentTypesFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.id - Document type id
-   * @param {DocumentTypesQuery} [opts.query] - Query params
    * @param {string} [opts.providerId] - Provider id (added to query if set)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
@@ -61,7 +54,6 @@ function documentTypesFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.id - Document type id
    * @param {Object} opts.data - Document type payload
-   * @param {DocumentTypesQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -81,7 +73,6 @@ function documentTypesFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.id - Document type id
-   * @param {DocumentTypesQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -100,7 +91,6 @@ function documentTypesFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} opts.data - Document type payload
-   * @param {DocumentTypesQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

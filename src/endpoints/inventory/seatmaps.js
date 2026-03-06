@@ -2,11 +2,6 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
- * @typedef {Object} SeatmapsQuery
- * @property {string} [providerId] - Provider account ID
- */
-
-/**
  * Factory for seatmaps API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -19,7 +14,6 @@ function seatmapsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {SeatmapsQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -38,7 +32,6 @@ function seatmapsFactory({client, internalAuthTokenProvider}) {
    * @param {string} opts.routeId - Route id
    * @param {string} opts.scheduleId - Schedule id
    * @param {string} opts.manifestDate - Manifest date
-   * @param {SeatmapsQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -55,7 +48,6 @@ function seatmapsFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.seatmapId - Seatmap id
-   * @param {SeatmapsQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -130,7 +122,6 @@ function seatmapsFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.seatmapId - Seatmap id
-   * @param {SeatmapsQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

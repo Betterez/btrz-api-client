@@ -3,8 +3,10 @@ const {
 } = require("./../endpoints_helpers.js");
 
 /**
+ * Query params for GET /travel-routes (btrz-api-inventory). See get-handler getSpec().
  * @typedef {Object} TravelRoutesQuery
- * @property {string} [providerId] - Provider account ID
+ * @property {number} [page] - The page number to retrieve (positive integer)
+ * @property {string} [externalId] - The external id of the travel route
  */
 
 /**
@@ -20,7 +22,7 @@ function travelRoutesFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {TravelRoutesQuery} [opts.query] - Query params
+   * @param {TravelRoutesQuery} [opts.query] - Query params (page, externalId)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -37,11 +39,11 @@ function travelRoutesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /travel-routes/:travelRouteId - get travel route by id.
+   * GET /travel-routes/:travelRouteId - get travel route by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.travelRouteId - Travel route id
+   * @param {string} opts.travelRouteId - Travel route id (ObjectId format)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

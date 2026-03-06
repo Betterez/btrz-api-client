@@ -3,11 +3,6 @@ const {
 } = require("../endpoints_helpers.js");
 
 /**
- * @typedef {Object} MitTerminalSettingsQuery
- * @property {string} [providerId] - Provider account ID
- */
-
-/**
  * Factory for mit-terminals-settings API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -20,7 +15,6 @@ function mitTerminalFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {MitTerminalSettingsQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

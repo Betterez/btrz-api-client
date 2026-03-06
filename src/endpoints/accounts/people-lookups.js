@@ -15,7 +15,6 @@ function peopleLookupsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} [opts.query] - Query params
    * @param {string} [opts.providerId] - Provider id (ObjectId)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
@@ -34,7 +33,6 @@ function peopleLookupsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} [opts.query] - Query params
    * @param {string} opts.personId - Person id (ObjectId)
    * @param {string} [opts.providerId] - Provider id (ObjectId)
    * @param {Object} [opts.headers] - Optional headers

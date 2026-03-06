@@ -4,6 +4,15 @@ const {
 } = require("./../endpoints_helpers.js");
 
 /**
+ * Query params for GET /customers (btrz-api-accounts). See get-customers getSpec().
+ * @typedef {Object} CustomersQuery
+ * @property {string} [customerNumber] - A particular customer number; only that customer will be listed
+ * @property {string} [externalId] - A particular externalId (same format as when creating the customer)
+ * @property {string} [providerIds] - Provider ids to get customers from (comma-separated if more than one)
+ * @property {string} [lookupSearchParams] - Lookup search data in format "documentTypeId|DNI,documentNumber|1234567"
+ */
+
+/**
  * Factory for customers API (btrz-api-accounts).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -35,8 +44,8 @@ function customersFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} [opts.query] - Query params
-   * @param {string} [opts.providerId] - Filter by provider id (ObjectId)
+   * @param {CustomersQuery} [opts.query] - Query params (customerNumber, externalId, providerIds, lookupSearchParams)
+   * @param {string} [opts.providerId] - Provider id; if set, added to query (convenience for single provider)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -55,7 +64,6 @@ function customersFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} opts.customer - Customer payload
-   * @param {Object} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -123,7 +131,6 @@ function customersFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.customerId - Customer id (ObjectId)
    * @param {Object} opts.data - Partial customer payload
-   * @param {Object} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

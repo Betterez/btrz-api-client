@@ -14,7 +14,6 @@ function printSettingsFactory({client, internalAuthTokenProvider}) {
    * GET /print-settings - list/get print settings.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {Object} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

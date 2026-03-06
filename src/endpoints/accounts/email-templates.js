@@ -76,7 +76,6 @@ function emailTemplatesFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.emailTemplateId - Template id (ObjectId)
-   * @param {Object} [opts.query] - Optional query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<{ emailTemplate: object }>>}
    */
@@ -169,7 +168,6 @@ function emailTemplatesFactory({client, internalAuthTokenProvider}) {
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.emailTemplateId - Template id (ObjectId)
      * @param {string} opts.versionId - Version id (ObjectId)
-     * @param {Object} [opts.query] - Optional query params
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */

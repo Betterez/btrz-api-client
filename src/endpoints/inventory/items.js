@@ -3,6 +3,25 @@ const {
 } = require("./../endpoints_helpers.js");
 
 /**
+ * Query params for GET /items (btrz-api-inventory). See get-handler getSpec().
+ * @typedef {Object} ItemsQuery
+ * @property {string} [productId] - The ids of the products to get products for
+ * @property {string} [associatedProductId] - The id of the associated products when used as an SSR
+ * @property {string} [disabled] - Filter by disabled: "true" | "false"
+ * @property {string} [type] - Filter by type: "paid_in" | "paid_out"
+ * @property {string} [providerIds] - The id of the provider to get products for
+ * @property {string} [filterToCurrentShiftLocation] - Filter items sellable in current location: "true" | "false". Requires JwtAuth
+ * @property {string} [channels] - Filter by channels (comma-separated, e.g. "backoffice,websales"). Requires JwtAuth
+ * @property {string} [currency] - The isocode of the selected currency
+ */
+
+/**
+ * Query params for GET /items/:itemId (btrz-api-inventory). See get-by-id-handler getSpec().
+ * @typedef {Object} ItemByIdQuery
+ * @property {string} [currency] - The isocode of the selected currency
+ */
+
+/**
  * Factory for items API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -15,7 +34,7 @@ function itemsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} [opts.query] - Query params
+   * @param {ItemsQuery} [opts.query] - Query params (productId, disabled, type, providerIds, channels, currency, etc.)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -37,8 +56,8 @@ function itemsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.itemId - Item id
-   * @param {Object} [opts.query] - Query params
+   * @param {string} opts.itemId - Item id (ObjectId format)
+   * @param {ItemByIdQuery} [opts.query] - Query params (currency)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -95,7 +114,6 @@ function itemsFactory({client, internalAuthTokenProvider}) {
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.soldItemId - Sold item id
      * @param {string} opts.ticketId - Ticket id
-     * @param {Object} [opts.query] - Query params
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */

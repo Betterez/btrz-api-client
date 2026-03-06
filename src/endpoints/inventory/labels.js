@@ -1,8 +1,10 @@
 const {authorizationHeaders} = require("../endpoints_helpers.js");
 
 /**
+ * Query params for GET /labels (btrz-api-inventory). See get-handler getSpec().
  * @typedef {Object} LabelsQuery
- * @property {string} [providerId] - Provider account ID
+ * @property {string} [name] - The name of the label to search for; omit to return all
+ * @property {number} [page] - Page number; omit for first page
  */
 
 /**
@@ -18,7 +20,7 @@ function labelsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {LabelsQuery} [opts.query] - Query params
+   * @param {LabelsQuery} [opts.query] - Query params (name, page)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -30,12 +32,11 @@ function labelsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /labels/:labelId - get label by id.
+   * GET /labels/:labelId - get label by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.labelId - Label id
-   * @param {LabelsQuery} [opts.query] - Query params
+   * @param {string} opts.labelId - Label id (ObjectId format)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

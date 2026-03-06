@@ -1,6 +1,11 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
+ * @typedef {Object} ApplicationSettingsQuery
+ * @property {string} [name] - The application name
+ */
+
+/**
  * Factory for application-settings API (btrz-api-accounts).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -14,7 +19,7 @@ function applicationSettingsFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.providerId - Provider id (ObjectId)
-   * @param {Object} [opts.query] - Query params
+   * @param {ApplicationSettingsQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

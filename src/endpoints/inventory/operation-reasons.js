@@ -1,6 +1,11 @@
 const {authorizationHeaders} = require("../endpoints_helpers.js");
 
 /**
+ * @typedef {Object} OperationReasonsQuery
+ * @property {number} [page] - The page number to retrieve
+ */
+
+/**
  * Factory for operation-reasons API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -13,7 +18,7 @@ function operationReasonFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} [opts.query] - Query params
+   * @param {OperationReasonsQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -32,7 +37,7 @@ function operationReasonFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.id - Operation reason id
-   * @param {Object} [opts.query] - Query params
+   * @param {OperationReasonsQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -52,7 +57,7 @@ function operationReasonFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.id - Operation reason id
    * @param {Object} opts.operationReason - Operation reason payload
-   * @param {Object} [opts.query] - Query params
+   * @param {OperationReasonsQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -72,7 +77,7 @@ function operationReasonFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.id - Operation reason id
-   * @param {Object} [opts.query] - Query params
+   * @param {OperationReasonsQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -91,7 +96,7 @@ function operationReasonFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} opts.operationReason - Operation reason payload
-   * @param {Object} [opts.query] - Query params
+   * @param {OperationReasonsQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

@@ -2,6 +2,18 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
+ * @typedef {Object} ShiftsQuery
+ * @property {string} [includeActivity] - Set to 'false' to avoid returning sales activity (default 'true')
+ * @property {string} [status] - One of 'open' or 'closed'
+ * @property {string} [pendingShiftClosure] - Return shifts that need to be added to a shift closure ('true'|'false')
+ * @property {string} [locationId] - Filter shifts by location (ObjectId)
+ * @property {string} [providerId] - Provider for payments (ObjectId)
+ * @property {string} [sort] - Sort order: 'closedAsc'|'closedDesc'|'openedAsc'
+ * @property {string} [fromDate] - Start date (YYYY-MM-DD)
+ * @property {string} [toDate] - End date (YYYY-MM-DD)
+ */
+
+/**
  * Factory for shifts API (btrz-api-accounts).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -14,7 +26,7 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} [opts.query] - Query params
+   * @param {ShiftsQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -68,7 +80,7 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.shiftId - Shift id (ObjectId)
    * @param {Object} opts.operations - Operations payload
-   * @param {Object} [opts.query] - Query params
+   * @param {ShiftsQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -157,7 +169,7 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-     * @param {Object} [opts.query] - Query params
+     * @param {ShiftsQuery} [opts.query] - Query params
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
@@ -458,7 +470,7 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.locationId - Location id (ObjectId)
-     * @param {Object} [opts.query] - Query params
+     * @param {ShiftsQuery} [opts.query] - Query params
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
@@ -478,7 +490,7 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.shiftId - Shift id (ObjectId)
-     * @param {Object} [opts.query] - Query params
+     * @param {ShiftsQuery} [opts.query] - Query params
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */

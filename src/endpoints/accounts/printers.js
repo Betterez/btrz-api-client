@@ -14,7 +14,6 @@ function printersFactory({client, internalAuthTokenProvider}) {
    * GET /printers - list printers.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {Object} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

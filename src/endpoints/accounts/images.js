@@ -2,6 +2,11 @@
 const {authorizationHeaders} = require("./../endpoints_helpers");
 
 /**
+ * @typedef {Object} ImagesQuery
+ * @property {number} [page] - The page number to retrieve (for list)
+ */
+
+/**
  * Factory for images API (btrz-api-accounts).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -14,7 +19,7 @@ function ImagesFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} [opts.query] - Query params
+   * @param {ImagesQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -31,7 +36,6 @@ function ImagesFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} [opts.query] - Query params
    * @param {string} opts.imageId - Image id (ObjectId)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}

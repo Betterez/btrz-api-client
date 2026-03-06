@@ -1,8 +1,10 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
+ * Query params for GET /garages (btrz-api-inventory). See get-handler getSpec().
  * @typedef {Object} GaragesQuery
- * @property {string} [providerId] - Provider account ID
+ * @property {string} [location] - The garage's location
+ * @property {string} [stationId] - The id of the station associated to the garage
  */
 
 /**
@@ -18,7 +20,7 @@ function garagesFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {GaragesQuery} [opts.query] - Query params
+   * @param {GaragesQuery} [opts.query] - Query params (location, stationId)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
