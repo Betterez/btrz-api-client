@@ -10,18 +10,17 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function flexpassesEndpointsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /flexpasses/:flexpassId - get flexpass by id. API does not accept query params (btrz-api-sales).
+   * GET /flexpasses/:flexpassId - get flexpass by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.flexpassId - Flexpass id
+   * @param {string} opts.flexpassId - Flexpass id (24 hex characters)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
-  function get({token, jwtToken, flexpassId, query = {}, headers}) {
+  function get({token, jwtToken, flexpassId, headers}) {
     return client({
       url: `/flexpasses/${flexpassId}`,
-      params: query,
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }

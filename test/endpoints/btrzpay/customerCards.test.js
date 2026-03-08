@@ -1,5 +1,5 @@
-const {axiosMock, expectRequest} = require("../../test-helpers");
-const api = require("../../../src/client").createApiClient({baseURL: "http://test.com"});
+const {axiosMock, expectRequest} = require("../../test-helpers.js");
+const api = require("../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
 describe("btrzpay/customersCards", () => {
   const token = "token";
@@ -13,7 +13,8 @@ describe("btrzpay/customersCards", () => {
     const paymentMethodId = "5ad7804216b426412c19f06f";
     const customerId = "5ad7804216b426412c19f06g";
     const customerCardId = "5ad7804216b426412c19f77g";
-    axiosMock.onGet(`/payment-methods/${paymentMethodId}/customers/${customerId}/cards/${customerCardId}`).reply(expectRequest({statusCode: 200, token}));
+    const path = `/payment-methods/${paymentMethodId}/customers/${customerId}/cards/${customerCardId}`;
+    axiosMock.onGet(path).reply(expectRequest({statusCode: 200, token}));
     return api.btrzpay.customerCards.get({
       token,
       paymentMethodId,
@@ -35,8 +36,9 @@ describe("btrzpay/customersCards", () => {
 
   it("should create a customer card", () => {
     const paymentMethodId = "5ad7804216b426412c19f06f";
-    const customerId = "5ad7804216b426412c19f06g";    
-    axiosMock.onPost(`/payment-methods/${paymentMethodId}/customers/${customerId}/cards`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    const customerId = "5ad7804216b426412c19f06g";
+    const path = `/payment-methods/${paymentMethodId}/customers/${customerId}/cards`;
+    axiosMock.onPost(path).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.btrzpay.customerCards.create({
       jwtToken,
       token,
@@ -53,7 +55,8 @@ describe("btrzpay/customersCards", () => {
     const paymentMethodId = "5ad7804216b426412c19f06f";
     const customerId = "5ad7804216b426412c19f06g";
     const customerCardId = "5ad7804216b426412c19f77g";
-    axiosMock.onDelete(`/payment-methods/${paymentMethodId}/customers/${customerId}/cards/${customerCardId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    const path = `/payment-methods/${paymentMethodId}/customers/${customerId}/cards/${customerCardId}`;
+    axiosMock.onDelete(path).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.btrzpay.customerCards.remove({
       jwtToken,
       token,

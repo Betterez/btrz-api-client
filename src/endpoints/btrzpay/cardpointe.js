@@ -51,7 +51,7 @@ function cardpointeTerminalsFactory({client, internalAuthTokenProvider}) {
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-     * @param {string} opts.readCardResultId - Read card result id
+     * @param {string} opts.readCardResultId - Read card result id (UUID v4)
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
@@ -62,19 +62,21 @@ function cardpointeTerminalsFactory({client, internalAuthTokenProvider}) {
       });
     },
     /**
-     * POST /cardpointe-terminals/read-card - create read card. API does not accept query params.
+     * POST /cardpointe-terminals/read-card - start read card session. API accepts optional query providerId.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-     * @param {Object} opts.readCard - Read card payload
+     * @param {Object} opts.readCard - Read card payload (merchantId, terminalId, amount)
+     * @param {string} [opts.providerId] - Provider (payment method) ID; if omitted, account ID is used
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
     // eslint-disable-next-line no-shadow
-    create({token, jwtToken, readCard, headers}) {
+    create({token, jwtToken, readCard, providerId, headers}) {
       return client({
         url: "/cardpointe-terminals/read-card",
         method: "post",
+        params: providerId != null ? {providerId} : {},
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
         data: {readCard}
       });

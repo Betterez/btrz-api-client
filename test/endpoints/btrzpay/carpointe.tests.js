@@ -49,6 +49,20 @@ describe("btrzpay/cardpointe-terminals", () => {
     });
   });
 
+  it("should start the readCard process with providerId query", () => {
+    axiosMock.onPost("/cardpointe-terminals/read-card").reply((config) => {
+      const {expect} = require("chai");
+      expect(config.params).to.deep.equal({providerId: "provider-123"});
+      return [200, {readCardResultId: "id"}];
+    });
+    return api.btrzpay.cardpointeTerminals.readCard.create({
+      token,
+      jwtToken,
+      readCard: {terminalId: "1", merchantId: "2", amount: 10},
+      providerId: "provider-123"
+    });
+  });
+
   it("should call DELETE to reset a connection", () => {
     axiosMock.onDelete("/cardpointe-terminals/1/2").reply(expectRequest({
       statusCode: 200, token, jwtToken

@@ -445,6 +445,8 @@ function createBtrzPay({baseURL, headers, timeout, overrideFn, internalAuthToken
   const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
 
   return {
+    adyen: require("./endpoints/btrzpay/adyen.js")({client, internalAuthTokenProvider}),
+    cybersource3ds: require("./endpoints/btrzpay/cybersource3ds.js")({client, internalAuthTokenProvider}),
     docs: require("./endpoints/btrzpay/docs.js")({client}),
     cardpointeTerminals: require("./endpoints/btrzpay/cardpointe.js").cardpointeTerminalsFactory({client, internalAuthTokenProvider}),
     paymentMethods: require("./endpoints/btrzpay/payment-methods.js")({client, internalAuthTokenProvider}),
@@ -460,6 +462,7 @@ function createBtrzPay({baseURL, headers, timeout, overrideFn, internalAuthToken
     prismaTerminals: require("./endpoints/btrzpay/prismaTerminals.js")({client, internalAuthTokenProvider}),
     terminalPayments: require("./endpoints/btrzpay/terminalPayments.js")({client, internalAuthTokenProvider}),
     stripeTerminals: require("./endpoints/btrzpay/stripe-terminals.js")({client, internalAuthTokenProvider}),
+    stripe3ds: require("./endpoints/btrzpay/stripe3ds.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }

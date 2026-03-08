@@ -1,7 +1,7 @@
 const {authorizationHeaders} = require("../endpoints_helpers.js");
 
 /**
- * Factory for payment-method customers API (btrz-api-payments).
+ * Factory for payment-method customers API (btrz-api-payments). Path: payment-methods/{id}/customers.
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
@@ -9,14 +9,14 @@ const {authorizationHeaders} = require("../endpoints_helpers.js");
  */
 function customersFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /payment-methods/:paymentMethodId/customers/:customerId - get customer. API does not accept query params.
+   * GET .../customers/:customerId - get customer. No query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.paymentMethodId - Payment method id
-   * @param {string} opts.customerId - Customer id
+   * @param {string} opts.paymentMethodId - Payment method ID (UUID v4)
+   * @param {string} opts.customerId - Customer ID (object ID)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ customer: Object }>>}
    */
   function get({token, jwtToken, paymentMethodId, customerId, headers}) {
     return client.get(`/payment-methods/${paymentMethodId}/customers/${customerId}`, {
@@ -26,14 +26,14 @@ function customersFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /payment-methods/:paymentMethodId/customers - create customer. API does not accept query params.
+   * POST .../customers - create customer. Body: { customer } (PostCustomerRequest: channel, customer.id/number/email). No query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.paymentMethodId - Payment method id
-   * @param {Object} opts.customer - Customer payload
+   * @param {string} opts.paymentMethodId - Payment method ID (UUID v4)
+   * @param {Object} opts.customer - PostCustomerRequest (channel, customer with id, number, email)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ customer: Object }>>}
    */
   function create({token, jwtToken, paymentMethodId, customer, headers}) {
     return client({
@@ -45,14 +45,14 @@ function customersFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /payment-methods/:paymentMethodId/customers/:customerId - remove customer. API does not accept query params.
+   * DELETE .../customers/:customerId - remove customer (and saved cards). No query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.paymentMethodId - Payment method id
-   * @param {string} opts.customerId - Customer id
+   * @param {string} opts.paymentMethodId - Payment method ID (UUID v4)
+   * @param {string} opts.customerId - Customer ID (object ID)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ success: boolean }>>}
    */
   function remove({token, jwtToken, paymentMethodId, customerId, headers}) {
     return client({

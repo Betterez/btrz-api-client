@@ -24,6 +24,12 @@ describe('sales/order', function() {
 
   it("should overwrite an order payment by id", function() {
     axiosMock.onPost(`/orders/${orderId}/payments`).reply(expectRequest({ statusCode: 200, token, jwtToken}));
-    return api.sales.order.overwrite({ jwtToken, token, payments: [], orderId: "orderId1" });
+    return api.sales.order.overwrite({ jwtToken, token, payments: { payments: [] }, orderId: "orderId1" });
+  });
+
+  it("should patch an order (complete referenced payment)", function() {
+    const operation = { name: "completeReferencedPayment", data: { transactionId: "tx1", paymentResult: { status: "success" } } };
+    axiosMock.onPatch("/orders").reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    return api.sales.order.patch({ jwtToken, token, operation });
   });
 });

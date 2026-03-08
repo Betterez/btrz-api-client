@@ -21,6 +21,13 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 
 /**
+ * Query params for DELETE /carts/:cartId/paid-in-items (btrz-api-sales delete-cart-paid-in-items-handler getSpec).
+ * @typedef {Object} CartDeletePaidInItemsQuery
+ * @property {string} [operationId] - Optional operation id to filter which paid-in items to remove
+ * @property {string} [productId] - Optional product id to filter which paid-in items to remove
+ */
+
+/**
  * Factory for cart API (btrz-api-sales).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -29,23 +36,18 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function cartFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /cart/:id - get cart by id. Query: providerId, transactionStatus (per get-cart getSpec).
+   * GET /cart/:id - get cart by id.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} opts.id - Cart id
-   * @param {string} [opts.providerId] - Provider id (sent as query)
+   * @param {CartGetQuery} [opts.query] - Query params (providerId, transactionStatus)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
-  function get({token, id, providerId, headers}) {
-    let url = `/cart/${id}`;
-
-    if (providerId) {
-      url = `${url}?providerId=${providerId}`;
-    }
-
+  function get({token, id, query = {}, headers}) {
     return client({
-      url,
+      url: `/cart/${id}`,
+      params: query,
       headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
     });
   }
@@ -125,11 +127,11 @@ function cartFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /carts/:cartId/paid-in-items - delete paid-in items. Query forwarded via opts.params if provided.
+   * DELETE /carts/:cartId/paid-in-items - delete paid-in items.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} opts.cartId - Cart id
-   * @param {Object} opts.params - Query params (forwarded to API)
+   * @param {CartDeletePaidInItemsQuery} [opts.params] - Query params (operationId, productId)
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
@@ -139,7 +141,7 @@ function cartFactory({client, internalAuthTokenProvider}) {
       url: `/carts/${cartId}/paid-in-items`,
       method: "delete",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
-      params
+      params: params || {}
     });
   }
 
@@ -184,13 +186,13 @@ function cartFactory({client, internalAuthTokenProvider}) {
 
   const partialDepositStatus = {
     /**
-     * GET /cart/:shiftId/partial-deposit-status - get partial deposit status. API does not accept query params.
+     * GET /cart/:shiftId/partial-deposit-status - get shift partial deposit status. API does not accept query params. Response: partialDeposit.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-     * @param {string} opts.shiftId - Shift id
+     * @param {string} opts.shiftId - Shift id (24 hex characters)
      * @param {Object} [opts.headers] - Optional headers
-     * @returns {Promise<import("axios").AxiosResponse>}
+     * @returns {Promise<import("axios").AxiosResponse<{ partialDeposit: * }>>}
      */
     get({token, jwtToken, shiftId, headers}) {
       return client.get(`/cart/${shiftId}/partial-deposit-status`, {
@@ -238,13 +240,13 @@ function cartFactory({client, internalAuthTokenProvider}) {
 
   const taxExemptPaymentMethod = {
     /**
-     * POST /carts/:cartId/tax-exempt-payment-method - set tax exempt payment method. API does not accept query params.
+     * POST /carts/:cartId/tax-exempt-payment-method - recalculate taxes for a tax exempt payment method. Body: amountExempt (number).
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} opts.cartId - Cart id
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {Object} [opts.headers] - Optional headers
-     * @param {Object} [opts.data] - Request body
+     * @param {Object} opts.data - Request body; must include amountExempt (number, amount exempted of taxes)
      * @returns {Promise<import("axios").AxiosResponse>}
      */
     post({token, cartId, jwtToken, headers, data = {}}) {

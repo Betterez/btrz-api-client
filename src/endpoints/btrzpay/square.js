@@ -3,7 +3,7 @@ const {
 } = require("./../endpoints_helpers.js");
 
 /**
- * Factory for Square webhooks API (btrz-api-payments).
+ * Factory for Square webhooks API (btrz-api-payments). Used to forward or simulate Square webhook requests to the Payments API.
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
@@ -11,14 +11,14 @@ const {
  */
 function squareWebhooksFactory({client, internalAuthTokenProvider}) {
   /**
-   * POST /square-webhooks/:providerId - create Square webhook. API does not accept query params.
+   * POST /square-webhooks/:providerId - send Square webhook payload to the Payments API. API verifies x-square-signature when present. Body must include type and data (Square webhook format).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.providerId - Provider id
-   * @param {Object} opts.data - Request body
-   * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @param {string} opts.providerId - Provider ID (square_terminal payment method owner)
+   * @param {Object} opts.data - Request body (Square webhook payload: type, data required; optional merchant_id, event_id, created_at)
+   * @param {Object} [opts.headers] - Optional headers (e.g. x-square-signature for verification)
+   * @returns {Promise<import("axios").AxiosResponse<{ status: "OK" }>>}
    */
   function create({token, jwtToken, data, providerId, headers}) {
     return client({
@@ -43,12 +43,12 @@ function squareWebhooksFactory({client, internalAuthTokenProvider}) {
  */
 function squareTerminalsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /square-terminals - get Square terminals. API does not accept query params.
+   * GET /square-terminals - list Square terminals for the account. Requires JWT (BETTEREZ_APP or MOBILE_SCANNER). Response body: { terminals } with terminal objects (id, name, code, deviceId, productType, locationId, status, pairBy, createdAt, statusChangedAt).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ terminals: Array<{ id: string, name: string, code: string, deviceId?: string, productType?: string, locationId: string, status?: string, pairBy?: string, createdAt?: string, statusChangedAt?: string }> }>>}
    */
   function get({token, jwtToken, headers}) {
     return client.get("/square-terminals", {
