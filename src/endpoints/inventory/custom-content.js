@@ -21,7 +21,6 @@ function customContentFactory({client, internalAuthTokenProvider}) {
    * GET /custom-content — List custom content (paginated). Query: enabled, pageId.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {string} [opts.jwtToken] - JWT or internal auth
    * @param {InventoryCustomContentQuery} [opts.query] - Query params (enabled, pageId)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<{ customContent: Object[] }>>}
