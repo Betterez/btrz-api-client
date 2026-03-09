@@ -7,6 +7,15 @@ const {authorizationHeaders} = require("../endpoints_helpers.js");
  */
 
 /**
+ * Query params for GET /taxes/exceptions (btrz-api-inventory). See get-tax-exceptions-handler getSpec().
+ * @typedef {Object} TaxExceptionsListQuery
+ * @property {string} [originId] - Origin station id (24 hex characters)
+ * @property {string} [destinationId] - Destination station id (24 hex characters)
+ * @property {number} [page] - Page to return
+ * @property {number} [recordsPerPage] - Records per page
+ */
+
+/**
  * Factory for taxes API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -99,7 +108,7 @@ function taxesFactory({client, internalAuthTokenProvider}) {
         url: "/taxes/exceptions",
         method: "post",
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
-        data: taxException
+        data: {taxException}
       });
     },
     /**
@@ -117,7 +126,7 @@ function taxesFactory({client, internalAuthTokenProvider}) {
         url: `/taxes/exceptions/${taxExceptionId}`,
         method: "put",
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
-        data: taxException
+        data: {taxException}
       });
     },
     /**

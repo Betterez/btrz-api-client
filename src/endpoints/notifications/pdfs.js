@@ -78,9 +78,6 @@ function pdfFactory({
     if (query.type === "transaction") {
       url = `/pdf-transactions/${itemId}`;
     }
-    if (query.type === "transaction") {
-      url = `/pdf-transactions/${itemId}`;
-    }
     if (query.type === "ssr") {
       url = `/pdf-ssrs/${itemId}`;
     }

@@ -11,12 +11,13 @@ const {
  */
 function mitTerminalFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /mit-terminals - list MIT terminals. API does not accept query params.
+   * GET /mit-terminals - list MIT terminals (paginated). API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ mitTerminals: Object[], next?: string, previous?: string, count: number }>>}
+   * @throws 401; 500.
    */
   function all({
     token,
@@ -34,9 +35,10 @@ function mitTerminalFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.mitTerminalId - MIT terminal id
+   * @param {string} opts.mitTerminalId - MIT terminal id (24 hex characters)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ mitTerminal: Object }>>}
+   * @throws 400 INVALID_MIT_TERMINAL_ID; 401; 404 MIT_TERMINAL_NOT_FOUND; 500.
    */
   function get({mitTerminalId, token, headers}) {
     return client.get(`/mit-terminals/${mitTerminalId}`, {
@@ -49,9 +51,10 @@ function mitTerminalFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.mitTerminal - MIT terminal payload
+   * @param {Object} opts.mitTerminal - MIT terminal payload (name, serialNumber required; user, password per API)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ mitTerminal: Object }>>}
+   * @throws 400 WRONG_DATA (mitTerminal, name, serialNumber, user, password); 401; 404 MIT_TERMINAL_NOT_FOUND; 500.
    */
   function create({jwtToken, token, mitTerminal, headers}) {
     return client({
@@ -69,9 +72,10 @@ function mitTerminalFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.mitTerminalId - MIT terminal id
+   * @param {string} opts.mitTerminalId - MIT terminal id (24 hex characters)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ mitTerminalId: string }>>}
+   * @throws 400 INVALID_MIT_TERMINAL_ID; 401; 404 MIT_TERMINAL_NOT_FOUND; 500.
    */
   function remove({jwtToken, mitTerminalId, token, headers}) {
     return client({
@@ -86,10 +90,11 @@ function mitTerminalFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.mitTerminalId - MIT terminal id
-   * @param {Object} opts.mitTerminal - MIT terminal payload
+   * @param {string} opts.mitTerminalId - MIT terminal id (24 hex characters)
+   * @param {Object} opts.mitTerminal - MIT terminal payload (MitTerminalPost)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ mitTerminal: Object }>>}
+   * @throws 400 WRONG_DATA; 401; 404 MIT_TERMINAL_NOT_FOUND; 500.
    */
   function update({jwtToken, token, mitTerminalId, mitTerminal, headers}) {
     return client({

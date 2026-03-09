@@ -40,19 +40,21 @@ function parcelsManifestsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /parcels-manifests/:id - get parcels manifest by id. API does not accept query params.
+   * GET /parcels-manifests/:id - get parcels manifest by id.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.id - Parcel manifest id (ObjectId)
+   * @param {string} opts.id - Parcel manifest id (ObjectId, 24 hex chars)
+   * @param {"standard"|"webhook"} [opts.format="standard"] - Response format (standard | webhook)
    * @param {Object} [opts.headers] - Optional request headers
-   * @returns {Promise<import("axios").AxiosResponse>} response.data parcel manifest; 404 PARCELMANIFEST_NOT_FOUND
+   * @returns {Promise<import("axios").AxiosResponse>} response.data parcel manifest; 400 WRONG_DATA; 404 MANIFEST_NOT_FOUND, PARCELMANIFEST_NOT_FOUND
    */
-  function get({token, jwtToken, id, headers}) {
+  function get({token, jwtToken, id, format, headers}) {
     return client({
       url: `/parcels-manifests/${id}`,
       method: "get",
-      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      params: format != null ? {format} : undefined
     });
   }
 

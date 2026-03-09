@@ -41,13 +41,17 @@ const {
  */
 function controlClassesFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /control-classes - list control classes.
+   * GET /control-classes — List control class roots (paginated). Emits no webhooks.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} [opts.jwtToken] - JWT or internal auth
    * @param {ControlClassesListQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ controlClasses: Object[], authorizationsEnabled?: boolean }>>}
+   * @throws 400 INVALID_PAGE, INVALID_SCHEDULE_ID, INVALID_ASSIGNED_SCHEDULE_ID
+   * @throws 401 Unauthorized
+   * @throws 404 SCHEDULE_NOT_FOUND
+   * @throws 500 Internal server error
    */
   function all({
     token,
@@ -62,14 +66,18 @@ function controlClassesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /control-classes/:controlClassId - get control class by id.
+   * GET /control-classes/:controlClassId — Get one control class (optional tree, schedules).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.controlClassId - Control class id
+   * @param {string} [opts.jwtToken] - JWT or internal auth
+   * @param {string} opts.controlClassId - Control class id (24 hex)
    * @param {ControlClassGetQuery} [opts.query] - Query params (tree, scheduleId, etc.)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ controlClass, root?, parent?, siblings?, children?, schedules?, tree? }>>}
+   * @throws 400 INVALID_CONTROLCLASS_ID
+   * @throws 401 Unauthorized
+   * @throws 404 CONTROLCLASS_NOT_FOUND
+   * @throws 500 Internal server error
    */
   function get({controlClassId, token, headers, jwtToken, query = {}}) {
     return client.get(`/control-classes/${controlClassId}`, {
@@ -79,13 +87,16 @@ function controlClassesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /control-classes - create control class. API does not accept query params.
+   * POST /control-classes — Create control class. Body: { controlClass }. Emits controlclasses.created.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.controlClass - Control class payload
+   * @param {string} [opts.jwtToken] - JWT or internal auth
+   * @param {Object} opts.controlClass - ControlClassData (name, props required)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ controlClass: Object }>>}
+   * @throws 400 WRONG_DATA, DUPLICATE_CLASS_NAME, NO_ROOT_PROPS, PARENT_CLASS_NOT_FOUND, etc.
+   * @throws 401 Unauthorized
+   * @throws 500 Internal server error
    */
   function create({jwtToken, token, controlClass, headers}) {
     return client({
@@ -99,13 +110,17 @@ function controlClassesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /control-classes/:controlClassId - remove control class.
+   * DELETE /control-classes/:controlClassId — Delete control class. Emits controlclasses.deleted.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.controlClassId - Control class id
+   * @param {string} [opts.jwtToken] - JWT or internal auth
+   * @param {string} opts.controlClassId - Control class id (24 hex)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ controlClassId: string }>>}
+   * @throws 400 INVALID_CONTROLCLASS_ID, CANNOT_DELETE_CLASS_WITH_CHILDREN
+   * @throws 401 Unauthorized
+   * @throws 404 CONTROLCLASS_NOT_FOUND
+   * @throws 500 Internal server error
    */
   function remove({jwtToken, controlClassId, token, headers}) {
     return client({
@@ -116,14 +131,18 @@ function controlClassesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /control-classes/:controlClassId - update control class. API does not accept query params.
+   * PUT /control-classes/:controlClassId — Update control class. Body: { controlClass }. Emits controlclasses.updated.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.controlClassId - Control class id
-   * @param {Object} opts.controlClass - Control class payload
+   * @param {string} [opts.jwtToken] - JWT or internal auth
+   * @param {string} opts.controlClassId - Control class id (24 hex)
+   * @param {Object} opts.controlClass - ControlClassData (name, props required)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ controlClass: Object }>>}
+   * @throws 400 WRONG_DATA, INVALID_CONTROLCLASS_ID, DUPLICATE_CLASS_NAME, etc.
+   * @throws 401 Unauthorized
+   * @throws 404 CONTROLCLASS_NOT_FOUND
+   * @throws 500 Internal server error
    */
   function update({jwtToken, token, controlClassId, controlClass, headers}) {
     return client({

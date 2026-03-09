@@ -28,4 +28,10 @@ describe("inventory/filtered-trips", () => {
     axiosMock.onPost("/filtered-trips").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.filteredTrips.create({token, jwtToken, tripSegmentsId: "myTripSegmentId"});
   });
+
+  it("should remove a filtered trip", () => {
+    const filteredTripId = "60c9200d17bda93f5c896bf3";
+    axiosMock.onDelete(`/filtered-trip/${filteredTripId}`).reply(expectRequest({statusCode: 204, token, jwtToken}));
+    return api.inventory.filteredTrips.remove({token, jwtToken, filteredTripId});
+  });
 });

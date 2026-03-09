@@ -26,12 +26,14 @@ function accountingItemsFactory({
    * GET /accounting-items - list accounting items.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {AccountingItemsListQuery} [opts.query] - Query params (all optional)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
   function all({
     token,
+    jwtToken,
     query = {},
     headers
   }) {
@@ -39,6 +41,7 @@ function accountingItemsFactory({
       params: query,
       headers: authorizationHeaders({
         token,
+        jwtToken,
         internalAuthTokenProvider,
         headers
       })
@@ -49,16 +52,18 @@ function accountingItemsFactory({
    * GET /accounting-items/:accountingItemId - get accounting item by id. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {string} opts.accountingItemId - Accounting item id
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.accountingItemId - Accounting item id (ObjectId format)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
   function get({
-    accountingItemId, token, headers
+    accountingItemId, token, jwtToken, headers
   }) {
     return client.get(`/accounting-items/${accountingItemId}`, {
       headers: authorizationHeaders({
         token,
+        jwtToken,
         internalAuthTokenProvider,
         headers
       })

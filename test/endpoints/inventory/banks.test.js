@@ -12,18 +12,17 @@ describe("inventory/banks", () => {
   });
 
   it("should create a bank", () => {
-    axiosMock.onPost("/banks").reply(expectRequest({statusCode: 200, token, jwtToken}));
+    const bank = {name: "My bank", accountNumbers: [{number: "123", currency: "USD", alias: "Main"}]};
+    axiosMock.onPost("/banks", {bank}).reply(expectRequest({statusCode: 200, token, jwtToken, body: {bank}}));
     return api.inventory.banks.create({
       jwtToken,
       token,
-      banks: {
-        name: "My bankl"
-      }
+      bank
     });
   });
 
   it("should get all pieces of bank", () => {
-    axiosMock.onGet("/banks").reply(expectRequest({statusCode: 200, token, jwtToken }));
+    axiosMock.onGet("/banks").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.banks.all({
       jwtToken,
       token,
@@ -31,16 +30,15 @@ describe("inventory/banks", () => {
     });
   });
 
-  it("should update a piece of bank", () => {
+  it("should update a bank", () => {
     const bankId = "1234";
-    axiosMock.onPut(`/banks/${bankId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    const bank = {name: "My Updated bank", accountNumbers: [{number: "123", currency: "USD", alias: "Main"}]};
+    axiosMock.onPut(`/banks/${bankId}`, {bank}).reply(expectRequest({statusCode: 200, token, jwtToken, body: {bank}}));
     return api.inventory.banks.update({
       jwtToken,
       token,
       bankId,
-      banks: {
-        name: "My Updated bank"
-      }
+      bank
     });
   });
 

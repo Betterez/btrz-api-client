@@ -17,17 +17,18 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
- * @returns {{ all: function, create: function }}
+ * @returns {{ all: function, create: function, remove: function }}
  */
 function filteredTripsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /filtered-trips - list filtered trips.
+   * GET /filtered-trips - list filtered trips (paginated).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {FilteredTripsListQuery} [opts.query] - Query params (providerIds, productId, originId, destinationId, page, orderBy, orderDir)
+   * @param {FilteredTripsListQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ filteredTrips: Array, next?: string, previous?: string, count: number }>>}
+   * @throws When response is 4xx/5xx (401, 500)
    */
   function all({token, jwtToken, query = {}, headers}) {
     return client.get("/filtered-trips", {
@@ -37,13 +38,14 @@ function filteredTripsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /filtered-trips - create filtered trip. API does not accept query params.
+   * POST /filtered-trips - add a trip to the blacklist (filtered trips).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.tripSegmentsId - Trip segments id payload
+   * @param {string} opts.tripSegmentsId - Base64-encoded JSON (FilteredTripRequest: productId, segments)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ filteredTrip: Object }>>}
+   * @throws When response is 4xx/5xx (400, 401, 409 TRIP_ALREADY_FILTERED, 500)
    */
   function create({token, jwtToken, tripSegmentsId, headers}) {
     return client({
@@ -54,9 +56,28 @@ function filteredTripsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * DELETE /filtered-trip/:filteredTripId - remove a filtered trip from the blacklist.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.filteredTripId - Filtered trip id (24 hex characters)
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse<void>>}
+   * @throws When response is 4xx/5xx (400, 401, 500)
+   */
+  function remove({token, jwtToken, filteredTripId, headers}) {
+    return client({
+      url: `/filtered-trip/${filteredTripId}`,
+      method: "delete",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+    });
+  }
+
   return {
     all,
-    create
+    create,
+    remove
   };
 }
 

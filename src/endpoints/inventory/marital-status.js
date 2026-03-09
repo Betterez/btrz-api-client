@@ -15,13 +15,14 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function maritalStatusFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /marital-status - list marital statuses.
+   * GET /marital-status - list marital statuses (paginated).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {MaritalStatusListQuery} [opts.query] - Query params (providerIds)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ maritalstatus: Object[], next?: string, previous?: string, count: number }>>}
+   * @throws 401; 500.
    */
   function all({token, jwtToken, query = {}, headers}) {
     return client({
@@ -37,9 +38,10 @@ function maritalStatusFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.id - Marital status id
+   * @param {string} opts.id - Marital status id (24 hex characters)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ maritalstatus: Object }>>}
+   * @throws 400 WRONG_DATA, INVALID_MARITALSTATUS_ID; 401; 404 MARITALSTATUS_NOT_FOUND; 500.
    */
   function get({token, jwtToken, id, query = {}, headers}) {
     return client({
@@ -55,10 +57,11 @@ function maritalStatusFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.id - Marital status id
-   * @param {Object} opts.data - Request body
+   * @param {string} opts.id - Marital status id (24 hex characters)
+   * @param {Object} opts.data - Request body (MaritalStatusPutData: name, ord, lexiconKeys)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ maritalstatus: Object }>>}
+   * @throws 400 WRONG_DATA; 401; 404 MARITALSTATUS_NOT_FOUND; 409 CANNOT_UPDATE_LEXICON_ENTRIES; 500.
    */
   function update({token, jwtToken, id, data, query = {}, headers}) {
     return client({
@@ -75,9 +78,10 @@ function maritalStatusFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.id - Marital status id
+   * @param {string} opts.id - Marital status id (24 hex characters)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ maritalstatusId: string }>>}
+   * @throws 400 WRONG_DATA, INVALID_MARITALSTATUS_ID; 401; 404 MARITALSTATUS_NOT_FOUND; 500.
    */
   function remove({token, jwtToken, id, query = {}, headers}) {
     return client({
@@ -93,9 +97,10 @@ function maritalStatusFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.data - Request body
+   * @param {Object} opts.data - Request body (MaritalStatusPostData: name, ord, lexiconKeys required)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ maritalstatus: Object }>>}
+   * @throws 400 WRONG_DATA (maritalstatus/name/ord/lexiconKeys required); 401; 409 CANNOT_CREATE_LEXICON_ENTRIES; 500.
    */
   function create({token, jwtToken, data, query = {}, headers}) {
     return client({

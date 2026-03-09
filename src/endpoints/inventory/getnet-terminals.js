@@ -19,13 +19,14 @@ const {
  */
 function getnetTerminalFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /getnet-terminals - list getnet terminals.
+   * GET /getnet-terminals - list getnet terminals (paginated).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {GetnetTerminalsQuery} [opts.query] - Query params
+   * @param {GetnetTerminalsQuery} [opts.query] - Query params (page, stationId, serialNumber)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ getnetTerminals: Array, next?: string, previous?: string, count: number }>>}
+   * @throws When response is 4xx/5xx (400 INVALID_PAGE, 401, 500)
    */
   function all({
     token,
@@ -40,13 +41,14 @@ function getnetTerminalFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /getnet-terminals/:getnetTerminalId - get a getnet terminal. API does not accept query params.
+   * GET /getnet-terminals/:getnetTerminalId - get a getnet terminal by id.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.getnetTerminalId - Getnet terminal id
+   * @param {string} opts.getnetTerminalId - Getnet terminal id (24 hex characters)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ getnetTerminal: Object }>>}
+   * @throws When response is 4xx/5xx (400 INVALID_GETNET_TERMINAL_ID, 401, 404 GETNET_TERMINAL_NOT_FOUND, 500)
    */
   function get({
     getnetTerminalId,
@@ -64,9 +66,10 @@ function getnetTerminalFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.getnetTerminal - Getnet terminal payload
+   * @param {Object} opts.getnetTerminal - Getnet terminal payload (name, serialNumber, stationId optional)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ getnetTerminal: Object }>>}
+   * @throws When response is 4xx/5xx (400 WRONG_DATA/INVALID_STATION_ID/STATION_NOT_FOUND, 401, 409 duplicate serial, 500)
    */
   function create({
     jwtToken,
@@ -85,13 +88,14 @@ function getnetTerminalFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /getnet-terminals/:getnetTerminalId - remove getnet terminal. API does not accept query params.
+   * DELETE /getnet-terminals/:getnetTerminalId - remove getnet terminal.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.getnetTerminalId - Getnet terminal id
+   * @param {string} opts.getnetTerminalId - Getnet terminal id (24 hex characters)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ getnetTerminalId: string }>>}
+   * @throws When response is 4xx/5xx (400 INVALID_GETNET_TERMINAL_ID, 401, 404 GETNET_TERMINAL_NOT_FOUND, 500)
    */
   function remove({
     jwtToken,
@@ -107,14 +111,15 @@ function getnetTerminalFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /getnet-terminals/:getnetTerminalId - update getnet terminal. API does not accept query params.
+   * PUT /getnet-terminals/:getnetTerminalId - update getnet terminal.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.getnetTerminalId - Getnet terminal id
-   * @param {Object} opts.getnetTerminal - Getnet terminal payload
+   * @param {string} opts.getnetTerminalId - Getnet terminal id (24 hex characters)
+   * @param {Object} opts.getnetTerminal - Getnet terminal payload (name, serialNumber, stationId)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ getnetTerminal: Object }>>}
+   * @throws When response is 4xx/5xx (400, 401, 404 GETNET_TERMINAL_NOT_FOUND, 409 duplicate serial, 500)
    */
   function update({
     jwtToken,

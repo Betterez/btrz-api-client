@@ -41,12 +41,13 @@ function vehiclesFactory({client, internalAuthTokenProvider}) {
    */
   function all({
     token,
+    jwtToken,
     query = {},
     headers
   }) {
     return client.get("/vehicles", {
       params: query,
-      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
@@ -59,9 +60,9 @@ function vehiclesFactory({client, internalAuthTokenProvider}) {
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
-  function get({vehicleId, token, headers}) {
+  function get({vehicleId, token, jwtToken, headers}) {
     return client.get(`/vehicles/${vehicleId}`, {
-      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 

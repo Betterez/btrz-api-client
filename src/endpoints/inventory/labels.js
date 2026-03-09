@@ -16,13 +16,14 @@ const {authorizationHeaders} = require("../endpoints_helpers.js");
  */
 function labelsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /labels - list labels.
+   * GET /labels - list labels (paginated).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {LabelsQuery} [opts.query] - Query params (name, page)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ labels: Object[], count: number, next?: string, previous?: string }>>}
+   * @throws 401; 500.
    */
   function all({token, jwtToken, query = {}, headers}) {
     return client.get("/labels", {
@@ -36,9 +37,10 @@ function labelsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.labelId - Label id (ObjectId format)
+   * @param {string} opts.labelId - Label id (24 hex characters)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ label: Object }>>}
+   * @throws 400 WRONG_DATA, INVALID_LABEL_ID; 401; 404 LABEL_NOT_FOUND; 500.
    */
   function get({labelId, token, jwtToken, query = {}, headers}) {
     return client.get(`/labels/${labelId}`, {
@@ -52,9 +54,10 @@ function labelsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.label - Label payload
+   * @param {Object} opts.label - Label payload (name, description, color required; type: ticket|manifest)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ label: Object }>>}
+   * @throws 400 WRONG_DATA (name/description/color required), INVALID_TYPE; 401; 500.
    */
   function create({jwtToken, label, token, headers}) {
     return client({
@@ -70,10 +73,11 @@ function labelsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.labelId - Label id
-   * @param {Object} opts.label - Label payload
+   * @param {string} opts.labelId - Label id (24 hex characters)
+   * @param {Object} opts.label - Label payload (LabelData)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ label: Object }>>}
+   * @throws 400 WRONG_DATA, INVALID_TYPE, LABEL_ALREADY_USED; 401; 404 LABEL_NOT_FOUND; 500.
    */
   function update({jwtToken, token, labelId, label, headers}) {
     return client({
@@ -90,9 +94,10 @@ function labelsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.labelId - Label id
+   * @param {string} opts.labelId - Label id (24 hex characters)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ labelId: string }>>}
+   * @throws 400 LABEL_ID (invalid format), LABEL_ALREADY_USED; 401; 404 LABEL_NOT_FOUND; 500.
    */
   function remove({jwtToken, token, labelId, headers}) {
     return client({

@@ -21,7 +21,8 @@ function operationReasonFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {OperationReasonsListQuery} [opts.query] - Query params (page)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ operationReasons: Object[], next?: string, previous?: string, count: number }>>}
+   * @throws When the request fails (e.g. 400 INVALID_PAGE, 401 Unauthorized, 500)
    */
   function all({token, jwtToken, query = {}, headers}) {
     return client({
@@ -37,9 +38,10 @@ function operationReasonFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.id - Operation reason id
+   * @param {string} opts.id - Operation reason id (24-char hex ObjectId)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ operationReason: Object }>>}
+   * @throws When the request fails (400 INVALID_OPERATION_REASON_ID, 401, 404 OPERATION_REASON_NOT_FOUND, 500)
    */
   function get({token, jwtToken, id, query = {}, headers}) {
     return client({
@@ -55,10 +57,11 @@ function operationReasonFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.id - Operation reason id
-   * @param {Object} opts.operationReason - Operation reason payload
+   * @param {string} opts.id - Operation reason id (24-char hex ObjectId)
+   * @param {Object} opts.operationReason - Operation reason payload (name, type, lexiconKeys, etc.)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ operationReason: Object }>>}
+   * @throws When the request fails (400 WRONG_DATA/INVALID_OPERATION_REASON_ID, 401, 404, 500)
    */
   function update({token, jwtToken, id, operationReason, query = {}, headers}) {
     return client({
@@ -75,9 +78,10 @@ function operationReasonFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.id - Operation reason id
+   * @param {string} opts.id - Operation reason id (24-char hex ObjectId)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ _id: string }>>}
+   * @throws When the request fails (400 INVALID_OPERATION_REASON_ID, 401, 404 OPERATION_REASON_NOT_FOUND, 500)
    */
   function remove({token, jwtToken, id, query = {}, headers}) {
     return client({
@@ -93,9 +97,10 @@ function operationReasonFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.operationReason - Operation reason payload
+   * @param {Object} opts.operationReason - Operation reason payload (name, type, lexiconKeys required)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ operationReason: Object }>>}
+   * @throws When the request fails (400 WRONG_DATA, 401, 409 CANNOT_CREATE_LEXICON_ENTRIES, 500)
    */
   function create({token, jwtToken, operationReason, query = {}, headers}) {
     return client({

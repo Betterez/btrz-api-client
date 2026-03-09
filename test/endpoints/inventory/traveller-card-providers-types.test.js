@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 const {axiosMock, expectRequest} = require("./../../test-helpers");
 const api = require("./../../../src/client").createApiClient({baseURL: "http://test.com"});
 
@@ -8,8 +9,8 @@ describe("inventory/traveller-card-providers-types", () => {
     axiosMock.reset();
   });
 
-  it("should call the traveller card providers types endpoint", async () => {
+  it("should call the traveller card providers types endpoint", () => {
     axiosMock.onGet("/traveller-card-providers/types").reply(expectRequest({statusCode: 200, token}));
-    api.inventory.travellerCardProvidersTypes.all({token});
+    return api.inventory.travellerCardProvidersTypes.all({token});
   });
 });

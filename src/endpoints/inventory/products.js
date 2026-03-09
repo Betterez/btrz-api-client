@@ -40,7 +40,9 @@ function productsFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {ProductsListQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ products: Array<object> }>>}
+   *   Resolves with list of products; response.data has Products shape.
+   * @throws When the request fails (400 invalid channels, 401 unauthorized, 500). ErrorResponse body.
    */
   function all({token, query = {}, headers}) {
     return client({
@@ -58,7 +60,9 @@ function productsFactory({client, internalAuthTokenProvider}) {
    * @param {string} opts.productId - Product id
    * @param {ProductGetQuery} [opts.query] - Query params (providerIds, channels, enabled)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ product: object }>>}
+   *   Resolves with single product; response.data.product is the Product.
+   * @throws When the request fails (400/401/404/500). Body: INVALID_PRODUCTID, WRONG_DATA, PRODUCT_NOTFOUND.
    */
   function get({productId, token, jwtToken, query = {}, headers}) {
     return client({
@@ -69,13 +73,16 @@ function productsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /products - create product. API does not accept query params.
+   * POST /products - create product. No query params. Requires BETTEREZ_APP JWT or API key.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.data - Product payload
+   * @param {Object} opts.data - Product payload (PostedProduct); must not include _id.
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ product: object }>>}
+   *   Resolves with the created product.
+   * @throws When the request fails (400/401/500). Body: DUPLICATE_PRODUCT, CANNOT_CREATE_PRODUCT_WITH_ID,
+   *   INVALID_PAYMENT_METHODS, INVALID_PARENT_PRODUCT_ID, INVALID_JOURNEY_RESTRICTIONS, INVALID_PRODUCT_NAME, etc.
    */
   function create({data, token, jwtToken, headers}) {
     return client({
@@ -87,14 +94,17 @@ function productsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /products/:productId - update product. API does not accept query params.
+   * PUT /products/:productId - update product. No query params. Requires BETTEREZ_APP JWT or API key.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.productId - Product id
-   * @param {Object} opts.data - Product payload
+   * @param {Object} opts.data - Product payload (PostedProduct).
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ product: object }>>}
+   *   Resolves with the updated product. Emits product.updated webhook.
+   * @throws When the request fails (400/401/404/500). Body: NOT_FOUND, INVALID_PAYMENT_METHODS,
+   *   CANNOT_SET_PARENT_AS_CHILD, INVALID_JOURNEY_RESTRICTIONS, INVALID_PRODUCT_NAME, etc.
    */
   function update({productId, data, token, jwtToken, headers}) {
     return client({
@@ -114,7 +124,8 @@ function productsFactory({client, internalAuthTokenProvider}) {
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.domain - Domain
      * @param {Object} [opts.headers] - Optional headers
-     * @returns {Promise<import("axios").AxiosResponse>}
+     * @returns {Promise<import("axios").AxiosResponse>} Resolves on success. May emit product.updated.
+     * @throws When the request fails (401, 404, 500).
      */
     remove: ({token, jwtToken, domain, headers}) => {
       return client({
@@ -133,7 +144,8 @@ function productsFactory({client, internalAuthTokenProvider}) {
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {Object} [opts.headers] - Optional headers
-     * @returns {Promise<import("axios").AxiosResponse>}
+     * @returns {Promise<import("axios").AxiosResponse>} Resolves with list of product families.
+     * @throws When the request fails (401, 500).
      */
     all: ({token, query = {}, headers}) => {
       return client({

@@ -62,7 +62,7 @@ function customersFactory({
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {CustomersActivationPostQuery} [opts.query] - Query params (providerId required)
-   * @param {Object} [opts.data] - Request body (CustomerForActivation)
+   * @param {Object} opts.data - Body: CustomerForActivation (firstName, lastName, email; optional activateCustomerEmailLoginToken)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */

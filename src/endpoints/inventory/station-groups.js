@@ -20,14 +20,12 @@ function stationGroupsFactory({client, internalAuthTokenProvider}) {
    * GET /station-groups - list station groups.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {StationGroupsListQuery} [opts.query] - Query params
+   * @param {StationGroupsListQuery} [opts.query] - Query params (e.g. providerIds)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
   function all({token, query = {}, headers}) {
-    return client({
-      url: "/station-groups",
+    return client.get("/station-groups", {
       params: query,
       headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
     });

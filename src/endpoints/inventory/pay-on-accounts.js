@@ -20,14 +20,15 @@ const {authorizationHeaders} = require("../endpoints_helpers.js");
  */
 function payOnAccountsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /pay-on-accounts - list pay-on accounts.
+   * GET /pay-on-accounts - list pay-on accounts. When format=csv returns CSV (text/csv); otherwise JSON with pagination.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {PayOnAccountsListQuery} [opts.query] - Query params
-   * @param {string} [opts.responseType] - Response type (e.g. json)
+   * @param {PayOnAccountsListQuery} [opts.query] - Query params (page, format, disabled, term, fareIds, providerId)
+   * @param {string} [opts.responseType] - Response type (e.g. json); use for CSV when format=csv
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ payOnAccounts: Object[], next?: string, previous?: string, count: number }|string>>}
+   * @throws When the request fails (400 INVALID_PAGE/INVALID_FARE_IDS/INVALID_PROVIDER_ID/INVALID_SEARCH_TERM, 401, 500)
    */
   function all({token, jwtToken, query = {}, responseType = "json", headers}) {
     return client.get("/pay-on-accounts", {

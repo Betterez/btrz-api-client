@@ -11,16 +11,15 @@ const {
  */
 function vehicleTypesFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /vehicle-types - list vehicle types (e.g. Bus, Shuttle, Van, Train, Ferry, Tram).
+   * GET /vehicle-types - list vehicle types (e.g. Bus, Shuttle, Van, Train, Ferry, Tram). No query or path params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ vehicleTypes: Array<{ _id: string, name: string }> }>>}
    */
-  function all({token, jwtToken, query = {}, headers}) {
+  function all({token, jwtToken, headers}) {
     return client.get("/vehicle-types", {
-      params: query,
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }

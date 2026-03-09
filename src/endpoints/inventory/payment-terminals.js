@@ -15,7 +15,8 @@ function paymentTerminalFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ paymentTerminals: Object[], next?: string, previous?: string, count: number }>>}
+   * @throws When the request fails (401 Unauthorized, 500 Internal Server Error)
    */
   function all({
     token,
@@ -31,10 +32,11 @@ function paymentTerminalFactory({client, internalAuthTokenProvider}) {
   /**
    * GET /payment-terminals/:paymentTerminalId - get payment terminal by id. API does not accept query params.
    * @param {Object} opts
-   * @param {string} opts.paymentTerminalId - Payment terminal id
+   * @param {string} opts.paymentTerminalId - Payment terminal id (24-char hex ObjectId)
    * @param {string} [opts.token] - API key
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ paymentTerminal: Object }>>}
+   * @throws When the request fails (400 INVALID_PAYMENT_TERMINAL_ID, 401, 404 PAYMENT_TERMINAL_NOT_FOUND, 500)
    */
   function get({paymentTerminalId, token, headers}) {
     return client.get(`/payment-terminals/${paymentTerminalId}`, {
@@ -47,9 +49,10 @@ function paymentTerminalFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} [opts.token] - API key
-   * @param {Object} opts.paymentTerminal - Payment terminal payload
+   * @param {Object} opts.paymentTerminal - Payment terminal payload (name, protocol, ip, locationId, partNumber, serialNumber)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ paymentTerminal: Object }>>}
+   * @throws When the request fails (400 WRONG_DATA, 401, 500)
    */
   function create({jwtToken, token, paymentTerminal, headers}) {
     return client({
@@ -66,10 +69,11 @@ function paymentTerminalFactory({client, internalAuthTokenProvider}) {
    * DELETE /payment-terminals/:paymentTerminalId - remove payment terminal. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.paymentTerminalId - Payment terminal id
+   * @param {string} opts.paymentTerminalId - Payment terminal id (24-char hex ObjectId)
    * @param {string} [opts.token] - API key
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ paymentTerminalId: string }>>}
+   * @throws When the request fails (400 INVALID_PAYMENT_TERMINAL_ID, 401, 404 PAYMENT_TERMINAL_NOT_FOUND, 500)
    */
   function remove({jwtToken, paymentTerminalId, token, headers}) {
     return client({
@@ -84,10 +88,11 @@ function paymentTerminalFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} [opts.token] - API key
-   * @param {string} opts.paymentTerminalId - Payment terminal id
-   * @param {Object} opts.paymentTerminal - Payment terminal payload
+   * @param {string} opts.paymentTerminalId - Payment terminal id (24-char hex ObjectId)
+   * @param {Object} opts.paymentTerminal - Payment terminal payload (name, protocol, ip, locationId, partNumber, serialNumber)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ paymentTerminal: Object }>>}
+   * @throws When the request fails (400 WRONG_DATA, 401, 404 PAYMENT_TERMINAL_NOT_FOUND, 500)
    */
   function update({jwtToken, token, paymentTerminalId, paymentTerminal, headers}) {
     return client({

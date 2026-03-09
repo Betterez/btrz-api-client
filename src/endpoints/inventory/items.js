@@ -30,13 +30,14 @@ const {
  */
 function itemsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /items - list items.
+   * GET /items - list items (paginated).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {ItemsQuery} [opts.query] - Query params (productId, disabled, type, providerIds, channels, currency, etc.)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ items: Object[], next?: string, previous?: string, count: number }>>}
+   * @throws 401; 500.
    */
   function all({
     token,
@@ -56,10 +57,11 @@ function itemsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.itemId - Item id (ObjectId format)
+   * @param {string} opts.itemId - Item id (24 hex characters)
    * @param {ItemByIdQuery} [opts.query] - Query params (currency)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ item: Object }>>}
+   * @throws 400 INVALID_ITEM_ID; 401; 404 ITEM_NOT_FOUND; 500.
    */
   function get({itemId, token, jwtToken, query = {}, headers}) {
     return client.get(`/items/${itemId}`, {
@@ -73,9 +75,10 @@ function itemsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.item - Item payload
+   * @param {Object} opts.item - Item payload (ItemPostData: name, productId, type, amount, valueType, order, etc.)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ item: Object }>>}
+   * @throws 400 WRONG_DATA, PRODUCT_ID_INVALID, etc.; 401; 404 PRODUCT_NOT_FOUND, etc.; 500.
    */
   function create({jwtToken, item, token, headers}) {
     return client({
@@ -91,10 +94,11 @@ function itemsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.itemId - Item id
-   * @param {Object} opts.item - Item payload
+   * @param {string} opts.itemId - Item id (24 hex characters)
+   * @param {Object} opts.item - Item payload (ItemPostData)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ item: Object }>>}
+   * @throws 400 WRONG_DATA, INVALID ids; 401; 404 ITEM_NOT_FOUND, PRODUCT_NOT_FOUND, etc.; 500.
    */
   function update({jwtToken, token, itemId, item, headers}) {
     return client({

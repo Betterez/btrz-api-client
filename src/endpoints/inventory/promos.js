@@ -40,7 +40,9 @@ function promosFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {PromosListQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ promos: Array<object>, total: number }>>}
+   *   Resolves with paginated promos; response.data has Promos shape.
+   * @throws When the request fails (400/401/404/500). Body: WRONG_DATA, PROMO_NOT_FOUND.
    */
   function all({token, query = {}, headers}) {
     return client.get("/promos", {
@@ -66,13 +68,15 @@ function promosFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /promos - create promo. API does not accept query params.
+   * POST /promos - create promo. No query params. Requires BETTEREZ_APP JWT or API key. Emits promo.created.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.promo - Promo payload
+   * @param {Object} opts.promo - Promo payload (PromoUpdateRequest); must not include _id.
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<object>>} Resolves with created Promo.
+   * @throws When the request fails (400/401/500). Body: WRONG_DATA, INTERNALID_USED,
+   *   CANNOT_CREATE_PROMO_WITH_ID, INVALID_PAYMENT_METHOD_TYPE, etc.
    */
   function create({jwtToken, promo, token, headers}) {
     return client({
@@ -84,13 +88,14 @@ function promosFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /promos/:promoId - remove promo. API does not accept query params.
+   * DELETE /promos/:promoId - disable promo (soft delete). No query params. Requires BETTEREZ_APP. Emits promo.deleted.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.promoId - Promo id
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse>} Resolves with disabled promo.
+   * @throws When the request fails (400/401/404/500). Body: WRONG_DATA, INVALID_PROMO_ID, PROMO_NOT_FOUND.
    */
   function remove({jwtToken, promoId, token, headers}) {
     return client({
@@ -101,14 +106,15 @@ function promosFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PATCH /promos/:promoId - update promo. API does not accept query params.
+   * PATCH /promos/:promoId - update promo (partial). No query params. Requires BETTEREZ_APP. Emits promo.updated.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.promoId - Promo id
-   * @param {Object} opts.update - Update payload
+   * @param {Object} opts.update - Partial update (PromoUpdateRequest).
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<object>>} Resolves with updated Promo.
+   * @throws When the request fails (400/401/404/500). Body: WRONG_DATA, INTERNALID_USED, PROMO_NOT_FOUND, etc.
    */
   // eslint-disable-next-line no-shadow
   function update({jwtToken, token, promoId, update, headers}) {
@@ -121,14 +127,15 @@ function promosFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PATCH /promo/:promoId - patch promo with operations. API does not accept query params.
+   * PATCH /promo/:promoId - update rule availability (add/subtract). No query params. Emits promo.updated.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.promoId - Promo id
-   * @param {Object} opts.operations - Patch operations
+   * @param {Object} opts.operations - Array of PromoUpdateOperation (op, path, value).
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<object>>} Resolves with PatchedPromos.
+   * @throws When the request fails (400/401/404/500).
    */
   function patch({jwtToken, token, promoId, operations, headers}) {
     return client({
@@ -140,14 +147,15 @@ function promosFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /promos/:promoId/rules - add promo rule. API does not accept query params.
+   * POST /promos/:promoId/rules - add promo rule. No query params. Requires BETTEREZ_APP. May emit promo.updated.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.promoId - Promo id
-   * @param {Object} opts.rule - Rule payload
+   * @param {Object} opts.rule - Rule payload (PromoRule).
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<object>>} Resolves with Promo including new rule.
+   * @throws When the request fails (400/401/404/500). Body: WRONG_DATA, INVALID_PRODUCT_ID, INVALID_FARE_ID, etc.
    */
   function addRule({jwtToken, token, promoId, rule, headers}) {
     return client({
@@ -159,15 +167,16 @@ function promosFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /promos/:promoId/rules/:ruleId - update promo rule. API does not accept query params.
+   * PUT /promos/:promoId/rules/:ruleId - update promo rule. No query params. Requires BETTEREZ_APP. Emits promo.updated.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.promoId - Promo id
    * @param {string} opts.ruleId - Rule id
-   * @param {Object} opts.rule - Rule payload
+   * @param {Object} opts.rule - Full rule payload (PromoRule).
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<object>>} Resolves with updated Promo.
+   * @throws When the request fails (400/401/404/500). Body: WRONG_DATA, INVALID_PRODUCT_ID, INVALID_FARE_ID, etc.
    */
   function updateRule({jwtToken, token, promoId, ruleId, rule, headers}) {
     return client({

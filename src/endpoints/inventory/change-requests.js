@@ -25,13 +25,16 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function changeRequestsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /change-requests - list change requests.
+   * GET /change-requests — List change requests with optional filters and pagination.
    * @param {Object} opts
-   * @param {string} [opts.token] - API key
-   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {ChangeRequestsListQuery} [opts.query] - Query params
+   * @param {string} [opts.token] - API key (X-API-KEY)
+   * @param {string} [opts.jwtToken] - JWT or internal auth (Authorization: Bearer)
+   * @param {ChangeRequestsListQuery} [opts.query] - Query params (type, status, createdBy, from, to, etc.)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ changeRequests: Object[], count: number, next: string, previous: string }>>}
+   * @throws 400 INVALID_PAGE, INVALID_TYPE_PARAMETER, INVALID_STATUS_PARAMETER, etc.
+   * @throws 401 Unauthorized
+   * @throws 500 Internal server error
    */
   function all({token, jwtToken, query = {}, headers}) {
     return client.get("/change-requests", {
@@ -41,13 +44,18 @@ function changeRequestsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /change-requests/:changerequestId/manifests - get change request manifests. API does not accept query params.
+   * GET /change-requests/:changerequestId/manifests — Get manifest change request by ID. Requires multipleManifestEditing.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.changerequestId - Change request id
+   * @param {string} [opts.jwtToken] - JWT or internal auth
+   * @param {string} opts.changerequestId - Change request id (24 hex characters)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ changeRequest: Object }>>}
+   * @throws 400 INVALID_CHANGEREQUEST_ID, FAILED_TO_FETCH_OPERATION_SETTINGS
+   * @throws 401 Unauthorized
+   * @throws 403 MULTIPLE_MANIFEST_EDIT_NOT_ALLOWED
+   * @throws 404 CHANGEREQUEST_NOT_FOUND
+   * @throws 500 Internal server error
    */
   function get({changerequestId, token, jwtToken, query = {}, headers}) {
     return client({
@@ -58,13 +66,17 @@ function changeRequestsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /change-requests/manifests - create change request manifest. API does not accept query params.
+   * POST /change-requests/manifests — Create manifest change request. Emits changeRequests.manifests.created.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.data - Manifest payload
+   * @param {string} [opts.jwtToken] - JWT or internal auth
+   * @param {Object} opts.data - Manifest change request payload (manifestId, request, routeId, scheduleId, date, etc.)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ changeRequest: Object }>>}
+   * @throws 400 WRONG_DATA, FAILED_TO_FETCH_OPERATION_SETTINGS, MANIFEST_NOT_FOUND, etc.
+   * @throws 401 Unauthorized
+   * @throws 403 MULTIPLE_MANIFEST_EDIT_NOT_ALLOWED
+   * @throws 500 Internal server error
    */
   function create({data, token, jwtToken, headers}) {
     return client({
@@ -76,14 +88,19 @@ function changeRequestsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /change-requests/:changerequestId/manifests - update change request manifest. API does not accept query params.
+   * PUT /change-requests/:changerequestId/manifests — Update manifest change request. Emits changeRequests.manifests.updated.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.changerequestId - Change request id
-   * @param {Object} opts.data - Manifest payload
+   * @param {string} [opts.jwtToken] - JWT or internal auth
+   * @param {string} opts.changerequestId - Change request id (24 hex characters)
+   * @param {Object} opts.data - Update payload (status: 'approved' or 'rejected')
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ changeRequest: Object }>>}
+   * @throws 400 WRONG_DATA, CHANGEREQUEST_STATUS_NOT_PENDING, etc.
+   * @throws 401 Unauthorized
+   * @throws 403 MULTIPLE_MANIFEST_EDIT_NOT_ALLOWED
+   * @throws 404 CHANGEREQUEST_NOT_FOUND
+   * @throws 500 Internal server error
    */
   function update({changerequestId, data, token, jwtToken, headers}) {
     return client({
@@ -97,13 +114,17 @@ function changeRequestsFactory({client, internalAuthTokenProvider}) {
   /** @type {{ get: function, create: function, update: function }} */
   const schedules = {
     /**
-     * GET /change-requests/:changeRequestId/schedules - get change request schedules. API does not accept query params.
+     * GET /change-requests/:changeRequestId/schedules — Get schedule change request by ID.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
-     * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-     * @param {string} opts.changeRequestId - Change request id
+     * @param {string} [opts.jwtToken] - JWT or internal auth
+     * @param {string} opts.changeRequestId - Change request id (24 hex characters)
      * @param {Object} [opts.headers] - Optional headers
-     * @returns {Promise<import("axios").AxiosResponse>}
+     * @returns {Promise<import("axios").AxiosResponse<{ changeRequest: Object }>>}
+     * @throws 400 INVALID_CHANGEREQUEST_ID, FAILED_TO_FETCH_OPERATION_SETTINGS, etc.
+     * @throws 401 Unauthorized
+     * @throws 404 CHANGEREQUEST_NOT_FOUND
+     * @throws 500 Internal server error
      */
     get({changeRequestId, token, jwtToken, query = {}, headers}) {
       return client({
@@ -114,13 +135,16 @@ function changeRequestsFactory({client, internalAuthTokenProvider}) {
     },
 
     /**
-     * POST /change-requests/schedules - create change request schedule. API does not accept query params.
+     * POST /change-requests/schedules — Create a schedule change request. Emits webhook changeRequests.schedules.created.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
-     * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-     * @param {Object} opts.data - Schedule payload
+     * @param {string} [opts.jwtToken] - JWT or internal auth
+     * @param {Object} opts.data - Schedule change request payload (request, routeId, scheduleId, legs, etc.)
      * @param {Object} [opts.headers] - Optional headers
-     * @returns {Promise<import("axios").AxiosResponse>}
+     * @returns {Promise<import("axios").AxiosResponse<{ changeRequest: Object }>>}
+     * @throws 400 WRONG_DATA, FAILED_TO_FETCH_OPERATION_SETTINGS, etc.
+     * @throws 401 Unauthorized
+     * @throws 500 Internal server error
      */
     create({data, token, jwtToken, headers}) {
       return client({
@@ -132,14 +156,18 @@ function changeRequestsFactory({client, internalAuthTokenProvider}) {
     },
 
     /**
-     * PUT /change-requests/:changeRequestId/schedules - update change request schedule. API does not accept query params.
+     * PUT .../schedules — Update schedule change request (approve/reject). Emits changeRequests.schedules.updated.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
-     * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-     * @param {string} opts.changeRequestId - Change request id
-     * @param {Object} opts.data - Schedule payload
+     * @param {string} [opts.jwtToken] - JWT or internal auth
+     * @param {string} opts.changeRequestId - Change request id (24 hex characters)
+     * @param {Object} opts.data - Update payload (status: 'approved' or 'rejected')
      * @param {Object} [opts.headers] - Optional headers
-     * @returns {Promise<import("axios").AxiosResponse>}
+     * @returns {Promise<import("axios").AxiosResponse<{ changeRequest: Object }>>}
+     * @throws 400 WRONG_DATA, CHANGEREQUEST_STATUS_NOT_PENDING, etc.
+     * @throws 401 Unauthorized
+     * @throws 404 CHANGEREQUEST_NOT_FOUND
+     * @throws 500 Internal server error
      */
     update({changeRequestId, data, token, jwtToken, headers}) {
       return client({

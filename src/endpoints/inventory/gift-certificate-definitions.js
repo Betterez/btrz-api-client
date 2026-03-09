@@ -22,7 +22,8 @@ function giftCertificateDefinitionsFactory({client, internalAuthTokenProvider}) 
    * @param {string} [opts.token] - API key
    * @param {GiftCertificateDefinitionsListQuery} [opts.query] - Query params (channels, currencies, providerId)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ giftCertificates: Object[], next?: string, previous?: string, count: number }>>}
+   * @throws 400 WRONG_DATA, PROVIDER_ID; 401 Unauthorized; 500.
    */
   function all({token, query = {}, headers}) {
     return client.get("/gift-certificate-definitions", {
@@ -38,7 +39,8 @@ function giftCertificateDefinitionsFactory({client, internalAuthTokenProvider}) 
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.giftcertificateId - Gift certificate definition id
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ giftcertificate: Object }>>}
+   * @throws When the API returns an error. 400 INVALID_GIFTCERTIFICATE_ID; 401 Unauthorized; 404 GIFTCERTIFICATE_NOT_FOUND; 500.
    */
   function get({token, jwtToken, giftcertificateId, query = {}, headers}) {
     return client({
@@ -56,7 +58,8 @@ function giftCertificateDefinitionsFactory({client, internalAuthTokenProvider}) 
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} opts.giftcertificate - Gift certificate payload
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ giftcertificate: Object }>>}
+   * @throws When the API returns an error. 400 WRONG_DATA; 401 Unauthorized; 500.
    */
   function create({token, jwtToken, giftcertificate, query = {}, headers}) {
     return client({
@@ -76,7 +79,8 @@ function giftCertificateDefinitionsFactory({client, internalAuthTokenProvider}) 
    * @param {string} opts.giftcertificateId - Gift certificate definition id
    * @param {Object} opts.giftcertificate - Gift certificate payload
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ giftcertificate: Object }>>}
+   * @throws 400 WRONG_DATA, GIFTCERTIFICATE_ID; 401; 404 GIFTCERTIFICATE_NOT_FOUND; 500.
    */
   function update({token, jwtToken, giftcertificateId, giftcertificate, query = {}, headers}) {
     return client({
@@ -95,7 +99,8 @@ function giftCertificateDefinitionsFactory({client, internalAuthTokenProvider}) 
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.giftcertificateId - Gift certificate definition id
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ giftcertificateId: string }>>}
+   * @throws 400 WRONG_DATA, GIFTCERTIFICATE_ID, GIFT_CERTIFICATE_DEFINITION_ALREADY_IMPLEMENTED; 401; 404; 500.
    */
   function remove({token, jwtToken, giftcertificateId, query = {}, headers}) {
     return client({

@@ -16,13 +16,14 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function garagesFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /garages - list garages.
+   * GET /garages - list garages (paginated).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {GaragesQuery} [opts.query] - Query params (location, stationId)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ garages: Array, next?: string, previous?: string, count: number }>>}
+   * @throws When response is 4xx/5xx (401, 500)
    */
   function all({token, jwtToken, query = {}, headers}) {
     return client.get("/garages", {
@@ -32,13 +33,14 @@ function garagesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /garages/:garageId - get garage by id. API does not accept query params.
+   * GET /garages/:garageId - get garage by id.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.garageId - Garage id
+   * @param {string} opts.garageId - Garage id (24 hex characters)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ garage: Object }>>}
+   * @throws When response is 4xx/5xx (400 INVALID_GARAGE_ID, 401, 404 GARAGE_NOT_FOUND, 500)
    */
   function get({token, jwtToken, garageId, headers}) {
     return client.get(`/garages/${garageId}`, {
@@ -47,13 +49,14 @@ function garagesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /garages - create garage. API does not accept query params.
+   * POST /garages - create garage.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.data - Garage payload
+   * @param {Object} opts.data - Garage payload (name, location, stationId)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ garage: Object }>>}
+   * @throws When response is 4xx/5xx (400 WRONG_DATA, 401, 500)
    */
   function create({token, jwtToken, data, headers}) {
     return client({
@@ -71,10 +74,11 @@ function garagesFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.garageId - Garage id
-   * @param {Object} opts.data - Garage payload
+   * @param {string} opts.garageId - Garage id (24 hex characters)
+   * @param {Object} opts.data - Garage payload (name, location, stationId)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ garage: Object }>>}
+   * @throws When response is 4xx/5xx (400, 401, 404 GARAGE_NOT_FOUND/STATION_NOT_FOUND, 500)
    */
   function update({token, jwtToken, garageId, data, headers}) {
     return client({
@@ -88,13 +92,14 @@ function garagesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /garages/:garageId - remove garage. API does not accept query params.
+   * DELETE /garages/:garageId - remove garage.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.garageId - Garage id
+   * @param {string} opts.garageId - Garage id (24 hex characters)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ success: boolean }>>}
+   * @throws When response is 4xx/5xx (400 INVALID_GARAGE_ID or GARAGE_WITH_VEHICLES, 401, 404, 500)
    */
   function remove({token, jwtToken, garageId, headers}) {
     return client({

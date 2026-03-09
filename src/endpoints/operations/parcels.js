@@ -28,13 +28,13 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function parcelFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /parcels/:id - get parcel by id. API does not accept query params.
+   * GET /parcels/{parcelId} - get parcel by id. Requires JwtAuth. No query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.id - Parcel id
+   * @param {string} opts.id - Parcel id (24 hex characters)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse>} 200 { parcel }; 400 INVALID_PARCEL_ID; 401 Unauthorized; 404 PARCEL_NOT_FOUND; 500
    */
   function get({token, jwtToken, id, headers}) {
     return client({
@@ -83,14 +83,14 @@ function parcelFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /parcels/:id/user-comments - add comment to parcel. API does not accept query params.
+   * POST /parcels/{parcelId}/user-comments - add user comment to parcel. Requires JwtAuth. Body: { comment } (string).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.id - Parcel id
-   * @param {Object} opts.comment - Comment payload
+   * @param {string} opts.id - Parcel id (path parcelId)
+   * @param {string} opts.comment - Comment text (sent as body.comment)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse>} 200 ParcelUserComment; 400 MISSING_*; 401; 403; 404 PARCEL_NOT_FOUND; 409
    */
   function addComment({token, jwtToken, headers, id, comment}) {
     return client({
@@ -102,14 +102,14 @@ function parcelFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * DELETE /parcels/:id/user-comments/:commentId - delete parcel comment. API does not accept query params.
+   * DELETE /parcels/{parcelId}/user-comments/{commentId} - delete user comment from parcel. Requires JwtAuth.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.id - Parcel id
-   * @param {string} opts.commentId - Comment id
+   * @param {string} opts.id - Parcel id (path parcelId)
+   * @param {string} opts.commentId - Comment id (path)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse>} 200 deleted ParcelUserComment; 400 MISSING_*; 401; 403; 404 PARCEL_NOT_FOUND, COMMENT_NOT_FOUND; 409
    */
   function deleteComment({token, jwtToken, headers, id, commentId}) {
     return client({

@@ -5,9 +5,9 @@ const {
 /**
  * Query params for GET /insurances (btrz-api-inventory). See get-insurances getSpec().
  * @typedef {Object} InsurancesListQuery
- * @property {string} [productId] - Filter by product id
- * @property {boolean} [enabled] - Filter by enabled
- * @property {string[]} [providerIds] - Filter by provider ids
+ * @property {string} [productId] - The ids of the products to get insurances for
+ * @property {string} [enabled] - Filter insurances if they are enabled or not [true, false]
+ * @property {string} [providerIds] - The ids of the providers to get products for
  */
 
 /**
@@ -21,12 +21,13 @@ function insurancesFactory({
   client, internalAuthTokenProvider
 }) {
   /**
-   * GET /insurances - list insurances.
+   * GET /insurances - list insurances for the account and product provided.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {InsurancesListQuery} [opts.query] - Query params (productId, enabled, providerIds)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ insurances: Object[] }>>}
+   * @throws 400 INVALID_PRODUCTIDS; 401; 500.
    */
   function all({
     token, query = {}, headers
@@ -40,12 +41,13 @@ function insurancesFactory({
   }
 
   /**
-   * GET /insurances/:insuranceId - get insurance by id. API does not accept query params.
+   * GET /insurances/:insuranceId - get insurance by id.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
-   * @param {string} opts.insuranceId - Insurance id
+   * @param {string} opts.insuranceId - Insurance id (24 hex characters)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ insurance: Object }>>}
+   * @throws 400 INVALID_INSURANCE_ID; 401; 404 INSURANCE_NOT_FOUND; 500.
    */
   function get({
     token, insuranceId, headers
@@ -80,14 +82,15 @@ function insurancesFactory({
   }
 
   /**
-   * PUT /insurances/:insuranceId - update insurance. API does not accept query params.
+   * PUT /insurances/:insuranceId - update insurance.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {Object} opts.insurance - Insurance payload
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.insuranceId - Insurance id
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ insurance: Object }>>}
+   * @throws 400 WRONG_DATA; 401; 404 INSURANCE_NOT_FOUND; 500.
    */
   function update({
     token, insurance, jwtToken, insuranceId, headers
@@ -103,13 +106,14 @@ function insurancesFactory({
   }
 
   /**
-   * DELETE /insurances/:insuranceId - remove insurance. API does not accept query params.
+   * DELETE /insurances/:insuranceId - remove insurance.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.insuranceId - Insurance id
+   * @param {string} opts.insuranceId - Insurance id (24 hex characters)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ insuranceId: string }>>}
+   * @throws 400 INVALID_INSURANCE_ID; 401; 404 INSURANCE_NOT_FOUND; 500.
    */
   function remove({
     token, jwtToken, insuranceId, headers

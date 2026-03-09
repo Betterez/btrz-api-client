@@ -24,15 +24,17 @@ function loansFactory({
   client, internalAuthTokenProvider
 }) {
   /**
-   * GET /loans - list loans.
+   * GET /loans - list loans for the account or provider. Paginated (20 per page). Requires operations API base URL.
    * @param {Object} opts
-   * @param {string} [opts.token] - API key
-   * @param {LoansListQuery} [opts.query] - Query params (all optional)
-   * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @param {string} [opts.token] - API key (X-API-KEY)
+   * @param {string} [opts.jwtToken] - JWT or internal auth (Authorization Bearer)
+   * @param {LoansListQuery} [opts.query] - Query params (all optional): page, shiftId, type, trxId, status, providerId
+   * @param {Object} [opts.headers] - Optional request headers
+   * @returns {Promise<import("axios").AxiosResponse<{ loans: Array<object>, count: number, next?: string, previous?: string }>>}
    */
   function all({
     token,
+    jwtToken,
     query = {},
     headers
   }) {
@@ -40,6 +42,7 @@ function loansFactory({
       params: query,
       headers: authorizationHeaders({
         token,
+        jwtToken,
         internalAuthTokenProvider,
         headers
       })
@@ -47,19 +50,21 @@ function loansFactory({
   }
 
   /**
-   * GET /loans/:loanId - get loan by id. API does not accept query params.
+   * GET /loans/:loanId - get a single loan by ID. Requires operations API base URL.
    * @param {Object} opts
-   * @param {string} [opts.token] - API key
-   * @param {string} opts.loanId - Loan id
-   * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @param {string} [opts.token] - API key (X-API-KEY)
+   * @param {string} [opts.jwtToken] - JWT or internal auth (Authorization Bearer)
+   * @param {string} opts.loanId - Loan document ID (24 hex characters)
+   * @param {Object} [opts.headers] - Optional request headers
+   * @returns {Promise<import("axios").AxiosResponse<{ loan: object }>>}
    */
   function get({
-    loanId, token, headers
+    loanId, token, jwtToken, headers
   }) {
     return client.get(`/loans/${loanId}`, {
       headers: authorizationHeaders({
         token,
+        jwtToken,
         internalAuthTokenProvider,
         headers
       })

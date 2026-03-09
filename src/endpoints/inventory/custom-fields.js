@@ -13,34 +13,36 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
- * @returns {{ all: function, get: function, create: function, update: function, types: object }}
+ * @returns {{ all: function, get: function, create: function, update: function, types: { all: function } }}
  */
 function customFieldsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /custom-fields - list custom fields.
+   * GET /custom-fields - list custom fields (btrz-api-inventory).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {InventoryCustomFieldsQuery} [opts.query] - Query params (enabled, required, modelName)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ customfields: Array }>>}
+   * @throws When response is 4xx/5xx (e.g. 400 INVALID_MODEL_NAME, 401 Unauthorized, 500)
    */
-  function all({token, query = {}, headers}) {
+  function all({token, jwtToken, query = {}, headers}) {
     return client({
       url: "/custom-fields",
       params: query,
-      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
   /**
-   * GET /custom-fields/:fieldId - get custom field by id. API does not accept query params.
+   * GET /custom-fields/:customfieldId - get custom field by id (btrz-api-inventory). No query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.fieldId - Field id
+   * @param {string} opts.fieldId - Custom field id (24 hex chars; must start with accountId)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ customfield: Object }>>}
+   * @throws When response is 4xx/5xx (400, 401, 404 CUSTOMFIELD_NOT_FOUND, 500)
    */
   function get({fieldId, token, jwtToken, query = {}, headers}) {
     return client({
@@ -51,13 +53,14 @@ function customFieldsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /custom-fields - create custom field. API does not accept query params.
+   * POST /custom-fields - create custom field (btrz-api-inventory). No query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.field - Field payload
+   * @param {Object} opts.field - Field payload (FieldPutData: text, type, required, disabled, options when type List)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ customfield: Object }>>}
+   * @throws When response is 4xx/5xx (400, 401, 404 CUSTOMFIELD_NOT_FOUND/FIELD_NOT_FOUND, 500)
    */
   function create({token, jwtToken, field, headers}) {
     return client({
@@ -69,14 +72,15 @@ function customFieldsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /custom-fields/:fieldId - update custom field. API does not accept query params.
+   * PUT /custom-fields/:fieldId - update custom field (btrz-api-inventory). No query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.fieldId - Field id
-   * @param {Object} opts.field - Field payload
+   * @param {string} opts.fieldId - Field id (24 hex chars)
+   * @param {Object} opts.field - Field payload (FieldPutData)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ customfield: Object }>>}
+   * @throws When response is 4xx/5xx (400, 401, 404 CUSTOMFIELD_NOT_FOUND/FIELD_NOT_FOUND/WRONG_DATA_OPTIONS, 500)
    */
   function update({token, jwtToken, fieldId, field, headers}) {
     return client({
@@ -90,16 +94,18 @@ function customFieldsFactory({client, internalAuthTokenProvider}) {
   /** @type {{ all: function }} */
   const types = {
     /**
-     * GET /custom-fields/types - list custom field types. API does not accept query params.
+     * GET /custom-fields/types - list custom field types (btrz-api-inventory). No query params.
      * @param {Object} opts
      * @param {string} [opts.token] - API key
+     * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {Object} [opts.headers] - Optional headers
-     * @returns {Promise<import("axios").AxiosResponse>}
+     * @returns {Promise<import("axios").AxiosResponse<{ types: Array }>>}
+     * @throws When response is 4xx/5xx (e.g. 401 Unauthorized, 500)
      */
-    all({token, headers}) {
+    all({token, jwtToken, headers}) {
       return client({
         url: "/custom-fields/types",
-        headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
       });
     }
   };

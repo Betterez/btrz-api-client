@@ -16,7 +16,8 @@ function mitTerminalFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ mitTerminalsSettings: Object[], next?: string, previous?: string, count: number }>>}
+   * @throws When the request fails (e.g. 401 Unauthorized, 500 Internal Server Error)
    */
   function all({
     token,
@@ -35,9 +36,10 @@ function mitTerminalFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.id - MIT terminal setting id
+   * @param {string} opts.id - MIT terminal setting id (24-char hex ObjectId)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ mitTerminalSettings: Object }>>}
+   * @throws When the request fails (e.g. 400 INVALID_ID, 401 Unauthorized, 404 MITTERMINALSETTING_NOT_FOUND, 500 Internal Server Error)
    */
   function get({id, token, jwtToken, headers}) {
     return client.get(`/mit-terminals-settings/${id}`, {
@@ -50,9 +52,10 @@ function mitTerminalFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.mitTerminalSettings - MIT terminal settings payload
+   * @param {Object} opts.mitTerminalSettings - MIT terminal settings payload (name, operatingCompanyId, shiftLocationId, user, password)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ mitTerminalSettings: Object }>>}
+   * @throws When the request fails (e.g. 400 WRONG_DATA, 401 Unauthorized, 500 Internal Server Error)
    */
   function create({jwtToken, token, mitTerminalSettings, headers}) {
     return client({
@@ -70,9 +73,10 @@ function mitTerminalFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.id - MIT terminal setting id
+   * @param {string} opts.id - MIT terminal setting id (24-char hex ObjectId)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ mitterminalsettingId: string }>>}
+   * @throws When the request fails (e.g. 400 INVALID_ID, 401 Unauthorized, 404 MITTERMINALSETTING_NOT_FOUND, 500 Internal Server Error)
    */
   function remove({jwtToken, id, token, headers}) {
     return client({
@@ -87,10 +91,11 @@ function mitTerminalFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.id - MIT terminal setting id
-   * @param {Object} opts.mitTerminalSettings - MIT terminal settings payload
+   * @param {string} opts.id - MIT terminal setting id (24-char hex ObjectId)
+   * @param {Object} opts.mitTerminalSettings - MIT terminal settings payload (name, operatingCompanyId, shiftLocationId, user, password)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse<{ mitTerminalSettings: Object }>>}
+   * @throws When the request fails (e.g. 400 WRONG_DATA/INVALID_ID, 401, 404 MITTERMINALSETTING_NOT_FOUND, 500)
    */
   function update({jwtToken, token, id, mitTerminalSettings, headers}) {
     return client({
