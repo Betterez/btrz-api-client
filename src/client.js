@@ -363,6 +363,7 @@ function createNotifications({baseURL, headers, timeout, overrideFn, internalAut
     externalCustomers: require("./endpoints/notifications/external-customers.js")({client, internalAuthTokenProvider}),
     twilio: require("./endpoints/notifications/twilio.js")({client, internalAuthTokenProvider}),
     salesforce: require("./endpoints/notifications/salesforce.js")({client, internalAuthTokenProvider}),
+    shortUrls: require("./endpoints/notifications/short-urls.js")({client, internalAuthTokenProvider}),
     notify: require("./endpoints/notifications/notify.js")({client, internalAuthTokenProvider}),
     ordersRulesValidations: require("./endpoints/notifications/orders-rules-validations.js")({client, internalAuthTokenProvider}),
     __test: {
