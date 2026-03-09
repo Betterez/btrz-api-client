@@ -314,6 +314,7 @@ function createOperations({baseURL, headers, timeout, overrideFn, internalAuthTo
     transaction: require("./endpoints/operations/transaction.js")({client, internalAuthTokenProvider}),
     transactions: require("./endpoints/operations/transactions.js")({client, internalAuthTokenProvider}),
     tripChangeInfo: require("./endpoints/operations/trip_change_info.js")({client, internalAuthTokenProvider}),
+    cancellationSettings: require("./endpoints/operations/cancellation_settings.js")({client, internalAuthTokenProvider}),
     vehicleAssignments: require("./endpoints/operations/vehicle_assignments.js")({client, internalAuthTokenProvider}),
     vouchers: require("./endpoints/operations/vouchers.js")({client, internalAuthTokenProvider}),
     waitlists: require("./endpoints/operations/waitlists.js")({client, internalAuthTokenProvider}),
