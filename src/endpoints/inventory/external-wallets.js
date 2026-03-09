@@ -66,24 +66,25 @@ function externalWalletsFactory({client, internalAuthTokenProvider}) {
      * @param {Object} opts
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-     * @param {string} [opts.walletId] - Wallet id (use this or externalWallet._id)
-     * @param {Object} opts.externalWallet - Update payload (ExternalWalletPutData: status, blocked, nip)
+     * @param {Object} opts.externalWallet - External wallet payload (must include _id)
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse<{ externalWallet: Object }>>}
      * @throws When response is 4xx/5xx (400, 401, 404 EXTERNAL_WALLET_NOT_FOUND, 500)
      */
-    update: ({token, jwtToken, walletId, externalWallet, headers}) => {
-      const id = walletId || (externalWallet && externalWallet._id);
-      const putData = externalWallet ? Object.assign({},
-        externalWallet.nip !== undefined && {nip: externalWallet.nip},
-        externalWallet.blocked !== undefined && {blocked: externalWallet.blocked},
-        externalWallet.status !== undefined && {status: externalWallet.status}
-      ) : {};
+    update: ({token, jwtToken, externalWallet, headers}) => {
+      const externalWalletFieldsToUpdate = {
+        nip: externalWallet.nip,
+        walletNumber: externalWallet.walletNumber,
+        status: externalWallet.status
+      };
+
       return client({
-        url: `/external-wallets/saldo-max/${id}`,
+        url: `/external-wallets/saldo-max/${externalWallet._id}`,
         method: "put",
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
-        data: {externalWallet: putData}
+        data: {
+          externalWallet: externalWalletFieldsToUpdate
+        }
       });
     },
     /** @type {{ create: function }} */
