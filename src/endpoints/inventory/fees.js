@@ -3,10 +3,11 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
 /**
  * Query params for GET /fees (btrz-api-inventory). See fees get-handler getSpec().
  * @typedef {Object} InventoryFeesQuery
- * @property {string} [providerIds] - Provider IDs to get fees for
- * @property {string} [rules] - Rules where the fees apply
- * @property {string} [productId] - Product ID for the fee
- * @property {string} [internalId] - Fee internal id
+ * @property {string} [providerIds] - Comma-separated provider (account) IDs to get fees for
+ * @property {string} [rules] - Comma-separated rules where the fees apply (e.g. cancel, ticket, transaction)
+ * @property {string} [productId] - Product ID to filter fees by
+ * @property {string} [internalId] - Fee internal id to filter by
+ * @property {string} [page] - Page number for pagination (1-based). Response includes next, previous, count
  */
 
 /**
@@ -24,7 +25,7 @@ function feesFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {InventoryFeesQuery} [opts.query] - Query params (providerIds, rules, productId, internalId)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse<{ fees: Array, next?: string, previous?: string, count: number }>>}
+   * @returns {Promise<import("axios").AxiosResponse<{ fees: Array, next: string, previous: string, count: number }>>}
    * @throws When response is 4xx/5xx (401, 500)
    */
   function all({token, jwtToken, query = {}, headers}) {
