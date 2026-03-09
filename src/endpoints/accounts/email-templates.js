@@ -38,6 +38,7 @@ const {
  * @property {string} [status] - draft | published
  * @property {string} [templateCollectionId] - default | custom (required for accountId "")
  * @property {string} [accountId] - "" for global template (super user)
+ * @property {Array<{ templateId: string, templateName: string }>} [attachments] - PDF template attachments (templateId: ObjectId of pdf-template; templateName: name of template)
  */
 
 /**
