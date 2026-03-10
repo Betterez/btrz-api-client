@@ -1,3 +1,4 @@
+const {expect} = require("chai");
 const {axiosMock} = require("../../test-helpers.js");
 const api = require("../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
@@ -97,6 +98,72 @@ describe("notifications/notify-manifest", () => {
       jwtToken,
       data: {},
       headers: {}
+    });
+  });
+});
+
+describe("notifications/notify/email", () => {
+  const token = "my-api-key";
+  const jwtToken = "my-jwt";
+
+  afterEach(() => {
+    axiosMock.reset();
+  });
+
+  it("should POST send email by type and itemId", () => {
+    axiosMock.onPost("/notify/email").reply(({headers, data}) => {
+      if (headers["x-api-key"] !== token || headers.authorization !== `Bearer ${jwtToken}`) {
+        return [403];
+      }
+      const body = typeof data === "string" ? JSON.parse(data) : data;
+      if (body.type === "voucher" && body.itemId === "507f1f77bcf86cd799439011") {
+        return [200, {success: true}];
+      }
+      return [400];
+    });
+    return api.notifications.notify.emailByType.create({
+      token,
+      jwtToken,
+      data: {
+        type: "voucher",
+        itemId: "507f1f77bcf86cd799439011"
+      }
+    }).then((res) => {
+      expect(res.status).to.equal(200);
+      expect(res.data.success).to.equal(true);
+    });
+  });
+});
+
+describe("notifications/notify/sms", () => {
+  const token = "my-api-key";
+  const jwtToken = "my-jwt";
+
+  afterEach(() => {
+    axiosMock.reset();
+  });
+
+  it("should POST send SMS by type and itemId", () => {
+    axiosMock.onPost("/notify/sms").reply(({headers, data}) => {
+      if (headers["x-api-key"] !== token || headers.authorization !== `Bearer ${jwtToken}`) {
+        return [403];
+      }
+      const body = typeof data === "string" ? JSON.parse(data) : data;
+      if (body.type === "order" && body.itemId === "507f1f77bcf86cd799439011") {
+        return [200, {success: true}];
+      }
+      return [400];
+    });
+    return api.notifications.notify.smsByType.create({
+      token,
+      jwtToken,
+      data: {
+        type: "order",
+        itemId: "507f1f77bcf86cd799439011"
+      }
+    }).then((res) => {
+      expect(res.status).to.equal(200);
+      expect(res.data.success).to.equal(true);
     });
   });
 });
