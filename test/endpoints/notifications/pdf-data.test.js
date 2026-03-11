@@ -305,7 +305,7 @@ describe("notifications/pdf-data", () => {
   it("should return the proper data for pre_trip_notification (manifest notification data)", () => {
     const itemId = "12345";
     const query = {type: "pre_trip_notification"};
-    axiosMock.onGet(new RegExp(`^/manifest-notification-data/${itemId}\\?type=pre_trip_notification`))
+    axiosMock.onGet(new RegExp(`^/manifest-notification-data/${itemId}`))
       .reply(expectRequest({statusCode: 200, token}));
     return api.notifications.pdfData.get({token, query, itemId});
   });
@@ -313,7 +313,7 @@ describe("notifications/pdf-data", () => {
   it("should return the proper data for post_trip_notification (manifest notification data)", () => {
     const itemId = "12345";
     const query = {type: "post_trip_notification"};
-    axiosMock.onGet(new RegExp(`^/manifest-notification-data/${itemId}\\?type=post_trip_notification`))
+    axiosMock.onGet(new RegExp(`^/manifest-notification-data/${itemId}`))
       .reply(expectRequest({statusCode: 200, token}));
     return api.notifications.pdfData.get({token, query, itemId});
   });
