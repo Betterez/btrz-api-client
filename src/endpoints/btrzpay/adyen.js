@@ -36,8 +36,16 @@ function adyenFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  function getTerminals({token, jwtToken, headers, data}) {
+    return client.get("/adyen-terminals", {
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data
+    });
+  }
+
   return {
-    getPaymentMethods
+    getPaymentMethods,
+    getTerminals
   };
 }
 
