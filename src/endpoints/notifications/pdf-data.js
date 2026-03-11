@@ -68,6 +68,9 @@ function pdfDataFactory({
       }
     }
 
+    if (query.type === "pre_trip_notification" || query.type === "post_trip_notification") {
+      url = `/manifest-notification-data/${itemId}?type=${query.type}`;
+    }
     if (query.type === "parcel_confirmation") {
       url = `/pdf-parcels/${itemId}`;
     }

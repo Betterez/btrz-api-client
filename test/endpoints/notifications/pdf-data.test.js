@@ -6,6 +6,7 @@ const api = require("./../../../src/client.js").createApiClient({
   baseURL: "http://test.com"
 });
 
+// eslint-disable-next-line max-statements
 describe("notifications/pdf-data", () => {
   const token = "my-api-key";
 
@@ -301,18 +302,212 @@ describe("notifications/pdf-data", () => {
     });
   });
 
-  it("should return the proper data for a voucher", () => {
+  it("should return the proper data for pre_trip_notification (manifest notification data)", () => {
     const itemId = "12345";
-    const query = {
-      type: "voucher"
-    };
+    const query = {type: "pre_trip_notification"};
+    axiosMock.onGet(new RegExp(`^/manifest-notification-data/${itemId}\\?type=pre_trip_notification`))
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.notifications.pdfData.get({token, query, itemId});
+  });
+
+  it("should return the proper data for post_trip_notification (manifest notification data)", () => {
+    const itemId = "12345";
+    const query = {type: "post_trip_notification"};
+    axiosMock.onGet(new RegExp(`^/manifest-notification-data/${itemId}\\?type=post_trip_notification`))
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.notifications.pdfData.get({token, query, itemId});
+  });
+
+  it("should return the proper data for parcel_confirmation", () => {
+    const itemId = "12345";
+    const query = {type: "parcel_confirmation"};
+    axiosMock.onGet(`/pdf-parcels/${itemId}`)
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.notifications.pdfData.get({token, query, itemId});
+  });
+
+  it("should return the proper data for redeemable_items_confirmation", () => {
+    const itemId = "12345";
+    const query = {type: "redeemable_items_confirmation"};
+    axiosMock.onGet(`/pdf-redeemable-items/${itemId}`)
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.notifications.pdfData.get({token, query, itemId});
+  });
+
+  it("should return the proper data for sold_item_confirmation", () => {
+    const itemId = "12345";
+    const query = {type: "sold_item_confirmation"};
+    axiosMock.onGet(`/pdf-sold-items/${itemId}`)
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.notifications.pdfData.get({token, query, itemId});
+  });
+
+  it("should return the proper data for customer_card_membership (pdf-customer)", () => {
+    const itemId = "12345";
+    const query = {type: "customer_card_membership"};
+    axiosMock.onGet(`/pdf-customer/${itemId}`)
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.notifications.pdfData.get({token, query, itemId});
+  });
+
+  it("should return the proper data for scanning_badge (pdf-customer)", () => {
+    const itemId = "12345";
+    const query = {type: "scanning_badge"};
+    axiosMock.onGet(`/pdf-customer/${itemId}`)
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.notifications.pdfData.get({token, query, itemId});
+  });
+
+  it("should return the proper data for customer_activation (pdf-customer)", () => {
+    const itemId = "12345";
+    const query = {type: "customer_activation"};
+    axiosMock.onGet(`/pdf-customer/${itemId}`)
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.notifications.pdfData.get({token, query, itemId});
+  });
+
+  it("should return the proper data for customer_activation_mobile (pdf-customer)", () => {
+    const itemId = "12345";
+    const query = {type: "customer_activation_mobile"};
+    axiosMock.onGet(`/pdf-customer/${itemId}`)
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.notifications.pdfData.get({token, query, itemId});
+  });
+
+  it("should return the proper data for customer_password_reset (pdf-customer)", () => {
+    const itemId = "12345";
+    const query = {type: "customer_password_reset"};
+    axiosMock.onGet(`/pdf-customer/${itemId}`)
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.notifications.pdfData.get({token, query, itemId});
+  });
+
+  it("should return the proper data for customer_password_reset_mobile (pdf-customer)", () => {
+    const itemId = "12345";
+    const query = {type: "customer_password_reset_mobile"};
+    axiosMock.onGet(`/pdf-customer/${itemId}`)
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.notifications.pdfData.get({token, query, itemId});
+  });
+
+  it("should return the proper data for gift_certificate_notification", () => {
+    const itemId = "12345";
+    const query = {type: "gift_certificate_notification"};
+    axiosMock.onGet(`/pdf-gift-certificates/${itemId}`)
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.notifications.pdfData.get({token, query, itemId});
+  });
+
+  it("should return the proper data for user_password_reset", () => {
+    const itemId = "12345";
+    const query = {type: "user_password_reset"};
+    axiosMock.onGet(`/pdf-users/${itemId}`)
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.notifications.pdfData.get({token, query, itemId});
+  });
+
+  it("should return the proper data for voucher_notification", () => {
+    const itemId = "12345";
+    const query = {type: "voucher_notification"};
     axiosMock.onGet(`/pdf-vouchers/${itemId}`)
-      .reply(expectRequest({
-        statusCode: 200, token
-      }));
-    return api.notifications.pdfData.get({
-      token, query, itemId
-    });
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.notifications.pdfData.get({token, query, itemId});
+  });
+
+  it("should return the proper data for compensation_voucher", () => {
+    const itemId = "12345";
+    const query = {type: "compensation_voucher"};
+    axiosMock.onGet(`/pdf-vouchers/${itemId}`)
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.notifications.pdfData.get({token, query, itemId});
+  });
+
+  it("should return the proper data for new_account (pdf-accounts)", () => {
+    const itemId = "12345";
+    const query = {type: "new_account"};
+    axiosMock.onGet(`/pdf-accounts/${itemId}`)
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.notifications.pdfData.get({token, query, itemId});
+  });
+
+  it("should return the proper data for new_seller_account (pdf-accounts)", () => {
+    const itemId = "12345";
+    const query = {type: "new_seller_account"};
+    axiosMock.onGet(`/pdf-accounts/${itemId}`)
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.notifications.pdfData.get({token, query, itemId});
+  });
+
+  it("should return the proper data for interline_provider_invite (pdf-accounts)", () => {
+    const itemId = "12345";
+    const query = {type: "interline_provider_invite"};
+    axiosMock.onGet(`/pdf-accounts/${itemId}`)
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.notifications.pdfData.get({token, query, itemId});
+  });
+
+  it("should return the proper data for operator_purchase (pdf-transactions)", () => {
+    const itemId = "12345";
+    const query = {type: "operator_purchase"};
+    axiosMock.onGet(`/pdf-transactions/${itemId}`)
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.notifications.pdfData.get({token, query, itemId});
+  });
+
+  it("should return the proper data for operator_ssr (pdf-transactions)", () => {
+    const itemId = "12345";
+    const query = {type: "operator_ssr"};
+    axiosMock.onGet(`/pdf-transactions/${itemId}`)
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.notifications.pdfData.get({token, query, itemId});
+  });
+
+  it("should return the proper data for operator_manifest_capacity", () => {
+    const itemId = "12345";
+    const query = {type: "operator_manifest_capacity"};
+    axiosMock.onGet(`/pdf-operator-manifest-capacities/${itemId}`)
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.notifications.pdfData.get({token, query, itemId});
+  });
+
+  it("should return the proper data for reaccomodation", () => {
+    const itemId = "12345";
+    const query = {type: "reaccomodation"};
+    axiosMock.onGet(`/pdf-reaccomodation/${itemId}`)
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.notifications.pdfData.get({token, query, itemId});
+  });
+
+  it("should return the proper data for ticket_movement (pdf-reaccomodation)", () => {
+    const itemId = "12345";
+    const query = {type: "ticket_movement"};
+    axiosMock.onGet(`/pdf-reaccomodation/${itemId}`)
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.notifications.pdfData.get({token, query, itemId});
+  });
+
+  it("should return the proper data for manifest_notification", () => {
+    const itemId = "12345";
+    const query = {type: "manifest_notification"};
+    axiosMock.onGet(`/pdf-manifests/${itemId}`)
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.notifications.pdfData.get({token, query, itemId});
+  });
+
+  it("should return the proper data for startingBalance", () => {
+    const itemId = "12345";
+    const query = {type: "startingBalance"};
+    axiosMock.onGet(`/pdf-starting-balance/${itemId}`)
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.notifications.pdfData.get({token, query, itemId});
+  });
+
+  it("should return the proper data for partialShiftDeposits", () => {
+    const itemId = "12345";
+    const query = {type: "partialShiftDeposits"};
+    axiosMock.onGet(`/pdf-partial-shift-deposits/${itemId}`)
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.notifications.pdfData.get({token, query, itemId});
   });
 
   it("should return the proper data for a passengersManifest", () => {
