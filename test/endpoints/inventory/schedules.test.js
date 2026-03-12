@@ -95,4 +95,11 @@ describe("inventory/routes/shedules", () => {
       .reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.schedules.exceptions.update({token, jwtToken, data, scheduleId, exceptionId});
   });
+
+  it("should validate a schedule creation request", () => {
+    axiosMock.onPost(`/routes/${routeId}/schedules/validations`).reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.inventory.schedules.validations({token, jwtToken, data, routeId});
+  });
 });
