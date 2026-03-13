@@ -105,6 +105,12 @@ describe("accounts/shifts", () => {
     return api.accounts.shifts.payments.get({token, jwtToken, shiftId});
   });
 
+  it("should get the shift vouchers", () => {
+    const shiftId = "shiftId1";
+    axiosMock.onGet(`/shifts/${shiftId}/vouchers`).reply(expectRequest({statusCode: 200, token}));
+    return api.accounts.shifts.vouchers.get({token, jwtToken, shiftId});
+  });
+
   it("should get the shift transactions", () => {
     const shiftId = "shiftId1";
     axiosMock.onGet(`/shifts/${shiftId}/transactions`).reply(expectRequest({statusCode: 200, token}));

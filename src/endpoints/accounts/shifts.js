@@ -242,6 +242,24 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
       });
     }
   };
+
+  const vouchers = {
+    /**
+     * GET /shifts/:shiftId/vouchers - get vouchers for shift.
+     * @param {Object} opts
+     * @param {string} [opts.token] - API key
+     * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+     * @param {string} opts.shiftId - Shift id (ObjectId)
+     * @param {Object} [opts.headers] - Optional headers
+     * @returns {Promise<import("axios").AxiosResponse>}
+     */
+    get({token, jwtToken, shiftId, headers}) {
+      return client.get(`/shifts/${shiftId}/vouchers`, {
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+
   const transactions = {
     /**
      * GET /shifts/:shiftId/transactions - get transactions for shift.
@@ -577,6 +595,7 @@ function shiftsFactory({client, internalAuthTokenProvider}) {
     update,
     requiresAgencyShiftClosure,
     payments,
+    vouchers,
     transactions,
     tickets,
     fees,
