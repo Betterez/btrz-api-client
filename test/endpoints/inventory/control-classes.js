@@ -63,4 +63,15 @@ describe("inventory/control-classes", () => {
       controlClassId
     });
   });
+
+  it("should assign schedules to a control class", () => {
+    const controlClassId = "1234";
+    axiosMock.onPost(`/control-classes/${controlClassId}/schedules`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.inventory.controlClasses.schedules.post({
+      token,
+      jwtToken,
+      controlClassId,
+      data: {scheduleIds: ["schedule1", "schedule2"]}
+    });
+  });
 });

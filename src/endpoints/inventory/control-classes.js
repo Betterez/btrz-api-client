@@ -155,12 +155,24 @@ function controlClassesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  const schedules = {
+    post: ({token, jwtToken, controlClassId, data, headers}) => {
+      return client({
+        url: `/control-classes/${controlClassId}/schedules`,
+        method: "post",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        data
+      });
+    }
+  };
+
   return {
     all,
     get,
     create,
     update,
-    remove
+    remove,
+    schedules
   };
 }
 
