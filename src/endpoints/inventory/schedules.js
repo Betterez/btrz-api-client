@@ -99,6 +99,28 @@ function schedulesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
+   * PUT /routes/:routeId/schedules/:scheduleId/validations - validate schedule update. API does not accept query params.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.routeId - Route id
+   * @param {string} opts.scheduleId - Schedule id
+   * @param {Object} opts.data - Schedule payload
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
+  function runUpdateValidations({token, jwtToken, data, routeId, scheduleId, headers}) {
+    return client({
+      url: `/routes/${routeId}/schedules/${scheduleId}/validations`,
+      method: "put",
+      headers: authorizationHeaders({
+        token, jwtToken, internalAuthTokenProvider, headers
+      }),
+      data
+    });
+  }
+
+  /**
    * PUT /routes/:routeId/schedules/:scheduleId - update schedule. API does not accept query params.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
@@ -253,6 +275,7 @@ function schedulesFactory({client, internalAuthTokenProvider}) {
     update,
     delete: deleteSchedule,
     validations,
+    runUpdateValidations,
     autoBouncing,
     exceptions
   };
