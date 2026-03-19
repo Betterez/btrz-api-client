@@ -87,6 +87,29 @@ function externalWalletsFactory({client, internalAuthTokenProvider}) {
         }
       });
     },
+    nip: {
+      /**
+       * PUT /external-wallets/saldo-max/:walletId/nip - update SaldoMax external wallet's NIP.
+       * @param {Object} opts
+       * @param {string} [opts.token] - API key
+       * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+       * @param {Object} opts.walletId - The walletId of the SaldoMax wallet
+       * @param {Object} opts.nip - The new NIP
+       * @param {Object} [opts.headers] - Optional headers
+       * @returns {Promise<import("axios").AxiosResponse<{ externalWallet: Object }>>}
+       * @throws When response is 4xx/5xx (400, 401, 404 EXTERNAL_WALLET_NOT_FOUND, 500)
+       */
+      update: ({token, jwtToken, walletId, nip, headers}) => {
+        return client({
+          url: `/external-wallets/saldo-max/${walletId}/nip`,
+          method: "put",
+          headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+          data: {
+            nip
+          }
+        });
+      }
+    },
     /** @type {{ create: function }} */
     movements: {
       /**
