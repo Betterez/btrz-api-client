@@ -26,11 +26,16 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 
 /**
+ * Promo rule payload for POST/PUT rule endpoints (subset; see inventory PromoRule model).
+ * @typedef {Object} PromoRulePayload
+ * @property {boolean} [requireSameOperation] - When true and minPassengersQty &gt; 0, minimum is evaluated per journey.
+ * @property {string[]} [excludedFareTypes] - When fareId is empty and minPassengersQty &gt; 0, passengers with these fare types are excluded from the minimum count. Must be empty when fareId is set.
+ */
+
+/**
  * Promo create / PATCH update body (subset; see inventory API models for full shape).
+ * Group-style behavior is configured per rule via minPassengersQty, requireSameOperation, and excludedFareTypes (not on the promo root).
  * @typedef {Object} PromoUpdateRequest
- * @property {boolean} [groupDiscount] - When true, min passenger rules use group semantics in sales.
- * @property {boolean} [requireSameOperation] - When true with group discount, cart context is scoped by journeyId.
- * @property {string[]} [groupDiscountEligibleFareIds] - Non-empty: only these fare IDs count toward minimum and may receive discount; empty: all fares.
  */
 
 /**
@@ -142,7 +147,7 @@ function promosFactory({client, internalAuthTokenProvider}) {
    * @param {string} opts.promoId - Promo id
    * @param {Object} opts.operations - Array of PromoUpdateOperation (op, path, value).
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse<object>>} Resolves with PatchedPromos.
+   * @returns {Promise<import("axios").AxiosResponse<object>>} Resolves with body `{ results, promo? }`: patch outcome plus full persisted promo after a successful update (same document emitted on `promo.updated`).
    * @throws When the request fails (400/401/404/500).
    */
   function patch({jwtToken, token, promoId, operations, headers}) {
@@ -160,7 +165,7 @@ function promosFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.promoId - Promo id
-   * @param {Object} opts.rule - Rule payload (PromoRule).
+   * @param {PromoRulePayload} opts.rule - Rule payload (subset of PromoRule).
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<object>>} Resolves with Promo including new rule.
    * @throws When the request fails (400/401/404/500). Body: WRONG_DATA, INVALID_PRODUCT_ID, INVALID_FARE_ID, etc.
@@ -181,7 +186,7 @@ function promosFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.promoId - Promo id
    * @param {string} opts.ruleId - Rule id
-   * @param {Object} opts.rule - Full rule payload (PromoRule).
+   * @param {PromoRulePayload} opts.rule - Full rule payload (subset of PromoRule).
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<object>>} Resolves with updated Promo.
    * @throws When the request fails (400/401/404/500). Body: WRONG_DATA, INVALID_PRODUCT_ID, INVALID_FARE_ID, etc.
