@@ -216,14 +216,15 @@ function schedulesFactory({client, internalAuthTokenProvider}) {
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
-    create: ({token, jwtToken, data, scheduleId, headers}) => {
+    create: ({token, jwtToken, data, scheduleId, headers, query = {}}) => {
       return client({
         url: `/schedules/${scheduleId}/schedule-exceptions`,
         method: "post",
         headers: authorizationHeaders({
           token, jwtToken, internalAuthTokenProvider, headers
         }),
-        data
+        data,
+        params: query
       });
     },
     /**
@@ -236,13 +237,14 @@ function schedulesFactory({client, internalAuthTokenProvider}) {
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
-    delete: ({token, jwtToken, scheduleId, exceptionId, headers}) => {
+    delete: ({token, jwtToken, scheduleId, exceptionId, headers, query = {}}) => {
       return client({
         url: `/schedules/${scheduleId}/schedule-exceptions/${exceptionId}`,
         method: "delete",
         headers: authorizationHeaders({
           token, jwtToken, internalAuthTokenProvider, headers
-        })
+        }),
+        params: query
       });
     },
     /**
@@ -256,14 +258,15 @@ function schedulesFactory({client, internalAuthTokenProvider}) {
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
-    update: ({token, jwtToken, data, scheduleId, exceptionId, headers}) => {
+    update: ({token, jwtToken, data, scheduleId, exceptionId, headers, query = {}}) => {
       return client({
         url: `/schedules/${scheduleId}/schedule-exceptions/${exceptionId}`,
         method: "put",
         headers: authorizationHeaders({
           token, jwtToken, internalAuthTokenProvider, headers
         }),
-        data
+        data,
+        params: query
       });
     }
   };
