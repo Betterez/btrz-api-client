@@ -6,7 +6,7 @@ const {
 /**
  * Query params for GET pdf-templates-processing routes (btrz-api-notifications). Client uses type/family to resolve path.
  * @typedef {Object} PdfDataGetQuery
- * @property {string} type - Document type; determines path (e.g. product, giftCertificate, voucher, transaction, ssr, manifest, passengersManifest, order, order_confirmation, cancellation, change, shift, invoice, parcelManifest, startingBalance, partialShiftDeposits, bankDepositSlip, terminalVoucher, manualTickets, etc.)
+ * @property {string} type - Document type; determines path (e.g. product, giftCertificate, voucher, transaction, ssr, manifest, passengersManifest, order, order_confirmation, cancellation, change, shift, invoice, parcelManifest, startingBalance, partialShiftDeposits, bankDepositSlip, terminalVoucher, manualTickets, etc.). For pre_trip_notification and post_trip_notification the request uses GET /queue-notifications/manifest-notification-data/{itemId}.
  * @property {string} [family] - When type is "product": "ticket" | "reservation" | "paid in" | "paid out" | "parcel" | "flexpass" | "bundle"
  */
 
@@ -69,7 +69,7 @@ function pdfDataFactory({
     }
 
     if (query.type === "pre_trip_notification" || query.type === "post_trip_notification") {
-      url = `/manifest-notification-data/${itemId}`;
+      url = `/queue-notifications/manifest-notification-data/${itemId}`;
     }
     if (query.type === "parcel_confirmation") {
       url = `/pdf-parcels/${itemId}`;
