@@ -14,6 +14,12 @@ describe("inventory/countries", () => {
     return api.inventory.countries.all({token});
   });
 
+  it("should list countries with query params (e.g. sortBy)", () => {
+    const query = {sortBy: "ord"};
+    axiosMock.onGet("/countries").reply(expectRequest({statusCode: 200, token, query}));
+    return api.inventory.countries.all({token, query});
+  });
+
   it("should get a country by id", () => {
     const countryId = "countryId";
     axiosMock.onGet(`/countries/${countryId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));

@@ -4,6 +4,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  * Query params for GET /countries (btrz-api-inventory). See get-countries getSpec().
  * @typedef {Object} CountriesListQuery
  * @property {string} [isoCode] - Country 2- or 3-letter ISO code (must be 2 or 3 chars if provided)
+ * @property {"name"|"ord"} [sortBy] - Sort: `name` (default) by country name ascending; `ord` by display order then name
  */
 
 /**
@@ -22,11 +23,11 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 function countriesFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /countries — List countries. Optional filter by isoCode (2 or 3 characters).
+   * GET /countries — List countries. Optional filter by isoCode (2 or 3 characters) and sortBy.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth
-   * @param {CountriesListQuery} [opts.query] - Query params (isoCode)
+   * @param {CountriesListQuery} [opts.query] - Query params (isoCode, sortBy)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<{ countries: Object[] }>>}
    * @throws 400 Validation failure (e.g. invalid isoCode length)
