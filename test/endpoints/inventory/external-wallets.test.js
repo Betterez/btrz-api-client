@@ -98,9 +98,9 @@ describe("inventory/external-wallets", () => {
       const walletId = "wallet-id-123";
       const movement = {
         amount: 100,
-        type: "credit",
-        reason: "refund",
-        nip: "1234"
+        type: "refund",
+        nip: "1234",
+        transactionId: "txn-refund-001"
       };
 
       axiosMock.onPut(`/external-wallets/saldo-max/${walletId}/movements`).reply(expectRequest({
@@ -115,13 +115,45 @@ describe("inventory/external-wallets", () => {
       });
     });
 
-    it("should create a debit movement for a Saldo Max wallet", async () => {
+    it("should authorize NIP for a Saldo Max wallet (root nip body)", async () => {
+      const walletId = "749";
+      const nip = "1357";
+
+      axiosMock.onPost(`/external-wallets/saldo-max/${walletId}/authorization`).reply(expectRequest({
+        statusCode: 200, token, jwtToken, body: {nip}
+      }));
+
+      return api.inventory.externalWallets.saldoMax.authorization.create({
+        walletId,
+        nip,
+        token,
+        jwtToken
+      });
+    });
+
+    it("should authorize NIP for a Saldo Max wallet (nipAuthorization wrapper)", async () => {
+      const walletId = "749";
+      const nipAuthorization = {nip: "2468"};
+
+      axiosMock.onPost(`/external-wallets/saldo-max/${walletId}/authorization`).reply(expectRequest({
+        statusCode: 200, token, jwtToken, body: {nipAuthorization}
+      }));
+
+      return api.inventory.externalWallets.saldoMax.authorization.create({
+        jwtToken,
+        token,
+        walletId,
+        nipAuthorization
+      });
+    });
+
+    it("should create a purchase (withdraw) movement for a Saldo Max wallet", async () => {
       const walletId = "wallet-id-456";
       const movement = {
         amount: 50.75,
-        type: "debit",
-        reason: "purchase",
-        nip: "9876"
+        type: "purchase",
+        nip: "9876",
+        transactionId: "txn-purchase-002"
       };
 
       axiosMock.onPut(`/external-wallets/saldo-max/${walletId}/movements`).reply(expectRequest({
@@ -140,9 +172,9 @@ describe("inventory/external-wallets", () => {
       const walletId = "wallet-id-789";
       const movement = {
         amount: 0,
-        type: "adjustment",
-        reason: "correction",
-        nip: "0000"
+        type: "purchase",
+        nip: "0000",
+        transactionId: "txn-zero-003"
       };
 
       axiosMock.onPut(`/external-wallets/saldo-max/${walletId}/movements`).reply(expectRequest({

@@ -3,14 +3,34 @@ const {
 } = require("../endpoints_helpers.js");
 
 /**
+ * Body for PUT /external-wallets/saldo-max/:walletId/movements (ExternalWalletMovementData).
+ * @typedef {Object} ExternalWalletMovementData
+ * @property {number} amount
+ * @property {'purchase'|'refund'} type - `purchase` withdraws balance; `refund` adds balance (ADO)
+ * @property {string|number} nip - Four-digit NIP; prefer string to preserve leading zeros (e.g. "0202")
+ * @property {string} transactionId - Betterez transaction id; sent to ADO as erpcoOperationId
+ * @property {boolean} [sendMail] - Optional; ADO receipt email on success
+ */
+
+/**
  * Factory for external-wallets API (btrz-api-inventory). SaldoMax external wallets only.
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
- * @returns {{ saldoMax: { all: function, get: function, create: function, update: function, movements: { create: function } } }}
+ * @returns {{
+ *   saldoMax: {
+ *     all: function, get: function, create: function, update: function,
+ *     nip: object, authorization: { create: function }, movements: { create: function }
+ *   }
+ * }}
  */
 function externalWalletsFactory({client, internalAuthTokenProvider}) {
-  /** @type {{ all: function, create: function, get: function, update: function, movements: object }} */
+  /**
+   * @type {{
+   *   all: function, create: function, get: function, update: function,
+   *   nip: object, authorization: { create: function }, movements: object
+   * }}
+   */
   const saldoMax = {
     /**
      * GET /external-wallets/saldo-max - list SaldoMax external wallets (paginated).
@@ -111,17 +131,45 @@ function externalWalletsFactory({client, internalAuthTokenProvider}) {
       }
     },
     /** @type {{ create: function }} */
-    movements: {
+    authorization: {
       /**
-       * PUT /external-wallets/saldo-max/:walletId/movements - add movement to wallet.
+       * POST /external-wallets/saldo-max/:walletId/authorization — Validate NIP with ADO Saldo Max (authorize wallet).
+       * Typical: `authorization.create({ walletId, nip, token, jwtToken, headers })` — body sent as `{ nip }`.
+       * Alternate body: pass `nipAuthorization` instead of `nip` (wrapper form per API).
        * @param {Object} opts
        * @param {string} [opts.token] - API key
        * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-       * @param {string} opts.walletId - Wallet id
-       * @param {Object} opts.movement - Movement payload (amount, type: payment|refund|manual, reason, nip)
+       * @param {string} opts.walletId - Saldo Max wallet id (idWallet)
+       * @param {string|number} [opts.nip] - Four-digit NIP (use with `token`/`jwtToken` as above, or use nipAuthorization)
+       * @param {{ nip: string|number }} [opts.nipAuthorization] - Wrapped NIP payload instead of `nip`
        * @param {Object} [opts.headers] - Optional headers
-       * @returns {Promise<import("axios").AxiosResponse<{ externalWallet: Object }>>}
-       * @throws When response is 4xx/5xx (400, 401, 403 INVALID_NIP/WALLET_BLOCKED/WALLET_NOT_ACTIVE, 404, 500)
+       * @returns {Promise<import("axios").AxiosResponse<{ valid: boolean }>>}
+       * @throws When response is 4xx/5xx (400 WRONG_DATA, INVALID_WALLET_ID, VALIDATE_NIP_WALLET_MISMATCH;
+       *   401; 403 incorrect NIP; 404; 502; 503; 500)
+       */
+      create: ({token, jwtToken, walletId, nip, nipAuthorization, headers}) => {
+        const data = nipAuthorization != null ? {nipAuthorization} : {nip};
+        return client({
+          url: `/external-wallets/saldo-max/${walletId}/authorization`,
+          method: "post",
+          headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+          data
+        });
+      }
+    },
+    /** @type {{ create: function }} */
+    movements: {
+      /**
+       * PUT /external-wallets/saldo-max/:walletId/movements — Validate NIP, balance, then apply movement in ADO.
+       * @param {Object} opts
+       * @param {string} [opts.token] - API key
+       * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+       * @param {string} opts.walletId - Saldo Max wallet id (idWallet)
+       * @param {ExternalWalletMovementData} opts.movement
+       * @param {Object} [opts.headers] - Optional headers
+       * @returns {Promise<import("axios").AxiosResponse<{ result: { operationId?: string, region?: string } }>>}
+       * @throws When response is 4xx/5xx (400 WRONG_DATA, INVALID_MOVEMENT_*, INSUFFICIENT_FUNDS,
+       *   VALIDATE_NIP_WALLET_MISMATCH; 401; 403 INVALID_NIP, WALLET_NOT_ACTIVE; 404; 502; 503; 500)
        */
       create: ({token, jwtToken, walletId, movement, headers}) => {
         return client({
