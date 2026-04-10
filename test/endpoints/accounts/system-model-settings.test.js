@@ -34,4 +34,16 @@ describe("accounts/system-model-settings", () => {
       modelName
     });
   });
+
+  it("should post system model validations", () => {
+    const path = `/system-models/${modelName}/validations`;
+    axiosMock.onPost(path).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.accounts.systemModelSettings.validate({
+      jwtToken,
+      token,
+      modelName,
+      action: "create",
+      payload: {name: "X"}
+    });
+  });
 });

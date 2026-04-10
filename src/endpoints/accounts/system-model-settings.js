@@ -7,7 +7,7 @@ const {
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
- * @returns {{ get: function, update: function }}
+ * @returns {{ get: function, update: function, validate: function }}
  */
 function systemModelSettingsFactory({client, internalAuthTokenProvider}) {
   /**
@@ -49,9 +49,35 @@ function systemModelSettingsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * POST /system-models/:modelName/validations – validate a payload against stored required-field rules.
+   * @param {Object} opts
+   * @param {string} opts.modelName - System model
+   * @param {string} opts.action - Operation context; rules that include this action are enforced against payload.
+   * @param {Object} opts.payload - Payload to validate (e.g. the body you would send to create or update the model).
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse<{ valid: boolean, code?: string, message?: string }>>}
+   */
+  function validate({jwtToken, token, modelName, action, payload, headers}) {
+    return client({
+      url: `/system-models/${modelName}/validations`,
+      method: "post",
+      headers: authorizationHeaders({
+        token, jwtToken, internalAuthTokenProvider, headers
+      }),
+      data: {
+        action,
+        payload
+      }
+    });
+  }
+
   return {
     get,
-    update
+    update,
+    validate
   };
 }
 
