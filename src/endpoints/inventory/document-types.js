@@ -7,6 +7,12 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  */
 
 /**
+ * Query params for GET /document-types/:documenttypeId (btrz-api-inventory). See get-by-id-handler getSpec().
+ * @typedef {Object} DocumentTypeGetByIdQuery
+ * @property {string} [providerId] - When passed via opts.providerId it is merged here (same pattern as people-lookups / dynamic-forms)
+ */
+
+/**
  * Factory for document-types API (btrz-api-inventory).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -39,14 +45,18 @@ function documentTypesFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.id - Document type id (24 hex characters)
+   * @param {DocumentTypeGetByIdQuery} [opts.query] - Optional query params (merged with providerId when opts.providerId is set)
+   * @param {string} [opts.providerId] - Provider id (ObjectId); merged into query for provider context (same as peopleLookups.getById / dynamicForms.get)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<{ documenttype: Object }>>}
    * @throws When response is 4xx/5xx (400, 401, 404 DOCUMENTTYPE_NOT_FOUND, 500)
    */
-  function get({token, jwtToken, id, headers}) {
+  function get({token, jwtToken, id, query = {}, headers, providerId}) {
+    const query_ = providerId ? {...query, providerId} : query;
     return client({
       url: `/document-types/${id}`,
       method: "get",
+      params: query_,
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
