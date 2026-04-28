@@ -113,11 +113,53 @@ describe("operations/transactions", function () {
       statusCode: 200,
       internalAuthTokenProvider,
       withoutApiKey: true,
-      jwtToken: "internal_auth_token"
+      jwtToken: "internal_auth_token",
+      body: {
+        operation: {
+          name: "expire_payment",
+          transactionIds: [transactionId]
+        }
+      }
     }));
     return api.operations.transactions.expireAll({
       transactionId,
       jwtToken: "internal_auth_token"
+    });
+  });
+
+  it("should keep existing payload behavior when transactionId is not provided", () => {
+    axiosMock.onPatch("/transactions/status").reply(expectRequest({
+      statusCode: 200,
+      internalAuthTokenProvider,
+      withoutApiKey: true,
+      jwtToken: "internal_auth_token",
+      body: {
+        operation: {
+          name: "expire_payment",
+          transactionIds: [null]
+        }
+      }
+    }));
+    return api.operations.transactions.expireAll({
+      jwtToken: "internal_auth_token"
+    });
+  });
+
+  it("should expire all eligible transactions only when explicitly requested", () => {
+    axiosMock.onPatch("/transactions/status").reply(expectRequest({
+      statusCode: 200,
+      internalAuthTokenProvider,
+      withoutApiKey: true,
+      jwtToken: "internal_auth_token",
+      body: {
+        operation: {
+          name: "expire_payment"
+        }
+      }
+    }));
+    return api.operations.transactions.expireAll({
+      jwtToken: "internal_auth_token",
+      allEligibleTransactions: true
     });
   });
 

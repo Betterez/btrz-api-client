@@ -99,23 +99,30 @@ function transactionsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {string} opts.transactionId - Transaction id
+   * @param {string} [opts.transactionId] - Transaction id
+   * @param {boolean} [opts.allEligibleTransactions] - When true, omit transactionIds to let backend expire all eligible transactions
    * @param {boolean} [opts.avoidEmail] - Whether to avoid sending email
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
-  function expireAll({jwtToken, transactionId, avoidEmail, token, headers}) {
+  function expireAll({jwtToken, transactionId, allEligibleTransactions, avoidEmail, token, headers}) {
+    const operation = {
+      name: "expire_payment",
+      avoidEmail,
+      transactionIds: [transactionId]
+    };
+
+    if (allEligibleTransactions) {
+      delete operation.transactionIds;
+    }
+
     return client({
       url: "/transactions/status",
       method: "patch",
       params: {},
       headers: authorizationHeaders({internalAuthTokenProvider, jwtToken, token, headers}),
       data: {
-        operation: {
-          name: "expire_payment",
-          transactionIds: [transactionId],
-          avoidEmail
-        }
+        operation
       }
     });
   }
