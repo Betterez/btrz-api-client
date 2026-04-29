@@ -128,6 +128,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
     vehicles: require("./endpoints/inventory/vehicles.js")({client, internalAuthTokenProvider}),
     zonePriceOverages: require("./endpoints/inventory/zone-price-overages.js")({client, internalAuthTokenProvider}),
     zonePrices: require("./endpoints/inventory/zone-prices.js")({client, internalAuthTokenProvider}),
+    regions: require("./endpoints/inventory/regions.js")({client, internalAuthTokenProvider}),
     __test: {
       client
     }
