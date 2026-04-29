@@ -1,5 +1,5 @@
-const {axiosMock, expectRequest} = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({baseURL: "http://test.com"});
+const {axiosMock, expectRequest} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
 describe("invoices/invoices", () => {
   const token = "I owe you a token";
@@ -11,7 +11,7 @@ describe("invoices/invoices", () => {
 
   it("should list invoices", () => {
     const query = {transactionId: "12312312312312"};
-    axiosMock.onGet("/invoices", query).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    axiosMock.onGet("/invoices", {params: query}).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.invoices.invoices.all({token, jwtToken, query});
   });
 
@@ -28,7 +28,7 @@ describe("invoices/invoices", () => {
 
   it("should list invoices failures", () => {
     const query = {transactionId: "12312312312312"};
-    axiosMock.onGet("/failures", query).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    axiosMock.onGet("/failures", {params: query}).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.invoices.invoices.getInvoicesFailures({token, jwtToken, query});
   });
 
