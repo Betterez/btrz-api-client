@@ -158,6 +158,9 @@ function pdfDataFactory({
     if (query.type === "manualTickets") {
       url = `/pdf-manual-tickets/${itemId}`;
     }
+    if (query.type === "externalWalletVoucher") {
+      url = `/pdf-external-wallet-voucher/${itemId}`;
+    }
 
     return client.get(url, {
       params: query,
