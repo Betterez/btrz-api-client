@@ -6,7 +6,7 @@ const {
 /**
  * Query params for GET pdf-templates-processing binary routes (btrz-api-notifications). Client uses type/family to resolve path.
  * @typedef {Object} PdfGetQuery
- * @property {string} type - Document type (e.g. product, giftCertificate, voucher, transaction, ssr, manifest, passengersManifest, order, shift, remainderSlip, exchange, invoice, locationClosure, parcelManifest, startingBalance, partialShiftDeposits, shiftLocationClosure, bankDepositSlip, terminalVoucher, manualTickets)
+ * @property {string} type - Document type (e.g. product, giftCertificate, voucher, transaction, ssr, manifest, passengersManifest, order, shift, remainderSlip, exchange, invoice, locationClosure, parcelManifest, startingBalance, partialShiftDeposits, shiftLocationClosure, bankDepositSlip, terminalVoucher, manualTickets, externalWalletVoucher)
  * @property {string} [family] - When type is "product": "ticket" | "reservation" | "paid in" | "paid out" | "parcel" | "flexpass" | "bundle"
  */
 
@@ -125,6 +125,9 @@ function pdfFactory({
     }
     if (query.type === "manualTickets") {
       url = `/pdf-manual-tickets/${itemId}`;
+    }
+    if (query.type === "externalWalletVoucher") {
+      url = `/pdf-external-wallet-voucher/${itemId}`;
     }
 
     return client.get(url, {
