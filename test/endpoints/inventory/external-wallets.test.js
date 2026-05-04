@@ -188,5 +188,35 @@ describe("inventory/external-wallets", () => {
         movement
       });
     });
+
+    it("should post wallet statement with statementRequest (e.g. sendMail)", async () => {
+      const walletId = "wallet-stmt-1";
+      const statementRequest = {sendMail: true};
+
+      axiosMock.onPost(`/external-wallets/saldo-max/${walletId}/statements`).reply(expectRequest({
+        statusCode: 200, token, jwtToken, body: {statementRequest}
+      }));
+
+      return api.inventory.externalWallets.saldoMax.statements.create({
+        jwtToken,
+        token,
+        walletId,
+        statementRequest
+      });
+    });
+
+    it("should post wallet statement with empty body when statementRequest omitted", async () => {
+      const walletId = "wallet-stmt-2";
+
+      axiosMock.onPost(`/external-wallets/saldo-max/${walletId}/statements`).reply(expectRequest({
+        statusCode: 200, token, jwtToken, body: {}
+      }));
+
+      return api.inventory.externalWallets.saldoMax.statements.create({
+        jwtToken,
+        token,
+        walletId
+      });
+    });
   });
 });

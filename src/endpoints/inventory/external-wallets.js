@@ -20,7 +20,8 @@ const {
  * @returns {{
  *   saldoMax: {
  *     all: function, get: function, create: function, update: function,
- *     nip: object, authorization: { create: function }, movements: { create: function }
+ *     nip: object, authorization: { create: function }, movements: { create: function },
+ *     statements: { create: function }
  *   }
  * }}
  */
@@ -28,7 +29,7 @@ function externalWalletsFactory({client, internalAuthTokenProvider}) {
   /**
    * @type {{
    *   all: function, create: function, get: function, update: function,
-   *   nip: object, authorization: { create: function }, movements: object
+   *   nip: object, authorization: { create: function }, movements: object, statements: { create: function }
    * }}
    */
   const saldoMax = {
@@ -177,6 +178,33 @@ function externalWalletsFactory({client, internalAuthTokenProvider}) {
           method: "put",
           headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
           data: {movement}
+        });
+      }
+    },
+    /** @type {{ create: function }} */
+    statements: {
+      /**
+       * POST /external-wallets/saldo-max/:walletId/statements — Saldo Max wallet statements (Inventory → ADO ConsultaSaldoHistorial).
+       * Optional `statementRequest`: `sendMail` (ADO may email history), `page` / `limit` (pagination strings per ADO).
+       * Response: `statement` plus `count`, `next`, `previous` (Inventory paginated shape).
+       * @param {Object} opts
+       * @param {string} [opts.token] - API key
+       * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+       * @param {string} opts.walletId - Saldo Max wallet id (idWallet)
+       * @param {{ sendMail?: boolean, page?: string, limit?: string }} [opts.statementRequest] -
+       *   optional body (sent as `{ statementRequest }` in JSON)
+       * @param {Object} [opts.headers] - Optional headers
+       * @returns {Promise<import("axios").AxiosResponse<{
+       *   statement: Object, count: number, next?: string, previous?: string
+       * }>>}
+       * @throws When response is 4xx/5xx (400 INVALID_WALLET_ID; 401; 404; 502; 503; 500)
+       */
+      create: ({token, jwtToken, walletId, statementRequest, headers}) => {
+        return client({
+          url: `/external-wallets/saldo-max/${walletId}/statements`,
+          method: "post",
+          headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+          data: statementRequest != null ? {statementRequest} : {}
         });
       }
     }
