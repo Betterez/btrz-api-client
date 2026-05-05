@@ -27,4 +27,35 @@ describe("notifications/external-customers", () => {
       expect(res.data).to.eql({code: "success", message: "Registration successful"});
     });
   });
+
+  it("should POST Saldo Max statement email (ado/external-wallets/:walletId/statements)", () => {
+    const walletId = "15154";
+    axiosMock.onPost(`/external-customers/ado/external-wallets/${walletId}/statements`).reply((config) => {
+      expect(config.data).to.equal(JSON.stringify({}));
+      expect(config.headers["x-api-key"]).to.eql(token);
+      expect(config.headers.authorization).to.eql(`Bearer ${jwtToken}`);
+      return [200, {success: true}];
+    });
+
+    return api.notifications.externalCustomers.sendSaldoMaxStatementEmail({
+      token,
+      jwtToken,
+      walletId
+    }).then((res) => {
+      expect(res.data).to.eql({success: true});
+    });
+  });
+
+  it("should encode walletId in statement email path", () => {
+    const walletId = "id/with chars";
+    axiosMock.onPost("/external-customers/ado/external-wallets/id%2Fwith%20chars/statements").reply(200, {success: true});
+
+    return api.notifications.externalCustomers.sendSaldoMaxStatementEmail({
+      token,
+      jwtToken,
+      walletId
+    }).then((res) => {
+      expect(res.data.success).to.equal(true);
+    });
+  });
 });
