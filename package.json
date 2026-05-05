@@ -6,6 +6,7 @@
   "scripts": {
     "tdd": "mocha --recursive test/ -w",
     "test": "mocha --recursive  test/",
+    "test:record-http": "USE_NOCK_RECORDER=1 mocha --recursive test/",
     "test:integration": "mocha --recursive -r test-integration/ports.js  test-integration/",
     "browserify": "browserify lib/client.js --standalone BtrzApiClient -p tinyify -o lib/client-standalone-min.js",
     "commit-transpile": "git add lib/ && (git diff-index --quiet HEAD || git commit -m \"transpiled src\")",
@@ -46,6 +47,7 @@
   "dependencies": {
     "axios": "1.15.2",
     "base-64": "^1.0.0",
+    "nock": "^14.0.14",
     "undici": "^8.1.0"
   }
 }

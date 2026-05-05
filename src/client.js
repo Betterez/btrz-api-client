@@ -1,5 +1,12 @@
 const axios = require("axios");
+const {createFetchHttpClient} = require("./fetchHttpClient.js");
 const productionOptions = require("./productionDefaults.js");
+
+const SUPPORTED_HTTP_CLIENTS = ["axios", "fetch"];
+let clientFactoryDefaults = {
+  httpClient: "axios",
+  fetchImpl: undefined
+};
 
 /**
  * Creates a new axios client
@@ -9,10 +16,20 @@ const productionOptions = require("./productionDefaults.js");
  * @param {string} opts.timeout - timeout in milliseconds
  * @param {Function} opts.overrideFn - allows to override the baseUrl
  * @param {{httpAgent: import("http").Agent, httpsAgent: import("https").Agent}} opts.agents - An object containg one or both http agents
+ * @param {"axios"|"fetch"} [opts.httpClient] - HTTP client implementation
+ * @param {Function} [opts.fetchImpl] - Optional fetch implementation (used when httpClient is "fetch")
  * @returns {axios.AxiosInstance} Returns a configured axios instance
 */
 function clientFactory(opts) {
-  const {baseURL, headers, timeout, overrideFn, agents} = opts;
+  const {
+    baseURL,
+    headers,
+    timeout,
+    overrideFn,
+    agents,
+    httpClient = clientFactoryDefaults.httpClient,
+    fetchImpl = clientFactoryDefaults.fetchImpl
+  } = opts;
   const url = overrideFn ? overrideFn(baseURL) : baseURL;
 
   /** @type {import("axios").AxiosRequestConfig} */
@@ -27,13 +44,27 @@ function clientFactory(opts) {
     options.headers["x-amzn-trace-id"] = headers["x-amzn-trace-id"];
   }
 
-  if (agents && (agents.httpAgent || agents.httpsAgent)) {
-    options = {
-      ...options,
-      ...agents
-    };
+  if (httpClient === "fetch") {
+    return createFetchHttpClient({
+      baseURL: url,
+      timeout,
+      headers: options.headers,
+      agents,
+      fetchImpl
+    });
   }
-  return axios.create(options);
+
+  if (httpClient === "axios") {
+    if (agents && (agents.httpAgent || agents.httpsAgent)) {
+      options = {
+        ...options,
+        ...agents
+      };
+    }
+    return axios.create(options);
+  }
+
+  throw new Error(`Unsupported httpClient "${httpClient}". Supported values: ${SUPPORTED_HTTP_CLIENTS.join(", ")}`);
 }
 
 /** MODULES */
@@ -551,13 +582,30 @@ function createRatality({baseURL, headers, timeout, overrideFn, agents}) {
  *                                              returns an authorization token that's valid for making service-to-service API calls.
  * @param {Function} options.internalAuthTokenProvider.getToken
  * @param {{httpAgent: import("http").Agent, httpsAgent: import("https").Agent}} options.agents - An object containg one or both http agents
+ * @param {"axios"|"fetch"} [options.httpClient] - HTTP client implementation. Defaults to "axios".
+ * @param {Function} [options.fetchImpl] - Optional fetch implementation used when httpClient is "fetch".
  */
 function createApiClient(options) {
-  const {baseURL, baseURLOverride = {}, headers, timeout = 0, internalAuthTokenProvider, agents} = options || productionOptions;
+  const {
+    baseURL,
+    baseURLOverride = {},
+    headers,
+    timeout = 0,
+    internalAuthTokenProvider,
+    agents,
+    httpClient = "axios",
+    fetchImpl
+  } = options || productionOptions;
+
+  if (!SUPPORTED_HTTP_CLIENTS.includes(httpClient)) {
+    throw new Error(`Unsupported httpClient "${httpClient}". Supported values: ${SUPPORTED_HTTP_CLIENTS.join(", ")}`);
+  }
+
+  clientFactoryDefaults = {httpClient, fetchImpl};
 
   return {
     constants: require("./constants.js"),
-    _cleanClient: clientFactory({baseURL, headers, timeout, agents}),
+    _cleanClient: clientFactory({baseURL, headers, timeout, agents, httpClient, fetchImpl}),
     inventory: {
       ...createInventory({baseURL, headers, timeout, overrideFn: baseURLOverride.inventory, internalAuthTokenProvider, agents}),
       ...createTrips({baseURL, headers, timeout, overrideFn: baseURLOverride.trips, internalAuthTokenProvider, agents})

@@ -3,8 +3,79 @@ const MockAdapter = require("axios-mock-adapter");
 const http = require("http");
 const {expect} = require("chai");
 
+function patchAxiosForNockRecorder() {
+  if (axios.__nockRecorderPatched) {
+    return;
+  }
+  const {rememberRequestParams} = require("./nock-axios-mock.js");
+
+  const originalCreate = axios.create.bind(axios);
+
+  function wrapMethodWithConfigSupport(instance, methodName) {
+    const originalMethod = instance[methodName].bind(instance);
+    const wrappedInstance = instance;
+    wrappedInstance[methodName] = (url, data, config) => {
+      if (url && typeof url === "object" && !Array.isArray(url)) {
+        const requestConfig = {
+          ...url,
+          method: url.method || methodName
+        };
+        return instance(requestConfig);
+      }
+      return originalMethod(url, data, config);
+    };
+  }
+
+  axios.create = (config = {}) => {
+    const safeConfig = {...config};
+    if (!safeConfig.baseURL) {
+      safeConfig.baseURL = "http://localhost";
+    }
+
+    const instance = originalCreate(safeConfig);
+    instance.interceptors.request.use((requestConfig) => {
+      const fullUri = axios.getUri(requestConfig);
+      const parsedURL = new URL(fullUri, requestConfig.baseURL || safeConfig.baseURL || "http://localhost");
+      rememberRequestParams({
+        method: requestConfig.method || "get",
+        uri: `${parsedURL.pathname}${parsedURL.search}`,
+        params: requestConfig.params
+      });
+      return requestConfig;
+    });
+
+    wrapMethodWithConfigSupport(instance, "get");
+    wrapMethodWithConfigSupport(instance, "delete");
+    wrapMethodWithConfigSupport(instance, "post");
+    wrapMethodWithConfigSupport(instance, "put");
+    wrapMethodWithConfigSupport(instance, "patch");
+    return instance;
+  };
+
+  axios.__nockRecorderPatched = true;
+}
+
+function createAxiosMock() {
+  if (process.env.USE_UNDICI_FETCH_MOCK === "1") {
+    const {createUndiciFetchMock} = require("./undici-fetch-mock.js");
+    return createUndiciFetchMock({
+      recordFilePath: process.env.HTTP_CALLS_RECORD_FILE_PATH
+    });
+  }
+
+  if (process.env.USE_NOCK_RECORDER === "1") {
+    const {createNockAxiosMock} = require("./nock-axios-mock.js");
+    patchAxiosForNockRecorder();
+    return createNockAxiosMock({
+      recordFilePath: process.env.HTTP_CALLS_RECORD_FILE_PATH
+    });
+  }
+
+  return new MockAdapter(axios);
+}
+
 module.exports = {
-  axiosMock: new MockAdapter(axios),
+  axiosMock: createAxiosMock(),
   // eslint-disable-next-line max-len
   expectRequest: function _expectRequest({
     statusCode, token, jwtToken, internalAuthTokenProvider, withoutApiKey = false, requireJwtTokenOnGet = false, body, query
@@ -51,6 +122,10 @@ module.exports = {
     return {
       create: (callback) => {
         mockServer.listen(config.port || 8888, config.host || "localhost", callback);
+      },
+      getPort: () => {
+        const address = mockServer.address();
+        return address && address.port;
       },
       getSockets: () => {
         return sockets.size;
