@@ -32,10 +32,31 @@ describe('inventory/promos', function() {
     return api.inventory.promos.all({ token });
   });
 
+  it("should send jwt token when listing promos", function() {
+    axiosMock.onGet(`/promos`).reply(expectRequest({
+      statusCode: 200,
+      token,
+      jwtToken,
+      requireJwtTokenOnGet: true
+    }));
+    return api.inventory.promos.all({ token, jwtToken });
+  });
+
   it("should get single promo", function() {
     axiosMock.onGet(`/promos/${promoId}`).reply(expectRequest({ statusCode: 200, token }));
     const query = {accountId};
     return api.inventory.promos.get({ promoId, accountId, token, query });
+  });
+
+  it("should send jwt token when getting a promo by id", function() {
+    axiosMock.onGet(`/promos/${promoId}`).reply(expectRequest({
+      statusCode: 200,
+      token,
+      jwtToken,
+      requireJwtTokenOnGet: true
+    }));
+    const query = {accountId};
+    return api.inventory.promos.get({ promoId, accountId, token, jwtToken, query });
   });
 
   it("should create new promo", function() {

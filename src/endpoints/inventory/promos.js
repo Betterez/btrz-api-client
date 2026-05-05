@@ -57,10 +57,10 @@ function promosFactory({client, internalAuthTokenProvider}) {
    *   Resolves with paginated promos; response.data has Promos shape.
    * @throws When the request fails (400/401/404/500). Body: WRONG_DATA, PROMO_NOT_FOUND.
    */
-  function all({token, query = {}, headers}) {
+  function all({token, jwtToken, query = {}, headers}) {
     return client.get("/promos", {
       params: query,
-      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
@@ -73,10 +73,10 @@ function promosFactory({client, internalAuthTokenProvider}) {
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
-  function get({promoId, token, query = {}, headers}) {
+  function get({promoId, token, jwtToken, query = {}, headers}) {
     return client.get(`/promos/${promoId}`, {
       params: query,
-      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
