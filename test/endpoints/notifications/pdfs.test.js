@@ -349,11 +349,11 @@ describe("notifications/pdfs", () => {
       type: "manualTickets"
     };
     axiosMock.onGet(`/pdf-manual-tickets/${itemId}`)
-    .reply(expectRequest({
-      statusCode: 200, token
-    }));
+      .reply(expectRequest({
+        statusCode: 200, token
+      }));
     return api.notifications.pdfs.get({
       token, query, itemId
     });
-  })
+  });
 });

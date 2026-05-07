@@ -1,8 +1,6 @@
-const {axiosMock, expectRequest} = require("../../test-helpers");
-const api = require("../../../src/client").createApiClient({baseURL: "http://test.com"});
-const {
-  expect
-} = require("chai");
+const {axiosMock, expectRequest} = require("../../test-helpers.js");
+const api = require("../../../src/client.js").createApiClient({baseURL: "http://test.com"});
+const assert = require("node:assert/strict");
 
 describe("accounts/domains", () => {
   const token = "I owe you a token";
@@ -20,7 +18,7 @@ describe("accounts/domains", () => {
     return api.accounts.domains.all({
       token
     }).then((httpResponse) => {
-      expect(httpResponse.status).eql(200);
+      assert.deepStrictEqual(httpResponse.status, 200);
     });
   });
 
@@ -38,7 +36,7 @@ describe("accounts/domains", () => {
       jwtToken,
       data
     }).then((httpResponse) => {
-      expect(httpResponse.status).eql(200);
+      assert.deepStrictEqual(httpResponse.status, 200);
     });
   });
 
@@ -55,7 +53,7 @@ describe("accounts/domains", () => {
       token,
       jwtToken
     }).then((httpResponse) => {
-      expect(httpResponse.status).eql(204);
+      assert.deepStrictEqual(httpResponse.status, 204);
     });
   });
 });

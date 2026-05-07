@@ -1,14 +1,14 @@
-const { expect } = require("chai"),
-  port = process.env.BTRZPAY_API_PORT,
-  token = process.env.API_TOKEN,
-  jwtToken = process.env.JWT_TOKEN,
-  transactionId = process.env.TRANSACTION_ID,
-  api = require("./../../../src/client").createApiClient({
-    baseURL: `http://localhost:${port}`,
-    baseURLOverride: {
-      btrzpay: (baseUrl) => `${baseUrl}/btrz-pay`
-    }
-  });
+const assert = require("node:assert/strict");
+const port = process.env.BTRZPAY_API_PORT;
+const token = process.env.API_TOKEN;
+const jwtToken = process.env.JWT_TOKEN;
+const transactionId = process.env.TRANSACTION_ID;
+const api = require("./../../../src/client.js").createApiClient({
+  baseURL: `http://localhost:${port}`,
+  baseURLOverride: {
+    btrzpay: (baseUrl) => { return `${baseUrl}/btrz-pay`; }
+  }
+});
 
 describe("btrz-pay/payments", () => {
   it("should create a payment method", () => {
@@ -27,12 +27,12 @@ describe("btrz-pay/payments", () => {
       token,
       payments
     })
-    .then(({status, data}) => {
-      expect(status).to.equal(200);
-      expect(data.payments[0].transactionId).to.eql(payments.items[0].transactionId);
-      expect(data.payments[0].status).to.eql("pending");
-      expect(data.payments[0].result).to.eql("{}");
-    });
+      .then(({status, data}) => {
+        assert.deepStrictEqual(status, 200);
+        assert.deepStrictEqual(data.payments[0].transactionId, payments.items[0].transactionId);
+        assert.deepStrictEqual(data.payments[0].status, "pending");
+        assert.deepStrictEqual(data.payments[0].result, "{}");
+      });
   });
 
   it("should get the payments for the transaction Id", () => {
@@ -41,9 +41,9 @@ describe("btrz-pay/payments", () => {
       token,
       transactionId
     })
-    .then(({status, data}) => {
-      expect(status).to.equal(200);
-      expect(data.payments[0].transactionId).to.eql(transactionId);
-    });
+      .then(({status, data}) => {
+        assert.deepStrictEqual(status, 200);
+        assert.deepStrictEqual(data.payments[0].transactionId, transactionId);
+      });
   });
 });

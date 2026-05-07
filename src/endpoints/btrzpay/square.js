@@ -11,7 +11,9 @@ const {
  */
 function squareWebhooksFactory({client, internalAuthTokenProvider}) {
   /**
-   * POST /square-webhooks/:providerId - send Square webhook payload to the Payments API. API verifies x-square-signature when present. Body must include type and data (Square webhook format).
+   * POST /square-webhooks/:providerId - send Square webhook payload to the
+   * Payments API. API verifies x-square-signature when present. Body must
+   * include type and data (Square webhook format).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
@@ -43,12 +45,19 @@ function squareWebhooksFactory({client, internalAuthTokenProvider}) {
  */
 function squareTerminalsFactory({client, internalAuthTokenProvider}) {
   /**
-   * GET /square-terminals - list Square terminals for the account. Requires JWT (BETTEREZ_APP or MOBILE_SCANNER). Response body: { terminals } with terminal objects (id, name, code, deviceId, productType, locationId, status, pairBy, createdAt, statusChangedAt).
+   * GET /square-terminals - list Square terminals for the account. Requires
+   * JWT (BETTEREZ_APP or MOBILE_SCANNER). Response body: { terminals } with
+   * terminal objects (id, name, code, deviceId, productType, locationId,
+   * status, pairBy, createdAt, statusChangedAt).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse<{ terminals: Array<{ id: string, name: string, code: string, deviceId?: string, productType?: string, locationId: string, status?: string, pairBy?: string, createdAt?: string, statusChangedAt?: string }> }>>}
+   * @returns {Promise<import("axios").AxiosResponse<{ terminals: Array<{
+   *   id: string, name: string, code: string, deviceId?: string, productType?: string,
+   *   locationId: string, status?: string, pairBy?: string,
+   *   createdAt?: string, statusChangedAt?: string
+   * }> }>>}
    */
   function get({token, jwtToken, headers}) {
     return client.get("/square-terminals", {

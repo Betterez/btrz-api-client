@@ -1,4 +1,4 @@
-const {expect} = require("chai");
+const assert = require("node:assert/strict");
 const {
   axiosMock, expectRequest
 } = require("../../test-helpers.js");
@@ -76,7 +76,7 @@ describe("btrzpay/terminal-payments", () => {
 
       axiosMock.onPost(`/terminal-payments/webhooks/getnet/${providerId}`)
         .reply((config) => {
-          expect(JSON.parse(config.data)).to.eql(webhookData);
+          assert.deepStrictEqual(JSON.parse(config.data), webhookData);
           return [200];
         });
 

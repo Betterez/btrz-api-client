@@ -1,4 +1,4 @@
-const {expect} = require("chai");
+const assert = require("node:assert/strict");
 const {axiosMock} = require("./../../test-helpers.js");
 const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
@@ -23,15 +23,15 @@ describe("notifications/short-urls", () => {
       return [403];
     });
     return api.notifications.shortUrls.create({token, jwtToken, urlData}).then((res) => {
-      expect(res.status).to.equal(200);
-      expect(res.data.shortUrl).to.equal("https://btrz.ca/u/abc123");
-      expect(res.data.shortId).to.equal("abc123");
+      assert.deepStrictEqual(res.status, 200);
+      assert.deepStrictEqual(res.data.shortUrl, "https://btrz.ca/u/abc123");
+      assert.deepStrictEqual(res.data.shortId, "abc123");
     });
   });
 
   it("should POST create short URL with only fullUrl", () => {
     const urlData = {fullUrl: "https://example.com/only"};
-    axiosMock.onPost("/short-urls").reply(({headers, data}) => {
+    axiosMock.onPost("/short-urls").reply(({_headers, data}) => {
       const body = JSON.parse(data);
       if (body.urlData && body.urlData.fullUrl === urlData.fullUrl && !body.urlData.method) {
         return [200, {shortUrl: "https://btrz.ca/u/xyz", shortId: "xyz", fullUrl: urlData.fullUrl, createdAt: {}}];
@@ -39,8 +39,8 @@ describe("notifications/short-urls", () => {
       return [400];
     });
     return api.notifications.shortUrls.create({token, jwtToken, urlData}).then((res) => {
-      expect(res.status).to.equal(200);
-      expect(res.data.fullUrl).to.equal("https://example.com/only");
+      assert.deepStrictEqual(res.status, 200);
+      assert.deepStrictEqual(res.data.fullUrl, "https://example.com/only");
     });
   });
 
@@ -52,8 +52,8 @@ describe("notifications/short-urls", () => {
       return [401];
     });
     return api.notifications.shortUrls.getByShortId({token, shortId: "V1StGXR8_Z5j", maxRedirects: 0}).then((res) => {
-      expect(res.status).to.equal(302);
-      expect(res.headers.location || res.headers.Location).to.equal("https://example.com/target");
+      assert.deepStrictEqual(res.status, 302);
+      assert.deepStrictEqual(res.headers.location || res.headers.Location, "https://example.com/target");
     });
   });
 });

@@ -5,7 +5,8 @@ const {
 /**
  * Query params for GET /stripe-terminals (btrz-api-payments). See get-handler getSpec().
  * @typedef {Object} StripeTerminalsListQuery
- * @property {string} [providerId] - Account provider (operator) ID; used by agencies/sellers; when omitted, authenticated account ID is used
+ * @property {string} [providerId] - Account provider (operator) ID used by
+ * agencies/sellers; when omitted, authenticated account ID is used
  */
 
 /**
@@ -31,7 +32,9 @@ function stripeTerminalsFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {StripeTerminalsListQuery} [opts.query] - Optional providerId
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse<GetStripeTerminalsResponse>>} Rejects with 400 (STRIPE_SECRET_KEY_INVALID), 401, 404 (PAYMENT_METHOD_NOT_FOUND), 500.
+   * @returns {Promise<import("axios").AxiosResponse<GetStripeTerminalsResponse>>}
+   * Rejects with 400 (STRIPE_SECRET_KEY_INVALID), 401,
+   * 404 (PAYMENT_METHOD_NOT_FOUND), 500.
    */
   function all({token, jwtToken, headers, query = {}}) {
     return client.get("/stripe-terminals", {
@@ -50,7 +53,10 @@ function stripeTerminalsFactory({client, internalAuthTokenProvider}) {
    * @param {string} opts.id - Terminal ID (Stripe reader id, e.g. tmr_xxx)
    * @param {{ ccNumber: string }} opts.stripePayment - Payment to simulate; ccNumber required
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse<{ stripeTerminalPayment: Object }>>} Rejects with 400 (WRONG_DATA), 401, 404 (PAYMENT_METHOD_NOT_FOUND, TRANSACTION_NOT_FOUND), 409 (errorCode/errorMessage), 500.
+   * @returns {Promise<import("axios").AxiosResponse<{ stripeTerminalPayment: Object }>>}
+   * Rejects with 400 (WRONG_DATA), 401,
+   * 404 (PAYMENT_METHOD_NOT_FOUND, TRANSACTION_NOT_FOUND),
+   * 409 (errorCode/errorMessage), 500.
    */
   function simulate({token, jwtToken, id, stripePayment, headers}) {
     return client({

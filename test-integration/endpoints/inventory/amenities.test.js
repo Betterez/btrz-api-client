@@ -1,13 +1,13 @@
-const { expect } = require("chai");
+const assert = require("node:assert/strict");
 const port = process.env.INVENTORY_API_PORT;
 const token = process.env.API_TOKEN;
 const jwtToken = process.env.JWT_TOKEN;
 const amenityId = process.env.AMENITY_ID;
 
-const api = require("./../../../src/client").createApiClient({
+const api = require("./../../../src/client.js").createApiClient({
   baseURL: `http://localhost:${port}`,
   baseURLOverride: {
-    inventory: (baseUrl) => `${baseUrl}/inventory`
+    inventory: (baseUrl) => { return `${baseUrl}/inventory`; }
   }
 });
 
@@ -17,17 +17,17 @@ describe("inventory/amenities", () => {
       token,
       amenityId
     })
-    .then(({status, data}) => {
-      expect(status).to.equal(200);
-      expect(data.amenity).to.exist;
-      expect(data.amenity._id).to.eql(amenityId);
-    });
+      .then(({status, data}) => {
+        assert.deepStrictEqual(status, 200);
+        assert.ok(data.amenity);
+        assert.deepStrictEqual(data.amenity._id, amenityId);
+      });
   });
 
   it("should create an Amenity", () => {
-    const newName = "New Name 93",
-      newIcon = "fa-train",
-      newState = false;
+    const newName = "New Name 93";
+    const newIcon = "fa-train";
+    const newState = false;
     return api.inventory.amenities.create({
       jwtToken,
       token,
@@ -41,23 +41,23 @@ describe("inventory/amenities", () => {
         }
       }
     })
-    .then(({status, data}) => {
-      expect(status).to.equal(200);
-      expect(data.amenity).to.exist;
-      expect(data.amenity.name).to.eql(newName);
-      expect(data.amenity.icon).to.eql(newIcon);
-      expect(data.amenity.enabled).to.eql(newState);
-      expect(data.amenity.createdAt).to.exist;
-      expect(data.amenity.createdBy).to.exist;
-      expect(data.amenity.updatedAt).to.exist;
-      expect(data.amenity.updatedBy).to.exist;
-    });
+      .then(({status, data}) => {
+        assert.deepStrictEqual(status, 200);
+        assert.ok(data.amenity);
+        assert.deepStrictEqual(data.amenity.name, newName);
+        assert.deepStrictEqual(data.amenity.icon, newIcon);
+        assert.deepStrictEqual(data.amenity.enabled, newState);
+        assert.ok(data.amenity.createdAt);
+        assert.ok(data.amenity.createdBy);
+        assert.ok(data.amenity.updatedAt);
+        assert.ok(data.amenity.updatedBy);
+      });
   });
 
   it("should update an Amenity", () => {
-    const newName = "New Name 1234",
-      newIcon = "fa-train",
-      newState = false;
+    const newName = "New Name 1234";
+    const newIcon = "fa-train";
+    const newState = false;
 
     return api.inventory.amenities.update({
       jwtToken,
@@ -74,15 +74,15 @@ describe("inventory/amenities", () => {
       }
     })
       .then(({status, data}) => {
-        expect(status).to.equal(200);
-        expect(data.amenity).to.exist;
-        expect(data.amenity.name).to.eql(newName);
-        expect(data.amenity.icon).to.eql(newIcon);
-        expect(data.amenity.enabled).to.eql(newState);
-        expect(data.amenity.createdAt).to.exist;
-        expect(data.amenity.createdBy).to.exist;
-        expect(data.amenity.updatedAt).to.exist;
-        expect(data.amenity.updatedBy).to.exist;
+        assert.deepStrictEqual(status, 200);
+        assert.ok(data.amenity);
+        assert.deepStrictEqual(data.amenity.name, newName);
+        assert.deepStrictEqual(data.amenity.icon, newIcon);
+        assert.deepStrictEqual(data.amenity.enabled, newState);
+        assert.ok(data.amenity.createdAt);
+        assert.ok(data.amenity.createdBy);
+        assert.ok(data.amenity.updatedAt);
+        assert.ok(data.amenity.updatedBy);
       });
   });
 });

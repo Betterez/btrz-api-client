@@ -1,11 +1,11 @@
-const {expect} = require("chai");
+const assert = require("node:assert/strict");
 const port = process.env.BTRZPAY_API_PORT;
 const token = process.env.API_TOKEN;
 const jwtToken = process.env.JWT_TOKEN;
 const transactionId = process.env.TRANSACTION_ID;
 const referenceNumber = process.env.REFERENCE_NUMBER;
 const externalType = process.env.EXTERNAL_TYPE;
-const api = require("./../../../src/client").createApiClient({
+const api = require("./../../../src/client.js").createApiClient({
   baseURL: `http://localhost:${port}`,
   baseURLOverride: {
     btrzpay: (baseUrl) => {
@@ -23,8 +23,8 @@ describe("btrz-pay/referenced-payments", () => {
       referenceNumber
     })
       .then(({status, data}) => {
-        expect(status).to.equal(200);
-        expect(data.paymentResult).to.eql(null);
+        assert.deepStrictEqual(status, 200);
+        assert.deepStrictEqual(data.paymentResult, null);
       });
   });
 
@@ -42,7 +42,7 @@ describe("btrz-pay/referenced-payments", () => {
       }
     })
       .then(({status}) => {
-        expect(status).to.equal(200);
+        assert.deepStrictEqual(status, 200);
       });
   });
 });

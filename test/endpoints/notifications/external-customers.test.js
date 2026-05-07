@@ -1,4 +1,4 @@
-const {expect} = require("chai");
+const assert = require("node:assert/strict");
 const {axiosMock} = require("./../../test-helpers.js");
 const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
@@ -13,9 +13,9 @@ describe("notifications/external-customers", () => {
   it("should POST to request Saldo Max verification code (ado/registration)", () => {
     const data = {email: "user@example.com"};
     axiosMock.onPost("/external-customers/ado/registration").reply((config) => {
-      expect(config.data).to.equal(JSON.stringify(data));
-      expect(config.headers["x-api-key"]).to.eql(token);
-      expect(config.headers.authorization).to.eql(`Bearer ${jwtToken}`);
+      assert.deepStrictEqual(config.data, JSON.stringify(data));
+      assert.deepStrictEqual(config.headers["x-api-key"], token);
+      assert.deepStrictEqual(config.headers.authorization, `Bearer ${jwtToken}`);
       return [200, {code: "success", message: "Registration successful"}];
     });
 
@@ -24,16 +24,16 @@ describe("notifications/external-customers", () => {
       jwtToken,
       data
     }).then((res) => {
-      expect(res.data).to.eql({code: "success", message: "Registration successful"});
+      assert.deepStrictEqual(res.data, {code: "success", message: "Registration successful"});
     });
   });
 
   it("should POST Saldo Max statement email (ado/external-wallets/:walletId/statements)", () => {
     const walletId = "15154";
     axiosMock.onPost(`/external-customers/ado/external-wallets/${walletId}/statements`).reply((config) => {
-      expect(config.data).to.equal(JSON.stringify({}));
-      expect(config.headers["x-api-key"]).to.eql(token);
-      expect(config.headers.authorization).to.eql(`Bearer ${jwtToken}`);
+      assert.deepStrictEqual(config.data, JSON.stringify({}));
+      assert.deepStrictEqual(config.headers["x-api-key"], token);
+      assert.deepStrictEqual(config.headers.authorization, `Bearer ${jwtToken}`);
       return [200, {success: true}];
     });
 
@@ -42,7 +42,7 @@ describe("notifications/external-customers", () => {
       jwtToken,
       walletId
     }).then((res) => {
-      expect(res.data).to.eql({success: true});
+      assert.deepStrictEqual(res.data, {success: true});
     });
   });
 
@@ -55,7 +55,7 @@ describe("notifications/external-customers", () => {
       jwtToken,
       walletId
     }).then((res) => {
-      expect(res.data.success).to.equal(true);
+      assert.deepStrictEqual(res.data.success, true);
     });
   });
 });

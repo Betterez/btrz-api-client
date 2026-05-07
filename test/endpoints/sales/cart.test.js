@@ -1,6 +1,6 @@
 const {axiosMock, expectRequest} = require("./../../test-helpers.js");
 const api = require("./../../../src/client.js").createApiClient({baseURL: ""});
-const expect = require("chai").expect;
+const assert = require("node:assert/strict");
 
 describe("sales/cart", () => {
   const token = "I owe you a token";
@@ -30,12 +30,12 @@ describe("sales/cart", () => {
   it("should delete item from existing cart", () => {
     const cartId = "someCartId";
     axiosMock.onDelete(`/cart/${cartId}/items`).reply((request) => {
-      expect(request.params).to.eql({operationId: 1234, providerId: 123});
-      expect(request.headers.Accept).to.eql("application/json");
-      expect(request.headers["x-api-key"]).to.eql("I owe you a token");
-      expect(request.headers.authorization).to.eql("Bearer I owe you a JWT token");
-      expect(request.method).to.eql("delete");
-      expect(request.url).to.eql(`/cart/${cartId}/items`);
+      assert.deepStrictEqual(request.params, {operationId: 1234, providerId: 123});
+      assert.deepStrictEqual(request.headers.Accept, "application/json");
+      assert.deepStrictEqual(request.headers["x-api-key"], "I owe you a token");
+      assert.deepStrictEqual(request.headers.authorization, "Bearer I owe you a JWT token");
+      assert.deepStrictEqual(request.method, "delete");
+      assert.deepStrictEqual(request.url, `/cart/${cartId}/items`);
       return [200];
     });
 

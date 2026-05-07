@@ -1,6 +1,6 @@
-const {axiosMock, expectRequest} = require("./../../test-helpers");
-const {expect} = require("chai");
-const api = require("./../../../src/client").createApiClient({baseURL: "http://test.com"});
+const {axiosMock, expectRequest} = require("./../../test-helpers.js");
+const assert = require("node:assert/strict");
+const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
 describe("inventory/seatmaps", () => {
   const token = "I owe you a token";
@@ -41,16 +41,16 @@ describe("inventory/seatmaps", () => {
     };
 
     axiosMock.onGet(`/seatmaps/${seatmapId}/available-seats/${routeId}/${scheduleId}/${manifestDate}`).reply((config) => {
-      expect(config.params).eql(query);
-      expect(config.headers["x-api-key"]).eql(token);
+      assert.deepStrictEqual(config.params, query);
+      assert.deepStrictEqual(config.headers["x-api-key"], token);
       return [200, response];
     });
 
 
     return api.inventory.seatmaps.get({seatmapId, routeId, scheduleId, manifestDate, query, token})
       .then((httpResponse) => {
-        expect(httpResponse.status).eql(200);
-        expect(httpResponse.data).eql(response);
+        assert.deepStrictEqual(httpResponse.status, 200);
+        assert.deepStrictEqual(httpResponse.data, response);
       });
   });
 

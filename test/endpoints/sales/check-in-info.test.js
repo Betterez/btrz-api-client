@@ -1,5 +1,5 @@
-const {axiosMock, expectRequest} = require("./../../test-helpers");
-const apiClient = require("./../../../src/client");
+const {axiosMock, expectRequest} = require("./../../test-helpers.js");
+const apiClient = require("./../../../src/client.js");
 
 describe("sales/check-in", () => {
   const token = "I owe you a token";

@@ -1,4 +1,4 @@
-const {expect} = require("chai");
+const assert = require("node:assert/strict");
 const {axiosMock} = require("../../test-helpers.js");
 const api = require("../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
@@ -129,8 +129,8 @@ describe("notifications/notify/email", () => {
         itemId: "507f1f77bcf86cd799439011"
       }
     }).then((res) => {
-      expect(res.status).to.equal(200);
-      expect(res.data.success).to.equal(true);
+      assert.deepStrictEqual(res.status, 200);
+      assert.deepStrictEqual(res.data.success, true);
     });
   });
 });
@@ -162,8 +162,8 @@ describe("notifications/notify/sms", () => {
         itemId: "507f1f77bcf86cd799439011"
       }
     }).then((res) => {
-      expect(res.status).to.equal(200);
-      expect(res.data.success).to.equal(true);
+      assert.deepStrictEqual(res.status, 200);
+      assert.deepStrictEqual(res.data.success, true);
     });
   });
 });

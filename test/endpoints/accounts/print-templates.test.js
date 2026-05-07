@@ -1,5 +1,5 @@
-const {axiosMock, expectRequest} = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({baseURL: "http://test.com"});
+const {axiosMock, expectRequest} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
 describe("accounts/accounts/print-templates", () => {
   const token = "I owe you a token";
@@ -60,7 +60,7 @@ describe("accounts/accounts/print-templates", () => {
         jwtToken
       }));
     return api.accounts.printTemplates.versions.update({
-      token, jwtToken, query, versionId, printTemplateId, query
+      token, jwtToken, query, versionId, printTemplateId
     });
   });
 

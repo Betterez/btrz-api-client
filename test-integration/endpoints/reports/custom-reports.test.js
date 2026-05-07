@@ -1,16 +1,16 @@
-const { expect } = require("chai"),
-  port = process.env.REPORTS_API_PORT,
-  token = process.env.API_TOKEN,
-  jwtToken = process.env.JWT_TOKEN,
-  api = require("./../../../src/client").createApiClient({
-    baseURL: `http://localhost:${port}`,
-    baseURLOverride: {
-      reports: (baseUrl) => `${baseUrl}/reports`
-    }
-  });
+const assert = require("node:assert/strict");
+const port = process.env.REPORTS_API_PORT;
+const token = process.env.API_TOKEN;
+const jwtToken = process.env.JWT_TOKEN;
+const api = require("./../../../src/client.js").createApiClient({
+  baseURL: `http://localhost:${port}`,
+  baseURLOverride: {
+    reports: (baseUrl) => { return `${baseUrl}/reports`; }
+  }
+});
 
-describe("reports/custom-report", function() {
-  it("should return 200", function() {
+describe("reports/custom-report", () => {
+  it("should return 200", () => {
     const customReport = {
       name: "customReportName",
       reportTypeId: "5a99c3055c44c49c5a000001",
@@ -48,24 +48,24 @@ describe("reports/custom-report", function() {
         prefixForFile: "greatReport"
       }
     };
-    return api.reports.customReports.create({ jwtToken, token, customReport })
-    .catch((err) => {
-      expect(err.response.status).to.be.eql(200);
-      expect(err.response.data.customReport.name).to.be.eql(customReport.name);
-    });
-  });
-
-  it("should not get any custom reports", function() {
-    return api.reports.customReports.all({token, jwtToken, query: {}})
+    return api.reports.customReports.create({jwtToken, token, customReport})
       .catch((err) => {
-        expect(err.response.status).to.be.eql(401);
+        assert.deepStrictEqual(err.response.status, 200);
+        assert.deepStrictEqual(err.response.data.customReport.name, customReport.name);
       });
   });
 
-  it("should not delete a custom report", function() {
+  it("should not get any custom reports", () => {
+    return api.reports.customReports.all({token, jwtToken, query: {}})
+      .catch((err) => {
+        assert.deepStrictEqual(err.response.status, 401);
+      });
+  });
+
+  it("should not delete a custom report", () => {
     return api.reports.customReports.remove({token, jwtToken, customReportId: "5a959a4aa7114ffd7f000001"})
       .catch((err) => {
-        expect(err.response.status).to.be.eql(401);
+        assert.deepStrictEqual(err.response.status, 401);
       });
   });
 });

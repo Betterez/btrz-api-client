@@ -1,4 +1,4 @@
-const {expect} = require("chai");
+const assert = require("node:assert/strict");
 const {axiosMock, expectRequest} = require("./../../test-helpers.js");
 const api = require("./../../../src/client.js").createApiClient({
   baseURL: "http://test.com"
@@ -46,7 +46,7 @@ describe("operations/cancellation-settings", () => {
       allowCancellationAfterDeparture: true
     };
     axiosMock.onPut("/cancellation-settings").reply((config) => {
-      expect(JSON.parse(config.data)).to.eql(data);
+      assert.deepStrictEqual(JSON.parse(config.data), data);
       return [200, {}];
     });
     const response = await api.operations.cancellationSettings.update({

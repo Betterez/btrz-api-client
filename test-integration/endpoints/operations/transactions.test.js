@@ -14,7 +14,7 @@ const api = require("./../../../src/client.js").createApiClient({
     }
   }
 });
-const {expect} = require("chai");
+const assert = require("node:assert/strict");
 
 describe("operations/transactions", function () {
   describe("companion", function () {
@@ -34,7 +34,7 @@ describe("operations/transactions", function () {
       const transactionId = "5ce2d7d4c16f0e5827069f13";
       return api.operations.transactions.expireAll({jwtToken, transactionId})
         .then((res) => {
-          expect(res.data.transactionIds).to.have.length(1);
+          assert.strictEqual(res.data.transactionIds.length, 1);
         });
     });
   });

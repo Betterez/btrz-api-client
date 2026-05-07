@@ -1,5 +1,5 @@
 
-const {expect} = require("chai");
+const assert = require("node:assert/strict");
 const {axiosMock, expectRequest} = require("../../test-helpers.js");
 const api = require("../../../src/client.js")
   .createApiClient({baseURL: "http://test.com"});
@@ -26,7 +26,7 @@ describe("operations/sold-items", () => {
       jwtToken,
       query
     }).then((httpResponse) => {
-      expect(httpResponse.status).eql(200);
+      assert.deepStrictEqual(httpResponse.status, 200);
     });
   });
 
@@ -43,7 +43,7 @@ describe("operations/sold-items", () => {
       jwtToken,
       soldItemId
     }).then((httpResponse) => {
-      expect(httpResponse.status).eql(200);
+      assert.deepStrictEqual(httpResponse.status, 200);
     });
   });
 });

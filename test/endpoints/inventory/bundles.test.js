@@ -1,16 +1,16 @@
-const { axiosMock, expectRequest } = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({ baseURL: "http://test.com" });
+const {axiosMock, expectRequest} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
-describe('inventory/bundles', () => {
-  const token = 'I owe you a token',
-    jwtToken = 'I owe you a JWT token';
+describe("inventory/bundles", () => {
+  const token = "I owe you a token";
+  const jwtToken = "I owe you a JWT token";
 
   afterEach(() => {
     axiosMock.reset();
   });
 
   it("should get all bundles", () => {
-    axiosMock.onGet("/bundles").reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onGet("/bundles").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.bundles.all({
       jwtToken,
       token,
@@ -21,8 +21,8 @@ describe('inventory/bundles', () => {
   });
 
   it("should get a bundle by ID", () => {
-    const bundleId = "bundleId"
-    axiosMock.onGet(`/bundles/${bundleId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    const bundleId = "bundleId";
+    axiosMock.onGet(`/bundles/${bundleId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.bundles.get({
       jwtToken,
       token,

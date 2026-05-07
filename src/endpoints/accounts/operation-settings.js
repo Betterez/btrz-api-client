@@ -29,7 +29,9 @@ function operationSettingsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /operation-settings – Update operation settings. Body: { operationSettings } (OperationSettingsPutData). Emits operationsettings.updated.
+   * PUT /operation-settings – Update operation settings. Body:
+   * { operationSettings } (OperationSettingsPutData). Emits
+   * operationsettings.updated.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol

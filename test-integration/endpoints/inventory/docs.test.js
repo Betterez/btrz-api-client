@@ -1,21 +1,19 @@
 describe("inventory/docs", () => {
-  const {
-    expect
-  } = require("chai");
+  const assert = require("node:assert/strict");
   const port = process.env.INVENTORY_API_PORT;
 
-  const api = require("./../../../src/client").createApiClient({
+  const api = require("./../../../src/client.js").createApiClient({
     baseURL: `http://localhost:${port}`,
     baseURLOverride: {
-      inventory: (baseUrl) => `${baseUrl}/inventory`
+      inventory: (baseUrl) => { return `${baseUrl}/inventory`; }
     }
   });
   it("should get the docs", () => {
     return api.inventory.docs.get({})
       .then(({status, data}) => {
-        expect(status).to.equal(200);
+        assert.deepStrictEqual(status, 200);
         console.log(data);
-        expect(data).to.exist;
+        assert.ok(data);
       });
   });
 });

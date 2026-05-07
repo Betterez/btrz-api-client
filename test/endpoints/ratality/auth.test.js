@@ -1,9 +1,9 @@
-const {expect} = require("chai");
-const {axiosMock} = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({ baseURL: "http://ratality.com" });
+const assert = require("node:assert/strict");
+const {axiosMock} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({baseURL: "http://ratality.com"});
 
 describe("auth", () => {
-  afterEach(function() {
+  afterEach(() => {
     axiosMock.restore();
   });
 
@@ -15,7 +15,7 @@ describe("auth", () => {
     };
     const response = {id_token: "someToken"};
     axiosMock.onPost("/authenticate").reply((config) => {
-      expect(config.data).to.eql(JSON.stringify(data));
+      assert.deepStrictEqual(config.data, JSON.stringify(data));
       return [200, response];
     });
     return api.ratality.auth.create({data});

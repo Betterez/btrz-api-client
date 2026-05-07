@@ -1,6 +1,4 @@
-const {
-  expect
-} = require("chai");
+const assert = require("node:assert/strict");
 const {
   axiosMock,
   expectRequest
@@ -23,7 +21,7 @@ describe("operations/vehicle-assignments", () => {
     return api.operations.vehicleAssignments.all({
       token
     }).then((httpResponse) => {
-      expect(httpResponse.status).eql(200);
+      assert.deepStrictEqual(httpResponse.status, 200);
     });
   });
 
@@ -38,7 +36,7 @@ describe("operations/vehicle-assignments", () => {
       vehicleAssignmentId,
       token
     }).then((httpResponse) => {
-      expect(httpResponse.status).eql(200);
+      assert.deepStrictEqual(httpResponse.status, 200);
     });
   });
 
@@ -57,7 +55,7 @@ describe("operations/vehicle-assignments", () => {
       jwtToken,
       data
     }).then((httpResponse) => {
-      expect(httpResponse.status).eql(200);
+      assert.deepStrictEqual(httpResponse.status, 200);
     });
   });
 
@@ -78,7 +76,7 @@ describe("operations/vehicle-assignments", () => {
       jwtToken,
       data
     }).then((httpResponse) => {
-      expect(httpResponse.status).eql(200);
+      assert.deepStrictEqual(httpResponse.status, 200);
     });
   });
 });

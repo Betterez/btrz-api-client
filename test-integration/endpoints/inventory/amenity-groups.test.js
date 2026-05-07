@@ -1,13 +1,13 @@
-const { expect } = require("chai");
+const assert = require("node:assert/strict");
 const port = process.env.INVENTORY_API_PORT;
 const token = process.env.API_TOKEN;
 const jwtToken = process.env.JWT_TOKEN;
 const amenityGroupId = process.env.AMENITY_GROUP_ID;
 
-const api = require("./../../../src/client").createApiClient({
+const api = require("./../../../src/client.js").createApiClient({
   baseURL: `http://localhost:${port}`,
   baseURLOverride: {
-    inventory: (baseUrl) => `${baseUrl}/inventory`
+    inventory: (baseUrl) => { return `${baseUrl}/inventory`; }
   }
 });
 
@@ -17,17 +17,16 @@ describe("inventory/amenity-groups", () => {
       token,
       amenityGroupId
     })
-    .then(({status, data}) => {
-      expect(status).to.equal(200);
-      expect(data.amenityGroup).to.exist;
-      expect(data.amenityGroup._id).to.eql(amenityGroupId);
-    });
+      .then(({status, data}) => {
+        assert.deepStrictEqual(status, 200);
+        assert.ok(data.amenityGroup);
+        assert.deepStrictEqual(data.amenityGroup._id, amenityGroupId);
+      });
   });
 
   it("should create an Amenity Group", () => {
-    const newName = "New Name 97",
-      newIcon = "fa-train",
-      newState = false;
+    const newName = "New Name 97";
+    const newState = false;
     return api.inventory.amenityGroups.create({
       jwtToken,
       token,
@@ -38,21 +37,21 @@ describe("inventory/amenity-groups", () => {
         lexiconKeys: {}
       }
     })
-    .then(({status, data}) => {
-      expect(status).to.equal(200);
-      expect(data.amenityGroup).to.exist;
-      expect(data.amenityGroup.name).to.eql(newName);
-      expect(data.amenityGroup.enabled).to.eql(newState);
-      expect(data.amenityGroup.createdAt).to.exist;
-      expect(data.amenityGroup.createdBy).to.exist;
-      expect(data.amenityGroup.updatedAt).to.exist;
-      expect(data.amenityGroup.updatedBy).to.exist;
-    });
+      .then(({status, data}) => {
+        assert.deepStrictEqual(status, 200);
+        assert.ok(data.amenityGroup);
+        assert.deepStrictEqual(data.amenityGroup.name, newName);
+        assert.deepStrictEqual(data.amenityGroup.enabled, newState);
+        assert.ok(data.amenityGroup.createdAt);
+        assert.ok(data.amenityGroup.createdBy);
+        assert.ok(data.amenityGroup.updatedAt);
+        assert.ok(data.amenityGroup.updatedBy);
+      });
   });
 
   it("should update an Amenity Group", () => {
-    const newName = "Amenity Group New Name",
-      newState = false;
+    const newName = "Amenity Group New Name";
+    const newState = false;
 
     return api.inventory.amenityGroups.update({
       jwtToken,
@@ -66,14 +65,14 @@ describe("inventory/amenity-groups", () => {
       }
     })
       .then(({status, data}) => {
-        expect(status).to.equal(200);
-        expect(data.amenityGroup).to.exist;
-        expect(data.amenityGroup.name).to.eql(newName);
-        expect(data.amenityGroup.enabled).to.eql(newState);
-        expect(data.amenityGroup.createdAt).to.exist;
-        expect(data.amenityGroup.createdBy).to.exist;
-        expect(data.amenityGroup.updatedAt).to.exist;
-        expect(data.amenityGroup.updatedBy).to.exist;
+        assert.deepStrictEqual(status, 200);
+        assert.ok(data.amenityGroup);
+        assert.deepStrictEqual(data.amenityGroup.name, newName);
+        assert.deepStrictEqual(data.amenityGroup.enabled, newState);
+        assert.ok(data.amenityGroup.createdAt);
+        assert.ok(data.amenityGroup.createdBy);
+        assert.ok(data.amenityGroup.updatedAt);
+        assert.ok(data.amenityGroup.updatedBy);
       });
   });
 });

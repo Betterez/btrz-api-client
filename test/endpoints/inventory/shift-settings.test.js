@@ -23,7 +23,7 @@ describe("accounts/banks", () => {
   });
 
   it("should get all pieces of custom content", () => {
-    axiosMock.onGet("/banks").reply(expectRequest({statusCode: 200, token, jwtToken }));
+    axiosMock.onGet("/banks").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.banks.all({
       jwtToken,
       token,
@@ -33,7 +33,7 @@ describe("accounts/banks", () => {
 
   it("should update a piece of custom content", () => {
     const bankId = "1234";
-    axiosMock.onPut(`/banks/${bankId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onPut(`/banks/${bankId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.banks.update({
       jwtToken,
       token,

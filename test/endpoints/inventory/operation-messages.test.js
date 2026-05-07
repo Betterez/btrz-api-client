@@ -1,16 +1,16 @@
-const { axiosMock, expectRequest } = require("../../test-helpers");
-const api = require("../../../src/client").createApiClient({ baseURL: "http://test.com" });
+const {axiosMock, expectRequest} = require("../../test-helpers.js");
+const api = require("../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
-describe('inventory/operation-messages', () => {
-  const token = 'I owe you a token',
-    jwtToken = 'I owe you a JWT token';
+describe("inventory/operation-messages", () => {
+  const token = "I owe you a token";
+  const jwtToken = "I owe you a JWT token";
 
   afterEach(() => {
     axiosMock.reset();
   });
 
   it("should define a create method for an operation message", () => {
-    axiosMock.onPost(`/operation-messages`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onPost("/operation-messages").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.operationMessages.create({
       jwtToken,
       token,
@@ -23,7 +23,7 @@ describe('inventory/operation-messages', () => {
   });
 
   it("should define a get method for listing all operation messages", () => {
-    axiosMock.onGet(`/operation-messages`).reply(expectRequest({ statusCode: 200, token }));
+    axiosMock.onGet("/operation-messages").reply(expectRequest({statusCode: 200, token}));
     return api.inventory.operationMessages.all({
       token
     });
@@ -31,7 +31,7 @@ describe('inventory/operation-messages', () => {
 
   it("should define an update method for an operation message", () => {
     const operationMessageId = "1234";
-    axiosMock.onPut(`/operation-messages/${operationMessageId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onPut(`/operation-messages/${operationMessageId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.operationMessages.update({
       jwtToken,
       token,
@@ -45,7 +45,7 @@ describe('inventory/operation-messages', () => {
 
   it("should define a deletion method for an operation message", () => {
     const operationMessageId = "1234";
-    axiosMock.onDelete(`/operation-messages/${operationMessageId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onDelete(`/operation-messages/${operationMessageId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.operationMessages.remove({
       jwtToken,
       token,
@@ -55,7 +55,7 @@ describe('inventory/operation-messages', () => {
 
   it("should define a get method for an operation message", () => {
     const operationMessageId = "1234";
-    axiosMock.onGet(`/operation-messages/${operationMessageId}`).reply(expectRequest({ statusCode: 200, token }));
+    axiosMock.onGet(`/operation-messages/${operationMessageId}`).reply(expectRequest({statusCode: 200, token}));
     return api.inventory.operationMessages.get({
       token,
       operationMessageId

@@ -1,24 +1,22 @@
-const { expect } = require("chai");
+const assert = require("node:assert/strict");
 
 const port = process.env.OPERATIONS_API_PORT;
 const token = process.env.API_TOKEN;
 const jwtToken = process.env.JWT_TOKEN;
 
-const api = require("./../../../src/client").createApiClient({ 
-  baseURL: `http://localhost:${port}`, 
+const api = require("./../../../src/client.js").createApiClient({
+  baseURL: `http://localhost:${port}`,
   baseURLOverride: {
-    operations: (baseUrl) => `${baseUrl}/operations`
+    operations: (baseUrl) => { return `${baseUrl}/operations`; }
   }
 });
 
-describe("operations/appliedInsurances", function() {
-
-  it("empty array for unexistent transaction", function() {
+describe("operations/appliedInsurances", () => {
+  it("empty array for unexistent transaction", () => {
     const trxId = "NOT_EXISTING_TRX";
-    return api.operations.appliedInsurance.all({ token, jwtToken, trxId })
+    return api.operations.appliedInsurance.all({token, jwtToken, trxId})
       .then((res) => {
-        expect(res.data.appliedInsurances).to.have.lengthOf(0);
-      })
+        assert.strictEqual(res.data.appliedInsurances.length, 0);
+      });
   });
-
 });

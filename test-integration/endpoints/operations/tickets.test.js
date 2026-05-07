@@ -2,13 +2,13 @@
 /* eslint-disable arrow-parens */
 /* eslint-disable prefer-arrow-callback */
 
-const {expect} = require("chai");
+const assert = require("node:assert/strict");
 
 const port = process.env.OPERATIONS_API_PORT;
 const token = process.env.API_TOKEN;
 const jwtToken = process.env.JWT_TOKEN;
 
-const api = require("./../../../src/client").createApiClient({
+const api = require("./../../../src/client.js").createApiClient({
   baseURL: `http://localhost:${port}`,
   baseURLOverride: {
     operations: (baseUrl) => {
@@ -43,9 +43,9 @@ describe("operations/tickets", function () {
 
       return api.operations.tickets.patch({token, jwtToken, id, operations: [op1], warningsEnabled})
         .then((res) => {
-          expect(res.data.results).to.have.length(1);
-          expect(res.data.results[0].op).to.be.eql("move");
-          expect(res.data.results[0].status).to.be.eql("success");
+          assert.strictEqual(res.data.results.length, 1);
+          assert.deepStrictEqual(res.data.results[0].op, "move");
+          assert.deepStrictEqual(res.data.results[0].status, "success");
         });
     });
 
@@ -62,12 +62,12 @@ describe("operations/tickets", function () {
       return api.operations.tickets.patch({token, jwtToken, id, operations: [op1], warningsEnabled})
         .catch((err) => {
           /* eslint-disable-next-line no-unused-expressions */
-          expect(err).to.exist;
-          expect(err.response.status).to.be.eql(404);
-          expect(err.response.data.results).to.have.length(1);
-          expect(err.response.data.results[0].op).to.be.eql("move");
-          expect(err.response.data.results[0].status).to.be.eql("error");
-          expect(err.response.data.results[0].error.code).to.be.eql("TICKET_NOT_FOUND");
+          assert.ok(err);
+          assert.deepStrictEqual(err.response.status, 404);
+          assert.strictEqual(err.response.data.results.length, 1);
+          assert.deepStrictEqual(err.response.data.results[0].op, "move");
+          assert.deepStrictEqual(err.response.data.results[0].status, "error");
+          assert.deepStrictEqual(err.response.data.results[0].error.code, "TICKET_NOT_FOUND");
         });
     });
   });

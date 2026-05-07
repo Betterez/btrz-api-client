@@ -455,7 +455,6 @@ function createBtrzPay({baseURL, headers, timeout, overrideFn, internalAuthToken
     adyen: require("./endpoints/btrzpay/adyen.js")({client, internalAuthTokenProvider}),
     cybersource3ds: require("./endpoints/btrzpay/cybersource3ds.js")({client, internalAuthTokenProvider}),
     docs: require("./endpoints/btrzpay/docs.js")({client}),
-    adyen: require("./endpoints/btrzpay/adyen.js")({client, internalAuthTokenProvider}),
     cardpointeTerminals: require("./endpoints/btrzpay/cardpointe.js").cardpointeTerminalsFactory({client, internalAuthTokenProvider}),
     paymentMethods: require("./endpoints/btrzpay/payment-methods.js")({client, internalAuthTokenProvider}),
     referenceNumbers: require("./endpoints/btrzpay/reference-numbers.js")({client, internalAuthTokenProvider}),

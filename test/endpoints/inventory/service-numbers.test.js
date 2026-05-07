@@ -1,7 +1,7 @@
 const {
   axiosMock, expectRequest
-} = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({baseURL: "http://test.com"});
+} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
 describe("inventory/service-numbers", () => {
   const token = "I owe you a token";
@@ -12,7 +12,7 @@ describe("inventory/service-numbers", () => {
   });
 
   it("should create a service number", () => {
-    axiosMock.onPost("/service-numbers").reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onPost("/service-numbers").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.serviceNumbers.create({
       jwtToken,
       token,
@@ -24,7 +24,7 @@ describe("inventory/service-numbers", () => {
   });
 
   it("should get all service numbers", () => {
-    axiosMock.onGet("/service-numbers").reply(expectRequest({statusCode: 200, token, jwtToken }));
+    axiosMock.onGet("/service-numbers").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.serviceNumbers.all({
       jwtToken,
       token,
@@ -36,7 +36,7 @@ describe("inventory/service-numbers", () => {
 
   it("should update a service number", () => {
     const serviceNumberId = "1234";
-    axiosMock.onPut(`/service-numbers/${serviceNumberId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onPut(`/service-numbers/${serviceNumberId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.serviceNumbers.update({
       jwtToken,
       token,
@@ -50,7 +50,7 @@ describe("inventory/service-numbers", () => {
 
   it("should get a service number", () => {
     const serviceNumberId = "1234";
-    axiosMock.onGet(`/service-numbers/${serviceNumberId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onGet(`/service-numbers/${serviceNumberId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.serviceNumbers.get({
       jwtToken,
       token,

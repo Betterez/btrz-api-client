@@ -1,12 +1,12 @@
-const { axiosMock, expectRequest } = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({ baseURL: "http://test.com" });
-const expect = require("chai").expect;
+const {axiosMock, expectRequest} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
-describe('sales/voucher', function() {
-  const token = 'I owe you a token';
+describe("sales/voucher", () => {
+  const token = "I owe you a token";
+  let voucher = null;
 
-  beforeEach(function() {
-  voucher = {
+  beforeEach(() => {
+    voucher = {
       number: "1234",
       firstName: "joe",
       lastName: "joe",
@@ -14,26 +14,28 @@ describe('sales/voucher', function() {
     };
   });
 
-  afterEach(function() {
+  afterEach(() => {
     axiosMock.reset();
   });
 
-  it("should get a voucher", function() {
+  it("should get a voucher", () => {
     axiosMock
-      .onGet(`/vouchers/${voucher.number}?cartId=${voucher.cartId}&firstName=${voucher.firstName}&lastName=${voucher.lastName}&displayCurrencyCode=`)
+      .onGet(`/vouchers/${voucher.number}?cartId=${voucher.cartId}` +
+        `&firstName=${voucher.firstName}&lastName=${voucher.lastName}&displayCurrencyCode=`)
       .reply(
-        expectRequest({ statusCode: 200, token })
+        expectRequest({statusCode: 200, token})
       );
-    return api.sales.voucher.get({ token, voucher });
+    return api.sales.voucher.get({token, voucher});
   });
 
-  it("should get a voucher with displayCurrencyCode", function() {
+  it("should get a voucher with displayCurrencyCode", () => {
     voucher.displayCurrencyCode = "GBP";
     axiosMock
-      .onGet(`/vouchers/${voucher.number}?cartId=${voucher.cartId}&firstName=${voucher.firstName}&lastName=${voucher.lastName}&displayCurrencyCode=GBP`)
+      .onGet(`/vouchers/${voucher.number}?cartId=${voucher.cartId}` +
+        `&firstName=${voucher.firstName}&lastName=${voucher.lastName}&displayCurrencyCode=GBP`)
       .reply(
-        expectRequest({ statusCode: 200, token })
+        expectRequest({statusCode: 200, token})
       );
-    return api.sales.voucher.get({ token, voucher });
+    return api.sales.voucher.get({token, voucher});
   });
 });

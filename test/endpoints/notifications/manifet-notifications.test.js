@@ -1,8 +1,8 @@
 const {
   axiosMock,
   expectRequest
-} = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({
+} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({
   baseURL: "http://test.com"
 });
 
@@ -35,6 +35,6 @@ describe("notifications/manifest-notifications", () => {
       .reply(expectRequest({
         statusCode: 200, token
       }));
-    return api.notifications.manifestNotifications.all({token });
+    return api.notifications.manifestNotifications.all({token});
   });
 });

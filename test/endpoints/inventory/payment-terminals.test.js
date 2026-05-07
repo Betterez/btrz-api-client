@@ -1,7 +1,7 @@
 const {
   axiosMock, expectRequest
-} = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({baseURL: "http://test.com"});
+} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
 describe("inventory/payment-terminals", () => {
   const token = "I owe you a token";
@@ -12,7 +12,7 @@ describe("inventory/payment-terminals", () => {
   });
 
   it("should create a payment terminal", () => {
-    axiosMock.onPost("/payment-terminals").reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onPost("/payment-terminals").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.paymentTerminals.create({
       jwtToken,
       token,
@@ -23,7 +23,7 @@ describe("inventory/payment-terminals", () => {
   });
 
   it("should get all payment terminals", () => {
-    axiosMock.onGet("/payment-terminals").reply(expectRequest({statusCode: 200, token, jwtToken }));
+    axiosMock.onGet("/payment-terminals").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.paymentTerminals.all({
       jwtToken,
       token,
@@ -33,7 +33,7 @@ describe("inventory/payment-terminals", () => {
 
   it("should update a payment terminal", () => {
     const paymentTerminalId = "1234";
-    axiosMock.onPut(`/payment-terminals/${paymentTerminalId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onPut(`/payment-terminals/${paymentTerminalId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.paymentTerminals.update({
       jwtToken,
       token,
@@ -46,7 +46,7 @@ describe("inventory/payment-terminals", () => {
 
   it("should get a payment terminal", () => {
     const paymentTerminalId = "1234";
-    axiosMock.onGet(`/payment-terminals/${paymentTerminalId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onGet(`/payment-terminals/${paymentTerminalId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.paymentTerminals.get({
       jwtToken,
       token,
@@ -56,7 +56,7 @@ describe("inventory/payment-terminals", () => {
 
   it("should delete a payment terminal", () => {
     const paymentTerminalId = "1234";
-    axiosMock.onDelete(`/payment-terminals/${paymentTerminalId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onDelete(`/payment-terminals/${paymentTerminalId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.paymentTerminals.remove({
       jwtToken,
       token,

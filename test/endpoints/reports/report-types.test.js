@@ -1,5 +1,5 @@
-const { axiosMock, expectRequest } = require("./../../test-helpers"),
-  api = require("./../../../src/client").createApiClient({ baseURL: "http://test.com" });
+const {axiosMock, expectRequest} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
 describe("reports/report-types", () => {
   const token = "token";
@@ -10,13 +10,13 @@ describe("reports/report-types", () => {
 
   it("should get a report type by id", () => {
     const reportTypeId = "reportTypeId";
-    axiosMock.onGet(`/types/${reportTypeId}`).reply(expectRequest({ statusCode: 200, token }));
-    return api.reports.reportTypes.get({ token, id: reportTypeId });
+    axiosMock.onGet(`/types/${reportTypeId}`).reply(expectRequest({statusCode: 200, token}));
+    return api.reports.reportTypes.get({token, id: reportTypeId});
   });
 
   it("should get a report type by name", () => {
     const reportTypeName = "reportTypeName";
-    axiosMock.onGet(`/types?name=${reportTypeName}`).reply(expectRequest({ statusCode: 200, token }));
-    return api.reports.reportTypes.getByName({ token, name: reportTypeName });
+    axiosMock.onGet(`/types?name=${reportTypeName}`).reply(expectRequest({statusCode: 200, token}));
+    return api.reports.reportTypes.getByName({token, name: reportTypeName});
   });
 });

@@ -1,7 +1,7 @@
 const port = process.env.INVENTORY_API_PORT;
 const token = process.env.API_TOKEN;
 // eslint-disable-next-line import/extensions
-const api = require("./../../../src/client").createApiClient({
+const api = require("./../../../src/client.js").createApiClient({
   baseURL: `http://localhost:${port}`,
   baseURLOverride: {
     inventory: (baseUrl) => {
@@ -10,7 +10,7 @@ const api = require("./../../../src/client").createApiClient({
   }
 });
 
-const {matchHeaders, statusCode} = require("./../../test-integration-helpers");
+const {matchHeaders, statusCode} = require("./../../test-integration-helpers.js");
 
 describe("inventory/custom-fields", () => {
   it("should list custom fields", () => {

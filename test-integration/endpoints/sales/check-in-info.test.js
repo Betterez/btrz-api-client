@@ -1,5 +1,5 @@
-const {matchHeaders, statusCode} = require("./../../test-integration-helpers");
-const apiClient = require("./../../../src/client");
+const {matchHeaders, statusCode} = require("./../../test-integration-helpers.js");
+const apiClient = require("./../../../src/client.js");
 
 describe("sales/check-in", () => {
   const port = process.env.SALES_API_PORT;

@@ -1,7 +1,7 @@
 const axios = require("axios");
 const MockAdapter = require("axios-mock-adapter");
 const http = require("http");
-const {expect} = require("chai");
+const assert = require("node:assert/strict");
 
 module.exports = {
   axiosMock: new MockAdapter(axios),
@@ -11,10 +11,10 @@ module.exports = {
   }) {
     return ({headers, method, data, params}) => {
       if (body) {
-        expect(data).to.eql(JSON.stringify(body));
+        assert.deepStrictEqual(data, JSON.stringify(body));
       }
       if (query) {
-        expect(params).to.eql(query);
+        assert.deepStrictEqual(params, query);
       }
       if ((headers["x-api-key"] && headers["x-api-key"] === token) || withoutApiKey) {
         const methods = ["post", "put", "delete", "patch"];
@@ -44,7 +44,7 @@ module.exports = {
     mockServer.on("connection", (socket) => {
       sockets.add(socket);
       if (config.maxSockets) {
-        expect(sockets.size).to.be.lessThanOrEqual(config.maxSockets);
+        assert.ok(sockets.size <= config.maxSockets);
       }
     });
 

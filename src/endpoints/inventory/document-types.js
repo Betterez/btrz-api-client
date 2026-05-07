@@ -46,7 +46,8 @@ function documentTypesFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.id - Document type id (24 hex characters)
    * @param {DocumentTypeGetByIdQuery} [opts.query] - Optional query params (merged with providerId when opts.providerId is set)
-   * @param {string} [opts.providerId] - Provider id (ObjectId); merged into query for provider context (same as peopleLookups.getById / dynamicForms.get)
+   * @param {string} [opts.providerId] - Provider id (ObjectId); merged into
+   * query for provider context (same as peopleLookups.getById / dynamicForms.get)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<{ documenttype: Object }>>}
    * @throws When response is 4xx/5xx (400, 401, 404 DOCUMENTTYPE_NOT_FOUND, 500)

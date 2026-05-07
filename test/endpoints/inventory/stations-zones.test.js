@@ -1,16 +1,15 @@
-const { axiosMock, expectRequest } = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({ baseURL: "http://test.com" });
+const {axiosMock, expectRequest} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
-describe('inventory/stations/zones', function() {
-  const token = 'I owe you a token';
+describe("inventory/stations/zones", () => {
+  const token = "I owe you a token";
 
-  afterEach(function() {
+  afterEach(() => {
     axiosMock.reset();
   });
 
-  it("should list zones", function() {
-    axiosMock.onGet(`/stations/zones`).reply(expectRequest({ statusCode: 200, token }));
-    return api.inventory.stationsZones.get({ token });
+  it("should list zones", () => {
+    axiosMock.onGet("/stations/zones").reply(expectRequest({statusCode: 200, token}));
+    return api.inventory.stationsZones.get({token});
   });
-
 });

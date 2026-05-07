@@ -1,5 +1,5 @@
-const {axiosMock, expectRequest} = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({baseURL: "http://test.com"});
+const {axiosMock, expectRequest} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
 describe("btrzpay/payment-methods", () => {
   const token = "token";
@@ -10,7 +10,7 @@ describe("btrzpay/payment-methods", () => {
   });
 
   it("should list payment methods", () => {
-    axiosMock.onGet("/payment-methods").reply(expectRequest({statusCode: 200, token }));
+    axiosMock.onGet("/payment-methods").reply(expectRequest({statusCode: 200, token}));
     return api.btrzpay.paymentMethods.all({token});
   });
 

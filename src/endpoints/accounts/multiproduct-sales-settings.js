@@ -27,11 +27,15 @@ function multiproductSalesSettingsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /multiproduct-sales-settings – Create or update multi-product sales settings (upsert). Body: MultiProductSettingsPayload (productsMapping, stationsMapping, faresMapping, fareClassesMapping). Emits networks.created or networks.updated.
+   * PUT /multiproduct-sales-settings – Create or update multi-product sales settings
+   * (upsert). Body: MultiProductSettingsPayload (productsMapping, stationsMapping,
+   * faresMapping, fareClassesMapping). Emits networks.created or networks.updated.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.data - multiProductSettings payload (productsMapping, stationsMapping, faresMapping, fareClassesMapping; each key ObjectId, each value array of ObjectIds)
+   * @param {Object} opts.data - multiProductSettings payload. Includes
+   * productsMapping, stationsMapping, faresMapping, and fareClassesMapping; each
+   * key is an ObjectId and each value is an array of ObjectIds.
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<{ multiProductSettings: object }>>}
    */

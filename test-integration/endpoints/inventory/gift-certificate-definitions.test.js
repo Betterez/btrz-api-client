@@ -4,14 +4,14 @@ const jwtToken = process.env.JWT_TOKEN;
 const providerId = process.env.PROVIDER_ID;
 const giftcertificateId = process.env.GIFT_CERTIFICATE_ID;
 
-const api = require("./../../../src/client").createApiClient({
+const api = require("./../../../src/client.js").createApiClient({
   baseURL: `http://localhost:${port}`,
   baseURLOverride: {
-    inventory: (baseUrl) => `${baseUrl}/inventory`
+    inventory: (baseUrl) => { return `${baseUrl}/inventory`; }
   }
 });
 
-const { matchHeaders, statusCode } = require("./../../test-integration-helpers");
+const {matchHeaders, statusCode} = require("./../../test-integration-helpers.js");
 
 function randomText() {
   return (Math.random() + 1).toString(36).substring(7);
@@ -20,8 +20,8 @@ function randomText() {
 describe("inventory/gift-certificate-definitions", () => {
   it("should list gift certificate definitions for the given provider id", () => {
     const query = {providerId};
-    return api.inventory.giftCertificateDefinitions.all({ token, query })
-      .then(matchHeaders('x-api-key'))
+    return api.inventory.giftCertificateDefinitions.all({token, query})
+      .then(matchHeaders("x-api-key"))
       .then(statusCode(200));
   });
 

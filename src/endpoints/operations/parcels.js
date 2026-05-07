@@ -109,7 +109,9 @@ function parcelFactory({client, internalAuthTokenProvider}) {
    * @param {string} opts.id - Parcel id (path parcelId)
    * @param {string} opts.commentId - Comment id (path)
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>} 200 deleted ParcelUserComment; 400 MISSING_*; 401; 403; 404 PARCEL_NOT_FOUND, COMMENT_NOT_FOUND; 409
+   * @returns {Promise<import("axios").AxiosResponse>} 200 deleted
+   * ParcelUserComment; 400 MISSING_*; 401; 403;
+   * 404 PARCEL_NOT_FOUND, COMMENT_NOT_FOUND; 409
    */
   function deleteComment({token, jwtToken, headers, id, commentId}) {
     return client({

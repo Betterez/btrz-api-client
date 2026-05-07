@@ -23,7 +23,7 @@ describe("inventory/segments-information", () => {
   });
 
   it("should get all pieces of segment information", () => {
-    axiosMock.onGet("/segments-information").reply(expectRequest({statusCode: 200, token, jwtToken }));
+    axiosMock.onGet("/segments-information").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.segmentsInformation.all({
       jwtToken,
       token,
@@ -33,7 +33,7 @@ describe("inventory/segments-information", () => {
 
   it("should update a piece of segment information", () => {
     const segmentInformationId = "1234";
-    axiosMock.onPut(`/segments-information/${segmentInformationId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onPut(`/segments-information/${segmentInformationId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.segmentsInformation.update({
       jwtToken,
       token,

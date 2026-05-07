@@ -1,17 +1,17 @@
-"use strict";
 
-const {expect} = require("chai"),
-  {authorizationHeaders} = require("../../src/endpoints/endpoints_helpers"),
-  constants = require("../../src/constants");
+
+const assert = require("node:assert/strict");
+const {authorizationHeaders} = require("../../src/endpoints/endpoints_helpers.js");
+const constants = require("../../src/constants.js");
 
 
 describe("endpoints helpers", () => {
   describe(".authorizationHeaders()", () => {
     it("should return a headers object which includes the provided 'jwtToken' in the 'authorization' field", () => {
-      const jwtToken = "7A0mvzROJIucrSPYHlgd",
-        headers = authorizationHeaders({jwtToken});
+      const jwtToken = "7A0mvzROJIucrSPYHlgd";
+      const headers = authorizationHeaders({jwtToken});
 
-      expect(headers).to.deep.equal({
+      assert.deepStrictEqual(headers, {
         authorization: `Bearer ${jwtToken}`
       });
     });
@@ -20,7 +20,7 @@ describe("endpoints helpers", () => {
       const jwtToken = "7A0mvzROJIucrSPYHlgd";
       const headers = authorizationHeaders({jwtToken, headers: {cookie: "btrz-trusted=teststuff"}});
 
-      expect(headers).to.deep.equal({
+      assert.deepStrictEqual(headers, {
         authorization: `Bearer ${jwtToken}`,
         cookie: "btrz-trusted=teststuff"
       });
@@ -28,12 +28,16 @@ describe("endpoints helpers", () => {
 
     it("should return a headers object which includes an auth token created using the 'internalAuthTokenProvider', when the caller " +
       "is trying to make an internal service-to-service API request", () => {
-      const jwtToken = constants.INTERNAL_AUTH_TOKEN_SYMBOL,
-        internalAuthToken = "5ByXhjyKG7WBZnIL9NoL",
-        internalAuthTokenProvider = { getToken() { return internalAuthToken; }},
-        headers = authorizationHeaders({jwtToken, internalAuthTokenProvider});
+      const jwtToken = constants.INTERNAL_AUTH_TOKEN_SYMBOL;
+      const internalAuthToken = "5ByXhjyKG7WBZnIL9NoL";
+      const internalAuthTokenProvider = {
+        getToken() {
+          return internalAuthToken;
+        }
+      };
+      const headers = authorizationHeaders({jwtToken, internalAuthTokenProvider});
 
-      expect(headers).to.deep.equal({
+      assert.deepStrictEqual(headers, {
         authorization: `Bearer ${internalAuthToken}`
       });
     });
@@ -47,9 +51,9 @@ describe("endpoints helpers", () => {
 
         try {
           authorizationHeaders({jwtToken, internalAuthTokenProvider});
-        } catch (err){
+        } catch (err) {
           functionDidThrow = true;
-          expect(err.message).to.include("no 'internalAuthTokenProvider' with a 'getToken' function was supplied to the API client");
+          assert.ok(err.message.includes("no 'internalAuthTokenProvider' with a 'getToken' function was supplied to the API client"));
         }
 
         if (!functionDidThrow) {
@@ -59,10 +63,10 @@ describe("endpoints helpers", () => {
     });
 
     it("should return a headers object which includes the provided 'token' in the 'x-api-key' field", () => {
-      const token = "E7excc6eXRKarIONB2gA",
-        headers = authorizationHeaders({token});
+      const token = "E7excc6eXRKarIONB2gA";
+      const headers = authorizationHeaders({token});
 
-      expect(headers).to.deep.equal({
+      assert.deepStrictEqual(headers, {
         "x-api-key": token
       });
     });
@@ -77,7 +81,7 @@ describe("endpoints helpers", () => {
 
         const headers = authorizationHeaders({token, headers: newHeaders});
 
-        expect(headers).to.deep.equal({
+        assert.deepStrictEqual(headers, {
           "x-api-key": token
         });
       });
@@ -90,7 +94,7 @@ describe("endpoints helpers", () => {
 
         const headers = authorizationHeaders({headers: newHeaders});
 
-        expect(headers).to.deep.equal({
+        assert.deepStrictEqual(headers, {
           "x-amzn-trace-id": "25342352"
         });
       });
@@ -99,7 +103,7 @@ describe("endpoints helpers", () => {
         const token = "E7excc6eXRKarIONB2gA";
         const headers = authorizationHeaders({token, headers: 123});
 
-        expect(headers).to.deep.equal({
+        assert.deepStrictEqual(headers, {
           "x-api-key": token
         });
       });
@@ -112,8 +116,8 @@ describe("endpoints helpers", () => {
 
         const headers = authorizationHeaders({headers: newHeaders});
 
-        expect(headers).to.not.haveOwnProperty("x-amzn-trace-id");
-        expect(headers).to.deep.equal({});
+        assert.ok(!Object.prototype.hasOwnProperty.call(headers, "x-amzn-trace-id"));
+        assert.deepStrictEqual(headers, {});
       });
 
       it("should add the x-elevation-token header if it is provided in the 'headers' argument", () => {
@@ -124,7 +128,7 @@ describe("endpoints helpers", () => {
 
         const headers = authorizationHeaders({headers: newHeaders});
 
-        expect(headers).to.deep.equal({
+        assert.deepStrictEqual(headers, {
           "x-elevation-token": "ABCDEF"
         });
       });

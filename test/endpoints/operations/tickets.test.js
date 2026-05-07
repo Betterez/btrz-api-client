@@ -1,7 +1,7 @@
 /* eslint-disable func-names */
 /* eslint-disable prefer-arrow-callback */
 
-const {expect} = require("chai");
+const assert = require("node:assert/strict");
 const {axiosMock, expectRequest} = require("./../../test-helpers.js");
 const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
@@ -32,7 +32,7 @@ describe("operations/tickets", () => {
     axiosMock.onGet(`/tickets/${ticketId}/companion-tickets`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.operations.tickets.companionTickets({jwtToken, token, ticketId})
       .then((response) => {
-        expect(response.status).to.equals(200);
+        assert.deepStrictEqual(response.status, 200);
       });
   });
 
@@ -58,7 +58,7 @@ describe("operations/tickets", () => {
       jwtToken,
       data
     }).then((httpResponse) => {
-      expect(httpResponse.status).eql(200);
+      assert.deepStrictEqual(httpResponse.status, 200);
     });
   });
 
@@ -81,7 +81,7 @@ describe("operations/tickets", () => {
       jwtToken,
       data
     }).then((httpResponse) => {
-      expect(httpResponse.status).eql(200);
+      assert.deepStrictEqual(httpResponse.status, 200);
     });
   });
 });

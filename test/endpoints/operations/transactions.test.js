@@ -9,7 +9,7 @@ describe("operations/transactions", function () {
     }
   };
   const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com", internalAuthTokenProvider});
-  const expect = require("chai").expect;
+  const assert = require("node:assert/strict");
   const token = "validToken";
   const jwtToken = "validJWTtoken";
 
@@ -22,7 +22,7 @@ describe("operations/transactions", function () {
     axiosMock.onGet(`/transactions/${transactionId}`).reply(expectRequest({statusCode: 200, token}));
     return api.operations.transactions.get({jwtToken, token, trxId: transactionId})
       .then((response) => {
-        expect(response.status).to.equals(200);
+        assert.deepStrictEqual(response.status, 200);
       });
   });
 
@@ -44,7 +44,7 @@ describe("operations/transactions", function () {
       }
     })
       .then((response) => {
-        expect(response.status).to.equals(200);
+        assert.deepStrictEqual(response.status, 200);
       });
   });
 
@@ -53,7 +53,7 @@ describe("operations/transactions", function () {
     axiosMock.onGet("/transactions").reply(expectRequest({statusCode: 200, token}));
     return api.operations.transactions.all({jwtToken, token, trxId: transactionId})
       .then((response) => {
-        expect(response.status).to.equals(200);
+        assert.deepStrictEqual(response.status, 200);
       });
   });
 
@@ -62,7 +62,7 @@ describe("operations/transactions", function () {
     axiosMock.onGet(`/transactions/${transactionId}/tickets`).reply(expectRequest({statusCode: 200, token}));
     return api.operations.transactions.getTickets({jwtToken, token, trxId: transactionId})
       .then((response) => {
-        expect(response.status).to.equals(200);
+        assert.deepStrictEqual(response.status, 200);
       });
   });
 
@@ -71,7 +71,7 @@ describe("operations/transactions", function () {
     axiosMock.onGet(`/transactions/${transactionId}/applied-insurance`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.operations.transactions.appliedInsurance({jwtToken, token, trxId: transactionId})
       .then((response) => {
-        expect(response.status).to.equals(200);
+        assert.deepStrictEqual(response.status, 200);
       });
   });
 
@@ -81,7 +81,7 @@ describe("operations/transactions", function () {
     axiosMock.onGet(`/transactions/${transactionId}/companion-tickets`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.operations.transactions.companionTickets({jwtToken, token, transactionId, ticketIds})
       .then((response) => {
-        expect(response.status).to.equals(200);
+        assert.deepStrictEqual(response.status, 200);
       });
   });
 
@@ -90,7 +90,7 @@ describe("operations/transactions", function () {
     axiosMock.onGet(`/transactions/${transactionId}/cancellable-items`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.operations.transactions.cancellableItems({jwtToken, token, transactionId})
       .then((response) => {
-        expect(response.status).to.equals(200);
+        assert.deepStrictEqual(response.status, 200);
       });
   });
 
@@ -103,7 +103,7 @@ describe("operations/transactions", function () {
       jwtToken, token, trxId: transactionId, paymentResult
     })
       .then((response) => {
-        expect(response.status).to.equals(200);
+        assert.deepStrictEqual(response.status, 200);
       });
   });
 
@@ -175,7 +175,7 @@ describe("operations/transactions", function () {
       jwtToken, token, transactionId, invoice
     })
       .then((response) => {
-        expect(response.status).to.equals(200);
+        assert.deepStrictEqual(response.status, 200);
       });
   });
 
@@ -190,7 +190,7 @@ describe("operations/transactions", function () {
       jwtToken, token, transactionId, creditNote
     })
       .then((response) => {
-        expect(response.status).to.equals(200);
+        assert.deepStrictEqual(response.status, 200);
       });
   });
 });

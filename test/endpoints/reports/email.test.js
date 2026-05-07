@@ -1,4 +1,4 @@
-const {expect} = require("chai");
+const assert = require("node:assert/strict");
 const {axiosMock} = require("./../../test-helpers.js");
 const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com/reports"});
 
@@ -46,8 +46,8 @@ describe("reports/email", () => {
   describe("sendReportEmail", () => {
     it("should POST a report email", () => {
       axiosMock.onPost("/email").reply((config) => {
-        expect(config.data).to.be.eql(JSON.stringify(report));
-        expect(config.headers.authorization).to.be.eql(`Bearer ${jwtToken}`);
+        assert.deepStrictEqual(config.data, JSON.stringify(report));
+        assert.deepStrictEqual(config.headers.authorization, `Bearer ${jwtToken}`);
         const response = {
           email: report.sender
         };

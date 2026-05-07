@@ -1,4 +1,4 @@
-const {expect} = require("chai");
+const assert = require("node:assert/strict");
 const port = process.env.INVENTORY_API_PORT;
 const token = process.env.API_TOKEN;
 const jwtToken = process.env.JWT_TOKEN;
@@ -7,7 +7,7 @@ const scheduleGroupId = process.env.SCHEDULE_GROUP_ID;
 const api = require("./../../../src/client.js").createApiClient({
   baseURL: `http://localhost:${port}`,
   baseURLOverride: {
-    inventory: (baseUrl) => `${baseUrl}/inventory`
+    inventory: (baseUrl) => { return `${baseUrl}/inventory`; }
   }
 });
 
@@ -19,9 +19,9 @@ describe("inventory/schedule-groups", () => {
       scheduleGroupId
     })
       .then(({status, data}) => {
-        expect(status).to.equal(200);
-        expect(data.scheduleGroup).to.exist;
-        expect(data.scheduleGroup._id).to.eql(scheduleGroupId);
+        assert.deepStrictEqual(status, 200);
+        assert.ok(data.scheduleGroup);
+        assert.deepStrictEqual(data.scheduleGroup._id, scheduleGroupId);
       });
   });
 
@@ -40,15 +40,15 @@ describe("inventory/schedule-groups", () => {
       }
     })
       .then(({status, data}) => {
-        expect(status).to.equal(200);
-        expect(data.scheduleGroup).to.exist;
-        expect(data.scheduleGroup.name).to.eql(newName);
-        expect(data.scheduleGroup.enabled).to.eql(newState);
-        expect(data.scheduleGroup.colour).to.eql(newColour);
-        expect(data.amenityGroup.createdAt).to.exist;
-        expect(data.amenityGroup.createdBy).to.exist;
-        expect(data.amenityGroup.updatedAt).to.exist;
-        expect(data.amenityGroup.updatedBy).to.exist;
+        assert.deepStrictEqual(status, 200);
+        assert.ok(data.scheduleGroup);
+        assert.deepStrictEqual(data.scheduleGroup.name, newName);
+        assert.deepStrictEqual(data.scheduleGroup.enabled, newState);
+        assert.deepStrictEqual(data.scheduleGroup.colour, newColour);
+        assert.ok(data.amenityGroup.createdAt);
+        assert.ok(data.amenityGroup.createdBy);
+        assert.ok(data.amenityGroup.updatedAt);
+        assert.ok(data.amenityGroup.updatedBy);
       });
   });
 
@@ -70,15 +70,15 @@ describe("inventory/schedule-groups", () => {
       }
     })
       .then(({status, data}) => {
-        expect(status).to.equal(200);
-        expect(data.amenityGroup).to.exist;
-        expect(data.amenityGroup.name).to.eql(newName);
-        expect(data.amenityGroup.enabled).to.eql(newState);
-        expect(data.amenityGroup.colour).to.eql(newColour);
-        expect(data.amenityGroup.createdAt).to.exist;
-        expect(data.amenityGroup.createdBy).to.exist;
-        expect(data.amenityGroup.updatedAt).to.exist;
-        expect(data.amenityGroup.updatedBy).to.exist;
+        assert.deepStrictEqual(status, 200);
+        assert.ok(data.amenityGroup);
+        assert.deepStrictEqual(data.amenityGroup.name, newName);
+        assert.deepStrictEqual(data.amenityGroup.enabled, newState);
+        assert.deepStrictEqual(data.amenityGroup.colour, newColour);
+        assert.ok(data.amenityGroup.createdAt);
+        assert.ok(data.amenityGroup.createdBy);
+        assert.ok(data.amenityGroup.updatedAt);
+        assert.ok(data.amenityGroup.updatedBy);
       });
   });
 });

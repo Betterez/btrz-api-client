@@ -1,15 +1,15 @@
-const { expect } = require("chai"),
-  port = process.env.BTRZPAY_API_PORT,
-  token = process.env.API_TOKEN,
-  jwtToken = process.env.JWT_TOKEN,
-  api = require("./../../../src/client").createApiClient({
-    baseURL: `http://localhost:${port}`,
-    baseURLOverride: {
-      btrzpay: (baseUrl) => `${baseUrl}/btrz-pay`
-    }
-  });
+const assert = require("node:assert/strict");
+const port = process.env.BTRZPAY_API_PORT;
+const token = process.env.API_TOKEN;
+const jwtToken = process.env.JWT_TOKEN;
+const api = require("./../../../src/client.js").createApiClient({
+  baseURL: `http://localhost:${port}`,
+  baseURLOverride: {
+    btrzpay: (baseUrl) => { return `${baseUrl}/btrz-pay`; }
+  }
+});
 
-describe("btrz-pay/reference-numbers", function() {
+describe("btrz-pay/reference-numbers", () => {
   it("should create a reference number", () => {
     const referenceNumberRequest = {
       "type": "pay_me_later",
@@ -28,9 +28,9 @@ describe("btrz-pay/reference-numbers", function() {
       token,
       referenceNumberRequest
     })
-    .then(({status, data}) => {
-      expect(status).to.equal(200);
-      expect(data.referenceNumber.length).to.eql(8);
-    });
+      .then(({status, data}) => {
+        assert.deepStrictEqual(status, 200);
+        assert.deepStrictEqual(data.referenceNumber.length, 8);
+      });
   });
 });

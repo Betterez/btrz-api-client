@@ -1,5 +1,5 @@
-const { expect } = require("chai");
-const uuid = require("uuid");
+const assert = require("node:assert/strict");
+const {randomUUID} = require("node:crypto");
 
 const port = process.env.INVENTORY_API_PORT;
 const token = process.env.API_TOKEN;
@@ -7,18 +7,17 @@ const jwtToken = process.env.JWT_TOKEN;
 const accountId = process.env.ACCOUNT_ID;
 const fareClassId = process.env.FARE_CLASS_ID;
 
-const api = require("./../../../src/client").createApiClient({
+const api = require("./../../../src/client.js").createApiClient({
   baseURL: `http://localhost:${port}`,
   baseURLOverride: {
-    inventory: (baseUrl) => `${baseUrl}/inventory`
+    inventory: (baseUrl) => { return `${baseUrl}/inventory`; }
   }
 });
 
 
 describe("inventory/fare-classes", () => {
-
   it("should create a fare class", () => {
-    return api.inventory.products.all({ token }).then((res) => {
+    return api.inventory.products.all({token}).then((res) => {
       return api.inventory.fareClasses.create({
         jwtToken,
         token,
@@ -33,7 +32,7 @@ describe("inventory/fare-classes", () => {
           lexiconKeys: {
             name: "fare-class-name-97ba4o9al2837g0w9",
             description: "fare-class-description-97ba4o9al2837g0w9",
-            terms: "fare-class-terms-97ba4o9al2837g0w9",
+            terms: "fare-class-terms-97ba4o9al2837g0w9"
           }
         }
       });
@@ -43,12 +42,12 @@ describe("inventory/fare-classes", () => {
   it("should get all fare classes", () => {
     return api.inventory.fareClasses.all({token, jwtToken, query: {providerId: accountId}})
       .then((response) => {
-        expect(response.data.fareClasses).to.be.instanceOf(Array);
+        assert.ok(Array.isArray(response.data.fareClasses));
       });
   });
 
   it("should update a fare class", () => {
-    const newName = uuid.v4();
+    const newName = randomUUID();
 
     return api.inventory.fareClasses.update({
       jwtToken,
@@ -59,9 +58,9 @@ describe("inventory/fare-classes", () => {
       }
     })
       .then(({status, data}) => {
-        expect(status).to.equal(200);
-        expect(data.fareClass).to.exist;
-        expect(data.fareClass.name).to.eql(newName);
+        assert.deepStrictEqual(status, 200);
+        assert.ok(data.fareClass);
+        assert.deepStrictEqual(data.fareClass.name, newName);
       });
   });
 });

@@ -1,7 +1,7 @@
 const {
   axiosMock, expectRequest
-} = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({baseURL: "http://test.com"});
+} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
 describe("inventory/service-types", () => {
   const token = "I owe you a token";
@@ -12,7 +12,7 @@ describe("inventory/service-types", () => {
   });
 
   it("should create a service type", () => {
-    axiosMock.onPost("/service-types").reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onPost("/service-types").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.serviceTypes.create({
       jwtToken,
       token,
@@ -23,7 +23,7 @@ describe("inventory/service-types", () => {
   });
 
   it("should get all service types", () => {
-    axiosMock.onGet("/service-types").reply(expectRequest({statusCode: 200, token, jwtToken }));
+    axiosMock.onGet("/service-types").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.serviceTypes.all({
       jwtToken,
       token,
@@ -33,7 +33,7 @@ describe("inventory/service-types", () => {
 
   it("should update a service type", () => {
     const serviceTypeId = "1234";
-    axiosMock.onPut(`/service-types/${serviceTypeId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onPut(`/service-types/${serviceTypeId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.serviceTypes.update({
       jwtToken,
       token,
@@ -46,7 +46,7 @@ describe("inventory/service-types", () => {
 
   it("should get a service type", () => {
     const serviceTypeId = "1234";
-    axiosMock.onGet(`/service-types/${serviceTypeId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onGet(`/service-types/${serviceTypeId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.serviceTypes.get({
       jwtToken,
       token,
@@ -56,7 +56,7 @@ describe("inventory/service-types", () => {
 
   it("should delete a service type", () => {
     const serviceTypeId = "1234";
-    axiosMock.onDelete(`/service-types/${serviceTypeId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onDelete(`/service-types/${serviceTypeId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.serviceTypes.remove({
       jwtToken,
       token,

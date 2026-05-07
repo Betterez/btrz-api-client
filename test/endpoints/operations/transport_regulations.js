@@ -1,6 +1,4 @@
-const {
-  expect
-} = require("chai");
+const assert = require("node:assert/strict");
 const {
   axiosMock,
   expectRequest
@@ -29,7 +27,7 @@ describe("operations/transport-regulations", () => {
       jwtToken,
       data
     }).then((httpResponse) => {
-      expect(httpResponse.status).eql(200);
+      assert.deepStrictEqual(httpResponse.status, 200);
     });
   });
 });

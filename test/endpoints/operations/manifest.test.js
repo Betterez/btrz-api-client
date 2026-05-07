@@ -1,4 +1,4 @@
-const {expect} = require("chai");
+const assert = require("node:assert/strict");
 const {
   axiosMock, expectRequest
 } = require("./../../test-helpers.js");
@@ -106,7 +106,7 @@ describe("operations/manifest", () => {
     };
     axiosMock.onPut(`/manifests/${manifestId}/comments`).reply(expectRequest({statusCode: 201, token, jwtToken}));
     const call = await api.operations.manifest.updateComment({token, jwtToken, manifestId, data, query});
-    expect(call.config.params).to.be.eql(query);
+    assert.deepStrictEqual(call.config.params, query);
     return call;
   });
 
@@ -127,7 +127,7 @@ describe("operations/manifest", () => {
     };
     axiosMock.onPut(`/manifests/${manifestId}/status`).reply(expectRequest({statusCode: 201, token, jwtToken}));
     const call = await api.operations.manifest.updateStatus({token, jwtToken, manifestId, data, query});
-    expect(call.config.params).to.be.eql(query);
+    assert.deepStrictEqual(call.config.params, query);
     return call;
   });
 
@@ -148,7 +148,7 @@ describe("operations/manifest", () => {
 
     axiosMock.onPut("/manifests/status").reply(expectRequest({statusCode: 200, token, jwtToken}));
     const call = await api.operations.manifest.statusBulkUpdate({token, jwtToken, data});
-    expect(JSON.parse(call.config.data)).to.be.eql(data);
+    assert.deepStrictEqual(JSON.parse(call.config.data), data);
     return call;
   });
 
@@ -171,7 +171,7 @@ describe("operations/manifest", () => {
     };
     axiosMock.onPost(`/manifests/${manifestId}/capacity-exceptions`).reply(expectRequest({statusCode: 201, token, jwtToken}));
     const call = await api.operations.manifest.addCapacityException({token, jwtToken, manifestId, data, query});
-    expect(call.config.params).to.be.eql(query);
+    assert.deepStrictEqual(call.config.params, query);
     return call;
   });
 
@@ -204,7 +204,7 @@ describe("operations/manifest", () => {
     };
     axiosMock.onPost(`/manifests/${manifestId}/users`).reply(expectRequest({statusCode: 201, token, jwtToken}));
     const call = await api.operations.manifest.addUser({token, jwtToken, manifestId, data, query});
-    expect(call.config.params).to.be.eql(query);
+    assert.deepStrictEqual(call.config.params, query);
     return call;
   });
 
@@ -305,9 +305,11 @@ describe("operations/manifest/legs/tickets/noshow", () => {
     const ticketId = "idTicket";
 
     axiosMock.onPut(`/manifests/${manifestId}/legs/${legFromId}/tickets/${ticketId}/noshow`).reply((config) => {
-      expect(config.url).to.contain.oneOf([manifestId, legFromId, ticketId]);
-      expect(config.headers.authorization).to.be.eql(`Bearer ${jwtToken}`);
-      expect(config.headers["x-api-key"]).to.be.eql(token);
+      assert.ok([manifestId, legFromId, ticketId].some((item) => {
+        return config.url.includes(item);
+      }));
+      assert.deepStrictEqual(config.headers.authorization, `Bearer ${jwtToken}`);
+      assert.deepStrictEqual(config.headers["x-api-key"], token);
       return [200, {}];
     });
     return api.operations.manifest.legs.tickets.noshow({

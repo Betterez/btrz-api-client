@@ -1,13 +1,13 @@
-const {expect} = require("chai");
+const assert = require("node:assert/strict");
 const MockAdapter = require("axios-mock-adapter");
 
 const {createApiClient} = require("./../src/client.js");
 const {createTestServer, axiosMock} = require("./test-helpers.js");
 
 function expectKnownEndpoints(api) {
-  expect(api.inventory.products).to.exist;
-  expect(api.inventory.insurances).to.exist;
-  expect(api.inventory.trips).to.exist;
+  assert.ok(api.inventory.products);
+  assert.ok(api.inventory.insurances);
+  assert.ok(api.inventory.trips);
 }
 
 describe("client", () => {
@@ -17,16 +17,16 @@ describe("client", () => {
     const api = createApiClient();
 
     expectKnownEndpoints(api);
-    expect(api.inventory.__test.client.defaults.baseURL).to.eql("https://api.betterez.com/inventory");
-    expect(api.inventory.__test.client.defaults.timeout).to.eql(15000);
+    assert.deepStrictEqual(api.inventory.__test.client.defaults.baseURL, "https://api.betterez.com/inventory");
+    assert.deepStrictEqual(api.inventory.__test.client.defaults.timeout, 15000);
   });
 
   it("should create a client with default values", () => {
     const api = createApiClient({baseURL});
 
     expectKnownEndpoints(api);
-    expect(api.inventory.__test.client.defaults.baseURL).to.eql(baseURL);
-    expect(api.inventory.__test.client.defaults.timeout).to.eql(0);
+    assert.deepStrictEqual(api.inventory.__test.client.defaults.baseURL, baseURL);
+    assert.deepStrictEqual(api.inventory.__test.client.defaults.timeout, 0);
   });
 
   it("should create a client that uses the provided default request headers when making a request to any subsystem", () => {
@@ -37,13 +37,15 @@ describe("client", () => {
       return !ignoredApiProperties.includes(property);
     }
     for (const subsystem of Object.keys(api).filter(propertyIsRelevant)) {
-      expect(api[subsystem].__test.client.defaults.headers).to.include({"x-amzn-trace-id": "some_value"});
+      Object.entries({"x-amzn-trace-id": "some_value"}).forEach(([k, v]) => {
+        assert.deepStrictEqual(api[subsystem].__test.client.defaults.headers[k], v);
+      });
     }
   });
 
   it("should expose a INTERNAL_AUTH_TOKEN constant", () => {
     const api = createApiClient({baseURL});
-    expect(api.constants.INTERNAL_AUTH_TOKEN_SYMBOL).to.be.eql("internal_auth_token");
+    assert.deepStrictEqual(api.constants.INTERNAL_AUTH_TOKEN_SYMBOL, "internal_auth_token");
   });
 
   it("should allow to override baseUrl for custom endpoints", () => {
@@ -56,12 +58,12 @@ describe("client", () => {
         }
       }
     });
-    expect(api.inventory.products).to.exist;
-    expect(api.inventory.insurances).to.exist;
+    assert.ok(api.inventory.products);
+    assert.ok(api.inventory.insurances);
 
     expectKnownEndpoints(api);
-    expect(api.inventory.__test.client.defaults.baseURL).to.eql(`${baseURL}/somePath`);
-    expect(api.inventory.__test.client.defaults.timeout).to.eql(10);
+    assert.deepStrictEqual(api.inventory.__test.client.defaults.baseURL, `${baseURL}/somePath`);
+    assert.deepStrictEqual(api.inventory.__test.client.defaults.timeout, 10);
   });
 
   it("should allow a different baseUrl to be specified for trip search endpoints", () => {
@@ -75,18 +77,18 @@ describe("client", () => {
     });
 
     expectKnownEndpoints(api);
-    expect(api.inventory.__test.client.defaults.baseURL).to.eql("http://localhost:3010/inventory");
-    expect(api.inventory.__test_trips.client.defaults.baseURL).to.eql("http://localhost:3090/inventory");
+    assert.deepStrictEqual(api.inventory.__test.client.defaults.baseURL, "http://localhost:3010/inventory");
+    assert.deepStrictEqual(api.inventory.__test_trips.client.defaults.baseURL, "http://localhost:3090/inventory");
   });
 
   it("should allow to perform custom request on clean client", () => {
     const api = createApiClient({baseURL, timeout: 0});
-    expect(api.inventory.products).to.exist;
-    expect(api.inventory.insurances).to.exist;
+    assert.ok(api.inventory.products);
+    assert.ok(api.inventory.insurances);
 
     expectKnownEndpoints(api);
-    expect(api._cleanClient.defaults.baseURL).to.eql(baseURL);
-    expect(api._cleanClient.defaults.timeout).to.eql(0);
+    assert.deepStrictEqual(api._cleanClient.defaults.baseURL, baseURL);
+    assert.deepStrictEqual(api._cleanClient.defaults.timeout, 0);
 
     const mock = new MockAdapter(api._cleanClient);
     mock.onPost("/custom/endpoint").reply(200);
@@ -100,24 +102,28 @@ describe("client", () => {
     describe("with keepAlive enabled in a custom endpoint", () => {
       let mockServer = null;
 
-      before((done) => {
+      before(async () => {
         axiosMock.restore();
         mockServer = createTestServer({
           host: "localhost",
           port: 8888,
           maxSockets: 10
         }, (req) => {
-          expect(req.headers.connection).to.equal("keep-alive");
+          assert.deepStrictEqual(req.headers.connection, "keep-alive");
         });
-        mockServer.create((err) => {
-          if (err) return done(err);
-          return done();
+        await new Promise((resolve, reject) => {
+          mockServer.create((err) => {
+            if (err) return reject(err);
+            return resolve();
+          });
         });
       });
 
-      after((done) => {
-        mockServer.close(() => {
-          done();
+      after(async () => {
+        await new Promise((resolve) => {
+          mockServer.close(() => {
+            resolve();
+          });
         });
       });
 
@@ -140,24 +146,28 @@ describe("client", () => {
     describe("with keepAlive enabled in a known endpoint", () => {
       let mockServer = null;
 
-      before((done) => {
+      before(async () => {
         axiosMock.restore();
         mockServer = createTestServer({
           host: "localhost",
           port: 8888,
           maxSockets: 10
         }, (req) => {
-          expect(req.headers.connection).to.equal("keep-alive");
+          assert.deepStrictEqual(req.headers.connection, "keep-alive");
         });
-        mockServer.create((err) => {
-          if (err) return done(err);
-          return done();
+        await new Promise((resolve, reject) => {
+          mockServer.create((err) => {
+            if (err) return reject(err);
+            return resolve();
+          });
         });
       });
 
-      after((done) => {
-        mockServer.close(() => {
-          done();
+      after(async () => {
+        await new Promise((resolve) => {
+          mockServer.close(() => {
+            resolve();
+          });
         });
       });
 
@@ -180,24 +190,28 @@ describe("client", () => {
     describe.skip("with keepAlive disabled (default)", () => {
       let mockServer = null;
 
-      before((done) => {
+      before(async () => {
         axiosMock.restore();
         mockServer = createTestServer({
           host: "localhost",
           port: 8888,
           maxSockets: 120
         }, (req) => {
-          expect(req.headers.connection).to.equal("close");
+          assert.deepStrictEqual(req.headers.connection, "close");
         });
-        mockServer.create((err) => {
-          if (err) return done(err);
-          return done();
+        await new Promise((resolve, reject) => {
+          mockServer.create((err) => {
+            if (err) return reject(err);
+            return resolve();
+          });
         });
       });
 
-      after((done) => {
-        mockServer.close(() => {
-          done();
+      after(async () => {
+        await new Promise((resolve) => {
+          mockServer.close(() => {
+            resolve();
+          });
         });
       });
 

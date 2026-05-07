@@ -1,6 +1,4 @@
-const {
-  expect
-} = require("chai");
+const assert = require("node:assert/strict");
 const FormData = require("form-data");
 const fs = require("fs");
 
@@ -28,8 +26,8 @@ describe("uploads/images", () => {
       formData
     })
       .then(({status, data: response}) => {
-        expect(status).to.eql(200);
-        expect(response.s3Uri).to.match(/https:\/\/s3.amazonaws.com\//);
+        assert.deepStrictEqual(status, 200);
+        assert.match(response.s3Uri, /https:\/\/s3.amazonaws.com\//);
       });
   });
 });

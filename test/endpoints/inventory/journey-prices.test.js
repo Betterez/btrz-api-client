@@ -1,17 +1,17 @@
-const { axiosMock, expectRequest } = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({ baseURL: "http://test.com" });
+const {axiosMock, expectRequest} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
 
-describe('inventory/journey-prices', () => {
-  const token = 'I owe you a token',
-    jwtToken = 'I owe you a JWT token';
+describe("inventory/journey-prices", () => {
+  const token = "I owe you a token";
+  const jwtToken = "I owe you a JWT token";
 
   afterEach(() => {
     axiosMock.reset();
   });
 
   it("should get all journey prices that match the provided query", () => {
-    axiosMock.onGet(`/journey-prices`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onGet("/journey-prices").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.journeyPrices.all({
       jwtToken,
       token,
@@ -32,7 +32,7 @@ describe('inventory/journey-prices', () => {
 
   it("should delete the journey price with the specified ID", () => {
     const id = "1234567890";
-    axiosMock.onDelete(`/journey-prices/${id}`).reply(expectRequest({ statusCode: 204, token, jwtToken }));
+    axiosMock.onDelete(`/journey-prices/${id}`).reply(expectRequest({statusCode: 204, token, jwtToken}));
     return api.inventory.journeyPrices.deleteById({
       jwtToken,
       token,
@@ -42,14 +42,14 @@ describe('inventory/journey-prices', () => {
 
 
   it("should create a Journey Pricing rule", () => {
-    axiosMock.onPost(`/journey-prices`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onPost("/journey-prices").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.journeyPrices.create({
       jwtToken,
       token,
       journeyPrice: {
-        price: '75000000',
-        originId: '112312-123123-121321-13123',
-        destinationId: '112312-123123-121321-13123'
+        price: "75000000",
+        originId: "112312-123123-121321-13123",
+        destinationId: "112312-123123-121321-13123"
 
       }
     });
@@ -57,17 +57,15 @@ describe('inventory/journey-prices', () => {
 
   it("should update a Journey Pricing rule", () => {
     const journeyPriceId = "5ad7804216b426412c19f06f";
-    axiosMock.onPatch(`/journey-prices/${journeyPriceId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onPatch(`/journey-prices/${journeyPriceId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
 
     return api.inventory.journeyPrices.update({
       jwtToken,
       token,
       journeyPriceId,
       "journeyPrice": {
-        "price": "englishName",
+        "price": "englishName"
       }
     });
   });
-
-
 });

@@ -1,6 +1,4 @@
-const {
-  expect
-} = require("chai");
+const assert = require("node:assert/strict");
 const {
   axiosMock,
   expectRequest
@@ -23,7 +21,7 @@ describe("accounts/interline", () => {
     return api.accounts.interline.invitations.all({
       token
     }).then((httpResponse) => {
-      expect(httpResponse.status).eql(200);
+      assert.deepStrictEqual(httpResponse.status, 200);
     });
   });
 
@@ -38,7 +36,7 @@ describe("accounts/interline", () => {
       invitationId,
       token
     }).then((httpResponse) => {
-      expect(httpResponse.status).eql(200);
+      assert.deepStrictEqual(httpResponse.status, 200);
     });
   });
 
@@ -56,7 +54,7 @@ describe("accounts/interline", () => {
       jwtToken,
       data
     }).then((httpResponse) => {
-      expect(httpResponse.status).eql(200);
+      assert.deepStrictEqual(httpResponse.status, 200);
     });
   });
 
@@ -76,7 +74,7 @@ describe("accounts/interline", () => {
       jwtToken,
       data
     }).then((httpResponse) => {
-      expect(httpResponse.status).eql(200);
+      assert.deepStrictEqual(httpResponse.status, 200);
     });
   });
 
@@ -93,7 +91,7 @@ describe("accounts/interline", () => {
       token,
       jwtToken
     }).then((httpResponse) => {
-      expect(httpResponse.status).eql(204);
+      assert.deepStrictEqual(httpResponse.status, 204);
     });
   });
 
@@ -105,7 +103,7 @@ describe("accounts/interline", () => {
     return api.accounts.interline.providers.all({
       token
     }).then((httpResponse) => {
-      expect(httpResponse.status).eql(200);
+      assert.deepStrictEqual(httpResponse.status, 200);
     });
   });
 
@@ -117,7 +115,7 @@ describe("accounts/interline", () => {
     return api.accounts.interline.consumers.all({
       token
     }).then((httpResponse) => {
-      expect(httpResponse.status).eql(200);
+      assert.deepStrictEqual(httpResponse.status, 200);
     });
   });
 
@@ -136,7 +134,7 @@ describe("accounts/interline", () => {
 
     return api.accounts.interline.network.update({interlineId, token, jwtToken, data})
       .then((httpResponse) => {
-        expect(httpResponse.status).eql(200);
+        assert.deepStrictEqual(httpResponse.status, 200);
       });
   });
 
@@ -151,7 +149,7 @@ describe("accounts/interline", () => {
       interlineId,
       token
     }).then((httpResponse) => {
-      expect(httpResponse.status).eql(200);
+      assert.deepStrictEqual(httpResponse.status, 200);
     });
   });
 });

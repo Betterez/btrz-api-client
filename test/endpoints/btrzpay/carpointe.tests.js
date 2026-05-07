@@ -51,8 +51,8 @@ describe("btrzpay/cardpointe-terminals", () => {
 
   it("should start the readCard process with providerId query", () => {
     axiosMock.onPost("/cardpointe-terminals/read-card").reply((config) => {
-      const {expect} = require("chai");
-      expect(config.params).to.deep.equal({providerId: "provider-123"});
+      const assert = require("node:assert/strict");
+      assert.deepStrictEqual(config.params, {providerId: "provider-123"});
       return [200, {readCardResultId: "id"}];
     });
     return api.btrzpay.cardpointeTerminals.readCard.create({

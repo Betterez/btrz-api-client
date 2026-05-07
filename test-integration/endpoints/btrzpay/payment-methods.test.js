@@ -1,23 +1,23 @@
-const { expect } = require("chai"),
-  port = process.env.BTRZPAY_API_PORT,
-  token = process.env.API_TOKEN,
-  jwtToken = process.env.JWT_TOKEN,
-  paymentMethodId = process.env.PAYMENT_METHOD_ID,
-  providerAccountId = process.env.PROVIDER_ACCOUNT_ID,
-  api = require("./../../../src/client").createApiClient({
-    baseURL: `http://localhost:${port}`,
-    baseURLOverride: {
-      btrzpay: (baseUrl) => `${baseUrl}/btrz-pay`
-    }
-  });
+const assert = require("node:assert/strict");
+const port = process.env.BTRZPAY_API_PORT;
+const token = process.env.API_TOKEN;
+const jwtToken = process.env.JWT_TOKEN;
+const paymentMethodId = process.env.PAYMENT_METHOD_ID;
+const providerAccountId = process.env.PROVIDER_ACCOUNT_ID;
+const api = require("./../../../src/client.js").createApiClient({
+  baseURL: `http://localhost:${port}`,
+  baseURLOverride: {
+    btrzpay: (baseUrl) => { return `${baseUrl}/btrz-pay`; }
+  }
+});
 
-describe("btrz-pay/payment-methods", function() {
-  it("should return empty success", function() {
+describe("btrz-pay/payment-methods", () => {
+  it("should return empty success", () => {
     const providerName = "anyName";
-    return api.btrzpay.paymentMethods.getByProviderName({ token, jwtToken, providerName })
+    return api.btrzpay.paymentMethods.getByProviderName({token, jwtToken, providerName})
       .then((result) => {
-        expect(result.status).to.be.eql(200);
-        expect(result.data.paymentMethods).to.be.eql([]);
+        assert.deepStrictEqual(result.status, 200);
+        assert.deepStrictEqual(result.data.paymentMethods, []);
       });
   });
 
@@ -34,13 +34,13 @@ describe("btrz-pay/payment-methods", function() {
       token,
       paymentMethod
     })
-    .then(({status, data}) => {
-      expect(status).to.equal(200);
-      expect(data.paymentMethod.method).to.eql(paymentMethod.method);
-      expect(data.paymentMethod.displayName).to.eql(paymentMethod.displayName);
-      expect(data.paymentMethod.ord).to.eql(paymentMethod.ord);
-      expect(data.paymentMethod.provider).to.eql(paymentMethod.providerName);
-    });
+      .then(({status, data}) => {
+        assert.deepStrictEqual(status, 200);
+        assert.deepStrictEqual(data.paymentMethod.method, paymentMethod.method);
+        assert.deepStrictEqual(data.paymentMethod.displayName, paymentMethod.displayName);
+        assert.deepStrictEqual(data.paymentMethod.ord, paymentMethod.ord);
+        assert.deepStrictEqual(data.paymentMethod.provider, paymentMethod.providerName);
+      });
   });
 
   it("should get a payment method", () => {
@@ -49,10 +49,10 @@ describe("btrz-pay/payment-methods", function() {
       token,
       paymentMethodId
     })
-    .then(({status, data}) => {
-      expect(status).to.equal(200);
-      expect(data.paymentMethod._id).to.eql(paymentMethodId);
-    });
+      .then(({status, data}) => {
+        assert.deepStrictEqual(status, 200);
+        assert.deepStrictEqual(data.paymentMethod._id, paymentMethodId);
+      });
   });
 
   it("should get a payment method with providerId in query (Agency)", () => {
@@ -62,10 +62,10 @@ describe("btrz-pay/payment-methods", function() {
       paymentMethodId,
       query: {providerId: providerAccountId}
     })
-    .then(({status, data}) => {
-      expect(status).to.equal(200);
-      expect(data.paymentMethod._id).to.eql(paymentMethodId);
-    });
+      .then(({status, data}) => {
+        assert.deepStrictEqual(status, 200);
+        assert.deepStrictEqual(data.paymentMethod._id, paymentMethodId);
+      });
   });
 
   it("should update a payment method", () => {
@@ -80,8 +80,8 @@ describe("btrz-pay/payment-methods", function() {
       }
     })
       .then(({status, data}) => {
-        expect(status).to.equal(200);
-        expect(data.updated).to.be.eql(true);
+        assert.deepStrictEqual(status, 200);
+        assert.deepStrictEqual(data.updated, true);
       });
   });
 });

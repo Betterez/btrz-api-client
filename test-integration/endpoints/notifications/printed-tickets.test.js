@@ -2,10 +2,10 @@ const port = process.env.NOTIFICATIONS_API_PORT;
 const token = process.env.API_TOKEN;
 const jwtToken = process.env.JWT_TOKEN;
 
-const api = require("./../../../src/client").createApiClient({ 
+const api = require("./../../../src/client.js").createApiClient({
   baseURL: `http://localhost:${port}`,
   baseURLOverride: {
-    notifications: (baseUrl) => `${baseUrl}/notifications`
+    notifications: (baseUrl) => { return `${baseUrl}/notifications`; }
   }
 });
 

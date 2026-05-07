@@ -1,4 +1,4 @@
-const {expect} = require("chai");
+const assert = require("node:assert/strict");
 const {axiosMock} = require("./../../test-helpers.js");
 const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
@@ -14,8 +14,8 @@ describe("notifications/customers", () => {
     };
     it("Should POST a reset email", () => {
       axiosMock.onPost("/customers/reset").reply((config) => {
-        expect(config.params).to.be.eql(query);
-        expect(config.headers.authorization).to.be.eql(`Bearer ${jwtToken}`);
+        assert.deepStrictEqual(config.params, query);
+        assert.deepStrictEqual(config.headers.authorization, `Bearer ${jwtToken}`);
         const response = {
           email: query.email
         };
@@ -38,9 +38,9 @@ describe("notifications/customers", () => {
     };
     it("Should POST a activation email", () => {
       axiosMock.onPost("/customers/activation").reply((config) => {
-        expect(config.params).to.be.eql(query);
-        expect(config.data).to.deep.equal(JSON.stringify(body));
-        expect(config.headers["x-api-key"]).to.be.eql(token);
+        assert.deepStrictEqual(config.params, query);
+        assert.deepStrictEqual(config.data, JSON.stringify(body));
+        assert.deepStrictEqual(config.headers["x-api-key"], token);
         return [200];
       });
       return api.notifications.customers.sendActivationEmail({

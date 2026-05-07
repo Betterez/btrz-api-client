@@ -1,7 +1,7 @@
 const {
   axiosMock, expectRequest
-} = require("../../test-helpers");
-const api = require("../../../src/client").createApiClient({ baseURL: "http://test.com" });
+} = require("../../test-helpers.js");
+const api = require("../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
 describe("operations/waitlists", () => {
   const token = "I owe you a token";
@@ -36,7 +36,7 @@ describe("operations/waitlists", () => {
   });
 
   it("should create a Waitlist", () => {
-    axiosMock.onPost(`/waitlists`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onPost("/waitlists").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.operations.waitlists.create({
       jwtToken,
       token,

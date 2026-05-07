@@ -1,18 +1,22 @@
-const expect = require("chai").expect;
+const assert = require("node:assert/strict");
 
-const matchHeaders = (tokenPropertyName) => (response) => {
-  expect(response.request._headers).to.have.property('accept', 'application/json');
-  expect(response.request._headers[tokenPropertyName]).to.exists;
+function matchHeaders(tokenPropertyName) {
+  return (response) => {
+    assert.strictEqual(response.request._headers.accept, "application/json");
+    assert.ok(response.request._headers[tokenPropertyName]);
 
-  return response;
+    return response;
+  };
 }
 
-const statusCode = (code) => (response) => {
-  expect(response.status).to.eql(code);
-  return response;
+function statusCode(code) {
+  return (response) => {
+    assert.deepStrictEqual(response.status, code);
+    return response;
+  };
 }
 
 module.exports = {
   matchHeaders,
   statusCode
-}
+};

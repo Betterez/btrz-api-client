@@ -1,7 +1,7 @@
-const {expect} = require("chai");
+const assert = require("node:assert/strict");
 const base64 = require("base-64");
-const {axiosMock, expectRequest} = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({baseURL: "http://test.com"});
+const {axiosMock, expectRequest} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
 describe("accounts/customers", () => {
   const token = "I owe you a token";
@@ -57,8 +57,8 @@ describe("accounts/customers", () => {
     axiosMock.onPost("/customers/cas", {
       service, ticket
     }).reply((response) => {
-      expect(response.data).to.be.eql(`{"service":"${service}","ticket":"${ticket}"}`);
-      expect(response.headers["x-api-key"]).to.be.eql(token);
+      assert.deepStrictEqual(response.data, `{"service":"${service}","ticket":"${ticket}"}`);
+      assert.deepStrictEqual(response.headers["x-api-key"], token);
       return [200];
     });
 
@@ -81,17 +81,17 @@ describe("accounts/customers", () => {
     };
 
     axiosMock.onPost("/customers").reply((config) => {
-      expect(config.params).eql({
+      assert.deepStrictEqual(config.params, {
         "x-api-key": apiKey
       });
-      expect(config.headers.Authorization).eql(`Basic ${encodedCredentials}`);
+      assert.deepStrictEqual(config.headers.Authorization, `Basic ${encodedCredentials}`);
       return [200, response];
     });
 
     return api.accounts.customers.signIn({email, password, apiKey})
       .then((httpResponse) => {
-        expect(httpResponse.status).eql(200);
-        expect(httpResponse.data).eql(response);
+        assert.deepStrictEqual(httpResponse.status, 200);
+        assert.deepStrictEqual(httpResponse.data, response);
       });
   });
 
@@ -113,15 +113,15 @@ describe("accounts/customers", () => {
     };
 
     axiosMock.onPatch(`/customers/${customerId}`).reply((config) => {
-      expect(config.headers.authorization).eql(`Bearer ${jwtToken}`);
-      expect(config.headers["x-api-key"]).eql(token);
+      assert.deepStrictEqual(config.headers.authorization, `Bearer ${jwtToken}`);
+      assert.deepStrictEqual(config.headers["x-api-key"], token);
       return [200, response];
     });
 
     return api.accounts.customers.update({customerId, token, jwtToken, data})
       .then((httpResponse) => {
-        expect(httpResponse.status).eql(200);
-        expect(httpResponse.data).eql(response);
+        assert.deepStrictEqual(httpResponse.status, 200);
+        assert.deepStrictEqual(httpResponse.data, response);
       });
   });
 
@@ -136,15 +136,15 @@ describe("accounts/customers", () => {
     };
 
     axiosMock.onPost("/customers/merge", data).reply((config) => {
-      expect(config.headers.authorization).eql(`Bearer ${jwtToken}`);
-      expect(config.headers["x-api-key"]).eql(token);
+      assert.deepStrictEqual(config.headers.authorization, `Bearer ${jwtToken}`);
+      assert.deepStrictEqual(config.headers["x-api-key"], token);
       return [200, response];
     });
 
     return api.accounts.customers.merge({destinationCustomerId, sourceCustomerIds, token, jwtToken})
       .then((httpResponse) => {
-        expect(httpResponse.status).eql(200);
-        expect(httpResponse.data).eql(response);
+        assert.deepStrictEqual(httpResponse.status, 200);
+        assert.deepStrictEqual(httpResponse.data, response);
       });
   });
 });

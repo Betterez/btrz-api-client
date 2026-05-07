@@ -1,11 +1,11 @@
-const { axiosMock, expectRequest } = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({ baseURL: "http://ratality.com/v2" });
+const {axiosMock, expectRequest} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({baseURL: "http://ratality.com/v2"});
 
 describe("client", () => {
-  const jwtToken = 'I owe you a JWT token';
+  const jwtToken = "I owe you a JWT token";
   const version = "v2";
 
-  afterEach(function() {
+  afterEach(() => {
     axiosMock.restore();
   });
 

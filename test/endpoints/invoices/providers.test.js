@@ -1,5 +1,5 @@
-const {axiosMock, expectRequest} = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({baseURL: "http://test.com"});
+const {axiosMock, expectRequest} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
 describe("invoices/providers", () => {
   const token = "I owe you a token";
@@ -19,8 +19,8 @@ describe("invoices/providers", () => {
     const id = "12312312312312";
     axiosMock.onGet(`/providers/${id}`)
       .reply(expectRequest({
-        statusCode: 200, 
-        token, 
+        statusCode: 200,
+        token,
         jwtToken
       }));
     return api.invoices.providers.get({token, jwtToken, query: {}, id});

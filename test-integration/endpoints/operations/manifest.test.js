@@ -1,34 +1,33 @@
-const { expect } = require("chai");
+const assert = require("node:assert/strict");
 
 const port = process.env.OPERATIONS_API_PORT;
 const token = process.env.API_TOKEN;
 const jwtToken = process.env.JWT_TOKEN;
 
-const api = require("./../../../src/client").createApiClient({ 
-  baseURL: `http://localhost:${port}`, 
+const api = require("./../../../src/client.js").createApiClient({
+  baseURL: `http://localhost:${port}`,
   baseURLOverride: {
-    operations: (baseUrl) => `${baseUrl}/operations`
+    operations: (baseUrl) => { return `${baseUrl}/operations`; }
   }
 });
 
-describe("operations/manifest", function() {
-
-  it("should not get a manifest that does not exist", function() {
+describe("operations/manifest", () => {
+  it("should not get a manifest that does not exist", () => {
     const query = {routeId: "51ed2be3cf2c819d00000000", scheduleId: "Morning", date: "2017-08-21"};
-    return api.operations.manifest.get({ token, jwtToken, query })
+    return api.operations.manifest.get({token, jwtToken, query})
       .catch((err) => {
-        expect(err).to.exist;
-        expect(err.response.status).to.be.eql(404);
-        expect(err.response.data.code).to.be.eql('MANIFEST_NOT_FOUND');
-        expect(err.response.data.message).to.be.eql('manifest not found');
+        assert.ok(err);
+        assert.deepStrictEqual(err.response.status, 404);
+        assert.deepStrictEqual(err.response.data.code, "MANIFEST_NOT_FOUND");
+        assert.deepStrictEqual(err.response.data.message, "manifest not found");
       });
   });
 
-  it("should get the manifest", function() {
+  it("should get the manifest", () => {
     const query = {routeId: "51ed2be3cf2c819d5e000010", scheduleId: "Morning", date: "2017-08-21"};
-    return api.operations.manifest.get({ token, jwtToken, query })
+    return api.operations.manifest.get({token, jwtToken, query})
       .then((res) => {
-        expect(res.data.manifest._id).to.be.eql("5997315d8efff74052000005");
+        assert.deepStrictEqual(res.data.manifest._id, "5997315d8efff74052000005");
       });
   });
 
@@ -45,30 +44,29 @@ describe("operations/manifest", function() {
         date: "2020-01-14"
       }]
     };
-    const {data: response} = await api.operations.manifest.getMany({ token, jwtToken, providerId, data: payload });
-    expect(response).to.be.an.array;
-    expect(response).to.have.length(2);
+    const {data: response} = await api.operations.manifest.getMany({token, jwtToken, providerId, data: payload});
+    assert.ok(Array.isArray(response));
+    assert.strictEqual(response.length, 2);
 
-    //TODO: These expectations probably fail even on a successful response.  Edit these once the POST /manifests endpoint is complete.
-    expect(response[0].routeId).to.eql("5c50e32e62da38d275000001");
-    expect(response[0].schedule).to.eql("ef83faaa-b58f-43bb-8c5c-92e2bfa476c0");
-    //TODO: Particularly the date format is probably incorrect
-    expect(response[0].date).to.eql("2019-02-27");
+    // Note: These expectations probably fail even on a successful response.  Edit these once the POST /manifests endpoint is complete.
+    assert.deepStrictEqual(response[0].routeId, "5c50e32e62da38d275000001");
+    assert.deepStrictEqual(response[0].schedule, "ef83faaa-b58f-43bb-8c5c-92e2bfa476c0");
+    // Note: Particularly the date format is probably incorrect
+    assert.deepStrictEqual(response[0].date, "2019-02-27");
 
-    expect(response[0].routeId).to.eql("528cdd9c61c78c2f2d000066");
-    expect(response[0].schedule).to.eql("711-b58f-43bb-8c5c-92e2bfa476c0");
-    expect(response[0].date).to.eql("2020-01-14");
+    assert.deepStrictEqual(response[0].routeId, "528cdd9c61c78c2f2d000066");
+    assert.deepStrictEqual(response[0].schedule, "711-b58f-43bb-8c5c-92e2bfa476c0");
+    assert.deepStrictEqual(response[0].date, "2020-01-14");
   });
 
-  it("should patch a manifest with add_tickets operation", function() {
-    const providerId = "5997315d8efff74052000005",
-      operations = [{op: "add_tickets", tickets: ["576989208f86028739fef256"]}];
-    return api.operations.manifest.patch({ token, jwtToken, query: {providerId}, operations })
+  it("should patch a manifest with add_tickets operation", () => {
+    const providerId = "5997315d8efff74052000005";
+    const operations = [{op: "add_tickets", tickets: ["576989208f86028739fef256"]}];
+    return api.operations.manifest.patch({token, jwtToken, query: {providerId}, operations})
       .then((res) => {
-        expect(res.data.results).to.have.length(1);
-        expect(res.data.results[0].op).to.be.eql("add_tickets");
-        expect(res.data.results[0].status).to.be.eql("success");
+        assert.strictEqual(res.data.results.length, 1);
+        assert.deepStrictEqual(res.data.results[0].op, "add_tickets");
+        assert.deepStrictEqual(res.data.results[0].status, "success");
       });
   });
-
 });

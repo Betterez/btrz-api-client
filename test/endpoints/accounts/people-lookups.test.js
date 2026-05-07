@@ -1,6 +1,6 @@
 const {axiosMock, expectRequest} = require("./../../test-helpers.js");
 const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
-const expect = require("chai").expect;
+const assert = require("node:assert/strict");
 
 
 describe("accounts/people-lookups", () => {
@@ -65,9 +65,9 @@ describe("accounts/people-lookups", () => {
       jwtToken, token, personId, person
     })
       .then((res) => {
-        expect(res.config.params).to.eql({});
-        expect(res.config.data).to.eql(JSON.stringify({person}));
-        expect(res.status).to.equals(200);
+        assert.deepStrictEqual(res.config.params, {});
+        assert.deepStrictEqual(res.config.data, JSON.stringify({person}));
+        assert.deepStrictEqual(res.status, 200);
       });
   });
 
@@ -87,9 +87,9 @@ describe("accounts/people-lookups", () => {
       jwtToken, token, personId, person, providerId
     })
       .then((res) => {
-        expect(res.config.params).to.eql({providerId});
-        expect(res.config.data).to.eql(JSON.stringify({person}));
-        expect(res.status).to.equals(200);
+        assert.deepStrictEqual(res.config.params, {providerId});
+        assert.deepStrictEqual(res.config.data, JSON.stringify({person}));
+        assert.deepStrictEqual(res.status, 200);
       });
   });
 
@@ -109,9 +109,9 @@ describe("accounts/people-lookups", () => {
       token, jwtToken, person
     })
       .then((res) => {
-        expect(res.config.params).to.eql({});
-        expect(res.config.data).to.eql(JSON.stringify({person}));
-        expect(res.status).to.equals(200);
+        assert.deepStrictEqual(res.config.params, {});
+        assert.deepStrictEqual(res.config.data, JSON.stringify({person}));
+        assert.deepStrictEqual(res.status, 200);
       });
   });
 
@@ -131,9 +131,9 @@ describe("accounts/people-lookups", () => {
       token, jwtToken, person, providerId
     })
       .then((res) => {
-        expect(res.config.params).to.eql({providerId});
-        expect(res.config.data).to.eql(JSON.stringify({person}));
-        expect(res.status).to.equals(200);
+        assert.deepStrictEqual(res.config.params, {providerId});
+        assert.deepStrictEqual(res.config.data, JSON.stringify({person}));
+        assert.deepStrictEqual(res.status, 200);
       });
   });
 

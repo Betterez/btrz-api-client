@@ -32,10 +32,14 @@ function terminalPaymentsFactory({client, internalAuthTokenProvider}) {
      * @param {string} [opts.token] - API key
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.id - Terminal payment ID (UUID)
-     * @param {{ result?: Object, paymentRequest: Object, orderId: string }} opts.terminalPayment - Terminal payment data (result, paymentRequest, orderId)
+     * @param {{ result?: Object, paymentRequest: Object, orderId: string }} opts.terminalPayment
+     * - Terminal payment data (result, paymentRequest, orderId)
      * @param {TerminalPaymentsMitPutQuery} [opts.query] - Optional providerId
      * @param {Object} [opts.headers] - Optional headers
-     * @returns {Promise<import("axios").AxiosResponse<{ terminalPayment: Object }>>} Rejects with 400 (WRONG_DATA, INVALID_TERMINALPAYMENT_ID, INVALID_RESULT_OBJECT, MIT_*), 401, 404 (TERMINALPAYMENT_NOT_FOUND, MIT_PAYMENT_NOT_FOUND), 409 (CANT_UPDATE_ORDER), 500.
+     * @returns {Promise<import("axios").AxiosResponse<{ terminalPayment: Object }>>}
+     * Rejects with 400 (WRONG_DATA, INVALID_TERMINALPAYMENT_ID,
+     * INVALID_RESULT_OBJECT, MIT_*), 401, 404 (TERMINALPAYMENT_NOT_FOUND,
+     * MIT_PAYMENT_NOT_FOUND), 409 (CANT_UPDATE_ORDER), 500.
      */
     update({token, jwtToken, id, terminalPayment, query = {}, headers}) {
       return client({
@@ -54,7 +58,10 @@ function terminalPaymentsFactory({client, internalAuthTokenProvider}) {
      * @param {string} opts.id - Terminal payment ID (UUID)
      * @param {TerminalPaymentsMitGetQuery} opts.query - branchId, companyId, date (required); optional providerId
      * @param {Object} [opts.headers] - Optional headers
-     * @returns {Promise<import("axios").AxiosResponse<{ terminalPayment: Object }>>} Rejects with 400 (WRONG_DATA, INVALID_TERMINALPAYMENT_ID, INVALID_DATE, MIT_*), 401, 404 (TERMINALPAYMENT_NOT_FOUND, MIT_PAYMENT_NOT_FOUND), 500.
+     * @returns {Promise<import("axios").AxiosResponse<{ terminalPayment: Object }>>}
+     * Rejects with 400 (WRONG_DATA, INVALID_TERMINALPAYMENT_ID,
+     * INVALID_DATE, MIT_*), 401, 404 (TERMINALPAYMENT_NOT_FOUND,
+     * MIT_PAYMENT_NOT_FOUND), 500.
      */
     get({token, jwtToken, id, query = {}, headers}) {
       return client.get(`/terminal-payments/mit/${id}`, {
@@ -73,7 +80,10 @@ function terminalPaymentsFactory({client, internalAuthTokenProvider}) {
      * @param {Object} [opts.headers] - Optional headers
      * @param {string} [opts.token] - API key (optional when no userId in payload)
      * @param {string} [opts.jwtToken] - JWT or internal auth (required when userId is in payload)
-     * @returns {Promise<import("axios").AxiosResponse<{ status: string }>>} Rejects with 400 (INVALID_WEBHOOK_PAYLOAD), 401 (when userId present but not authenticated), 404 (PAYMENT_NOT_FOUND_FOR_WEBHOOK_EVENT, PAYMENT_METHOD_NOT_FOUND, USER_NOT_FOUND), 409 (CANT_UPDATE_ORDER), 500.
+     * @returns {Promise<import("axios").AxiosResponse<{ status: string }>>}
+     * Rejects with 400 (INVALID_WEBHOOK_PAYLOAD), 401 (when userId present but
+     * not authenticated), 404 (PAYMENT_NOT_FOUND_FOR_WEBHOOK_EVENT,
+     * PAYMENT_METHOD_NOT_FOUND, USER_NOT_FOUND), 409 (CANT_UPDATE_ORDER), 500.
      */
     getnet({data, providerId, headers = {}, token, jwtToken}) {
       const _headers = token && jwtToken ?

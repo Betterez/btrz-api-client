@@ -12,7 +12,7 @@ describe("inventory/custom-content", () => {
   });
 
   it("should create a custom content", () => {
-    axiosMock.onPost("/custom-content").reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onPost("/custom-content").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.customContent.create({
       jwtToken,
       token,
@@ -23,7 +23,7 @@ describe("inventory/custom-content", () => {
   });
 
   it("should get all pieces of custom content", () => {
-    axiosMock.onGet("/custom-content").reply(expectRequest({statusCode: 200, token, jwtToken }));
+    axiosMock.onGet("/custom-content").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.customContent.all({
       jwtToken,
       token,
@@ -33,7 +33,7 @@ describe("inventory/custom-content", () => {
 
   it("should update a piece of custom content", () => {
     const customContentId = "1234";
-    axiosMock.onPut(`/custom-content/${customContentId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onPut(`/custom-content/${customContentId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.customContent.update({
       jwtToken,
       token,
@@ -46,7 +46,7 @@ describe("inventory/custom-content", () => {
 
   it("should get a piece of custom content", () => {
     const customContentId = "1234";
-    axiosMock.onGet(`/custom-content/${customContentId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onGet(`/custom-content/${customContentId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.customContent.get({
       jwtToken,
       token,

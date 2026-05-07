@@ -1,12 +1,12 @@
-const { expect } = require("chai");
-const { axiosMock, expectRequest } = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({ baseURL: "http://ratality.com/v2" });
+const assert = require("node:assert/strict");
+const {axiosMock, expectRequest} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({baseURL: "http://ratality.com/v2"});
 
 describe("integrations", () => {
-  const jwtToken = 'I owe you a JWT token';
+  const jwtToken = "I owe you a JWT token";
   const version = "v2";
 
-  afterEach(function() {
+  afterEach(() => {
     axiosMock.restore();
   });
 
@@ -22,7 +22,9 @@ describe("integrations", () => {
     };
     axiosMock.onPost(`/${version}/client/integrations`).reply((config) => {
       expectRequest({statusCode: 200, jwtToken, body: data, withoutApiKey: true});
-      expect(config.headers).to.include({clientId});
+      Object.entries({clientId}).forEach(([k, v]) => {
+        assert.deepStrictEqual(config.headers[k], v);
+      });
       return [200, {
         "integrationType": "Betterez",
         "clientId": clientId,
@@ -63,7 +65,9 @@ describe("integrations", () => {
     const clientId = "clientId123";
     axiosMock.onGet(`/${version}/client/integrations`).reply((config) => {
       expectRequest({statusCode: 200, jwtToken, withoutApiKey: true});
-      expect(config.headers).to.include({clientId});
+      Object.entries({clientId}).forEach(([k, v]) => {
+        assert.deepStrictEqual(config.headers[k], v);
+      });
       return [200, {integrations: []}];
     });
     return api.ratality.integrations.get({
@@ -77,8 +81,10 @@ describe("integrations", () => {
     const integrationType = "Betterez";
     axiosMock.onDelete(`/${version}/client/integrations/${integrationType}`).reply((config) => {
       expectRequest({statusCode: 200, jwtToken, withoutApiKey: true});
-      expect(config.headers).to.include({clientId});
-      expect(config.url).to.contain("Betterez");
+      Object.entries({clientId}).forEach(([k, v]) => {
+        assert.deepStrictEqual(config.headers[k], v);
+      });
+      assert.ok(config.url.includes("Betterez"));
       return [200, {integrations: []}];
     });
     return api.ratality.integrations.remove({

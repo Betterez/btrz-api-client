@@ -1,7 +1,7 @@
 const {
   axiosMock, expectRequest
-} = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({baseURL: "http://test.com"});
+} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
 describe("inventory/seat-fees", () => {
   const token = "I owe you a token";
@@ -12,7 +12,7 @@ describe("inventory/seat-fees", () => {
   });
 
   it("should create a seatfee", () => {
-    axiosMock.onPost("/seat-fees").reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onPost("/seat-fees").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.seatfees.create({
       jwtToken,
       token,
@@ -23,7 +23,7 @@ describe("inventory/seat-fees", () => {
   });
 
   it("should get all the seatfees", () => {
-    axiosMock.onGet("/seat-fees").reply(expectRequest({statusCode: 200, token, jwtToken }));
+    axiosMock.onGet("/seat-fees").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.seatfees.all({
       jwtToken,
       token,
@@ -33,7 +33,7 @@ describe("inventory/seat-fees", () => {
 
   it("should update a seatfee", () => {
     const seatfeeId = "1234";
-    axiosMock.onPut(`/seat-fees/${seatfeeId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onPut(`/seat-fees/${seatfeeId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.seatfees.update({
       jwtToken,
       token,
@@ -46,7 +46,7 @@ describe("inventory/seat-fees", () => {
 
   it("should get a seatfee", () => {
     const seatfeeId = "1234";
-    axiosMock.onGet(`/seat-fees/${seatfeeId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onGet(`/seat-fees/${seatfeeId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.seatfees.get({
       jwtToken,
       token,

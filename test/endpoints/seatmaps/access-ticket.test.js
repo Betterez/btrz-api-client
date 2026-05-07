@@ -1,16 +1,16 @@
-const { axiosMock, expectRequest } = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({ baseURL: "http://test.com" });
+const {axiosMock, expectRequest} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
 describe("seatmaps/ticket", () => {
-  const token = 'I owe you a token',
-    jwtToken = 'I owe you a JWT token';
+  const token = "I owe you a token";
+  const jwtToken = "I owe you a JWT token";
 
-  afterEach(function() {
+  afterEach(() => {
     axiosMock.restore();
   });
 
   it("should return an access ticket", () => {
-    axiosMock.onPost(`/access-ticket`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onPost("/access-ticket").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.seatmaps.accessTicket.create({
       jwtToken,
       token

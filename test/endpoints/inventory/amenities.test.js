@@ -1,23 +1,23 @@
-const { axiosMock, expectRequest } = require("./../../test-helpers");
-const api = require("./../../../src/client").createApiClient({ baseURL: "http://test.com" });
+const {axiosMock, expectRequest} = require("./../../test-helpers.js");
+const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
-describe('inventory/amenities', () => {
-  const token = 'I owe you a token',
-    jwtToken = 'I owe you a JWT token';
+describe("inventory/amenities", () => {
+  const token = "I owe you a token";
+  const jwtToken = "I owe you a JWT token";
 
   afterEach(() => {
     axiosMock.reset();
   });
 
-  it("should list Amenities", function() {
-    axiosMock.onGet(`/amenities`).reply(expectRequest({ statusCode: 200, token }));
-    return api.inventory.amenities.all({ token });
+  it("should list Amenities", () => {
+    axiosMock.onGet("/amenities").reply(expectRequest({statusCode: 200, token}));
+    return api.inventory.amenities.all({token});
   });
 
 
   it("should get an Amenity", () => {
     const amenityId = "5ad7804216b426412c19f06f";
-    axiosMock.onGet(`/amenities/${amenityId}`).reply(expectRequest({ statusCode: 200, token }));
+    axiosMock.onGet(`/amenities/${amenityId}`).reply(expectRequest({statusCode: 200, token}));
     return api.inventory.amenities.get({
       token,
       amenityId
@@ -25,20 +25,20 @@ describe('inventory/amenities', () => {
   });
 
   it("should create an Amenity", () => {
-    axiosMock.onPost(`/amenities`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onPost("/amenities").reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.amenities.create({
       jwtToken,
       token,
       amenity: {
-        name: 'englishName',
-        icon: 'fa-ship',
-        enabled: 'true',
+        name: "englishName",
+        icon: "fa-ship",
+        enabled: "true",
         lexiconValues: {
-          "en-us": 'englishName',
-          "fr-fr": 'frenchName',
-          "nl-nl": 'netherlandName',
-          "de-de": 'deutchName',
-          "es-ar": 'spanishName'
+          "en-us": "englishName",
+          "fr-fr": "frenchName",
+          "nl-nl": "netherlandName",
+          "de-de": "deutchName",
+          "es-ar": "spanishName"
         }
       }
     });
@@ -46,7 +46,7 @@ describe('inventory/amenities', () => {
 
   it("should update an Amenity", () => {
     const amenityId = "5ad7804216b426412c19f06f";
-    axiosMock.onPut(`/amenities/${amenityId}`).reply(expectRequest({ statusCode: 200, token, jwtToken }));
+    axiosMock.onPut(`/amenities/${amenityId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
 
     return api.inventory.amenities.update({
       jwtToken,
@@ -55,7 +55,7 @@ describe('inventory/amenities', () => {
       "update": {
         "name": "englishName",
         "icon": "testIcon",
-        "enabled" : true,
+        "enabled": true,
         "lexiconValues": {
           "en-us": "englishName333",
           "es-ar": "spanishName333"
