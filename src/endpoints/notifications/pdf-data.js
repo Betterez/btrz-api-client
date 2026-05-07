@@ -78,7 +78,7 @@ function pdfDataFactory({
       url = `/pdf-redeemable-items/${itemId}`;
     }
     if (query.type === "sold_item_confirmation") {
-      url = `/pdf-sold-items/${itemId}`;
+      url = `/pdf-paid-ins/${itemId}`;
     }
     if (query.type === "customer_card_membership" ||
       query.type === "scanning_badge" ||
@@ -103,9 +103,6 @@ function pdfDataFactory({
     if (query.type === "transaction" || query.type === "operator_purchase" || query.type === "operator_ssr") {
       url = `/pdf-transactions/${itemId}`;
     }
-    if (query.type === "operator_manifest_capacity") {
-      url = `/pdf-operator-manifest-capacities/${itemId}`;
-    }
     if (query.type === "ssr") {
       url = `/pdf-ssrs/${itemId}`;
     }
@@ -113,9 +110,9 @@ function pdfDataFactory({
       url = `/pdf-passengers-manifests/${itemId}`;
     }
     if (query.type === "reaccomodation" || query.type === "ticket_movement") {
-      url = `/pdf-reaccomodation/${itemId}`;
+      url = `/pdf-tickets/${itemId}`;
     }
-    if (query.type === "manifest" || query.type === "manifest_notification") {
+    if (query.type === "manifest" || query.type === "manifest_notification" || query.type === "operator_manifest_capacity") {
       url = `/pdf-manifests/${itemId}`;
     }
     const orderTypes = ["order", "order_confirmation", "cancellation", "change"];

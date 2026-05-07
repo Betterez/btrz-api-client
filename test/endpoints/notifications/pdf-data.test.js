@@ -337,7 +337,7 @@ describe("notifications/pdf-data", () => {
   it("should return the proper data for sold_item_confirmation", () => {
     const itemId = "12345";
     const query = {type: "sold_item_confirmation"};
-    axiosMock.onGet(`/pdf-sold-items/${itemId}`)
+    axiosMock.onGet(`/pdf-paid-ins/${itemId}`)
       .reply(expectRequest({statusCode: 200, token}));
     return api.notifications.pdfData.get({token, query, itemId});
   });
@@ -465,7 +465,7 @@ describe("notifications/pdf-data", () => {
   it("should return the proper data for operator_manifest_capacity", () => {
     const itemId = "12345";
     const query = {type: "operator_manifest_capacity"};
-    axiosMock.onGet(`/pdf-operator-manifest-capacities/${itemId}`)
+    axiosMock.onGet(`/pdf-manifests/${itemId}`)
       .reply(expectRequest({statusCode: 200, token}));
     return api.notifications.pdfData.get({token, query, itemId});
   });
@@ -473,7 +473,7 @@ describe("notifications/pdf-data", () => {
   it("should return the proper data for reaccomodation", () => {
     const itemId = "12345";
     const query = {type: "reaccomodation"};
-    axiosMock.onGet(`/pdf-reaccomodation/${itemId}`)
+    axiosMock.onGet(`/pdf-tickets/${itemId}`)
       .reply(expectRequest({statusCode: 200, token}));
     return api.notifications.pdfData.get({token, query, itemId});
   });
@@ -481,7 +481,7 @@ describe("notifications/pdf-data", () => {
   it("should return the proper data for ticket_movement (pdf-reaccomodation)", () => {
     const itemId = "12345";
     const query = {type: "ticket_movement"};
-    axiosMock.onGet(`/pdf-reaccomodation/${itemId}`)
+    axiosMock.onGet(`/pdf-tickets/${itemId}`)
       .reply(expectRequest({statusCode: 200, token}));
     return api.notifications.pdfData.get({token, query, itemId});
   });
