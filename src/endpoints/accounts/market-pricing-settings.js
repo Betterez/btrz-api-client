@@ -17,7 +17,7 @@ function marketPricingSettingsFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse<{ marketPricingSettings: { useOnlySpecificFareTable: boolean } }>>}
+   * @returns {Promise<import("axios").AxiosResponse<{ marketPricingSettings: { useOnlySpecificFareTable: boolean, displayExpiredSchedulesInUI: boolean } }>>}
    */
   function get({token, jwtToken, headers}) {
     return client({
@@ -27,11 +27,11 @@ function marketPricingSettingsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /market-pricing-settings – Update market pricing settings. Body: MarketPricingSettings at root (useOnlySpecificFareTable required).
+   * PUT /market-pricing-settings – Update market pricing settings. Body: MarketPricingSettings at root (useOnlySpecificFareTable and displayExpiredSchedulesInUI required).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.marketPricingSettings - { useOnlySpecificFareTable: boolean }
+   * @param {Object} opts.marketPricingSettings - { useOnlySpecificFareTable: boolean, displayExpiredSchedulesInUI: boolean }
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<{ marketPricingSettings: object }>>}
    */
