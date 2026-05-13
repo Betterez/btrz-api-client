@@ -14,6 +14,12 @@ describe("inventory/products", () => {
     return api.inventory.products.all({token});
   });
 
+  it("should list products with type query", () => {
+    const query = {type: "ticket"};
+    axiosMock.onGet("/products").reply(expectRequest({statusCode: 200, token, query}));
+    return api.inventory.products.all({token, query});
+  });
+
   it("should get product by id without jwtToken", () => {
     axiosMock.onGet("/products/1").reply(expectRequest({statusCode: 200, token}));
     return api.inventory.products.get({token, productId: 1});

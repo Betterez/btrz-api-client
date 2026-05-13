@@ -15,6 +15,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  * @property {string} [domain] - Filter by domain
  * @property {string} [parentProductId] - Child products of this parent
  * @property {string} [dynamicFormId] - Filter by dynamic form
+ * @property {string} [type] - Filter by product type
  */
 
 /**
