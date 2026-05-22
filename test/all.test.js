@@ -88,6 +88,7 @@ require("./endpoints/inventory/external-wallets.test.js");
 require("./endpoints/inventory/fallback-codes.test.js");
 require("./endpoints/inventory/fare-classes.test.js");
 require("./endpoints/inventory/fares.test.js");
+require("./endpoints/inventory/fare-type-modifiers.test.js");
 require("./endpoints/inventory/fees.test.js");
 require("./endpoints/inventory/filtered-trips-v2.test.js");
 require("./endpoints/inventory/filtered-trips.test.js");

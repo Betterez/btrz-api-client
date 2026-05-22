@@ -74,6 +74,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
     documentTypes: require("./endpoints/inventory/document-types.js")({client, internalAuthTokenProvider}),
     externalPasses: require("./endpoints/inventory/external-passes.js")({client, internalAuthTokenProvider}),
     externalWallets: require("./endpoints/inventory/external-wallets.js")({client, internalAuthTokenProvider}),
+    fareTypeModifiers: require("./endpoints/inventory/fare-type-modifiers.js")({client, internalAuthTokenProvider}),
     fallbackCodes: require("./endpoints/inventory/fallback-codes.js")({client, internalAuthTokenProvider}),
     fareClasses: require("./endpoints/inventory/fare-classes.js")({client, internalAuthTokenProvider}),
     fares: require("./endpoints/inventory/fares.js")({client, internalAuthTokenProvider}),
