@@ -8,9 +8,30 @@ const {
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
- * @returns {{ putCreditLimit: function }}
+ * @returns {{ create: function, putCreditLimit: function }}
  */
 function agenciesFactory({client, internalAuthTokenProvider}) {
+  /**
+   * POST /agencies - create an agency (seller account) and link it to the provider network.
+   * Requires X-API-KEY and Authorization (JWT).
+   * @param {Object} opts
+   * @param {string} opts.token - API key
+   * @param {string} opts.jwtToken - JWT
+   * @param {Object} opts.agency - agencyData payload ({ seller, network })
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
+  function create({token, jwtToken, agency, headers}) {
+    return client({
+      url: "/agencies",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data: {
+        agency
+      }
+    });
+  }
+
   /**
    * PUT /agencies/:agencyId/credit-limit - update credit limit for an agency (seller) in the provider's network.
    * Requires BETTEREZ_APP audience. Request body can be { limitAmount, unlimited } or { creditLimit: { limitAmount, unlimited } }.
@@ -33,6 +54,7 @@ function agenciesFactory({client, internalAuthTokenProvider}) {
   }
 
   return {
+    create,
     putCreditLimit
   };
 }

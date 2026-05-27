@@ -14,6 +14,34 @@ describe("accounts/agencies", () => {
     axiosMock.reset();
   });
 
+  it("should POST an agency", () => {
+    const agency = {
+      seller: {
+        name: "Agency One",
+        domain: "agency-one",
+        email: "admin@agency-one.com",
+        password: "password",
+        confirmPassword: "password"
+      },
+      network: {
+        productIds: ["productId"]
+      }
+    };
+
+    axiosMock.onPost("/agencies").reply(expectRequest({
+      statusCode: 200,
+      token,
+      jwtToken,
+      body: {agency}
+    }));
+
+    return api.accounts.agencies.create({
+      token,
+      jwtToken,
+      agency
+    });
+  });
+
   it("should PUT credit limit for an agency", () => {
     const agencyId = "507f1f77bcf86cd799439011";
     const data = {

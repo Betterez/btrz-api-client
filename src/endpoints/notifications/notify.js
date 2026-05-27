@@ -109,12 +109,39 @@ function notifyTicketFactory({
        * @param {Object} [opts.headers] - Optional headers
        * @returns {Promise<import("axios").AxiosResponse>}
        */
-      create({token, jwtToken, email, lang, headers}) {
+      create({token, jwtToken, email, lang, accountId, headers}) {
         return client({
           url: "/notify-child-user",
           method: "post",
           data: {
             email,
+            lang,
+            accountId
+          },
+          headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+        });
+      }
+    },
+    newSeller: {
+      /**
+       * POST /notify-new-seller - welcome email for a new agency (seller).
+       * @param {Object} opts
+       * @param {string} [opts.token] - API key (provider)
+       * @param {string} [opts.jwtToken] - Internal service JWT
+       * @param {string} opts.sellerEmail - Agency admin email
+       * @param {string} opts.sellerDomain - Agency subdomain
+       * @param {string} [opts.providerAdminEmail] - Support contact in the email
+       * @param {string} [opts.lang] - Template lexicon language (e.g. en-us)
+       * @param {Object} [opts.headers] - Optional headers
+       */
+      create({token, jwtToken, sellerEmail, sellerDomain, providerAdminEmail, lang, headers}) {
+        return client({
+          url: "/notify-new-seller",
+          method: "post",
+          data: {
+            sellerEmail,
+            sellerDomain,
+            providerAdminEmail,
             lang
           },
           headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})

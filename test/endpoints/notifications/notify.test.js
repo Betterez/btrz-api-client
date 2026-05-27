@@ -60,6 +60,24 @@ describe("notifications/notify-child-user", () => {
     axiosMock.reset();
   });
 
+  it("should post send an email for new seller welcome", () => {
+    axiosMock.onPost("/notify-new-seller").reply(({headers}) => {
+      if (headers["x-api-key"] === token && headers.authorization === `Bearer ${jwtToken}`) {
+        return [200];
+      }
+      return [403];
+    });
+
+    return api.notifications.notify.newSeller.create({
+      token,
+      jwtToken,
+      sellerEmail: "admin@agency.com",
+      sellerDomain: "my-agency",
+      providerAdminEmail: "provider@test.com",
+      lang: "en-us"
+    });
+  });
+
   it("should post send an email with child user created", () => {
     axiosMock.onPost("/notify-child-user").reply(({headers}) => {
       if (headers["x-api-key"] === token && headers.authorization === `Bearer ${jwtToken}`) {
