@@ -63,7 +63,7 @@ describe("inventory/fare-type-modifiers", () => {
   });
 
   it("should delete a fare-type modifier", () => {
-    const fareTypeModifierId = "1234";
+    const fareTypeModifierId = "12345";
     axiosMock.onDelete(`/fare-type-modifiers/${fareTypeModifierId}`).reply(expectRequest({
       statusCode: 200, token, jwtToken
     }));
