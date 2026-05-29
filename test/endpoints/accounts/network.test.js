@@ -101,4 +101,20 @@ describe("accounts/interline", () => {
       token, jwtToken, fareId
     });
   });
+
+  it("should GET banks for agency by providerId", () => {
+    const providerId = "6410ad00d02bf9068d7345e5";
+    axiosMock.onGet("/network/agencies/banks").reply((config) => {
+      assert.strictEqual(config.params.providerId, providerId);
+      return [200, {banks: []}];
+    });
+    return api.accounts.network.agencies.banks({
+      token,
+      jwtToken,
+      providerId
+    }).then((httpResponse) => {
+      assert.deepStrictEqual(httpResponse.status, 200);
+      assert.deepStrictEqual(httpResponse.data.banks, []);
+    });
+  });
 });

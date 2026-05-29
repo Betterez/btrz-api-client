@@ -15,7 +15,7 @@ const {
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
- * @returns {{ agencies: { all: function, get: function, update: function, create: function, removeProduct: function, removeFare: function } }}
+ * @returns {{ agencies: { all: function, get: function, update: function, create: function, removeProduct: function, removeFare: function, banks: function } }}
  */
 function networkFactory({client, internalAuthTokenProvider}) {
   const agencies = {
@@ -140,6 +140,24 @@ function networkFactory({client, internalAuthTokenProvider}) {
         data: {
           fareId
         }
+      });
+    },
+    /**
+     * GET /network/agencies/banks - provider banks available to the authenticated agency.
+     * Filtered by network.bankAccountNumbers for (sellerId, providerId).
+     * @param {Object} opts
+     * @param {string} [opts.token] - API key
+     * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+     * @param {string} opts.providerId - Provider account id (ObjectId), required query param
+     * @param {Object} [opts.headers] - Optional headers
+     * @returns {Promise<import("axios").AxiosResponse<{ banks: Array }>>}
+     *   Errors: 400 (MISSING_PROVIDER_ID, INVALID_PROVIDER_ID), 401, 404 (NETWORK_NOT_FOUND), 500
+     */
+    banks({token, jwtToken, providerId, headers}) {
+      return client({
+        url: "/network/agencies/banks",
+        params: {providerId},
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
       });
     }
   };
