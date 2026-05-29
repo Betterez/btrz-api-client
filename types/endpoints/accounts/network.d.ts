@@ -4,7 +4,7 @@ export = networkFactory;
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
- * @returns {{ agencies: { all: function, get: function, update: function, create: function, removeProduct: function, removeFare: function, banks: function } }}
+ * @returns {{ agencies: { all: function, get: function, update: function, create: function, removeProduct: function, removeFare: function } }}
  */
 declare function networkFactory({ client, internalAuthTokenProvider }: {
     client: import("axios").AxiosInstance;
@@ -19,6 +19,5 @@ declare function networkFactory({ client, internalAuthTokenProvider }: {
         create: Function;
         removeProduct: Function;
         removeFare: Function;
-        banks: Function;
     };
 };
