@@ -9,7 +9,6 @@
     "test:only": "node --require ./test/node-test-globals.js --test test/all.test.js --test-only",
     "test:integration": "node --require ./test/node-test-globals.js --require ./test-integration/ports.js --test test-integration/all.test.js",
     "browserify": "browserify lib/client.js --standalone BtrzApiClient -p tinyify -o lib/client-standalone-min.js",
-    "prepare": "npm run browserify",
     "commit-transpile": "git add lib/ && (git diff-index --quiet HEAD || git commit -m \"transpiled src\")",
     "pretranspile": "rm -rf lib/",
     "transpile": "babel --presets es2015 -d lib/ src/",
