@@ -19,6 +19,7 @@ function fareTypeModifierFactory({client, internalAuthTokenProvider}) {
    * GET /fare-type-modifiers - list fare-type modifiers (paginated).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {FareTypeModifiersListQuery} [opts.query] - Query params
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<{ fareTypeModifiers: Object[], next?: string, previous?: string, count: number }>>}
@@ -28,12 +29,13 @@ function fareTypeModifierFactory({client, internalAuthTokenProvider}) {
    */
   function all({
     token,
+    jwtToken,
     query = {},
     headers
   }) {
     return client.get("/fare-type-modifiers", {
       params: query,
-      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
@@ -42,6 +44,7 @@ function fareTypeModifierFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} opts.fareTypeModifierId - Fare-type modifier id (24 hex characters)
    * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<{ fareTypeModifier: Object }>>}
    * @throws
@@ -50,9 +53,9 @@ function fareTypeModifierFactory({client, internalAuthTokenProvider}) {
    * - 404 FARE_TYPE_MODIFIER_NOT_FOUND
    * - 500 Internal server error
    */
-  function get({fareTypeModifierId, token, headers}) {
+  function get({fareTypeModifierId, token, jwtToken, headers}) {
     return client.get(`/fare-type-modifiers/${fareTypeModifierId}`, {
-      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
