@@ -188,14 +188,21 @@ function manifestFactory({
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {Object} opts.data - Request body
+   * @param {"sync" | "async"} opts.mode - Call mode. "sync" by default
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
   function statusBulkUpdate({
-    token, jwtToken, data, headers
+    token, jwtToken, data, headers, mode
   }) {
+    const params = {mode: "sync"};
+    if (mode) {
+      params.mode = mode;
+    }
+
     return client({
       url: "/manifests/status",
+      params,
       method: "put",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data
