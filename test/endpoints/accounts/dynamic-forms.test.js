@@ -27,6 +27,20 @@ describe("accounts/dynamic-forms/", () => {
     return api.accounts.dynamicForms.get({token, jwtToken, dynamicFormId});
   });
 
+  it("should GET the renderable dynamic form context", () => {
+    const dynamicFormId = "123";
+    const query = {currentLanguage: "es", documentTypeIds: "id-1,id-2", providerId: "provider-1"};
+    axiosMock.onGet(`/renderable-dynamic-forms/${dynamicFormId}`)
+      .reply(expectRequest({statusCode: 200, token, query}));
+    return api.accounts.dynamicForms.getRenderable({
+      token,
+      jwtToken,
+      dynamicFormId,
+      query: {currentLanguage: "es", documentTypeIds: "id-1,id-2"},
+      providerId: "provider-1"
+    });
+  });
+
   it("should create dynamic form", () => {
     const data = {};
     axiosMock.onPost("/dynamic-forms").reply(expectRequest({statusCode: 200, token, jwtToken, body: data}));

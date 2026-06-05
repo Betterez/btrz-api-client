@@ -16,6 +16,14 @@ const {authorizationHeaders} = require("../endpoints_helpers.js");
  */
 
 /**
+ * Query params for GET /renderable-dynamic-forms/:dynamicFormId (btrz-api-accounts).
+ * @typedef {Object} RenderableDynamicFormByIdQuery
+ * @property {string} [providerId] - Fetch under provider context (ObjectId)
+ * @property {string} [currentLanguage] - Language code used for translated values
+ * @property {string} [documentTypeIds] - Comma-separated document type ids for filtering
+ */
+
+/**
  * Factory for dynamic-forms API (btrz-api-accounts).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -38,6 +46,26 @@ function dynamicFormsFactory({client, internalAuthTokenProvider}) {
     const query_ = providerId ? {...query, providerId} : query;
     return client({
       url: `/dynamic-forms/${dynamicFormId}`,
+      params: query_,
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+    });
+  }
+
+  /**
+   * GET /renderable-dynamic-forms/:dynamicFormId - get renderable dynamic form context.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.dynamicFormId - Dynamic form id (ObjectId)
+   * @param {RenderableDynamicFormByIdQuery} [opts.query] - Query params
+   * @param {string} [opts.providerId] - Provider id; if set, added to query (convenience)
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
+  function getRenderable({token, jwtToken, dynamicFormId, query = {}, headers, providerId}) {
+    const query_ = providerId ? {...query, providerId} : query;
+    return client({
+      url: `/renderable-dynamic-forms/${dynamicFormId}`,
       params: query_,
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
@@ -201,6 +229,7 @@ function dynamicFormsFactory({client, internalAuthTokenProvider}) {
 
   return {
     get,
+    getRenderable,
     all,
     create,
     update,
