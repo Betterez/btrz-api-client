@@ -189,6 +189,7 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
     applications: require("./endpoints/accounts/applications.js")({client, internalAuthTokenProvider}),
     applicationSettings: require("./endpoints/accounts/application-settings.js")({client, internalAuthTokenProvider}),
     customers: require("./endpoints/accounts/customers.js")({client, internalAuthTokenProvider}),
+    controlClassesSettings: require("./endpoints/accounts/control-classes-settings.js")({client, internalAuthTokenProvider}),
     currentShifts: require("./endpoints/accounts/current-shifts.js")({client, internalAuthTokenProvider}),
     docs: require("./endpoints/accounts/docs.js")({
       client
