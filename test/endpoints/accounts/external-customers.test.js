@@ -77,4 +77,21 @@ describe("accounts/external-customers", () => {
       data
     });
   });
+
+  it("should POST Saldo Max Profile V2 registration confirmation resend", () => {
+    const data = {
+      confirmationToken: "confirmation-token"
+    };
+    axiosMock.onPost("/external-customers/ado/confirmation/resend").reply(expectRequest({
+      statusCode: 200,
+      token,
+      jwtToken,
+      body: data
+    }));
+    return api.accounts.externalCustomers.saldoMax.confirmation.resend.create({
+      token,
+      jwtToken,
+      data
+    });
+  });
 });

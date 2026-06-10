@@ -48,6 +48,25 @@ function externalCustomersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * POST /external-customers/ado/confirmation/resend – Resend a Saldo Max Profile V2 quick registration OTP.
+   * Requires BETTEREZ_APP JWT.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT (BETTEREZ_APP audience)
+   * @param {{confirmationToken: string}} opts.data - Confirmation token returned by quick registration
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse<{ code: string, message?: string }>>}
+   */
+  function resendSaldoMaxRegistrationConfirmation({data, token, jwtToken, headers}) {
+    return client({
+      url: "/external-customers/ado/confirmation/resend",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data
+    });
+  }
+
   const saldoMax = {
     /**
      * GET /external-customers/ado - get SaldoMax user by email, phone or walletId.
@@ -74,7 +93,10 @@ function externalCustomersFactory({client, internalAuthTokenProvider}) {
     },
     create: registerSaldoMax,
     confirmation: {
-      create: confirmSaldoMaxRegistration
+      create: confirmSaldoMaxRegistration,
+      resend: {
+        create: resendSaldoMaxRegistrationConfirmation
+      }
     }
   };
 
