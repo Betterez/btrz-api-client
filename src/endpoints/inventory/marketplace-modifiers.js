@@ -14,6 +14,8 @@ const {
  * @property {string} [latestPurchaseDate] - ISO 8601 datetime (purchase on or before)
  * @property {string} [earliestTravelDate] - ISO 8601 datetime (trip depart on or after)
  * @property {string} [latestTravelDate] - ISO 8601 datetime (trip depart on or before)
+ * @property {string} [currency] - Currency ISO code (e.g. "USD"). Modifiers without a currency apply to all currencies and are always returned
+ * @property {string} [excludeExpired] - When "true", modifiers whose sellEndDate and/or tripEndDate is in the past are not returned
  */
 
 /**
