@@ -42,6 +42,41 @@ describe("accounts/agencies", () => {
     });
   });
 
+  it("should PUT an agency", () => {
+    const agencyId = "507f1f77bcf86cd799439011";
+    const agency = {
+      seller: {
+        preferences: {
+          sales: {
+            creditLimit: {
+              limitAmount: 1000,
+              unlimited: false
+            }
+          }
+        }
+      },
+      network: {
+        productIds: ["productId"],
+        globalSearch: false,
+        active: true
+      }
+    };
+
+    axiosMock.onPut(`/agencies/${agencyId}`).reply(expectRequest({
+      statusCode: 200,
+      token,
+      jwtToken,
+      body: {agency}
+    }));
+
+    return api.accounts.agencies.update({
+      token,
+      jwtToken,
+      agencyId,
+      agency
+    });
+  });
+
   it("should PUT credit limit for an agency", () => {
     const agencyId = "507f1f77bcf86cd799439011";
     const data = {

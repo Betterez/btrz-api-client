@@ -33,6 +33,27 @@ function agenciesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
+   * PUT /agencies/:agencyId - update an agency.
+   * @param {Object} opts
+   * @param {string} opts.token - API key
+   * @param {string} opts.jwtToken - JWT
+   * @param {string} opts.agencyId - Agency (seller) ID, 24-char hex ObjectId. Must not be the provider's own accountId.
+   * @param {Object} opts.agency - Agency payload
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
+  function update({token, jwtToken, agencyId, agency, headers}) {
+    return client({
+      url: `/agencies/${agencyId}`,
+      method: "put",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data: {
+        agency
+      }
+    });
+  }
+
+  /**
    * PUT /agencies/:agencyId/credit-limit - update credit limit for an agency (seller) in the provider's network.
    * Requires BETTEREZ_APP audience. Request body can be { limitAmount, unlimited } or { creditLimit: { limitAmount, unlimited } }.
    * Side effect: Emits webhook event creditlimit.updated.
@@ -55,6 +76,7 @@ function agenciesFactory({client, internalAuthTokenProvider}) {
 
   return {
     create,
+    update,
     putCreditLimit
   };
 }
