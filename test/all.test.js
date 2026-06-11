@@ -149,6 +149,7 @@ require("./endpoints/invoices/invoices.test.js");
 require("./endpoints/invoices/providers.test.js");
 require("./endpoints/invoices/providersSequences.test.js");
 require("./endpoints/invoices/system.test.js");
+require("./endpoints/bpes/configuration.test.js");
 require("./endpoints/loyalty/movements.test.js");
 require("./endpoints/loyalty/programs.test.js");
 require("./endpoints/notifications/customers.test.js");

@@ -16,6 +16,7 @@ declare const _exports: {
     seatmaps: any;
     btrzpay: any;
     invoices: any;
+    bpes: any;
     gps: any;
     ratality: any;
 };

@@ -11,6 +11,9 @@ module.exports = {
     },
     trips: (url) => {
       return `${url}/inventory`;
+    },
+    bpes: (url) => {
+      return `${url}/bpes`;
     }
   }
 };

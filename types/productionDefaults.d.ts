@@ -4,6 +4,7 @@ declare const _exports: {
     baseURLOverride: {
         inventory: (arg0: string) => string;
         trips: (arg0: string) => string;
+        bpes: (arg0: string) => string;
     };
 };
 export = _exports;

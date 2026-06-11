@@ -506,6 +506,22 @@ function createInvoices({baseURL, headers, timeout, overrideFn, internalAuthToke
 }
 
 /**
+ * Creates the BPE API client (configuration).
+ * @param {CreateModuleOptions} opts - Client options
+ * @returns {Object} Object with bpes endpoint namespaces and __test.client
+ */
+function createBpes({baseURL, headers, timeout, overrideFn, internalAuthTokenProvider, agents}) {
+  const client = clientFactory({baseURL, headers, timeout, overrideFn, agents});
+
+  return {
+    configuration: require("./endpoints/bpes/configuration.js")({client, internalAuthTokenProvider}),
+    __test: {
+      client
+    }
+  };
+}
+
+/**
  * Creates the GPS API client (scannerAppLocation).
  * @param {CreateModuleOptions} opts - Client options
  * @returns {Object} Object with gps endpoint namespaces and __test.client
@@ -576,6 +592,7 @@ function createApiClient(options) {
     seatmaps: createSeatmaps({baseURL, headers, timeout, overrideFn: baseURLOverride.seatmaps, internalAuthTokenProvider, agents}),
     btrzpay: createBtrzPay({baseURL, headers, timeout, overrideFn: baseURLOverride.btrzpay, internalAuthTokenProvider, agents}),
     invoices: createInvoices({baseURL, headers, timeout, overrideFn: baseURLOverride.invoices, internalAuthTokenProvider, agents}),
+    bpes: createBpes({baseURL, headers, timeout, overrideFn: baseURLOverride.bpes, internalAuthTokenProvider, agents}),
     gps: createGPS({baseURL, headers, timeout, overrideFn: baseURLOverride.invoices, internalAuthTokenProvider, agents}),
     ratality: createRatality({baseURL, headers, timeout, overrideFn: baseURLOverride.ratality, agents})
   };

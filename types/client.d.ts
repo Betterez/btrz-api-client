@@ -93,6 +93,7 @@ export function createApiClient(options: {
     seatmaps: any;
     btrzpay: any;
     invoices: any;
+    bpes: any;
     gps: any;
     ratality: any;
 };
