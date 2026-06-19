@@ -74,4 +74,18 @@ describe("inventory/control-classes", () => {
       data: {scheduleIds: ["schedule1", "schedule2"]}
     });
   });
+
+  it("should clone a control class nesting", () => {
+    const rootClassId = "1234";
+    axiosMock.onPost(`/control-classes/${rootClassId}/clones`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.inventory.controlClasses.clone({
+      jwtToken,
+      token,
+      rootClassId,
+      controlClassCloneOptions: {
+        newRootName: "ClonedRoot",
+        cloneWithPrefix: "copy"
+      }
+    });
+  });
 });

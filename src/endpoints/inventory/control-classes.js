@@ -166,12 +166,39 @@ function controlClassesFactory({client, internalAuthTokenProvider}) {
     }
   };
 
+  /**
+   * POST /control-classes/:rootClassId/clones — Clone a full control class nesting from a root class.
+   * Body: { controlClassCloneOptions }. Emits controlclasses.created for each cloned class.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth
+   * @param {string} opts.rootClassId - Root control class id (24 hex)
+   * @param {{ newRootName?: string, cloneWithPrefix?: string }} opts.controlClassCloneOptions - Clone options
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse<{ controlClass: Object }>>}
+   * @throws 400 WRONG_DATA, INVALID_ROOTCLASS_ID, CONTROLCLASS_NOT_ROOT
+   * @throws 401 Unauthorized
+   * @throws 404 CONTROLCLASS_NOT_FOUND
+   * @throws 500 Internal server error
+   */
+  function clone({jwtToken, token, rootClassId, controlClassCloneOptions, headers}) {
+    return client({
+      url: `/control-classes/${rootClassId}/clones`,
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data: {
+        controlClassCloneOptions
+      }
+    });
+  }
+
   return {
     all,
     get,
     create,
     update,
     remove,
+    clone,
     schedules
   };
 }

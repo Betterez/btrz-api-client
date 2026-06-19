@@ -17,4 +17,8 @@ declare function controlClassesFactory({ client, internalAuthTokenProvider }: {
     create: Function;
     update: Function;
     remove: Function;
+    clone: Function;
+    schedules: {
+        post: Function;
+    };
 };
