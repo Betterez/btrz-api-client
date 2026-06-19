@@ -3,6 +3,7 @@
 require("./client.test.js");
 require("./endpoints/accounts/accounts.js");
 require("./endpoints/accounts/agencies.test.js");
+require("./endpoints/accounts/agency-types.test.js");
 require("./endpoints/accounts/application-settings.test.js");
 require("./endpoints/accounts/applications.test.js");
 require("./endpoints/accounts/current-shifts.test.js");

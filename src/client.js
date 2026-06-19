@@ -185,6 +185,7 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
   return {
     accounts: require("./endpoints/accounts/accounts.js")({client, internalAuthTokenProvider}),
     agencies: require("./endpoints/accounts/agencies.js")({client, internalAuthTokenProvider}),
+    agencyTypes: require("./endpoints/accounts/agency-types.js")({client, internalAuthTokenProvider}),
     application: require("./endpoints/accounts/application.js")({client, internalAuthTokenProvider}),
     applications: require("./endpoints/accounts/applications.js")({client, internalAuthTokenProvider}),
     applicationSettings: require("./endpoints/accounts/application-settings.js")({client, internalAuthTokenProvider}),
