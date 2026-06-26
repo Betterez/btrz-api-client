@@ -20,7 +20,7 @@ function clientFactory(opts) {
     baseURL: url,
     timeout,
     headers: {
-      "Accept": "application/json"
+      Accept: "application/json"
     }
   };
   if (headers && headers["x-amzn-trace-id"]) {

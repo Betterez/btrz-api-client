@@ -142,7 +142,7 @@ function transactionsFactory({client, internalAuthTokenProvider}) {
     return client({
       url: `/transactions/${transactionId}/cancellable-items`,
       params: {
-        displayAll: !!displayAll,
+        displayAll: Boolean(displayAll),
         channel: channel || ""
       },
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
