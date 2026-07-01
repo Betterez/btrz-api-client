@@ -325,7 +325,7 @@ function cartFactory({client, internalAuthTokenProvider}) {
         method: "post",
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
         data: {
-          expirationTime: expirationTime
+          expirationTimeData: expirationTime
         }
       });
     }
