@@ -105,4 +105,10 @@ describe("sales/cart", () => {
     axiosMock.onDelete(`/carts/${cartId}/paid-in-items`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.sales.cart.deletePaidInItems({jwtToken, token, cartId});
   });
+
+  it("should set cart expiration time", () => {
+    const cartId = "someCartId";
+    axiosMock.onPost(`/carts/${cartId}/expiration-time`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.sales.cart.expirationTime.create({jwtToken, token, cartId, expirationTime: {time: 45}});
+  });
 });
