@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 const constants = require("../constants.js");
 
 /**
@@ -47,6 +46,7 @@ function authorizationHeaders({
       });
     }
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.log(e);
   }
 
