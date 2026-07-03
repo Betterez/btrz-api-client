@@ -14,7 +14,8 @@
     "transpile": "node ./node_modules/@babel/cli/bin/babel.js -d lib/ src/",
     "preversion": "npm test && npm run transpile && npm run esbuild && npm run commit-transpile",
     "postversion": "git push origin master && git push --tags",
-    "version": "git tag $1"
+    "version": "git tag $1",
+    "prepare": "git config core.hooksPath .githooks"
   },
   "repository": {
     "type": "git",
