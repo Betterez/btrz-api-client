@@ -11,7 +11,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
- * @returns {{ all: function, create: function, update: function }}
+ * @returns {{ all: function, create: function, update: function, bucket: function }}
  */
 function parcelZonesFactory({client, internalAuthTokenProvider}) {
   /**
@@ -66,10 +66,26 @@ function parcelZonesFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * GET /parcel-zones/bucket - get matching parcel bucket.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {Object} [opts.query] - Query params for bucket lookup
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
+  function bucket({token, query = {}, headers}) {
+    return client.get("/parcel-zones/bucket", {
+      params: query,
+      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+    });
+  }
+
   return {
     all,
     create,
-    update
+    update,
+    bucket
   };
 }
 

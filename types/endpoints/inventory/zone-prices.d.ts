@@ -8,7 +8,7 @@ export = zonePriceFactory;
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
- * @returns {{ all: function, get: function, create: function, update: function, remove: function }}
+ * @returns {{ all: function, get: function, create: function, update: function, remove: function, forParcels: function }}
  */
 declare function zonePriceFactory({ client, internalAuthTokenProvider }: {
     client: import("axios").AxiosInstance;
@@ -21,6 +21,7 @@ declare function zonePriceFactory({ client, internalAuthTokenProvider }: {
     create: Function;
     update: Function;
     remove: Function;
+    forParcels: Function;
 };
 declare namespace zonePriceFactory {
     export { InventoryZonePricesQuery };

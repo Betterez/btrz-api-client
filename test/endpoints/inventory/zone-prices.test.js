@@ -73,4 +73,21 @@ describe("inventory/zone-prices", () => {
       zonePriceId
     });
   });
+
+  it("should get zone prices for parcels", () => {
+    const payload = {
+      providerId: "provider1",
+      originId: "origin1",
+      destinationId: "destination1",
+      productId: "product1"
+    };
+    axiosMock.onPost("/zone-prices-for-parcels").reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    return api.inventory.zonePrices.forParcels({
+      jwtToken,
+      token,
+      payload
+    });
+  });
 });

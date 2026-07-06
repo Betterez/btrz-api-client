@@ -24,4 +24,17 @@ describe("inventory/parcel-zones", () => {
     axiosMock.onPut(`/parcel-zone/${parcelZoneId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.parcelZones.update({jwtToken, token, parcelZoneId, parcelZone: {productId: "6789"}});
   });
+
+  it("should get bucket for parcel zone", () => {
+    axiosMock.onGet("/parcel-zones/bucket").reply(expectRequest({statusCode: 200, token}));
+    return api.inventory.parcelZones.bucket({
+      token,
+      query: {
+        productId: "product1",
+        fromId: "origin1",
+        toId: "destination1",
+        faresAndWeights: "[{\"fare\":\"adult\",\"weight\":1000}]"
+      }
+    });
+  });
 });

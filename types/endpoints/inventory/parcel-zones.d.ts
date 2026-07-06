@@ -8,7 +8,7 @@ export = parcelZonesFactory;
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
- * @returns {{ all: function, create: function, update: function }}
+ * @returns {{ all: function, create: function, update: function, bucket: function }}
  */
 declare function parcelZonesFactory({ client, internalAuthTokenProvider }: {
     client: import("axios").AxiosInstance;
@@ -19,6 +19,7 @@ declare function parcelZonesFactory({ client, internalAuthTokenProvider }: {
     all: Function;
     create: Function;
     update: Function;
+    bucket: Function;
 };
 declare namespace parcelZonesFactory {
     export { InventoryParcelZonesQuery };

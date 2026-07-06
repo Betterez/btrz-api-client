@@ -17,7 +17,7 @@ const {
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
- * @returns {{ all: function, get: function, create: function, update: function, remove: function }}
+ * @returns {{ all: function, get: function, create: function, update: function, remove: function, forParcels: function }}
  */
 function zonePriceFactory({client, internalAuthTokenProvider}) {
   /**
@@ -111,12 +111,31 @@ function zonePriceFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * POST /zone-prices-for-parcels - calculate zone prices for parcel payload.
+   * @param {Object} opts
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} [opts.token] - API key
+   * @param {Object} opts.payload - Parcel pricing payload
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
+  function forParcels({jwtToken, token, payload, headers}) {
+    return client({
+      url: "/zone-prices-for-parcels",
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data: payload
+    });
+  }
+
   return {
     all,
     get,
     create,
     update,
-    remove
+    remove,
+    forParcels
   };
 }
 

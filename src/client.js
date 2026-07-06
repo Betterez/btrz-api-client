@@ -72,6 +72,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
     customFields: require("./endpoints/inventory/custom-fields.js")({client, internalAuthTokenProvider}),
     docs: require("./endpoints/inventory/docs.js")({client}),
     documentTypes: require("./endpoints/inventory/document-types.js")({client, internalAuthTokenProvider}),
+    events: require("./endpoints/inventory/events.js")({client, internalAuthTokenProvider}),
     externalPasses: require("./endpoints/inventory/external-passes.js")({client, internalAuthTokenProvider}),
     externalWallets: require("./endpoints/inventory/external-wallets.js")({client, internalAuthTokenProvider}),
     fareTypeModifiers: require("./endpoints/inventory/fare-type-modifiers.js")({client, internalAuthTokenProvider}),
