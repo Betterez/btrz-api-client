@@ -29,6 +29,12 @@ describe("accounts/customers", () => {
     return api.accounts.customers.all({jwtToken, token, query});
   });
 
+  it("should GET a customer by id", () => {
+    const customerId = "66f6d6d5f57d8b6eb95a1122";
+    axiosMock.onGet(`/customers/${customerId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.accounts.customers.get({jwtToken, token, customerId});
+  });
+
   it("should POST a customer", () => {
     const customer = {
       firstName: "someFirstName",
