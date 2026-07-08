@@ -274,6 +274,21 @@ describe("notifications/pdf-data", () => {
     });
   });
 
+  it("should return the proper data for an open-return redeemableItem", () => {
+    const itemId = "12345";
+    const query = {
+      type: "product",
+      family: "open-return"
+    };
+    axiosMock.onGet(`/pdf-redeemable-items/${itemId}`)
+      .reply(expectRequest({
+        statusCode: 200, token
+      }));
+    return api.notifications.pdfData.get({
+      token, query, itemId
+    });
+  });
+
   it("should return the proper data for a gift-certificates", () => {
     const itemId = "12345";
     const query = {

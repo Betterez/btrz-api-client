@@ -2,7 +2,7 @@ export = pdfFactory;
 /**
  * @typedef {Object} PdfGetQuery
  * @property {string} type - Document type: "product" | "giftCertificate" | "voucher" | "transaction" | "ssr" | "manifest" | "passengersManifest" | "order" | "shift" | "remainderSlip" | "exchange" | "invoice" | "locationClosure" | "parcelManifest" | "startingBalance" | "partialShiftDeposits" | "shiftLocationClosure" | "bankDepositSlip" | "terminalVoucher" | "manualTickets"
- * @property {string} [family] - When type is "product": "ticket" | "reservation" | "paid in" | "paid out" | "parcel" | "flexpass" | "bundle"
+ * @property {string} [family] - When type is "product": "ticket" | "reservation" | "paid in" | "paid out" | "parcel" | "flexpass" | "bundle" | "open-return"
  */
 /**
  * Factory for PDF binary endpoints (btrz-api-notifications). Resolves URL by query.type (and query.family when type is "product").

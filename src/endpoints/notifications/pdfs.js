@@ -7,7 +7,7 @@ const {
  * Query params for GET pdf-templates-processing binary routes (btrz-api-notifications). Client uses type/family to resolve path.
  * @typedef {Object} PdfGetQuery
  * @property {string} type - Document type (e.g. product, giftCertificate, voucher, transaction, ssr, manifest, passengersManifest, order, shift, remainderSlip, exchange, invoice, locationClosure, parcelManifest, startingBalance, partialShiftDeposits, shiftLocationClosure, bankDepositSlip, terminalVoucher, manualTickets, externalWalletVoucher)
- * @property {string} [family] - When type is "product": "ticket" | "reservation" | "paid in" | "paid out" | "parcel" | "flexpass" | "bundle"
+ * @property {string} [family] - When type is "product": "ticket" | "reservation" | "paid in" | "paid out" | "parcel" | "flexpass" | "bundle" | "open-return"
  */
 
 /**
@@ -63,6 +63,7 @@ function pdfFactory({
           url = `/pdf-flexpasses/${itemId}`;
           break;
         case "bundle":
+        case "open-return":
           url = `/pdf-redeemable-items/${itemId}`;
           break;
         default:
