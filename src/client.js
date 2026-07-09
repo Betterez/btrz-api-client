@@ -84,6 +84,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
     filteredTripsV2: require("./endpoints/inventory/filtered-trips-v2.js")({client, internalAuthTokenProvider}),
     financingCosts: require("./endpoints/inventory/financing-costs.js")({client, internalAuthTokenProvider}),
     garages: require("./endpoints/inventory/garages.js")({client, internalAuthTokenProvider}),
+    banorteTerminals: require("./endpoints/inventory/banorte-terminals.js")({client, internalAuthTokenProvider}),
     getnetTerminals: require("./endpoints/inventory/getnet-terminals.js")({client, internalAuthTokenProvider}),
     giftCertificateDefinitions: require("./endpoints/inventory/gift-certificate-definitions.js")({client, internalAuthTokenProvider}),
     healthCheck: require("./endpoints/inventory/healthcheck.js")({client, internalAuthTokenProvider}),
