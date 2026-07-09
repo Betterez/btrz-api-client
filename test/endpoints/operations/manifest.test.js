@@ -406,3 +406,83 @@ describe("operations/manifests/:manifestKey/manifests-exceptions", () => {
     return api.operations.manifest.manifestsExceptions.update({token, jwtToken, manifestKey, manifestException});
   });
 });
+
+describe("operations/manifests/:manifestId/station operations", () => {
+  const token = "I owe you a token";
+  const jwtToken = "I owe you a JWT token";
+
+  afterEach(() => {
+    axiosMock.reset();
+  });
+
+  it("should board passengers at station", async () => {
+    const manifestId = "manifestId";
+    const stationId = "stationId";
+    const data = {
+      user: {
+        firstName: "Test",
+        lastName: "Testing",
+        email: "test@betterez.com"
+      }
+    };
+    const query = {bypassValidations: false};
+
+    axiosMock.onPost(`/manifests/${manifestId}/boarding/${stationId}`).reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    const call = await api.operations.manifest.stationBoarding({
+      token, jwtToken, manifestId, stationId, data, query
+    });
+    assert.deepStrictEqual(JSON.parse(call.config.data), data);
+    assert.deepStrictEqual(call.config.params, query);
+    return call;
+  });
+
+  it("should dispatch manifest at station", async () => {
+    const manifestId = "manifestId";
+    const stationId = "stationId";
+    const data = {
+      user: {
+        firstName: "Test",
+        lastName: "Testing",
+        email: "Test@betterez.com",
+        shiftId: "649f20a95679910784326e81",
+        shiftNumber: "S-WTN6LDX"
+      }
+    };
+    const query = {bypassValidations: false};
+
+    axiosMock.onPost(`/manifests/${manifestId}/dispatch/${stationId}`).reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    const call = await api.operations.manifest.stationDispatch({
+      token, jwtToken, manifestId, stationId, data, query
+    });
+    assert.deepStrictEqual(JSON.parse(call.config.data), data);
+    assert.deepStrictEqual(call.config.params, query);
+    return call;
+  });
+
+  it("should close sales at station", async () => {
+    const manifestId = "manifestId";
+    const stationId = "stationId";
+    const data = {
+      user: {
+        firstName: "Test",
+        lastName: "Testing",
+        email: "Test@betterez.com"
+      }
+    };
+    const query = {bypassValidations: false};
+
+    axiosMock.onPost(`/manifests/${manifestId}/sales-closure/${stationId}`).reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    const call = await api.operations.manifest.stationSalesClosure({
+      token, jwtToken, manifestId, stationId, data, query
+    });
+    assert.deepStrictEqual(JSON.parse(call.config.data), data);
+    assert.deepStrictEqual(call.config.params, query);
+    return call;
+  });
+});
