@@ -35,6 +35,7 @@ declare function notifyTicketFactory({ client, internalAuthTokenProvider }: {
     };
     manifest: {
         create: Function;
+        resend: Function;
     };
 };
 declare namespace notifyTicketFactory {

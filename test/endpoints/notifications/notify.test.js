@@ -118,6 +118,23 @@ describe("notifications/notify-manifest", () => {
       headers: {}
     });
   });
+
+  it("should post a resend for a parent manifest notification", () => {
+    const parentId = "5f2a1b3c4d5e6f7a8b9c0d1e";
+    axiosMock.onPost(`/notify-manifest/${parentId}/resend`).reply(({headers}) => {
+      if (headers["x-api-key"] === token && headers.authorization === `Bearer ${jwtToken}`) {
+        return [200, {manifestNotifications: []}];
+      }
+      return [403];
+    });
+
+    return api.notifications.notify.manifest.resend({
+      token,
+      jwtToken,
+      parentId,
+      headers: {}
+    });
+  });
 });
 
 describe("notifications/notify/email", () => {
