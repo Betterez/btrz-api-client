@@ -30,4 +30,16 @@ describe("invoices/infileJson", () => {
       data: {}
     });
   });
+
+  it("should validate void for an original sale transaction", () => {
+    axiosMock.onGet("/infile-json/validate-void").reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.invoices.infileJson.validateVoid({
+      jwtToken,
+      token,
+      query: {
+        originalTransactionId: "original-trx-id",
+        invoiceProviderId: "provider1"
+      }
+    });
+  });
 });

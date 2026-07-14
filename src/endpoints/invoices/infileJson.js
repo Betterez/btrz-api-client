@@ -12,7 +12,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
- * @returns {{ create: function, validateCreate: function }}
+ * @returns {{ create: function, validateCreate: function, validateVoid: function }}
  */
 function infileJsonFactory({client, internalAuthTokenProvider}) {
   /**
@@ -57,9 +57,28 @@ function infileJsonFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * GET /infile-json/validate-void - validate void for an original sale transaction.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {{ originalTransactionId: string, invoiceProviderId?: string }} opts.query
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
+  function validateVoid({token, jwtToken, query, headers}) {
+    return client({
+      url: "/infile-json/validate-void",
+      method: "get",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      params: query
+    });
+  }
+
   return {
     create,
-    validateCreate
+    validateCreate,
+    validateVoid
   };
 }
 
