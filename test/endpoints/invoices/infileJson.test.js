@@ -37,8 +37,7 @@ describe("invoices/infileJson", () => {
       jwtToken,
       token,
       query: {
-        originalTransactionId: "original-trx-id",
-        invoiceProviderId: "provider1"
+        originalTransactionId: "original-trx-id"
       }
     });
   });

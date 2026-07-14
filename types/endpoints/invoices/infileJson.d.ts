@@ -32,10 +32,6 @@ type InvoiceInfileJsonValidateVoidQuery = {
      * - Original sale transaction `_id` (24-character hex ObjectId)
      */
     originalTransactionId: string;
-    /**
-     * - Optional infileJson invoice provider id
-     */
-    invoiceProviderId?: string;
 };
 /**
  * Query params for POST /infile-json (btrz-api-invoices). onlyValidateRequest optional.
