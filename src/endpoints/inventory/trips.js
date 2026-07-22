@@ -2,6 +2,33 @@
 const {authorizationHeaders} = require("./../endpoints_helpers.js");
 
 /**
+ * @typedef {Object} MoveSegmentDemandEntry
+ * @property {string} fromId - Station ObjectId for the moved ticket origin
+ * @property {string} toId - Station ObjectId for the moved ticket destination
+ * @property {string} [fareId] - Optional fare ObjectId
+ * @property {number} [sitting] - Sitting passengers for this segment (default 0)
+ * @property {number} [standing] - Standing passengers for this segment (default 0)
+ */
+
+/**
+ * @typedef {Object} TripsSearchQuery
+ * @property {string} productId
+ * @property {string} originId
+ * @property {string} destinationId
+ * @property {string} fareIds - Format fareId:qty,fareId:qty
+ * @property {string} departureDate - YYYY-MM-DD
+ * @property {string} [returnDate] - YYYY-MM-DD
+ * @property {string} [channel]
+ * @property {string} [currency]
+ * @property {boolean|string} [isMove] - When true, includes dispatched trips and allows moveSegmentDemand
+ * @property {string} [moveSegmentDemand] - JSON stringified MoveSegmentDemandEntry[] used for IROPS/bulk-move segment-aware capacity (requires isMove=true)
+ * @property {boolean|string} [ignoreCutoffs]
+ * @property {boolean|string} [ignorePerFareCapacityLimits]
+ * @property {string} [allowedManifestStatuses]
+ * @property {boolean|string} [includeMoveToTrips]
+ */
+
+/**
  * Factory for trips API (btrz-api-inventory-trips).
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
@@ -14,10 +41,10 @@ function tripsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key (X-API-KEY)
    * @param {string} [opts.jwtToken] - JWT or internal auth (Authorization: Bearer)
-   * @param {Object} [opts.query] - Query params (productId, originId, destinationId, fareIds, departureDate, returnDate, etc.)
+   * @param {TripsSearchQuery} [opts.query] - Query params for trip search
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<{ trips: { departures: Object[], returns: Object[] } }>>}
-   * @throws 400 INVALID_DATE, INVALID_DATE_FORMAT, INVALID_PRODUCTID, INVALID_ORIGIN, INVALID_DESTINATION, INVALID_CHANNEL, INVALID_FARE, INVALID_FAREID, INVALID_MANIFEST_STATUS, WRONG_DATA
+   * @throws 400 INVALID_DATE, INVALID_DATE_FORMAT, INVALID_PRODUCTID, INVALID_ORIGIN, INVALID_DESTINATION, INVALID_CHANNEL, INVALID_FARE, INVALID_FAREID, INVALID_MANIFEST_STATUS, INVALID_MOVE_SEGMENT_DEMAND, WRONG_DATA
    * @throws 401 Unauthorized
    * @throws 409 NO_HIGHER_OR_EQL_PRICE
    * @throws 500 Internal server error
