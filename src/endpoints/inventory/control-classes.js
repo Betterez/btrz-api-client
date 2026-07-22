@@ -18,8 +18,6 @@ const {
  * @property {string} [seatClassId] - Filter by seat class ID(s), comma-separated
  * @property {string} [operatingCompanyId] - Filter by operating company ID(s), comma-separated
  * @property {string} [channel] - Filter by channel(s), comma-separated
- * @property {number} [advancePurchaseFrom] - Filter by advance purchase from (hours)
- * @property {number} [advancePurchaseTo] - Filter by advance purchase to (hours)
  */
 
 /**
