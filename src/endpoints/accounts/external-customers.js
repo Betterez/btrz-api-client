@@ -67,6 +67,26 @@ function externalCustomersFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * PUT /external-customers/ado/{externalId} – Update Saldo Max (ADO) client data (e.g. birthDate).
+   * Requires BETTEREZ_APP JWT. Maps to ADO ModificarDatosClienteMonedero.
+   * @param {Object} opts
+   * @param {string} opts.id - ADO idCustomerUnique (path externalId)
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT (BETTEREZ_APP audience)
+   * @param {{birthDate: string}} opts.data - Body; birthDate in DD/MM/YYYY
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse<{ code: string, externalId: string, birthDate: string }>>}
+   */
+  function updateSaldoMaxClientData({id, data, token, jwtToken, headers}) {
+    return client({
+      url: `/external-customers/ado/${encodeURIComponent(id)}`,
+      method: "put",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data
+    });
+  }
+
   const saldoMax = {
     /**
      * GET /external-customers/ado - get SaldoMax user by email, phone or walletId.
@@ -92,6 +112,7 @@ function externalCustomersFactory({client, internalAuthTokenProvider}) {
       });
     },
     create: registerSaldoMax,
+    update: updateSaldoMaxClientData,
     confirmation: {
       create: confirmSaldoMaxRegistration,
       resend: {

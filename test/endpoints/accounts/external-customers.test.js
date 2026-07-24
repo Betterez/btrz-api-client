@@ -94,4 +94,23 @@ describe("accounts/external-customers", () => {
       data
     });
   });
+
+  it("should PUT Saldo Max client data (birthDate) on external-customers/ado/{externalId}", () => {
+    const externalId = "01-1224-000001988";
+    const data = {
+      birthDate: "15/06/1990"
+    };
+    axiosMock.onPut(`/external-customers/ado/${encodeURIComponent(externalId)}`).reply(expectRequest({
+      statusCode: 200,
+      token,
+      jwtToken,
+      body: data
+    }));
+    return api.accounts.externalCustomers.saldoMax.update({
+      token,
+      jwtToken,
+      id: externalId,
+      data
+    });
+  });
 });
