@@ -10,6 +10,7 @@ require("./endpoints/accounts/current-shifts.test.js");
 require("./endpoints/accounts/customers.js");
 require("./endpoints/accounts/domains.test.js");
 require("./endpoints/accounts/dynamic-forms.test.js");
+require("./endpoints/accounts/qr-mappings.test.js");
 require("./endpoints/accounts/email-templates.test.js");
 require("./endpoints/accounts/exchange-rates.test.js");
 require("./endpoints/accounts/exchange-receipts.test.js");

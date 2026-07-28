@@ -200,6 +200,7 @@ function createAccounts({baseURL, headers, timeout, overrideFn, internalAuthToke
     }),
     domains: require("./endpoints/accounts/domains.js")({client, internalAuthTokenProvider}),
     dynamicForms: require("./endpoints/accounts/dynamic-forms.js")({client, internalAuthTokenProvider}),
+    qrMappings: require("./endpoints/accounts/qr-mappings.js")({client, internalAuthTokenProvider}),
     emailSettings: require("./endpoints/accounts/email-settings.js")({client, internalAuthTokenProvider}),
     emailTemplates: require("./endpoints/accounts/email-templates.js")({client, internalAuthTokenProvider}),
     smsTemplates: require("./endpoints/accounts/sms-templates.js")({client, internalAuthTokenProvider}),
