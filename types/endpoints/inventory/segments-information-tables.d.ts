@@ -1,7 +1,6 @@
 export = segmentInformationTableFactory;
 /**
  * @typedef {Object} SegmentsInformationTablesQuery
- * @property {string} [providerId] - Provider account ID
  */
 /**
  * Factory for segments-information-tables API (btrz-api-inventory).
@@ -21,9 +20,4 @@ declare function segmentInformationTableFactory({ client, internalAuthTokenProvi
 declare namespace segmentInformationTableFactory {
     export { SegmentsInformationTablesQuery };
 }
-type SegmentsInformationTablesQuery = {
-    /**
-     * - Provider account ID
-     */
-    providerId?: string;
-};
+type SegmentsInformationTablesQuery = Record<string, never>;
