@@ -7,7 +7,6 @@ const {
  * @typedef {Object} PrismaTerminalsQuery
  * @property {string} [providerId] - Account provider (operator) ID; used by agencies/sellers
  * @property {boolean} [validateRefund] - (PUT refunds only) If true, fetch current state from Prisma before applying
- * @property {boolean} [validatePayment] - (PUT payments only) If true, validate payment against the provider
  */
 
 /**
@@ -213,7 +212,7 @@ function prismaTerminalsFactory({client, internalAuthTokenProvider}) {
      * @param {string} [opts.jwtToken] - JWT or internal auth symbol
      * @param {string} opts.id - Payment id (prismaPaymentId)
      * @param {Object} opts.prismaPayment - Prisma payment payload
-     * @param {PrismaTerminalsQuery} [opts.query] - Query params (providerId, validatePayment)
+     * @param {PrismaTerminalsQuery} [opts.query] - Query params (providerId)
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse>}
      */
