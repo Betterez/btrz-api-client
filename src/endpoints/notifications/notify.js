@@ -6,12 +6,12 @@ const {
 /**
  * Request body for POST /notify/email (btrz-api-notifications). See post-notify-email-handler getSpec() and NotifyEmailPostData.
  * @typedef {Object} NotifyEmailByTypePostData
- * @property {string} type - Document/template type (e.g. product, voucher, order, transaction)
+ * @property {string} type - Document/PDF type (e.g. order, voucher, movement, cancellation)
  * @property {string} itemId - ObjectId of the item (24-char hex)
  * @property {string} [to] - Recipient email (optional; derived from item when omitted)
  * @property {string} [lang] - ISO language code (e.g. en-us)
  * @property {string} [channel] - Channel filter for template selection
- * @property {string} [family] - Required when type is 'product'. One of: ticket, reservation, paid in, paid out, parcel, flexpass, bundle
+ * @property {string} [family] - When type is product or movement: ticket, reservation, parcel, etc.
  * @property {string} [humanDate] - "mm" | "dd"
  */
 
