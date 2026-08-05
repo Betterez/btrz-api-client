@@ -1,6 +1,7 @@
 export = segmentInformationTableFactory;
 /**
  * @typedef {Object} SegmentsInformationTablesQuery
+ * @property {string} [providerId] - Provider account ID when route belongs to a provider in the requester's network
  */
 /**
  * Factory for segments-information-tables API (btrz-api-inventory).
@@ -20,4 +21,9 @@ declare function segmentInformationTableFactory({ client, internalAuthTokenProvi
 declare namespace segmentInformationTableFactory {
     export { SegmentsInformationTablesQuery };
 }
-type SegmentsInformationTablesQuery = Record<string, never>;
+type SegmentsInformationTablesQuery = {
+    /**
+     * - Provider account ID when route belongs to a provider in the requester's network
+     */
+    providerId?: string;
+};
