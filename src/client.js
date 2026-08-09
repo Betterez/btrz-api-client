@@ -600,7 +600,7 @@ function createApiClient(options) {
     btrzpay: createBtrzPay({baseURL, headers, timeout, overrideFn: baseURLOverride.btrzpay, internalAuthTokenProvider, agents}),
     invoices: createInvoices({baseURL, headers, timeout, overrideFn: baseURLOverride.invoices, internalAuthTokenProvider, agents}),
     bpes: createBpes({baseURL, headers, timeout, overrideFn: baseURLOverride.bpes, internalAuthTokenProvider, agents}),
-    gps: createGPS({baseURL, headers, timeout, overrideFn: baseURLOverride.invoices, internalAuthTokenProvider, agents}),
+    gps: createGPS({baseURL, headers, timeout, overrideFn: baseURLOverride.gps, internalAuthTokenProvider, agents}),
     ratality: createRatality({baseURL, headers, timeout, overrideFn: baseURLOverride.ratality, agents})
   };
 }
