@@ -40,6 +40,41 @@ describe("operations/manifest", () => {
     });
   });
 
+  it("should get item capacity over limit manifests", async () => {
+    const query = {
+      itemId: "507f1f77bcf86cd799439011",
+      limit: 5,
+      page: 1
+    };
+    axiosMock.onGet("/manifests/item-capacity-over-limit").reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    const call = await api.operations.manifest.itemCapacityOverLimit({
+      token, jwtToken, query
+    });
+    assert.deepStrictEqual(call.config.params, query);
+    return call;
+  });
+
+  it("should get item capacity used on a path", async () => {
+    const query = {
+      routeId: "507f1f77bcf86cd799439011",
+      scheduleId: "5cab127c-2c70-4fea-9031-4131e2751cdb",
+      date: "2035-07-20",
+      fromId: "507f1f77bcf86cd799439012",
+      toId: "507f1f77bcf86cd799439013",
+      itemIds: "507f1f77bcf86cd799439014"
+    };
+    axiosMock.onGet("/manifests/item-capacity-used").reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    const call = await api.operations.manifest.itemCapacityUsed({
+      token, jwtToken, query
+    });
+    assert.deepStrictEqual(call.config.params, query);
+    return call;
+  });
+
   it("should get many manifests", () => {
     const data = {
       query: [{

@@ -1,4 +1,4 @@
-/* eslint-disable max-len */
+
 const {
   authorizationHeaders
 } = require("./../endpoints_helpers.js");
@@ -73,6 +73,25 @@ const {
  * Query params for PUT /manifests/:manifestKey/driver-relays (btrz-api-operations). See put-driver-relays-handler getSpec().
  * @typedef {Object} ManifestDriverRelaysQuery
  * @property {boolean} [bypassValidations] - If true, bypass driver validations
+ */
+
+/**
+ * Query params for GET /manifests/item-capacity-over-limit (btrz-api-operations).
+ * @typedef {Object} ItemCapacityOverLimitQuery
+ * @property {string} itemId - Catalog item id (sourceItemId)
+ * @property {number|string} limit - Proposed Manifest Item Capacity Limit (>= 1)
+ * @property {number|string} [page] - Page number (>= 1)
+ */
+
+/**
+ * Query params for GET /manifests/item-capacity-used (btrz-api-operations).
+ * @typedef {Object} ItemCapacityUsedQuery
+ * @property {string} routeId - Route id
+ * @property {string} scheduleId - Schedule id (manifest schedule key)
+ * @property {string} date - Travel date yyyy-mm-dd
+ * @property {string} fromId - Origin station id
+ * @property {string} toId - Destination station id
+ * @property {string} [itemIds] - Optional comma-separated catalog item ids
  */
 
 /**
@@ -154,6 +173,42 @@ function manifestFactory({
   function get({token, jwtToken, query = {}, headers}) {
     return client({
       url: "/manifests",
+      method: "get",
+      params: query,
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+    });
+  }
+
+  /**
+   * GET /manifests/item-capacity-over-limit - future manifests over a proposed item capacity limit.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {ItemCapacityOverLimitQuery} opts.query - itemId, limit, optional page
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
+  function itemCapacityOverLimit({token, jwtToken, query = {}, headers}) {
+    return client({
+      url: "/manifests/item-capacity-over-limit",
+      method: "get",
+      params: query,
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+    });
+  }
+
+  /**
+   * GET /manifests/item-capacity-used - path max qty used per attach-to-ticket item.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {ItemCapacityUsedQuery} opts.query - routeId, scheduleId, date, fromId, toId, optional itemIds
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
+  function itemCapacityUsed({token, jwtToken, query = {}, headers}) {
+    return client({
+      url: "/manifests/item-capacity-used",
       method: "get",
       params: query,
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
@@ -730,7 +785,7 @@ function manifestFactory({
     }
   };
 
-    /**
+  /**
    * POST manifests/:manifestId/boarding/:stationId - board passengers at station.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
@@ -741,16 +796,16 @@ function manifestFactory({
    * @param {Object} opts.data - Request body
    * @returns {Promise<import("axios").AxiosResponse>}
    */
-    function stationBoarding({token, jwtToken, headers, manifestId, stationId, data, query}) {
-      return client({
-        url: `/manifests/${manifestId}/boarding/${stationId}`,
-        method: "post",
-        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
-        data,
-        params: query
-      });
-    }
-    
+  function stationBoarding({token, jwtToken, headers, manifestId, stationId, data, query}) {
+    return client({
+      url: `/manifests/${manifestId}/boarding/${stationId}`,
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data,
+      params: query
+    });
+  }
+
   /**
    * POST manifests/:manifestId/dispatch/:stationId - dispatch manifest at station.
    * @param {Object} opts
@@ -762,17 +817,17 @@ function manifestFactory({
    * @param {Object} opts.data - Request body
    * @returns {Promise<import("axios").AxiosResponse>}
    */
-    function stationDispatch({token, jwtToken, headers, manifestId, stationId, data, query}) {
-      return client({
-        url: `/manifests/${manifestId}/dispatch/${stationId}`,
-        method: "post",
-        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
-        data,
-        params: query
-      });
-    }
+  function stationDispatch({token, jwtToken, headers, manifestId, stationId, data, query}) {
+    return client({
+      url: `/manifests/${manifestId}/dispatch/${stationId}`,
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data,
+      params: query
+    });
+  }
 
-            /**
+  /**
    * POST manifests/:manifestId/sales-closure/:stationId - close sales at station.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
@@ -783,20 +838,22 @@ function manifestFactory({
    * @param {Object} opts.data - Request body
    * @returns {Promise<import("axios").AxiosResponse>}
    */
-    function stationSalesClosure({token, jwtToken, headers, manifestId, stationId, data, query}) {
-      return client({
-        url: `/manifests/${manifestId}/sales-closure/${stationId}`,
-        method: "post",
-        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
-        data,
-        params: query
-      });
-    }
+  function stationSalesClosure({token, jwtToken, headers, manifestId, stationId, data, query}) {
+    return client({
+      url: `/manifests/${manifestId}/sales-closure/${stationId}`,
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data,
+      params: query
+    });
+  }
 
   return {
     get,
     getAll,
     getById,
+    itemCapacityOverLimit,
+    itemCapacityUsed,
     outlook,
     patch,
     save,
