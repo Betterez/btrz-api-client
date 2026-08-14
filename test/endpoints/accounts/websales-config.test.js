@@ -31,40 +31,41 @@ describe("accounts/websales-config", () => {
       token,
       jwtToken,
       websalesConfigId,
-      "update": {
-        "websales_bgcolor": "",
-        "customCss": "updated custom css",
-        "socialSharing": false,
-        "fullpageLogoLink": "",
-        "fullpageHeadline": "",
-        "fullpageInfoHeadline": "",
-        "fullpageInfoDetails": "",
-        "waitingMessage": "",
-        "websales_logoredirecturl": "",
-        "disableBackButtonOnTripResults": false,
-        "forceLogin": false,
-        "lexiconKeys": {
-          "fullpageHeadline": {
-            "key": "624e08b5fdd69a15e973fcbc-websalesConfig-6261875eaad6f32745351fe2-fullpageHeadline",
-            "values": {
+      update: {
+        websales_bgcolor: "",
+        customCss: "updated custom css",
+        socialSharing: false,
+        fullpageLogoLink: "",
+        fullpageHeadline: "",
+        fullpageInfoHeadline: "",
+        fullpageInfoDetails: "",
+        waitingMessage: "",
+        websales_logoredirecturl: "",
+        disableBackButtonOnTripResults: false,
+        forceLogin: false,
+        disableSignUp: false,
+        lexiconKeys: {
+          fullpageHeadline: {
+            key: "624e08b5fdd69a15e973fcbc-websalesConfig-6261875eaad6f32745351fe2-fullpageHeadline",
+            values: {
               "en-us": "updated fullpageHeadline"
             }
           },
-          "fullpageInfoHeadline": {
-            "key": "624e08b5fdd69a15e973fcbc-websalesConfig-6261875eaad6f32745351fe2-fullpageInfoHeadline",
-            "values": {
+          fullpageInfoHeadline: {
+            key: "624e08b5fdd69a15e973fcbc-websalesConfig-6261875eaad6f32745351fe2-fullpageInfoHeadline",
+            values: {
               "en-us": "updated fullpageInfoHeadline"
             }
           },
-          "fullpageInfoDetails": {
-            "key": "624e08b5fdd69a15e973fcbc-websalesConfig-6261875eaad6f32745351fe2-fullpageInfoDetails",
-            "values": {
+          fullpageInfoDetails: {
+            key: "624e08b5fdd69a15e973fcbc-websalesConfig-6261875eaad6f32745351fe2-fullpageInfoDetails",
+            values: {
               "en-us": "fullpageInfoDetails"
             }
           },
-          "ssoErrorMsg": {
-            "key": "624e08b5fdd69a15e973fcbc-websalesConfig-6261875eaad6f32745351fe2-ssoErrorMsg",
-            "values": {
+          ssoErrorMsg: {
+            key: "624e08b5fdd69a15e973fcbc-websalesConfig-6261875eaad6f32745351fe2-ssoErrorMsg",
+            values: {
               "en-us": "updated ssoErrorMsg"
             }
           }
