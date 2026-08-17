@@ -4,7 +4,7 @@ export = salesforceFactory;
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
- * @returns {{ sms: { create: function } }}
+ * @returns {{ sms: { create: function, deliveries: { get: function } } }}
  */
 declare function salesforceFactory({ client, internalAuthTokenProvider }: {
     client: import("axios").AxiosInstance;
@@ -14,5 +14,8 @@ declare function salesforceFactory({ client, internalAuthTokenProvider }: {
 }): {
     sms: {
         create: Function;
+        deliveries: {
+            get: Function;
+        };
     };
 };

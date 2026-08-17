@@ -24,4 +24,15 @@ describe("notifications/salesforce", () => {
     };
     return api.notifications.salesforce.sms.create({token, jwtToken, sms});
   });
+
+  it("should get sms delivery status by tokenId", () => {
+    const tokenId = "tok-delivery-123";
+    axiosMock.onGet(`/salesforce/sms/deliveries/${tokenId}`).reply(({headers}) => {
+      if (headers["x-api-key"] === token && headers.authorization === `Bearer ${jwtToken}`) {
+        return [200, {response: {status: "Finished", tracking: []}}];
+      }
+      return [403];
+    });
+    return api.notifications.salesforce.sms.deliveries.get({token, jwtToken, tokenId});
+  });
 });
