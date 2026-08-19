@@ -47,4 +47,25 @@ describe("accounts/accounts", () => {
       data
     });
   });
+
+  it("should POST configuration replication for an account", () => {
+    const accountId = "5976090487a7f1e158000041";
+    const query = {
+      superUserId: "superUserId",
+      superUserHash: "superUserHash"
+    };
+    axiosMock.onPost(`/accounts/${accountId}/configuration-replication`)
+      .reply(expectRequest({
+        statusCode: 202,
+        token,
+        jwtToken,
+        query
+      }));
+    return api.accounts.accounts.configurationReplication.create({
+      token,
+      jwtToken,
+      accountId,
+      query
+    });
+  });
 });
