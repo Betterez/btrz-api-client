@@ -8,7 +8,7 @@ export = notifyTicketFactory;
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
- * @returns {{ childUsers: { create: function }, tickets: { create: function }, vouchers: { create: function }, manifest: { create: function }, emailByType: { create: function }, smsByType: { create: function } }}
+ * @returns {{ childUsers: { create: function }, newSeller: { create: function }, tickets: { create: function }, vouchers: { create: function }, manifest: { create: function, resend: function }, emailByType: { create: function }, smsByType: { create: function }, whatsapp: { create: function } }}
  */
 declare function notifyTicketFactory({ client, internalAuthTokenProvider }: {
     client: import("axios").AxiosInstance;
@@ -24,7 +24,14 @@ declare function notifyTicketFactory({ client, internalAuthTokenProvider }: {
         /** @param opts.data type, itemId; optional to, lang, channel, family, humanDate */
         create: (opts: { token?: string; jwtToken?: string; data: { type: string; itemId: string; to?: string; lang?: string; channel?: string; family?: string; humanDate?: string }; headers?: object }) => Promise<import("axios").AxiosResponse<{ success: boolean }>>;
     };
+    whatsapp: {
+        /** @param opts.data type, itemId; optional templateType, to, lang, channel, family, humanDate */
+        create: (opts: { token?: string; jwtToken?: string; data?: { type: string; itemId: string; templateType?: string; to?: string; lang?: string; channel?: string; family?: string; humanDate?: string }; headers?: object }) => Promise<import("axios").AxiosResponse<{ success: boolean }>>;
+    };
     childUsers: {
+        create: Function;
+    };
+    newSeller: {
         create: Function;
     };
     tickets: {

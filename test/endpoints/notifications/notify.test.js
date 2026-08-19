@@ -202,3 +202,37 @@ describe("notifications/notify/sms", () => {
     });
   });
 });
+
+describe("notifications/notify/whatsapp", () => {
+  const token = "my-api-key";
+  const jwtToken = "my-jwt";
+
+  afterEach(() => {
+    axiosMock.reset();
+  });
+
+  it("should POST send WhatsApp by type and itemId", () => {
+    axiosMock.onPost("/notify/whatsapp").reply(({headers, data}) => {
+      if (headers["x-api-key"] !== token || headers.authorization !== `Bearer ${jwtToken}`) {
+        return [403];
+      }
+      const body = typeof data === "string" ? JSON.parse(data) : data;
+      if (body.type === "order" && body.itemId === "507f1f77bcf86cd799439011" && body.to === "5215555555555") {
+        return [200, {success: true}];
+      }
+      return [400];
+    });
+    return api.notifications.notify.whatsapp.create({
+      token,
+      jwtToken,
+      data: {
+        type: "order",
+        itemId: "507f1f77bcf86cd799439011",
+        to: "5215555555555"
+      }
+    }).then((res) => {
+      assert.deepStrictEqual(res.status, 200);
+      assert.deepStrictEqual(res.data.success, true);
+    });
+  });
+});
