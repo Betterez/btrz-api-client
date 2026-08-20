@@ -205,4 +205,28 @@ describe("accounts/user/{id}", () => {
       newUserId
     });
   });
+
+  it("should GET /users/sequences with query.userIds", () => {
+    const query = {userIds: "1234321,9876543"};
+    axiosMock.onGet("/users/sequences", {params: query}).reply(
+      expectRequest({statusCode: 200, token, jwtToken, query})
+    );
+    return api.accounts.users.sequences.allByUserIds({
+      jwtToken,
+      token,
+      query
+    });
+  });
+
+  it("should GET /users/sequences without inventing extra query params", () => {
+    const query = {userIds: "1234321"};
+    axiosMock.onGet("/users/sequences").reply(
+      expectRequest({statusCode: 200, token, jwtToken, query})
+    );
+    return api.accounts.users.sequences.allByUserIds({
+      jwtToken,
+      token,
+      query
+    });
+  });
 });

@@ -4,7 +4,7 @@ export = usersFactory;
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
- * @returns {{ get: function, getV2: function, all: function, create: function, login: function, update: function, delete: function, createOrUpdateMany: function, impersonate: function, startMfa: function, confirmMfa: function, disableMfa: function, sequences: { get: function, all: function, create: function, update: function, transfer: function } }}
+ * @returns {{ get: function, getV2: function, all: function, create: function, login: function, update: function, delete: function, createOrUpdateMany: function, impersonate: function, startMfa: function, confirmMfa: function, disableMfa: function, sequences: { get: function, all: function, allByUserIds: function, create: function, update: function, transfer: function } }}
  */
 declare function usersFactory({ client, internalAuthTokenProvider }: {
     client: import("axios").AxiosInstance;
@@ -27,6 +27,7 @@ declare function usersFactory({ client, internalAuthTokenProvider }: {
     sequences: {
         get: Function;
         all: Function;
+        allByUserIds: Function;
         create: Function;
         update: Function;
         transfer: Function;
