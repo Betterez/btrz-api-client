@@ -13,7 +13,7 @@ const {
  * @property {string} [dateFrom] - Start date range (yyyy-mm-dd)
  * @property {string} [dateTo] - End date range (yyyy-mm-dd)
  * @property {string} [seatmapId] - Seatmap ID
- * @property {string} [vehicleId] - Vehicle ID
+ * @property {string} [vehicleId] - Inventory vehicle document ID (MongoDB ObjectId). Filters by manifest.vehicleId. Legacy exact display-name matching may still resolve server-side; do not rely on it for new clients
  * @property {string} [assignedUserId] - Assigned user ID
  * @property {boolean} [dispatched] - If manifest was dispatched
  * @property {boolean} [reviewed] - If manifest was reviewed
@@ -24,6 +24,19 @@ const {
  * @property {string} [dispatchedStatus] - Filter by dispatched status
  * @property {boolean} [manifestOnly] - If only manifest (no ticket info)
  * @property {string} [status] - Comma-separated manifest statuses
+ */
+
+/**
+ * Body for PUT /manifests (btrz-api-operations ManifestSaveData). See put-manifest.
+ * @typedef {Object} ManifestSaveData
+ * @property {string} routeId - Route ID
+ * @property {string} scheduleId - Schedule ID
+ * @property {string} date - Date in YYYY-MM-DD format
+ * @property {string} [busSelected] - Human-readable vehicle name to assign or clear (legacy). When inventoryVehicleId is also sent, the server resolves by ID and persists busSelected as the resolved name for display/audit
+ * @property {string} [inventoryVehicleId] - Preferred stable inventory vehicle document ID (MongoDB ObjectId as string). When provided, assignment resolves by ID instead of exact name match on busSelected
+ * @property {number} [capacity] - Manifest capacity
+ * @property {string} [seatMapId] - Seatmap ID
+ * @property {string} [comments] - Comments
  */
 
 /**
@@ -337,7 +350,7 @@ function manifestFactory({
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} [opts.providerId] - Provider id (required by API as query)
-   * @param {Object} opts.data - Request body
+   * @param {ManifestSaveData} opts.data - Request body
    * @param {Object} [opts.headers] - Optional headers
    * @param {ManifestSaveQuery} [opts.query] - Query params (providerId required; manifestId, bypassBusValidation optional)
    * @returns {Promise<import("axios").AxiosResponse>}
