@@ -32,8 +32,8 @@ const {
  * @property {string} routeId - Route ID
  * @property {string} scheduleId - Schedule ID
  * @property {string} date - Date in YYYY-MM-DD format
- * @property {string} [busSelected] - Human-readable vehicle name to assign or clear (legacy). When inventoryVehicleId is also sent, the server resolves by ID and persists busSelected as the resolved name for display/audit
- * @property {string} [inventoryVehicleId] - Preferred stable inventory vehicle document ID (MongoDB ObjectId as string). When provided, assignment resolves by ID instead of exact name match on busSelected
+ * @property {string} [busSelected] - Human-readable vehicle name to assign or clear (legacy). Resolves by exact inventory name only when inventoryVehicleId is not provided. When inventoryVehicleId is also provided, the server resolves only by that ID and persists the resolved name for display/audit. Empty string unassigns only when inventoryVehicleId is absent
+ * @property {string} [inventoryVehicleId] - Stable inventory vehicle document ID (MongoDB ObjectId as string). When provided, bus assignment resolves only by this ID; there is no fallback to busSelected name. BUS_NOT_FOUND when the target vehicle cannot be resolved (invalid, disabled, deleted, or other account). Not returned when cleaning up a previous assignment whose vehicle was renamed or removed
  * @property {number} [capacity] - Manifest capacity
  * @property {string} [seatMapId] - Seatmap ID
  * @property {string} [comments] - Comments
@@ -56,6 +56,15 @@ const {
  * @property {string} [oldScheduleId] - Old schedule ID for update_schedule
  * @property {string} [accommodateOnAnySeat] - "true" to assign missing seats to any available
  * @property {string} [newdesign] - "true" when using new seatmap design
+ */
+
+/**
+ * assign_bus operation item for PATCH /manifests (btrz-api-operations ManifestUpdateOperation). See patch-manifest.
+ * @typedef {Object} ManifestPatchAssignBusOperation
+ * @property {"assign_bus"} op - Operation type
+ * @property {Object} manifest - Manifest data to update (ManifestUpdateCapacityNotificationSent)
+ * @property {string} [busId] - Case-sensitive inventory vehicle display name (legacy). Used only when inventoryVehicleId is not provided
+ * @property {string} [inventoryVehicleId] - Stable inventory vehicle document ID. When provided, the vehicle is resolved only by this ID (no name fallback); busId is persisted as the resolved vehicle name for display and audit. BUS_NOT_FOUND if the ID does not resolve (missing, disabled, deleted, or other account)
  */
 
 /**
@@ -326,9 +335,9 @@ function manifestFactory({
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {ManifestPatchQuery} [opts.query] - Query params (providerId required)
-   * @param {Object} opts.operations - JSON Patch operations
+   * @param {Array<ManifestPatchAssignBusOperation|Object>} opts.operations - Predefined operations (e.g. assign_bus, remove_bus, add_tickets). assign_bus vehicle fields: see ManifestPatchAssignBusOperation
    * @param {Object} [opts.headers] - Optional headers
-   * @returns {Promise<import("axios").AxiosResponse>}
+   * @returns {Promise<import("axios").AxiosResponse>} PatchedManifest; 400 BUS_NOT_FOUND (assign_bus target vehicle only; no name fallback when inventoryVehicleId is sent), INVALID_OPERATION, MANIFEST_ALREADY_DISPATCHED
    */
   function patch({
     token, jwtToken, query = {}, operations, headers
