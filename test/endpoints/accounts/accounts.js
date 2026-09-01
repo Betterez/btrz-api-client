@@ -68,4 +68,31 @@ describe("accounts/accounts", () => {
       query
     });
   });
+
+  it("should PUT session recording settings for an account", () => {
+    const accountId = "5976090487a7f1e158000041";
+    const query = {
+      superUserId: "superUserId",
+      superUserHash: "superUserHash"
+    };
+    const data = {
+      logRocket: {enabled: true, pathPrefixes: ["/manifests"]},
+      rrweb: {enabled: true, pathGroups: [["/manifests"]]}
+    };
+    axiosMock.onPut(`/accounts/${accountId}/session-recording-settings`)
+      .reply(expectRequest({
+        statusCode: 200,
+        token,
+        jwtToken,
+        query,
+        body: data
+      }));
+    return api.accounts.accounts.sessionRecordingSettings.update({
+      token,
+      jwtToken,
+      accountId,
+      query,
+      data
+    });
+  });
 });

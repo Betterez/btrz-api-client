@@ -4,7 +4,7 @@ export = accountsFactory;
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
- * @returns {{ get: function, defaultUsers: { create: function }, configurationReplication: { create: function } }}
+ * @returns {{ get: function, defaultUsers: { create: function }, configurationReplication: { create: function }, sessionRecordingSettings: { update: function } }}
  */
 declare function accountsFactory({ client, internalAuthTokenProvider }: {
     client: import("axios").AxiosInstance;
@@ -18,5 +18,8 @@ declare function accountsFactory({ client, internalAuthTokenProvider }: {
     };
     configurationReplication: {
         create: Function;
+    };
+    sessionRecordingSettings: {
+        update: Function;
     };
 };
