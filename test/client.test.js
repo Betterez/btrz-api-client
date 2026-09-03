@@ -81,6 +81,20 @@ describe("client", () => {
     assert.deepStrictEqual(api.inventory.__test_trips.client.defaults.baseURL, "http://localhost:3090/inventory");
   });
 
+  it("should use the gps override for gps endpoints", () => {
+    const api = createApiClient({
+      baseURL,
+      baseURLOverride: {
+        gps: () => { return "http://localhost:3020/gps"; },
+        invoices: () => { return "http://localhost:3030/invoices"; }
+      }
+    });
+
+    expectKnownEndpoints(api);
+    assert.deepStrictEqual(api.gps.__test.client.defaults.baseURL, "http://localhost:3020/gps");
+    assert.deepStrictEqual(api.invoices.__test.client.defaults.baseURL, "http://localhost:3030/invoices");
+  });
+
   it("should allow to perform custom request on clean client", () => {
     const api = createApiClient({baseURL, timeout: 0});
     assert.ok(api.inventory.products);
