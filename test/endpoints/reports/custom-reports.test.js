@@ -28,4 +28,25 @@ describe("reports/custom-reports", () => {
     axiosMock.onDelete(`/custom-reports/${customReportId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.reports.customReports.remove({jwtToken, token, customReportId});
   });
+
+  it("should get a custom report by id", () => {
+    axiosMock.onGet(`/custom-report/${customReportId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.reports.customReports.get({token, jwtToken, customReportId});
+  });
+
+  it("should update a custom report", () => {
+    const customReport = {
+      deliveryMethod: {
+        method: "S3",
+        options: {bucket: "507f1f77bcf86cd799439011"}
+      }
+    };
+    axiosMock.onPut(`/custom-reports/${customReportId}`).reply(expectRequest({
+      statusCode: 200,
+      token,
+      jwtToken,
+      body: {customReport}
+    }));
+    return api.reports.customReports.update({token, jwtToken, customReportId, customReport});
+  });
 });

@@ -13,7 +13,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
- * @returns {{ create: function, all: function, remove: function }}
+ * @returns {{ create: function, all: function, get: function, update: function, remove: function }}
  */
 function customReportsFactory({client, internalAuthTokenProvider}) {
   /**
@@ -52,6 +52,42 @@ function customReportsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
+   * GET /custom-report/:customReportId - get one custom report.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.customReportId - Custom report id
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
+  function get({token, jwtToken, customReportId, headers}) {
+    return client({
+      url: `/custom-report/${customReportId}`,
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+    });
+  }
+
+  /**
+   * PUT /custom-reports/:customReportId - update a custom report.
+   * Today the API only accepts deliveryMethod inside customReport.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.customReportId - Custom report id
+   * @param {Object} opts.customReport - Fields to update
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
+  function update({token, jwtToken, customReportId, customReport, headers}) {
+    return client({
+      url: `/custom-reports/${customReportId}`,
+      method: "put",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data: {customReport}
+    });
+  }
+
+  /**
    * DELETE /custom-reports/:customReportId - remove custom report.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
@@ -71,6 +107,8 @@ function customReportsFactory({client, internalAuthTokenProvider}) {
   return {
     create,
     all,
+    get,
+    update,
     remove
   };
 }

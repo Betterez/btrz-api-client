@@ -10,7 +10,7 @@ export = customReportsFactory;
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
- * @returns {{ create: function, all: function, remove: function }}
+ * @returns {{ create: function, all: function, get: function, update: function, remove: function }}
  */
 declare function customReportsFactory({ client, internalAuthTokenProvider }: {
     client: import("axios").AxiosInstance;
@@ -20,6 +20,8 @@ declare function customReportsFactory({ client, internalAuthTokenProvider }: {
 }): {
     create: Function;
     all: Function;
+    get: Function;
+    update: Function;
     remove: Function;
 };
 declare namespace customReportsFactory {

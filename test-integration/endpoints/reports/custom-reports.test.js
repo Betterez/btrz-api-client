@@ -68,4 +68,23 @@ describe("reports/custom-report", () => {
         assert.deepStrictEqual(err.response.status, 401);
       });
   });
+
+  it("should not get a custom report when unauthorized", () => {
+    return api.reports.customReports.get({token, jwtToken, customReportId: "5a959a4aa7114ffd7f000001"})
+      .catch((err) => {
+        assert.deepStrictEqual(err.response.status, 401);
+      });
+  });
+
+  it("should not update a custom report when unauthorized", () => {
+    return api.reports.customReports.update({
+      token,
+      jwtToken,
+      customReportId: "5a959a4aa7114ffd7f000001",
+      customReport: {deliveryMethod: {method: "S3", options: {bucket: "bucket-1"}}}
+    })
+      .catch((err) => {
+        assert.deepStrictEqual(err.response.status, 401);
+      });
+  });
 });
