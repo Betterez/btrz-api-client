@@ -222,6 +222,40 @@ describe("operations/manifest", () => {
     });
   });
 
+  it("should read the fare capacity limits from the manifest", async () => {
+    const manifestKey = "theId";
+
+    axiosMock.onGet(`/manifests/${manifestKey}/fare-capacity-limits`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.operations.manifest.getFareCapacityLimits({token, jwtToken, manifestKey});
+  });
+
+  it("should replace the fare capacity limits on the manifest", async () => {
+    const manifestKey = "theId";
+    const data = {
+      passengerLimitOverrides: [
+        {fareId: "610aebf7476dc22c1f2d0fee", maxPassengers: 5},
+        {fareId: "60b94ceb1516d01a41ccbbc4", unlimited: true}
+      ]
+    };
+
+    axiosMock.onPut(`/manifests/${manifestKey}/fare-capacity-limits`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    const call = await api.operations.manifest.updateFareCapacityLimits({token, jwtToken, manifestKey, data});
+    assert.deepStrictEqual(JSON.parse(call.config.data), data);
+    return call;
+  });
+
+  it("should replace the fare capacity limits addressed by a composite key, passing routeId", async () => {
+    // routeId is required only when the composite key names a manifest that does not exist yet.
+    const manifestKey = "5cab127c-2c70-4fea-9031-4131e2751cdb+2024-07-25";
+    const data = {passengerLimitOverrides: []};
+    const query = {routeId: "61a8d5e4adb79606bba26a3f"};
+
+    axiosMock.onPut(`/manifests/${manifestKey}/fare-capacity-limits`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    const call = await api.operations.manifest.updateFareCapacityLimits({token, jwtToken, manifestKey, data, query});
+    assert.deepStrictEqual(call.config.params, query);
+    return call;
+  });
+
   it("should add user to the manifest", async () => {
     const manifestId = "theId";
     const data = {
