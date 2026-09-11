@@ -28,6 +28,7 @@ describe("accounts/ticket-movement-settings", () => {
       preventMovementsWhenFareSpecificCapacityLimitsAreExceeded: true,
       sendSMSNotifications: true,
       allowSendingEmailNotification: true,
+      allowSendingWhatsAppNotification: false,
       useConfirmationRecipientForNotifications: false,
       maxMovementsPerTicket: 1,
       maxMovementsPerTicketWithAuthorization: 2,

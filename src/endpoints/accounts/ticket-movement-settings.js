@@ -48,6 +48,7 @@ const {
  * @property {boolean} preventMovementsWhenFareSpecificCapacityLimitsAreExceeded - Prevent moves when fare capacity is exceeded.
  * @property {boolean} sendSMSNotifications - Enable SMS notifications for ticket movements.
  * @property {boolean} [allowSendingEmailNotification] - Enable email notifications for ticket movements.
+ * @property {boolean} [allowSendingWhatsAppNotification] - Enable WhatsApp notifications for bulk ticket movements.
  * @property {boolean} [useConfirmationRecipientForNotifications] - Send notifications to the confirmation recipient.
  * @property {number} maxMovementsPerTicket - Maximum ticket movements without authorization.
  * @property {number} [maxMovementsPerTicketWithAuthorization] - Maximum ticket movements with authorization.
