@@ -168,6 +168,7 @@ require("./endpoints/notifications/pdfs.test.js");
 require("./endpoints/notifications/printed-tickets.test.js");
 require("./endpoints/notifications/salesforce.test.js");
 require("./endpoints/notifications/short-urls.test.js");
+require("./endpoints/notifications/operator-notifications.test.js");
 require("./endpoints/notifications/twilio.test.js");
 require("./endpoints/operations/accounting_items.js");
 require("./endpoints/operations/applied_insurance.test.js");
