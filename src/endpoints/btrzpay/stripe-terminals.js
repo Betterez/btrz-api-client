@@ -46,23 +46,25 @@ function stripeTerminalsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /stripe-terminals/:terminalId/simulate - simulate a payment on a Stripe Terminal reader. API does not accept query params.
+   * POST /stripe-terminals/:terminalId/simulate - simulate a payment on a Stripe Terminal reader.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.id - Terminal ID (Stripe reader id, e.g. tmr_xxx)
    * @param {{ ccNumber: string }} opts.stripePayment - Payment to simulate; ccNumber required
+   * @param {StripeTerminalsListQuery} [opts.query] - Optional providerId for agencies/sellers
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<{ stripeTerminalPayment: Object }>>}
    * Rejects with 400 (WRONG_DATA), 401,
    * 404 (PAYMENT_METHOD_NOT_FOUND, TRANSACTION_NOT_FOUND),
    * 409 (errorCode/errorMessage), 500.
    */
-  function simulate({token, jwtToken, id, stripePayment, headers}) {
+  function simulate({token, jwtToken, id, stripePayment, query = {}, headers}) {
     return client({
       url: `/stripe-terminals/${id}/simulate`,
       method: "post",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      params: query,
       data: {stripePayment}
     });
   }

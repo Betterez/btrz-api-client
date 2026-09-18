@@ -30,13 +30,14 @@ describe("btrzpay/stripe-terminals", () => {
     const terminalId = "tm_123";
     const body = {stripePayment};
     axiosMock.onPost(`/stripe-terminals/${terminalId}/simulate`, body).reply(expectRequest({
-      statusCode: 200, token, jwtToken
+      statusCode: 200, token, jwtToken, query
     }));
     return api.btrzpay.stripeTerminals.simulate({
       id: terminalId,
       token,
       jwtToken,
-      stripePayment
+      stripePayment,
+      query
     });
   });
 });
