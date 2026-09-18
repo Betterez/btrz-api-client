@@ -4,7 +4,7 @@ export = currentShiftsFactory;
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
- * @returns {{ get: function }}
+ * @returns {{ get: function, getLocation: function }}
  */
 declare function currentShiftsFactory({ client, internalAuthTokenProvider }: {
     client: import("axios").AxiosInstance;
@@ -13,4 +13,5 @@ declare function currentShiftsFactory({ client, internalAuthTokenProvider }: {
     };
 }): {
     get: Function;
+    getLocation: Function;
 };

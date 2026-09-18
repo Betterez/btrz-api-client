@@ -31,8 +31,23 @@ function currentShiftsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * GET /users/:userId/current-shift-location - location `_id`, `name`, and `zone` for the open shift.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} opts.userId - User id (ObjectId)
+   * @param {Object} [opts.headers] - Optional headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
+  function getLocation({token, userId, headers}) {
+    return client.get(`/users/${userId}/current-shift-location`, {
+      headers: authorizationHeaders({token, internalAuthTokenProvider, headers})
+    });
+  }
+
   return {
-    get
+    get,
+    getLocation
   };
 }
 

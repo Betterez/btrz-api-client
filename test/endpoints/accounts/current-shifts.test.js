@@ -16,4 +16,12 @@ describe("accounts/users/:userId/current-shift", () => {
       .reply(expectRequest({statusCode: 200, token}));
     return api.accounts.currentShifts.get({token, userId, query});
   });
+
+  it("should get current-shift-location", () => {
+    const userId = "userId1";
+
+    axiosMock.onGet(`/users/${userId}/current-shift-location`)
+      .reply(expectRequest({statusCode: 200, token}));
+    return api.accounts.currentShifts.getLocation({token, userId});
+  });
 });
