@@ -120,6 +120,7 @@ require("./endpoints/inventory/payment-terminals.test.js");
 require("./endpoints/inventory/prisma-terminals.test.js");
 require("./endpoints/inventory/products.test.js");
 require("./endpoints/inventory/promos.test.js");
+require("./endpoints/inventory/promo-campaign-calendar.test.js");
 require("./endpoints/inventory/regions.test.js");
 require("./endpoints/inventory/routes.test.js");
 require("./endpoints/inventory/schedule-groups.test.js");

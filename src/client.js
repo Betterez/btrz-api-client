@@ -108,6 +108,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
     prismaTerminals: require("./endpoints/inventory/prisma-terminals.js")({client, internalAuthTokenProvider}),
     products: require("./endpoints/inventory/products.js")({client, internalAuthTokenProvider}),
     promos: require("./endpoints/inventory/promos.js")({client, internalAuthTokenProvider}),
+    promoCampaignCalendar: require("./endpoints/inventory/promo-campaign-calendar.js")({client, internalAuthTokenProvider}),
     routes: require("./endpoints/inventory/routes.js")({client, internalAuthTokenProvider}),
     scheduleGroups: require("./endpoints/inventory/schedule-groups.js")({client, internalAuthTokenProvider}),
     schedules: require("./endpoints/inventory/schedules.js")({client, internalAuthTokenProvider}),
