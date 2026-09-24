@@ -55,7 +55,7 @@ function promosFactory({client, internalAuthTokenProvider}) {
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<{ promos: Array<object>, total: number }>>}
    *   Resolves with paginated promos; response.data has Promos shape.
-   * @throws When the request fails (400/401/404/500). Body: WRONG_DATA, PROMO_NOT_FOUND.
+   * @throws When the request fails (400/401/404/500). Body: WRONG_DATA, PROMO_NOT_FOUND, RULE_NOT_FOUND.
    */
   function all({token, jwtToken, query = {}, headers}) {
     return client.get("/promos", {
@@ -70,6 +70,7 @@ function promosFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.promoId - Promo id
+   * @param {string} opts.ruleId - The ruleId of the promo rule (each rule has its own list)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
@@ -106,6 +107,7 @@ function promosFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.promoId - Promo id
+   * @param {string} opts.ruleId - The ruleId of the promo rule (each rule has its own list)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>} Resolves with disabled promo.
    * @throws When the request fails (400/401/404/500). Body: WRONG_DATA, INVALID_PROMO_ID, PROMO_NOT_FOUND.
@@ -124,6 +126,7 @@ function promosFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.promoId - Promo id
+   * @param {string} opts.ruleId - The ruleId of the promo rule (each rule has its own list)
    * @param {PromoUpdateRequest} opts.update - Partial update.
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<object>>} Resolves with updated Promo.
@@ -145,6 +148,7 @@ function promosFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.promoId - Promo id
+   * @param {string} opts.ruleId - The ruleId of the promo rule (each rule has its own list)
    * @param {Object} opts.operations - Array of PromoUpdateOperation (op, path, value).
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<object>>} Resolves with body `{ results, promo? }`: patch outcome plus full persisted promo after a successful update (same document emitted on `promo.updated`).
@@ -165,6 +169,7 @@ function promosFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.promoId - Promo id
+   * @param {string} opts.ruleId - The ruleId of the promo rule (each rule has its own list)
    * @param {PromoRulePayload} opts.rule - Rule payload (subset of PromoRule).
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<object>>} Resolves with Promo including new rule.
@@ -185,6 +190,7 @@ function promosFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.promoId - Promo id
+   * @param {string} opts.ruleId - The ruleId of the promo rule (each rule has its own list)
    * @param {string} opts.ruleId - Rule id
    * @param {PromoRulePayload} opts.rule - Full rule payload (subset of PromoRule).
    * @param {Object} [opts.headers] - Optional headers
@@ -201,36 +207,38 @@ function promosFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /promos/:promoId/beneficiaries-list - settings of the promo's beneficiaries-by-document list. Requires BETTEREZ_APP.
+   * GET /promos/:promoId/rules/:ruleId/beneficiaries-list - settings of a promo rule's beneficiaries-by-document list. Requires BETTEREZ_APP.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.promoId - Promo id
+   * @param {string} opts.ruleId - The ruleId of the promo rule (each rule has its own list)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<{ beneficiariesList: object }>>}
-   *   Resolves with `{beneficiariesList: {promoId, enabled, maxUsesPerBeneficiary, count, activeImportId, updatedAt}}`.
-   * @throws When the request fails (400/401/404/500). Body: PROMO_NOT_FOUND.
+   *   Resolves with `{beneficiariesList: {promoId, ruleId, enabled, maxUsesPerBeneficiary, count, activeImportId, updatedAt}}`.
+   * @throws When the request fails (400/401/404/500). Body: PROMO_NOT_FOUND, RULE_NOT_FOUND.
    */
-  function getBeneficiariesList({jwtToken, token, promoId, headers}) {
-    return client.get(`/promos/${promoId}/beneficiaries-list`, {
+  function getBeneficiariesList({jwtToken, token, promoId, ruleId, headers}) {
+    return client.get(`/promos/${promoId}/rules/${ruleId}/beneficiaries-list`, {
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
   /**
-   * PUT /promos/:promoId/beneficiaries-list - enable/disable the list and set the max uses per beneficiary (0 = unlimited). Requires BETTEREZ_APP.
+   * PUT /promos/:promoId/rules/:ruleId/beneficiaries-list - enable/disable the list and set the max uses per beneficiary (0 = unlimited). Requires BETTEREZ_APP.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.promoId - Promo id
+   * @param {string} opts.ruleId - The ruleId of the promo rule (each rule has its own list)
    * @param {{enabled: boolean, maxUsesPerBeneficiary: number}} opts.beneficiariesList - Settings
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<{ beneficiariesList: object }>>}
-   * @throws When the request fails (400/401/404/500). Body: WRONG_DATA, PROMO_NOT_FOUND.
+   * @throws When the request fails (400/401/404/500). Body: WRONG_DATA, PROMO_NOT_FOUND, RULE_NOT_FOUND.
    */
-  function updateBeneficiariesList({jwtToken, token, promoId, beneficiariesList, headers}) {
+  function updateBeneficiariesList({jwtToken, token, promoId, ruleId, beneficiariesList, headers}) {
     return client({
-      url: `/promos/${promoId}/beneficiaries-list`,
+      url: `/promos/${promoId}/rules/${ruleId}/beneficiaries-list`,
       method: "put",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: {beneficiariesList}
@@ -238,18 +246,19 @@ function promosFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /promos/:promoId/beneficiaries-imports - start a new beneficiaries import. Rows added to it stay inactive until completed. Requires BETTEREZ_APP.
+   * POST /promos/:promoId/rules/:ruleId/beneficiaries-imports - start a new beneficiaries import. Rows added to it stay inactive until completed. Requires BETTEREZ_APP.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.promoId - Promo id
+   * @param {string} opts.ruleId - The ruleId of the promo rule (each rule has its own list)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<{ import: { importId: string } }>>}
-   * @throws When the request fails (400/401/404/500). Body: PROMO_NOT_FOUND.
+   * @throws When the request fails (400/401/404/500). Body: PROMO_NOT_FOUND, RULE_NOT_FOUND.
    */
-  function createBeneficiariesImport({jwtToken, token, promoId, headers}) {
+  function createBeneficiariesImport({jwtToken, token, promoId, ruleId, headers}) {
     return client({
-      url: `/promos/${promoId}/beneficiaries-imports`,
+      url: `/promos/${promoId}/rules/${ruleId}/beneficiaries-imports`,
       method: "post",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: {}
@@ -257,20 +266,21 @@ function promosFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /promos/:promoId/beneficiaries-imports/:importId/rows - add up to 5000 beneficiaries to an import. Requires BETTEREZ_APP.
+   * POST /promos/:promoId/rules/:ruleId/beneficiaries-imports/:importId/rows - add up to 5000 beneficiaries to an import. Requires BETTEREZ_APP.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.promoId - Promo id
+   * @param {string} opts.ruleId - The ruleId of the promo rule (each rule has its own list)
    * @param {string} opts.importId - Import id returned by createBeneficiariesImport
    * @param {Array<{documentTypeId: string, documentNumber: string, firstName?: string, lastName?: string, email?: string}>} opts.beneficiaries - Rows (1..5000)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<{ inserted: number, duplicates: number, invalid: Array<{index: number, reason: string}> }>>}
-   * @throws When the request fails (400/401/404/500). Body: WRONG_DATA, PROMO_NOT_FOUND.
+   * @throws When the request fails (400/401/404/500). Body: WRONG_DATA, PROMO_NOT_FOUND, RULE_NOT_FOUND.
    */
-  function addBeneficiariesImportRows({jwtToken, token, promoId, importId, beneficiaries, headers}) {
+  function addBeneficiariesImportRows({jwtToken, token, promoId, ruleId, importId, beneficiaries, headers}) {
     return client({
-      url: `/promos/${promoId}/beneficiaries-imports/${importId}/rows`,
+      url: `/promos/${promoId}/rules/${ruleId}/beneficiaries-imports/${importId}/rows`,
       method: "post",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: {beneficiaries}
@@ -278,19 +288,20 @@ function promosFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /promos/:promoId/beneficiaries-imports/:importId/complete - make the import the active list and drop the previous rows. Uses are kept. Requires BETTEREZ_APP.
+   * POST /promos/:promoId/rules/:ruleId/beneficiaries-imports/:importId/complete - make the import the active list and drop the previous rows. Uses are kept. Requires BETTEREZ_APP.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.promoId - Promo id
+   * @param {string} opts.ruleId - The ruleId of the promo rule (each rule has its own list)
    * @param {string} opts.importId - Import id
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<{ beneficiariesList: object }>>}
-   * @throws When the request fails (400/401/404/500). Body: PROMO_NOT_FOUND.
+   * @throws When the request fails (400/401/404/500). Body: PROMO_NOT_FOUND, RULE_NOT_FOUND.
    */
-  function completeBeneficiariesImport({jwtToken, token, promoId, importId, headers}) {
+  function completeBeneficiariesImport({jwtToken, token, promoId, ruleId, importId, headers}) {
     return client({
-      url: `/promos/${promoId}/beneficiaries-imports/${importId}/complete`,
+      url: `/promos/${promoId}/rules/${ruleId}/beneficiaries-imports/${importId}/complete`,
       method: "post",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: {}
@@ -298,37 +309,39 @@ function promosFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /promos/:promoId/beneficiaries - page through the active beneficiaries list, with each person's uses. Requires BETTEREZ_APP.
+   * GET /promos/:promoId/rules/:ruleId/beneficiaries - page through the active beneficiaries list, with each person's uses. Requires BETTEREZ_APP.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.promoId - Promo id
+   * @param {string} opts.ruleId - The ruleId of the promo rule (each rule has its own list)
    * @param {{page?: number, pageSize?: number}} [opts.query] - Pagination (pageSize max 5000)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<{ beneficiaries: Array<object>, total: number, page: number, pageSize: number }>>}
-   * @throws When the request fails (400/401/404/500). Body: PROMO_NOT_FOUND.
+   * @throws When the request fails (400/401/404/500). Body: PROMO_NOT_FOUND, RULE_NOT_FOUND.
    */
-  function getBeneficiaries({jwtToken, token, promoId, query = {}, headers}) {
-    return client.get(`/promos/${promoId}/beneficiaries`, {
+  function getBeneficiaries({jwtToken, token, promoId, ruleId, query = {}, headers}) {
+    return client.get(`/promos/${promoId}/rules/${ruleId}/beneficiaries`, {
       params: query,
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
     });
   }
 
   /**
-   * PATCH /promos/:promoId/beneficiary-uses - add or subtract uses per beneficiary (subtract never goes below 0).
+   * PATCH /promos/:promoId/rules/:ruleId/beneficiary-uses - add or subtract uses per beneficiary (subtract never goes below 0).
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.promoId - Promo id
+   * @param {string} opts.ruleId - The ruleId of the promo rule (each rule has its own list)
    * @param {Array<{documentTypeId: string, documentNumber: string, op: "add"|"subtract", value: number}>} opts.operations - Operations
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<{ updated: number }>>}
-   * @throws When the request fails (400/401/404/500). Body: WRONG_DATA, PROMO_NOT_FOUND.
+   * @throws When the request fails (400/401/404/500). Body: WRONG_DATA, PROMO_NOT_FOUND, RULE_NOT_FOUND.
    */
-  function patchBeneficiaryUses({jwtToken, token, promoId, operations, headers}) {
+  function patchBeneficiaryUses({jwtToken, token, promoId, ruleId, operations, headers}) {
     return client({
-      url: `/promos/${promoId}/beneficiary-uses`,
+      url: `/promos/${promoId}/rules/${ruleId}/beneficiary-uses`,
       method: "patch",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: {operations}
