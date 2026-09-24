@@ -83,4 +83,59 @@ describe("inventory/promos", () => {
     axiosMock.onPut(`/promos/${promoId}/rules/${ruleId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
     return api.inventory.promos.updateRule({token, jwtToken, promoId, ruleId, rule});
   });
+
+  describe("beneficiaries by document", () => {
+    const importId = "6ab3e0000000000000000abc";
+    const beneficiaries = [{documentTypeId: "5a959a4aa7114ffd7f000002", documentNumber: "30111222"}];
+    const operations = [{documentTypeId: "5a959a4aa7114ffd7f000002", documentNumber: "30111222", op: "add", value: 1}];
+
+    it("should get the beneficiaries list settings", () => {
+      axiosMock.onGet(`/promos/${promoId}/beneficiaries-list`).reply(expectRequest({
+        statusCode: 200, token, jwtToken, requireJwtTokenOnGet: true
+      }));
+      return api.inventory.promos.getBeneficiariesList({token, jwtToken, promoId});
+    });
+
+    it("should update the beneficiaries list settings", () => {
+      const beneficiariesList = {enabled: true, maxUsesPerBeneficiary: 2};
+      axiosMock.onPut(`/promos/${promoId}/beneficiaries-list`).reply(expectRequest({
+        statusCode: 200, token, jwtToken, body: {beneficiariesList}
+      }));
+      return api.inventory.promos.updateBeneficiariesList({token, jwtToken, promoId, beneficiariesList});
+    });
+
+    it("should start a beneficiaries import", () => {
+      axiosMock.onPost(`/promos/${promoId}/beneficiaries-imports`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+      return api.inventory.promos.createBeneficiariesImport({token, jwtToken, promoId});
+    });
+
+    it("should add rows to a beneficiaries import", () => {
+      axiosMock.onPost(`/promos/${promoId}/beneficiaries-imports/${importId}/rows`).reply(expectRequest({
+        statusCode: 200, token, jwtToken, body: {beneficiaries}
+      }));
+      return api.inventory.promos.addBeneficiariesImportRows({token, jwtToken, promoId, importId, beneficiaries});
+    });
+
+    it("should complete a beneficiaries import", () => {
+      axiosMock.onPost(`/promos/${promoId}/beneficiaries-imports/${importId}/complete`).reply(expectRequest({
+        statusCode: 200, token, jwtToken
+      }));
+      return api.inventory.promos.completeBeneficiariesImport({token, jwtToken, promoId, importId});
+    });
+
+    it("should page through the beneficiaries", () => {
+      const query = {page: 2, pageSize: 1000};
+      axiosMock.onGet(`/promos/${promoId}/beneficiaries`).reply(expectRequest({
+        statusCode: 200, token, jwtToken, requireJwtTokenOnGet: true, query
+      }));
+      return api.inventory.promos.getBeneficiaries({token, jwtToken, promoId, query});
+    });
+
+    it("should add or subtract beneficiary uses", () => {
+      axiosMock.onPatch(`/promos/${promoId}/beneficiary-uses`).reply(expectRequest({
+        statusCode: 200, token, jwtToken, body: {operations}
+      }));
+      return api.inventory.promos.patchBeneficiaryUses({token, jwtToken, promoId, operations});
+    });
+  });
 });

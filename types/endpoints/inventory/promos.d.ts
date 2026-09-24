@@ -8,7 +8,7 @@ export = promosFactory;
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
- * @returns {{ all: function, get: function, create: function, update: function, patch: function, remove: function, addRule: function, updateRule: function }}
+ * @returns {{ all: function, get: function, create: function, update: function, patch: function, remove: function, addRule: function, updateRule: function, getBeneficiariesList: function, updateBeneficiariesList: function, createBeneficiariesImport: function, addBeneficiariesImportRows: function, completeBeneficiariesImport: function, getBeneficiaries: function, patchBeneficiaryUses: function }}
  */
 declare function promosFactory({ client, internalAuthTokenProvider }: {
     client: import("axios").AxiosInstance;
@@ -24,6 +24,13 @@ declare function promosFactory({ client, internalAuthTokenProvider }: {
     remove: Function;
     addRule: Function;
     updateRule: Function;
+    getBeneficiariesList: Function;
+    updateBeneficiariesList: Function;
+    createBeneficiariesImport: Function;
+    addBeneficiariesImportRows: Function;
+    completeBeneficiariesImport: Function;
+    getBeneficiaries: Function;
+    patchBeneficiaryUses: Function;
 };
 declare namespace promosFactory {
     export { InventoryPromosQuery };
