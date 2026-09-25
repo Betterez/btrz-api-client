@@ -26,6 +26,22 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  * @property {boolean|string} [ignorePerFareCapacityLimits]
  * @property {string} [allowedManifestStatuses]
  * @property {boolean|string} [includeMoveToTrips]
+ * @property {boolean|string} [includeFees] - When true, each trip includes the fees checkout charges when it is sold: per
+ *   passenger on every fare (fees, ticketFeesTotal, valueWithFees) and per purchase of the searched fareIds (transactionFees,
+ *   on the trip or on each fare class). In a round-trip search, fees charged once per purchase are on the departures. Amounts
+ *   exclude taxes; fares carry pricesIncludeTaxes and taxExempted, and inexact amounts are marked estimated.
+ */
+
+/**
+ * @typedef {Object} TripQuery
+ * @property {string} [extraCapacityImpact]
+ * @property {string} [extraCapacityImpactBySegment]
+ * @property {boolean|string} [ignoreCutoffs]
+ * @property {string} [currency]
+ * @property {boolean|string} [ignoreOmitByAvailability]
+ * @property {boolean|string} [includeMoveToTrips]
+ * @property {boolean|string} [includeFees] - Same as TripsSearchQuery.includeFees; the trip id keeps its search (one way or
+ *   round trip, departure or return), so the amounts match that search result.
  */
 
 /**
@@ -59,12 +75,12 @@ function tripsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * GET /trip/:id — Get up-to-date information for a trip by its ID (base64-encoded trip summary from a search). Optional query: extraCapacityImpact, ignoreCutoffs, currency, ignoreOmitByAvailability, includeMoveToTrips.
+   * GET /trip/:id — Get up-to-date information for a trip by its ID (base64-encoded trip summary from a search). Optional query: extraCapacityImpact, ignoreCutoffs, currency, ignoreOmitByAvailability, includeMoveToTrips, includeFees.
    * @param {Object} opts
    * @param {string} [opts.token] - API key (X-API-KEY)
    * @param {string} [opts.jwtToken] - JWT or internal auth (Authorization: Bearer)
    * @param {string} opts.id - Trip id (base64-encoded)
-   * @param {Object} [opts.query] - Optional: extraCapacityImpact, ignoreCutoffs, currency, ignoreOmitByAvailability, includeMoveToTrips
+   * @param {TripQuery} [opts.query] - Optional: extraCapacityImpact, ignoreCutoffs, currency, ignoreOmitByAvailability, includeMoveToTrips, includeFees
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<{ trip: Object }>>}
    * @throws 400 INVALID_TRIP — tripId is invalid
