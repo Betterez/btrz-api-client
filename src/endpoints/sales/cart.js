@@ -32,7 +32,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
- * @returns {{ get: function, create: function, add: function, deleteItems: function, deletePaidInItem: function, deletePaidInItems: function, loyaltyPointsAmount: Object, patch: function, partialDepositStatus: Object, payments: Object, taxExemptPaymentMethod: Object, financingCosts: Object }}
+ * @returns {{ get: function, create: function, add: function, deleteItems: function, deletePaidInItem: function, deletePaidInItems: function, loyaltyPointsAmount: Object, patch: function, partialDepositStatus: Object, payments: Object, taxExemptPaymentMethod: Object, financingCosts: Object, paymentMethodFees: Object, expirationTime: Object }}
  */
 function cartFactory({client, internalAuthTokenProvider}) {
   /**
@@ -302,6 +302,60 @@ function cartFactory({client, internalAuthTokenProvider}) {
     }
   };
 
+  const paymentMethodFees = {
+    /**
+     * PUT /carts/:cartId/payment-method-fees - set the payments that will pay the cart and add their payment method fees
+     * (fees with the paymentMethod rule, calculated on the amount paid with each method). Replaces the previous ones;
+     * an empty payments list removes them. The response has the cart and, per payment method, the amount to pay with it (totalToPay).
+     * @param {Object} opts
+     * @param {string} [opts.token] - API key
+     * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+     * @param {Object} [opts.headers] - Optional headers
+     * @param {string} opts.cartId - Cart id
+     * @param {Array<{method: string, amount?: number}>} opts.payments - Payments: method name and amount without the fee (human format, optional for a single payment)
+     * @param {string} [opts.channel] - Sale channel (backoffice requires a JWT)
+     * @returns {Promise<import("axios").AxiosResponse>}
+     * @throws 400 WRONG_DATA
+     * @throws 400 CART_EMPTY
+     * @throws 400 PAYMENT_METHOD_NOT_FOUND
+     * @throws 400 PAYMENT_AMOUNT_REQUIRED
+     * @throws 400 INVALID_PAYMENT_AMOUNT
+     * @throws 404 CART_NOT_FOUND
+     */
+    update({token, jwtToken, headers, cartId, payments: cartPayments, channel}) {
+      const data = {payments: cartPayments};
+      if (channel) {
+        data.channel = channel;
+      }
+      return client({
+        url: `/carts/${cartId}/payment-method-fees`,
+        method: "put",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        data
+      });
+    },
+    /**
+     * DELETE /carts/:cartId/payment-method-fees - remove the payment method fees of the cart.
+     * @param {Object} opts
+     * @param {string} [opts.token] - API key
+     * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+     * @param {Object} [opts.headers] - Optional headers
+     * @param {string} opts.cartId - Cart id
+     * @param {string} [opts.channel] - Sale channel (backoffice requires a JWT)
+     * @returns {Promise<import("axios").AxiosResponse>}
+     * @throws 400 WRONG_DATA
+     * @throws 404 CART_NOT_FOUND
+     */
+    delete({token, jwtToken, headers, cartId, channel}) {
+      return client({
+        url: `/carts/${cartId}/payment-method-fees`,
+        method: "delete",
+        params: channel ? {channel} : {},
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+
   const expirationTime = {
     /**
      * POST /carts/:cartId/expiration-time - set cart expiration time.
@@ -344,6 +398,7 @@ function cartFactory({client, internalAuthTokenProvider}) {
     payments,
     taxExemptPaymentMethod,
     financingCosts,
+    paymentMethodFees,
     expirationTime
   };
 }

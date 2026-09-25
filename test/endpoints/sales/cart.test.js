@@ -106,6 +106,34 @@ describe("sales/cart", () => {
     return api.sales.cart.deletePaidInItems({jwtToken, token, cartId});
   });
 
+  it("should set the payment method fees of a cart", () => {
+    const cartId = "someCartId";
+    const payments = [{method: "transpais_paypal", amount: 60}, {method: "cash", amount: 40}];
+    axiosMock.onPut(`/carts/${cartId}/payment-method-fees`)
+      .reply(expectRequest({statusCode: 200, token, jwtToken, body: {payments, channel: "backoffice"}}));
+    return api.sales.cart.paymentMethodFees.update({jwtToken, token, cartId, payments, channel: "backoffice"});
+  });
+
+  it("should set the payment method fees of a cart without channel", () => {
+    const cartId = "someCartId";
+    const payments = [];
+    axiosMock.onPut(`/carts/${cartId}/payment-method-fees`).reply(expectRequest({statusCode: 200, token, jwtToken, body: {payments}}));
+    return api.sales.cart.paymentMethodFees.update({jwtToken, token, cartId, payments});
+  });
+
+  it("should delete the payment method fees of a cart", () => {
+    const cartId = "someCartId";
+    axiosMock.onDelete(`/carts/${cartId}/payment-method-fees`)
+      .reply(expectRequest({statusCode: 200, token, jwtToken, query: {channel: "backoffice"}}));
+    return api.sales.cart.paymentMethodFees.delete({jwtToken, token, cartId, channel: "backoffice"});
+  });
+
+  it("should delete the payment method fees of a cart without channel", () => {
+    const cartId = "someCartId";
+    axiosMock.onDelete(`/carts/${cartId}/payment-method-fees`).reply(expectRequest({statusCode: 200, token, jwtToken, query: {}}));
+    return api.sales.cart.paymentMethodFees.delete({jwtToken, token, cartId});
+  });
+
   it("should set cart expiration time", () => {
     const cartId = "someCartId";
     axiosMock.onPost(`/carts/${cartId}/expiration-time`).reply(expectRequest({statusCode: 200, token, jwtToken}));
