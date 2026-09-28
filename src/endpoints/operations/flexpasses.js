@@ -18,7 +18,7 @@ function flexpassesFactory({client, internalAuthTokenProvider}) {
    * @param {string} opts.flexpassId - Flexpass document ID (Mongo ObjectId string)
    * @param {string} opts.tripId - Trip identifier of the scan to remove (e.g. routeId_scheduleName_date)
    * @param {Object} [opts.headers] - Optional request headers
-   * @returns {Promise<import("axios").AxiosResponse<{ flexpassDeleted?: string }>>}
+   * @returns {Promise<import("axios").AxiosResponse<{}>>} Empty JSON object on success
    */
   function deleteScanBytripId({jwtToken, token, flexpassId, tripId, headers}) {
     return client({
