@@ -421,7 +421,7 @@ function createLoyalty({baseURL, headers, timeout, overrideFn, internalAuthToken
 }
 
 /**
- * Creates the webhooks API client (subscriptions, events, undelivered, webhooks).
+ * Creates the webhooks API client (subscriptions, marketplaceSubscriptions, events, undelivered, webhooks).
  * @param {CreateModuleOptions} opts - Client options
  * @returns {Object} Object with webhooks endpoint namespaces and __test.client
  */
@@ -430,6 +430,7 @@ function createWebhooks({baseURL, headers, timeout, overrideFn, internalAuthToke
 
   return {
     subscriptions: require("./endpoints/webhooks/subscriptions.js")({client, internalAuthTokenProvider}),
+    marketplaceSubscriptions: require("./endpoints/webhooks/marketplace-subscriptions.js")({client, internalAuthTokenProvider}),
     events: require("./endpoints/webhooks/events.js")({client, internalAuthTokenProvider}),
     undelivered: require("./endpoints/webhooks/undelivered.js")({client, internalAuthTokenProvider}),
     webhooks: require("./endpoints/webhooks/webhooks.js")({client, internalAuthTokenProvider}),

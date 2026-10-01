@@ -222,5 +222,6 @@ require("./endpoints/seatmaps/seat.test.js");
 require("./endpoints/uploads/files.test.js");
 require("./endpoints/uploads/images.test.js");
 require("./endpoints/webhooks/subscriptions.test.js");
+require("./endpoints/webhooks/marketplace-subscriptions.test.js");
 require("./endpoints/webhooks/undelivered.test.js");
 require("./endpoints/webhooks/webhooks.test.js");
