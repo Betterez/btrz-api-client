@@ -1,3 +1,4 @@
+const assert = require("node:assert/strict");
 const {axiosMock, expectRequest} = require("./../../test-helpers.js");
 const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
@@ -20,15 +21,15 @@ describe("inventory/routes/shedules", () => {
       }
     ],
     dow: {
-      "monday": "N",
-      "tuesday": "N",
-      "wednesday": "N",
-      "thursday": "N",
-      "friday": "Y",
-      "saturday": "N",
-      "sunday": "N",
-      "holidaysIncluded": "N",
-      "holidaysOnly": "N"
+      monday: "N",
+      tuesday: "N",
+      wednesday: "N",
+      thursday: "N",
+      friday: "Y",
+      saturday: "N",
+      sunday: "N",
+      holidaysIncluded: "N",
+      holidaysOnly: "N"
     }
   };
 
@@ -55,6 +56,24 @@ describe("inventory/routes/shedules", () => {
 
   it("should update a schedule", async () => {
     axiosMock.onPut(`/routes/${routeId}/schedules/${scheduleId}`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.inventory.schedules.update({token, jwtToken, data, routeId, scheduleId});
+  });
+
+  it("should update a schedule sending the query params", async () => {
+    const query = {propagateLegChanges: true};
+    axiosMock.onPut(`/routes/${routeId}/schedules/${scheduleId}`).reply((config) => {
+      assert.deepStrictEqual(config.params, query);
+      assert.deepStrictEqual(config.data, JSON.stringify(data));
+      return [200];
+    });
+    return api.inventory.schedules.update({token, jwtToken, data, routeId, scheduleId, query});
+  });
+
+  it("should update a schedule without query params when query is omitted", async () => {
+    axiosMock.onPut(`/routes/${routeId}/schedules/${scheduleId}`).reply((config) => {
+      assert.deepStrictEqual(config.params, {});
+      return [200];
+    });
     return api.inventory.schedules.update({token, jwtToken, data, routeId, scheduleId});
   });
 

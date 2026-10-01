@@ -121,20 +121,23 @@ function schedulesFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * PUT /routes/:routeId/schedules/:scheduleId - update schedule. API does not accept query params.
+   * PUT /routes/:routeId/schedules/:scheduleId - update schedule.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.routeId - Route id
    * @param {string} opts.scheduleId - Schedule id
    * @param {Object} opts.data - Schedule payload
+   * @param {Object} [opts.query] - Query params (e.g. propagateLegChanges)
+   * @param {boolean} [opts.query.propagateLegChanges] - true to update the boarding platform of future manifests from the saved schedule legs
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
-  function update({token, jwtToken, data, routeId, scheduleId, headers}) {
+  function update({token, jwtToken, data, routeId, scheduleId, headers, query = {}}) {
     return client({
       url: `/routes/${routeId}/schedules/${scheduleId}`,
       method: "put",
+      params: query,
       headers: authorizationHeaders({
         token, jwtToken, internalAuthTokenProvider, headers
       }),
