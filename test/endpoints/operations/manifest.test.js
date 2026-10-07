@@ -110,6 +110,17 @@ describe("operations/manifest", () => {
     });
   });
 
+  it("should forward overrideCancelledStatusLock on a manifest patch", async () => {
+    const query = {providerId, overrideCancelledStatusLock: "true"};
+    axiosMock.onPatch("/manifests").reply(expectRequest({
+      statusCode: 200, token, jwtToken
+    }));
+    const call = await api.operations.manifest.patch({
+      token, jwtToken, query, operations: [{op: "update_schedule"}]
+    });
+    assert.deepStrictEqual(call.config.params, query);
+  });
+
   it("should save a manifest", () => {
     const data = {
       manifestId: "manifestId",

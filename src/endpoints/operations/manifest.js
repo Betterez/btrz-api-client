@@ -54,6 +54,7 @@ const {
  * @property {string} [routeId] - Route ID for update_schedule
  * @property {string} [scheduleId] - New schedule ID for update_schedule
  * @property {string} [oldScheduleId] - Old schedule ID for update_schedule
+ * @property {string} [overrideCancelledStatusLock] - "true" asks update_schedule to ignore the cancelled-manifest status lock when the caller can update /operations/manifests/override-cancelled-status. Any other value, or a caller without that permission, keeps today's status rule. Other schedule fields still update. This query does not return 401.
  * @property {string} [accommodateOnAnySeat] - "true" to assign missing seats to any available
  * @property {string} [newdesign] - "true" when using new seatmap design
  */
