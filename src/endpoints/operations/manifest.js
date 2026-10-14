@@ -518,6 +518,43 @@ function manifestFactory({
   }
 
   /**
+   * Query params for PUT /manifests/:manifestId/custom-fields/:internalId (btrz-api-operations).
+   * @typedef {Object} ManifestCustomFieldUpdateQuery
+   * @property {string} [legIndex] - Zero-based index of the leg whose custom field is replaced. Ignored when legOrigin is sent.
+   * @property {string} [legOrigin] - Station id of the leg whose custom field is replaced. Takes precedence over legIndex.
+   */
+
+  /**
+   * Body for PUT /manifests/:manifestId/custom-fields/:internalId (btrz-api-operations).
+   * @typedef {Object} ManifestCustomFieldUpdate
+   * @property {string|Object} value - Replacement value. A string for a root field or a scalar leg field such as boarding platform. An object with from and to for a station leg field.
+   */
+
+  /**
+   * PUT /manifests/:manifestId/custom-fields/:internalId - replace one custom field value.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {Object} [opts.headers] - Optional headers
+   * @param {string} opts.manifestId - Manifest id
+   * @param {string} opts.internalId - Custom field definition id
+   * @param {ManifestCustomFieldUpdate} opts.data - Request body
+   * @param {ManifestCustomFieldUpdateQuery} [opts.query] - Leg selector. Omit both properties to replace a root custom field.
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
+  function updateCustomField({
+    token, jwtToken, headers, manifestId, internalId, data, query = {}
+  }) {
+    return client({
+      url: `/manifests/${manifestId}/custom-fields/${internalId}`,
+      method: "put",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      params: query,
+      data
+    });
+  }
+
+  /**
    * PUT /manifests/:manifestId/comments - update comment.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
@@ -930,6 +967,7 @@ function manifestFactory({
     addUser,
     removeUser,
     updateComment,
+    updateCustomField,
     updateStatus,
     addCapacityException,
     removeCapacityException,

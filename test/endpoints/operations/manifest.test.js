@@ -156,6 +156,21 @@ describe("operations/manifest", () => {
     return call;
   });
 
+  it("should replace a manifest leg custom field value", async () => {
+    const manifestId = "507f1f77bcf86cd799439011";
+    const internalId = "bp-1";
+    const data = {value: "B7"};
+    const query = {legOrigin: "507f1f77bcf86cd799439012"};
+    axiosMock.onPut(`/manifests/${manifestId}/custom-fields/${internalId}`).reply(expectRequest({
+      statusCode: 200, token, jwtToken, body: data, query
+    }));
+    const call = await api.operations.manifest.updateCustomField({
+      token, jwtToken, manifestId, internalId, data, query
+    });
+    assert.deepStrictEqual(call.config.params, query);
+    return call;
+  });
+
   it("should update the manifest status", async () => {
     const manifestId = "theId";
     const data = {
