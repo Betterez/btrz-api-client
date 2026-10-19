@@ -124,6 +124,7 @@ function createInventory({baseURL, headers, timeout, overrideFn, internalAuthTok
     stationsProvinces: require("./endpoints/inventory/stations-provinces.js")({client, internalAuthTokenProvider}),
     stationsZones: require("./endpoints/inventory/stations-zones.js")({client, internalAuthTokenProvider}),
     taxes: require("./endpoints/inventory/taxes.js")({client, internalAuthTokenProvider}),
+    taxStatuses: require("./endpoints/inventory/tax-statuses.js")({client, internalAuthTokenProvider}),
     travellerCardProviders: require("./endpoints/inventory/traveller-card-providers.js")({client, internalAuthTokenProvider}),
     travellerCardProvidersTypes: require("./endpoints/inventory/traveller-card-providers-types.js")({client, internalAuthTokenProvider}),
     travellerCardTypes: require("./endpoints/inventory/traveller-card-types.js")({client, internalAuthTokenProvider}),

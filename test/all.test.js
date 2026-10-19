@@ -137,6 +137,7 @@ require("./endpoints/inventory/station-types.test.js");
 require("./endpoints/inventory/stations-provinces.test.js");
 require("./endpoints/inventory/stations-zones.test.js");
 require("./endpoints/inventory/stations.test.js");
+require("./endpoints/inventory/tax-statuses.test.js");
 require("./endpoints/inventory/travel-routes.test.js");
 require("./endpoints/inventory/traveller-car-types.test.js");
 require("./endpoints/inventory/traveller-card-providers-types.test.js");
