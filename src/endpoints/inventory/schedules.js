@@ -20,7 +20,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
- * @returns {{ all: function, get: function, create: function, update: function, delete: function, autoBouncing: object, exceptions: object }}
+ * @returns {{ all: function, get: function, create: function, update: function, delete: function, autoBouncing: object, exceptions: object, capacityExceptions: object }}
  */
 function schedulesFactory({client, internalAuthTokenProvider}) {
   /**
@@ -274,6 +274,51 @@ function schedulesFactory({client, internalAuthTokenProvider}) {
     }
   };
 
+  /** @type {{ create: function, delete: function }} */
+  const capacityExceptions = {
+    /**
+     * POST /schedules/:scheduleId/capacity-exceptions - create schedule capacity exception. API does not accept query params.
+     * @param {Object} opts
+     * @param {string} [opts.token] - API key
+     * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+     * @param {string} opts.scheduleId - Schedule id
+     * @param {Object} opts.data - Capacity exception payload
+     * @param {Object} [opts.headers] - Optional headers
+     * @returns {Promise<import("axios").AxiosResponse>}
+     */
+    create: ({token, jwtToken, data, scheduleId, headers, query = {}}) => {
+      return client({
+        url: `/schedules/${scheduleId}/capacity-exceptions`,
+        method: "post",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        }),
+        data,
+        params: query
+      });
+    },
+    /**
+     * DELETE /schedules/:scheduleId/capacity-exceptions/:exceptionId - delete schedule capacity exception. API does not accept query params.
+     * @param {Object} opts
+     * @param {string} [opts.token] - API key
+     * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+     * @param {string} opts.scheduleId - Schedule id
+     * @param {string} opts.exceptionId - Capacity exception id
+     * @param {Object} [opts.headers] - Optional headers
+     * @returns {Promise<import("axios").AxiosResponse>}
+     */
+    delete: ({token, jwtToken, scheduleId, exceptionId, headers, query = {}}) => {
+      return client({
+        url: `/schedules/${scheduleId}/capacity-exceptions/${exceptionId}`,
+        method: "delete",
+        headers: authorizationHeaders({
+          token, jwtToken, internalAuthTokenProvider, headers
+        }),
+        params: query
+      });
+    }
+  };
+
   return {
     all,
     get,
@@ -283,7 +328,8 @@ function schedulesFactory({client, internalAuthTokenProvider}) {
     validations,
     runUpdateValidations,
     autoBouncing,
-    exceptions
+    exceptions,
+    capacityExceptions
   };
 }
 

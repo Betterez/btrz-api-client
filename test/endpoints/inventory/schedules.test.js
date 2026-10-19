@@ -101,6 +101,20 @@ describe("inventory/routes/shedules", () => {
     return api.inventory.schedules.exceptions.create({token, jwtToken, data, scheduleId});
   });
 
+  it("should create a schedule capacity exception", () => {
+    axiosMock.onPost(`/schedules/${scheduleId}/capacity-exceptions`).reply(expectRequest({
+      statusCode: 200, token, jwtToken, body: data
+    }));
+    return api.inventory.schedules.capacityExceptions.create({token, jwtToken, data, scheduleId});
+  });
+
+  it("should delete a schedule capacity exception", async () => {
+    const exceptionId = "exception123";
+    axiosMock.onDelete(`/schedules/${scheduleId}/capacity-exceptions/${exceptionId}`)
+      .reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.inventory.schedules.capacityExceptions.delete({token, jwtToken, scheduleId, exceptionId});
+  });
+
   it("should delete a schedule exception", async () => {
     const exceptionId = "exception123";
     axiosMock.onDelete(`/schedules/${scheduleId}/schedule-exceptions/${exceptionId}`)
