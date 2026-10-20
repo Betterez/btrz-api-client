@@ -26,6 +26,18 @@ describe("operations/vouchers", () => {
 
     return api.operations.vouchers.create({jwtToken, token, voucher});
   });
+
+  it("should GET vouchers by document type and number", () => {
+    const query = {
+      documentTypeId: "507f1f77bcf86cd799439011",
+      documentNumber: "99887766",
+      page: 1
+    };
+    axiosMock
+      .onGet("/vouchers")
+      .reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.operations.vouchers.all({jwtToken, token, query, providerId: "provider-1"});
+  });
 });
 
 describe("operations/vouchers/compensations", () => {

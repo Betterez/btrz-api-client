@@ -58,7 +58,33 @@ function vouchersFactory({
     });
   }
 
+  /**
+   * GET /vouchers - list vouchers by document type and number.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth token
+   * @param {Object} [opts.query] - Query params (documentTypeId, documentNumber, page, providerId)
+   * @param {Object} [opts.headers] - Optional headers
+   * @param {string} [opts.providerId] - Provider id (merged into query)
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
+  function all({token, jwtToken, query = {}, headers, providerId}) {
+    const query_ = providerId ? {...query, providerId} : query;
+    return client({
+      url: "/vouchers",
+      method: "GET",
+      params: query_,
+      headers: authorizationHeaders({
+        jwtToken,
+        token,
+        internalAuthTokenProvider,
+        headers
+      })
+    });
+  }
+
   return {
+    all,
     create,
     compensations: {
       create: compensationsCreate
