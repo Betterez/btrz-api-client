@@ -27,7 +27,8 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
  * @returns {Object} methods all, getByProviderName, create, get, update, setToAgency,
- *   createDefaultPaymentMethods, deleteCustomersCreditCardInfo, deletePaymentMethodsDomain
+ *   createDefaultPaymentMethods, deleteCustomersCreditCardInfo, deletePaymentMethodsDomain,
+ *   refreshCloverToken
  */
 function paymentMethodsFactory({client, internalAuthTokenProvider}) {
   /**
@@ -186,6 +187,26 @@ function paymentMethodsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * POST /payment-methods/:paymentMethodId/clover-token - refresh the Clover access token. API does not accept query params.
+   * Resolves with {accessToken, accessTokenExpiration} in response.data.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.paymentMethodId - Payment method id
+   * @param {string} opts.failedAccessToken - Access token that was rejected by Clover
+   * @param {Object} [opts.headers] - Optional request headers
+   * @returns {Promise<import("axios").AxiosResponse>}
+   */
+  function refreshCloverToken({token, jwtToken, paymentMethodId, failedAccessToken, headers}) {
+    return client({
+      url: `/payment-methods/${paymentMethodId}/clover-token`,
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data: {failedAccessToken}
+    });
+  }
+
   return {
     all,
     getByProviderName,
@@ -195,7 +216,8 @@ function paymentMethodsFactory({client, internalAuthTokenProvider}) {
     update,
     createDefaultPaymentMethods,
     deleteCustomersCreditCardInfo,
-    deletePaymentMethodsDomain
+    deletePaymentMethodsDomain,
+    refreshCloverToken
   };
 }
 

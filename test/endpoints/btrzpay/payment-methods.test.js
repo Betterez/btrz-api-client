@@ -1,4 +1,5 @@
 const {axiosMock, expectRequest} = require("./../../test-helpers.js");
+const assert = require("node:assert/strict");
 const api = require("./../../../src/client.js").createApiClient({baseURL: "http://test.com"});
 
 describe("btrzpay/payment-methods", () => {
@@ -73,6 +74,25 @@ describe("btrzpay/payment-methods", () => {
         "id": "id",
         "providerId": "providerId"
       }
+    });
+  });
+
+  it("should refresh the clover token of a payment method", () => {
+    const paymentMethodId = "5ad7804216b426412c19f06f";
+    const data = {accessToken: "new", accessTokenExpiration: 1900000000};
+    const check = expectRequest({statusCode: 200, token, jwtToken, body: {failedAccessToken: "old"}});
+    axiosMock.onPost(`/payment-methods/${paymentMethodId}/clover-token`).reply((config) => {
+      const [status] = check(config);
+      return [status, data];
+    });
+
+    return api.btrzpay.paymentMethods.refreshCloverToken({
+      jwtToken,
+      token,
+      paymentMethodId,
+      failedAccessToken: "old"
+    }).then((response) => {
+      assert.deepStrictEqual(response.data, data);
     });
   });
 
