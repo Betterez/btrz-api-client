@@ -28,7 +28,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
  * @returns {Object} methods all, getByProviderName, create, get, update, setToAgency,
  *   createDefaultPaymentMethods, deleteCustomersCreditCardInfo, deletePaymentMethodsDomain,
- *   refreshCloverToken
+ *   oauthRefresh
  */
 function paymentMethodsFactory({client, internalAuthTokenProvider}) {
   /**
@@ -188,7 +188,7 @@ function paymentMethodsFactory({client, internalAuthTokenProvider}) {
   }
 
   /**
-   * POST /payment-methods/:paymentMethodId/clover-token - refresh the Clover access token. API does not accept query params.
+   * POST /payment-methods/:paymentMethodId/oauth-refresh - refresh the Clover access token. API does not accept query params.
    * Resolves with {accessToken, accessTokenExpiration} in response.data.
    * @param {Object} opts
    * @param {string} [opts.token] - API key
@@ -198,9 +198,9 @@ function paymentMethodsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} [opts.headers] - Optional request headers
    * @returns {Promise<import("axios").AxiosResponse>}
    */
-  function refreshCloverToken({token, jwtToken, paymentMethodId, failedAccessToken, headers}) {
+  function oauthRefresh({token, jwtToken, paymentMethodId, failedAccessToken, headers}) {
     return client({
-      url: `/payment-methods/${paymentMethodId}/clover-token`,
+      url: `/payment-methods/${paymentMethodId}/oauth-refresh`,
       method: "post",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: {failedAccessToken}
@@ -217,7 +217,7 @@ function paymentMethodsFactory({client, internalAuthTokenProvider}) {
     createDefaultPaymentMethods,
     deleteCustomersCreditCardInfo,
     deletePaymentMethodsDomain,
-    refreshCloverToken
+    oauthRefresh
   };
 }
 

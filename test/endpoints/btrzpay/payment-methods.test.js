@@ -81,12 +81,12 @@ describe("btrzpay/payment-methods", () => {
     const paymentMethodId = "5ad7804216b426412c19f06f";
     const data = {accessToken: "new", accessTokenExpiration: 1900000000};
     const check = expectRequest({statusCode: 200, token, jwtToken, body: {failedAccessToken: "old"}});
-    axiosMock.onPost(`/payment-methods/${paymentMethodId}/clover-token`).reply((config) => {
+    axiosMock.onPost(`/payment-methods/${paymentMethodId}/oauth-refresh`).reply((config) => {
       const [status] = check(config);
       return [status, data];
     });
 
-    const response = await api.btrzpay.paymentMethods.refreshCloverToken({
+    const response = await api.btrzpay.paymentMethods.oauthRefresh({
       jwtToken,
       token,
       paymentMethodId,

@@ -11,7 +11,7 @@ export = paymentMethodsFactory;
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
  * @returns {Object} methods all, getByProviderName, create, get, update, setToAgency,
  *   createDefaultPaymentMethods, deleteCustomersCreditCardInfo, deletePaymentMethodsDomain,
- *   refreshCloverToken
+ *   oauthRefresh
  */
 declare function paymentMethodsFactory({ client, internalAuthTokenProvider }: {
     client: import("axios").AxiosInstance;
