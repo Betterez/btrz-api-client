@@ -77,7 +77,7 @@ describe("btrzpay/payment-methods", () => {
     });
   });
 
-  it("should refresh the clover token of a payment method", () => {
+  it("should refresh the clover token of a payment method", async () => {
     const paymentMethodId = "5ad7804216b426412c19f06f";
     const data = {accessToken: "new", accessTokenExpiration: 1900000000};
     const check = expectRequest({statusCode: 200, token, jwtToken, body: {failedAccessToken: "old"}});
@@ -86,14 +86,14 @@ describe("btrzpay/payment-methods", () => {
       return [status, data];
     });
 
-    return api.btrzpay.paymentMethods.refreshCloverToken({
+    const response = await api.btrzpay.paymentMethods.refreshCloverToken({
       jwtToken,
       token,
       paymentMethodId,
       failedAccessToken: "old"
-    }).then((response) => {
-      assert.deepStrictEqual(response.data, data);
     });
+
+    assert.deepStrictEqual(response.data, data);
   });
 
   it("should add payment methods to agency", () => {
