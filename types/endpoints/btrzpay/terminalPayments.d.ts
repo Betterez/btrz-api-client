@@ -8,7 +8,7 @@ export = terminalPaymentsFactory;
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
- * @returns {{ mit: Object, webhooks: Object }}
+ * @returns {{ mit: Object, clover: Object, webhooks: Object }}
  */
 declare function terminalPaymentsFactory({ client, internalAuthTokenProvider }: {
     client: import("axios").AxiosInstance;
@@ -17,6 +17,7 @@ declare function terminalPaymentsFactory({ client, internalAuthTokenProvider }: 
     };
 }): {
     mit: any;
+    clover: any;
     webhooks: any;
 };
 declare namespace terminalPaymentsFactory {
