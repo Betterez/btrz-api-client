@@ -474,6 +474,7 @@ function createBtrzPay({baseURL, headers, timeout, overrideFn, internalAuthToken
     referenceNumbers: require("./endpoints/btrzpay/reference-numbers.js")({client, internalAuthTokenProvider}),
     payments: require("./endpoints/btrzpay/payments.js")({client, internalAuthTokenProvider}),
     referencedPayments: require("./endpoints/btrzpay/referenced-payments.js")({client, internalAuthTokenProvider}),
+    staticQr: require("./endpoints/btrzpay/staticQr.js")({client, internalAuthTokenProvider}),
     customers: require("./endpoints/btrzpay/customers.js")({client, internalAuthTokenProvider}),
     customerCards: require("./endpoints/btrzpay/customerCards.js")({client, internalAuthTokenProvider}),
     squareTerminals: require("./endpoints/btrzpay/square.js").squareTerminalsFactory({client, internalAuthTokenProvider}),
