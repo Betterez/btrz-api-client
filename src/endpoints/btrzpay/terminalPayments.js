@@ -80,6 +80,8 @@ function terminalPaymentsFactory({client, internalAuthTokenProvider}) {
      * @param {string} opts.jwtToken - JWT
      * @param {string} opts.transactionId - Transaction id
      * @param {string} [opts.cloverPaymentId] - Clover payment id; without it the payment is looked up by its reference
+     * @param {string} [opts.providerId] - Provider whose Clover method took the payment, for an agency's transaction;
+     * it must be the caller's account or a provider that shared its Clover method (404 PAYMENT_METHOD_NOT_FOUND otherwise)
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse<{ transactionId: string, cloverPaymentId: string, orderStatus: string }>>}
      * Rejects with 400 (CLOVER_PAYMENT_NOT_CONFIRMABLE, CLOVER_PAYMENT_NOT_FOUND,
@@ -88,12 +90,19 @@ function terminalPaymentsFactory({client, internalAuthTokenProvider}) {
      * 401, 404 (PAYMENT_METHOD_NOT_FOUND, TRANSACTION_NOT_FOUND),
      * 409 (CLOVER_PAYMENT_ALREADY_PROCESSING, SALE_NOT_CONFIRMED), 502.
      */
-    confirm({token, jwtToken, transactionId, cloverPaymentId, headers}) {
+    confirm({token, jwtToken, transactionId, cloverPaymentId, providerId, headers}) {
+      const params = {};
+      if (cloverPaymentId) {
+        params.cloverPaymentId = cloverPaymentId;
+      }
+      if (providerId) {
+        params.providerId = providerId;
+      }
       return client({
         url: `/terminal-payments/clover/transactions/${transactionId}/confirm`,
         method: "post",
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
-        params: cloverPaymentId ? {cloverPaymentId} : {}
+        params
       });
     }
   };

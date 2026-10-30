@@ -74,6 +74,18 @@ describe("btrzpay/terminal-payments", () => {
 
       assert.equal(response.status, 200);
     });
+
+    it("should pass the provider id of an agency's transaction", async () => {
+      axiosMock.onPost(`/terminal-payments/clover/transactions/${transactionId}/confirm`).reply(expectRequest({
+        statusCode: 200, token, jwtToken, query: {cloverPaymentId: "ABCDEFGHJKMNP", providerId: "5ad7804216b426412c19f070"}
+      }));
+
+      const response = await api.btrzpay.terminalPayments.clover.confirm({
+        token, jwtToken, transactionId, cloverPaymentId: "ABCDEFGHJKMNP", providerId: "5ad7804216b426412c19f070"
+      });
+
+      assert.equal(response.status, 200);
+    });
   });
 
   describe("Webhooks", () => {
