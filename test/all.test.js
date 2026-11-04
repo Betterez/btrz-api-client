@@ -24,6 +24,7 @@ require("./endpoints/accounts/lexicons.test.js");
 require("./endpoints/accounts/msrket-pricing-settings.test.js");
 require("./endpoints/accounts/multiproduct-sales-settings.test.js");
 require("./endpoints/accounts/network.test.js");
+require("./endpoints/accounts/notification-sub-types.test.js");
 require("./endpoints/accounts/operation-settings.test.js");
 require("./endpoints/accounts/people-lookups.test.js");
 require("./endpoints/accounts/point-to-point-settings.test.js");
