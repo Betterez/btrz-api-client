@@ -66,7 +66,7 @@ function cloverTerminalFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.cloverTerminal - Clover terminal payload (name, serialNumber, stationId optional)
+   * @param {Object} opts.cloverTerminal - Clover terminal payload (name, serialNumber, stationId optional, posNumber optional: string, max 20, Megafy terminal id for merchant routing)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<{ cloverTerminal: Object }>>}
    * @throws When response is 4xx/5xx (400 WRONG_DATA/INVALID_STATION_ID/STATION_NOT_FOUND, 401, 409 duplicate name/serial, 500)
@@ -116,7 +116,7 @@ function cloverTerminalFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.cloverTerminalId - Clover terminal id (24 hex characters)
-   * @param {Object} opts.cloverTerminal - Clover terminal payload (name, serialNumber, stationId)
+   * @param {Object} opts.cloverTerminal - Clover terminal payload (name, serialNumber, stationId, posNumber). posNumber is only sent when defined; omitting it keeps the stored value.
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<{ cloverTerminal: Object }>>}
    * @throws When response is 4xx/5xx (400, 401, 404 CLOVER_TERMINAL_NOT_FOUND, 409 duplicate name/serial, 500)
@@ -129,17 +129,21 @@ function cloverTerminalFactory({client, internalAuthTokenProvider}) {
     headers
   }) {
     const _cloverTerminalId = cloverTerminalId || cloverTerminal._id;
+    const terminalData = {
+      name: cloverTerminal.name,
+      serialNumber: cloverTerminal.serialNumber,
+      stationId: cloverTerminal.stationId
+    };
+    if (cloverTerminal.posNumber !== undefined) {
+      terminalData.posNumber = cloverTerminal.posNumber;
+    }
 
     return client({
       url: `/clover-terminals/${_cloverTerminalId}`,
       method: "put",
       headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
       data: {
-        cloverTerminal: {
-          name: cloverTerminal.name,
-          serialNumber: cloverTerminal.serialNumber,
-          stationId: cloverTerminal.stationId
-        }
+        cloverTerminal: terminalData
       }
     });
   }
