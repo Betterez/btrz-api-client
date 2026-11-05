@@ -1,6 +1,6 @@
 {
   "name": "btrz-api-client",
-  "version": "9.39.0",
+  "version": "9.40.0-cu-86bcrquc9.1",
   "description": "Api client for Betterez endpoints",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "preversion": "npm test && npm run transpile && npm run esbuild && npm run commit-transpile",
     "postversion": "git push origin master && git push --tags",
     "version": "git tag $1",
-    "prepare": "git config core.hooksPath .githooks"
+    "prepare": "git rev-parse --is-inside-work-tree >/dev/null 2>&1 && git config core.hooksPath .githooks || true"
   },
   "repository": {
     "type": "git",
