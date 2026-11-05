@@ -74,7 +74,7 @@ function financingCostsFactory({client, internalAuthTokenProvider}) {
    * @param {Object} opts
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
-   * @param {Object} opts.financingCost - Financing cost (name, internalId, currencyCode, dow, creditCard, maxQuota, interest, enabled)
+   * @param {Object} opts.financingCost - Financing cost (name, internalId, currencyCode, dow, creditCard, maxQuota, interest, enabled, externalId: optional string, max 50, Megafy payment method id for merchant routing, not unique)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<{ financingcost: Object }>>}
    * @throws When response is 4xx/5xx (400 WRONG_DATA, 401, 409 duplicated internalId, 500)
@@ -115,7 +115,7 @@ function financingCostsFactory({client, internalAuthTokenProvider}) {
    * @param {string} [opts.token] - API key
    * @param {string} [opts.jwtToken] - JWT or internal auth symbol
    * @param {string} opts.id - Financing cost id (24 hex characters)
-   * @param {Object} opts.financingCost - Financing cost (name, internalId, currencyCode, dow, creditCard, maxQuota, interest, enabled)
+   * @param {Object} opts.financingCost - Financing cost (name, internalId, currencyCode, dow, creditCard, maxQuota, interest, enabled, externalId: optional string, max 50, Megafy payment method id for merchant routing, not unique)
    * @param {Object} [opts.headers] - Optional headers
    * @returns {Promise<import("axios").AxiosResponse<{ financingcost: Object }>>}
    * @throws When response is 4xx/5xx (400 WRONG_DATA, 401, 404 not found, 409 duplicated internalId, 500)
