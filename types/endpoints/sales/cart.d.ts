@@ -8,7 +8,7 @@ export = cartFactory;
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
- * @returns {{ get: function, create: function, add: function, deleteItems: function, deletePaidInItem: function, deletePaidInItems: function, loyaltyPointsAmount: Object, patch: function, partialDepositStatus: Object, payments: Object, taxExemptPaymentMethod: Object, financingCosts: Object }}
+ * @returns {{ get: function, create: function, add: function, deleteItems: function, deletePaidInItem: function, deletePaidInItems: function, loyaltyPointsAmount: Object, patch: function, partialDepositStatus: Object, payments: Object, taxExemptPaymentMethod: Object, financingCosts: Object, paymentTaxes: Object }}
  */
 declare function cartFactory({ client, internalAuthTokenProvider }: {
     client: import("axios").AxiosInstance;
@@ -28,6 +28,7 @@ declare function cartFactory({ client, internalAuthTokenProvider }: {
     payments: any;
     taxExemptPaymentMethod: any;
     financingCosts: any;
+    paymentTaxes: any;
 };
 declare namespace cartFactory {
     export { CartQuery };
