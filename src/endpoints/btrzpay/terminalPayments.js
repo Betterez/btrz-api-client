@@ -82,7 +82,8 @@ function terminalPaymentsFactory({client, internalAuthTokenProvider}) {
      * @param {string} opts.transactionId - Transaction id
      * @param {string} [opts.cloverPaymentId] - Clover payment id; without it the payment is looked up by its reference
      * @param {string} [opts.providerId] - Provider whose Clover method took the payment, for an agency's transaction;
-     * it must be the caller's account or a provider that shared its Clover method (404 PAYMENT_METHOD_NOT_FOUND otherwise)
+     * it must be the caller's account or a provider that shared its Clover method, else 400 WRONG_DATA and Clover is not called
+     * (404 PAYMENT_METHOD_NOT_FOUND is when the caller's own clover_terminal method is missing)
      * @param {Object} [opts.headers] - Optional headers
      * @returns {Promise<import("axios").AxiosResponse<{ transactionId: string, cloverPaymentId: string, orderStatus?: string, outcome?: "confirmed" | "declined" }>>}
      * Rejects with 400 (WRONG_DATA, INVALID_PAYMENT_METHOD, CLOVER_PAYMENT_NOT_CONFIRMABLE,
