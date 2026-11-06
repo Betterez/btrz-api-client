@@ -27,7 +27,8 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
  * @returns {Object} methods all, getByProviderName, create, get, update, setToAgency,
- *   createDefaultPaymentMethods, deleteCustomersCreditCardInfo, deletePaymentMethodsDomain
+ *   createDefaultPaymentMethods, deleteCustomersCreditCardInfo, deletePaymentMethodsDomain,
+ *   oauthRefresh
  */
 function paymentMethodsFactory({client, internalAuthTokenProvider}) {
   /**
@@ -186,6 +187,30 @@ function paymentMethodsFactory({client, internalAuthTokenProvider}) {
     });
   }
 
+  /**
+   * POST /payment-methods/:paymentMethodId/oauth-refresh - refresh the Clover access token. API does not accept query params.
+   * Internal route: only an internal JWT is accepted (a user JWT is 401).
+   * Resolves with {accessToken, accessTokenExpiration?} in response.data; accessTokenExpiration is absent when the stored token has none.
+   * @param {Object} opts
+   * @param {string} [opts.token] - API key
+   * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+   * @param {string} opts.paymentMethodId - Payment method id
+   * @param {string} opts.failedAccessToken - Access token that was rejected by Clover
+   * @param {Object} [opts.headers] - Optional request headers
+   * @returns {Promise<import("axios").AxiosResponse<{ accessToken: string, accessTokenExpiration?: number }>>}
+   * Rejects with 400 (WRONG_DATA, CLOVER_ACCESS_TOKEN_INVALID), 401, 404 (PAYMENT_METHOD_NOT_FOUND),
+   * 500 (CLOVER_TOKEN_PERSIST_FAILED), 502 (OAUTH_REFRESH_FAILED),
+   * 503 (CLOVER_TOKEN_REFRESH_IN_PROGRESS: another refresh is still running; retry once).
+   */
+  function oauthRefresh({token, jwtToken, paymentMethodId, failedAccessToken, headers}) {
+    return client({
+      url: `/payment-methods/${paymentMethodId}/oauth-refresh`,
+      method: "post",
+      headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+      data: {failedAccessToken}
+    });
+  }
+
   return {
     all,
     getByProviderName,
@@ -195,7 +220,8 @@ function paymentMethodsFactory({client, internalAuthTokenProvider}) {
     update,
     createDefaultPaymentMethods,
     deleteCustomersCreditCardInfo,
-    deletePaymentMethodsDomain
+    deletePaymentMethodsDomain,
+    oauthRefresh
   };
 }
 

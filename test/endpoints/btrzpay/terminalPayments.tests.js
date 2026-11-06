@@ -48,6 +48,58 @@ describe("btrzpay/terminal-payments", () => {
     });
   });
 
+  describe("Clover terminal payments", () => {
+    const token = "token";
+    const jwtToken = "I owe you a JWT token";
+    const transactionId = "5ad7804216b426412c19f06f";
+
+    it("should confirm a Clover payment by its Clover id", async () => {
+      axiosMock.onPost(`/terminal-payments/clover/transactions/${transactionId}/confirm`).reply(expectRequest({
+        statusCode: 200, token, jwtToken, query: {cloverPaymentId: "ABCDEFGHJKMNP"}
+      }));
+
+      const response = await api.btrzpay.terminalPayments.clover.confirm({
+        token, jwtToken, transactionId, cloverPaymentId: "ABCDEFGHJKMNP"
+      });
+
+      assert.equal(response.status, 200);
+    });
+
+    it("should confirm a Clover payment without a Clover id", async () => {
+      axiosMock.onPost(`/terminal-payments/clover/transactions/${transactionId}/confirm`).reply(expectRequest({
+        statusCode: 200, token, jwtToken, query: {}
+      }));
+
+      const response = await api.btrzpay.terminalPayments.clover.confirm({token, jwtToken, transactionId});
+
+      assert.equal(response.status, 200);
+    });
+
+    it("should pass the provider id without a Clover id", async () => {
+      axiosMock.onPost(`/terminal-payments/clover/transactions/${transactionId}/confirm`).reply(expectRequest({
+        statusCode: 200, token, jwtToken, query: {providerId: "5ad7804216b426412c19f070"}
+      }));
+
+      const response = await api.btrzpay.terminalPayments.clover.confirm({
+        token, jwtToken, transactionId, providerId: "5ad7804216b426412c19f070"
+      });
+
+      assert.equal(response.status, 200);
+    });
+
+    it("should pass the provider id of an agency's transaction", async () => {
+      axiosMock.onPost(`/terminal-payments/clover/transactions/${transactionId}/confirm`).reply(expectRequest({
+        statusCode: 200, token, jwtToken, query: {cloverPaymentId: "ABCDEFGHJKMNP", providerId: "5ad7804216b426412c19f070"}
+      }));
+
+      const response = await api.btrzpay.terminalPayments.clover.confirm({
+        token, jwtToken, transactionId, cloverPaymentId: "ABCDEFGHJKMNP", providerId: "5ad7804216b426412c19f070"
+      });
+
+      assert.equal(response.status, 200);
+    });
+  });
+
   describe("Webhooks", () => {
     it("should process a webhook from Getnet", () => {
       const providerId = "5ad7804216b426412c19f06f";

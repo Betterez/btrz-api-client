@@ -22,7 +22,7 @@ const {
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
- * @returns {{ mit: Object, webhooks: Object }}
+ * @returns {{ mit: Object, clover: Object, webhooks: Object }}
  */
 function terminalPaymentsFactory({client, internalAuthTokenProvider}) {
   const mit = {
@@ -71,6 +71,46 @@ function terminalPaymentsFactory({client, internalAuthTokenProvider}) {
     }
   };
 
+  const clover = {
+    /**
+     * POST /terminal-payments/clover/transactions/:transactionId/confirm - verify with Clover a payment
+     * whose webhook never completed it. A paid payment completes it (outcome "confirmed"); a payment
+     * Clover declined or voided also answers 200, with outcome "declined" (completed as failed).
+     * @param {Object} opts
+     * @param {string} opts.token - API key
+     * @param {string} opts.jwtToken - JWT
+     * @param {string} opts.transactionId - Transaction id
+     * @param {string} [opts.cloverPaymentId] - Clover payment id; without it the payment is looked up by its reference
+     * @param {string} [opts.providerId] - Provider whose Clover method took the payment, for an agency's transaction;
+     * it must be the caller's account or a provider that shared its Clover method, else 400 WRONG_DATA and Clover is not called
+     * (404 PAYMENT_METHOD_NOT_FOUND is when the caller's own clover_terminal method is missing)
+     * @param {Object} [opts.headers] - Optional headers
+     * @returns {Promise<import("axios").AxiosResponse<{ transactionId: string, cloverPaymentId: string, orderStatus?: string, outcome?: "confirmed" | "declined" }>>}
+     * Rejects with 400 (WRONG_DATA, INVALID_PAYMENT_METHOD, CLOVER_PAYMENT_NOT_CONFIRMABLE,
+     * CLOVER_PAYMENT_NOT_FOUND, CLOVER_PAYMENT_ID_REQUIRED, CLOVER_PAYMENT_NOT_FOR_TRANSACTION,
+     * CLOVER_PAYMENT_NOT_APPROVED, CLOVER_AMOUNT_MISMATCH, CARD_NOT_ALLOWED_FOR_FINANCING_COST,
+     * OTHER_PAYMENTS_ROLLED_BACK, CLOVER_ACCESS_TOKEN_INVALID),
+     * 401, 404 (PAYMENT_METHOD_NOT_FOUND, TRANSACTION_NOT_FOUND),
+     * 409 (CLOVER_PAYMENT_ALREADY_PROCESSING, SALE_NOT_CONFIRMED),
+     * 502 (CLOVER_PAYMENT_FETCH_FAILED, FINANCING_COST_FETCH_FAILED, OAUTH_REFRESH_FAILED).
+     */
+    confirm({token, jwtToken, transactionId, cloverPaymentId, providerId, headers}) {
+      const params = {};
+      if (cloverPaymentId) {
+        params.cloverPaymentId = cloverPaymentId;
+      }
+      if (providerId) {
+        params.providerId = providerId;
+      }
+      return client({
+        url: `/terminal-payments/clover/transactions/${transactionId}/confirm`,
+        method: "post",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        params
+      });
+    }
+  };
+
   const webhooks = {
     /**
      * POST /terminal-payments/webhooks/getnet/:providerId - Getnet Terminal webhook (inbound). API does not accept query params.
@@ -101,6 +141,7 @@ function terminalPaymentsFactory({client, internalAuthTokenProvider}) {
 
   return {
     mit,
+    clover,
     webhooks
   };
 }
