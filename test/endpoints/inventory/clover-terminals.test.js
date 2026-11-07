@@ -116,6 +116,45 @@ describe("inventory/clover-terminals", () => {
     });
   });
 
+  it("should send posNumber when updating a Clover terminal and omit it when undefined", async () => {
+    const cloverTerminalId = "terminal-id-pos";
+    const cloverTerminal = {
+      _id: cloverTerminalId,
+      name: "Terminal POS",
+      serialNumber: "SN-POS",
+      stationId: "5f243d100617680712e78dd7",
+      posNumber: "12345"
+    };
+
+    axiosMock.onPut(`/clover-terminals/${cloverTerminalId}`).reply(expectRequest({
+      statusCode: 200,
+      token,
+      jwtToken,
+      body: {
+        cloverTerminal: {
+          name: cloverTerminal.name,
+          serialNumber: cloverTerminal.serialNumber,
+          stationId: cloverTerminal.stationId,
+          posNumber: "12345"
+        }
+      }
+    }));
+
+    await api.inventory.cloverTerminals.update({jwtToken, token, cloverTerminalId, cloverTerminal});
+
+    let sent = null;
+    axiosMock.onPut("/clover-terminals/terminal-id-nopos").reply((config) => {
+      sent = JSON.parse(config.data);
+      return [200, {}];
+    });
+    await api.inventory.cloverTerminals.update({
+      jwtToken, token, cloverTerminal: {_id: "terminal-id-nopos", name: "n", serialNumber: "s"}
+    });
+    if (Object.prototype.hasOwnProperty.call(sent.cloverTerminal, "posNumber")) {
+      throw new Error("posNumber must not be sent when undefined");
+    }
+  });
+
   it("should update an existing Clover terminal with stationId (location)", async () => {
     const cloverTerminalId = "terminal-id-456";
     const cloverTerminal = {
