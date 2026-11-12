@@ -20,7 +20,7 @@ describe("btrzpay/staticQr", () => {
       return [statusCode, qrImage];
     });
 
-    const response = await api.btrzpay.staticQr.getQrImage({token, jwtToken});
+    const response = await api.btrzpay.staticQr.busplus.qrImages.get({token, jwtToken});
 
     assert.deepStrictEqual(response.data, qrImage);
   });
