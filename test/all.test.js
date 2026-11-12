@@ -62,6 +62,7 @@ require("./endpoints/btrzpay/payments.tests.js");
 require("./endpoints/btrzpay/prismaTerminals.tests.js");
 require("./endpoints/btrzpay/reference-numbers.test.js");
 require("./endpoints/btrzpay/referenced-payments.test.js");
+require("./endpoints/btrzpay/staticQr.test.js");
 require("./endpoints/btrzpay/square.tests.js");
 require("./endpoints/btrzpay/stripe-terminals.tests.js");
 require("./endpoints/btrzpay/stripe3ds.tests.js");
