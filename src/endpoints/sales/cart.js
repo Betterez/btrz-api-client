@@ -32,7 +32,7 @@ const {authorizationHeaders} = require("./../endpoints_helpers.js");
  * @param {Object} deps
  * @param {import("axios").AxiosInstance} deps.client
  * @param {{ getToken: function(): string }} [deps.internalAuthTokenProvider]
- * @returns {{ get: function, create: function, add: function, deleteItems: function, deletePaidInItem: function, deletePaidInItems: function, loyaltyPointsAmount: Object, patch: function, partialDepositStatus: Object, payments: Object, taxExemptPaymentMethod: Object, financingCosts: Object }}
+ * @returns {{ get: function, create: function, add: function, deleteItems: function, deletePaidInItem: function, deletePaidInItems: function, loyaltyPointsAmount: Object, patch: function, partialDepositStatus: Object, payments: Object, taxExemptPaymentMethod: Object, financingCosts: Object, paymentTaxes: Object }}
  */
 function cartFactory({client, internalAuthTokenProvider}) {
   /**
@@ -302,6 +302,46 @@ function cartFactory({client, internalAuthTokenProvider}) {
     }
   };
 
+  const paymentTaxes = {
+    /**
+     * POST /carts/:cartId/payment-taxes - quote the payment taxes of a back-office cart from its planned payments.
+     * Replaces every payment tax fee on the cart (idempotent).
+     * @param {Object} opts
+     * @param {string} [opts.token] - API key
+     * @param {string} [opts.jwtToken] - JWT (BETTEREZ_APP audience) or internal auth symbol
+     * @param {Object} [opts.headers] - Optional headers
+     * @param {string} opts.cartId - Cart id
+     * @param {Array<{provider: string, method: string, amount: number}>} opts.payments - Planned payments, cart base currency, decimal units
+     * @returns {Promise<import("axios").AxiosResponse<{ cart: Object }>>}
+     * @throws When response is 4xx/5xx (400 NOT_BACKOFFICE_CART, INVALID_PAYMENT_AMOUNT; 401; 403; 404; 500)
+     */
+    create({token, jwtToken, headers, cartId, payments: plannedPayments}) {
+      return client({
+        url: `/carts/${cartId}/payment-taxes`,
+        method: "post",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+        data: {payments: plannedPayments}
+      });
+    },
+    /**
+     * DELETE /carts/:cartId/payment-taxes - remove every payment tax fee from the cart.
+     * @param {Object} opts
+     * @param {string} [opts.token] - API key
+     * @param {string} [opts.jwtToken] - JWT (BETTEREZ_APP audience) or internal auth symbol
+     * @param {Object} [opts.headers] - Optional headers
+     * @param {string} opts.cartId - Cart id
+     * @returns {Promise<import("axios").AxiosResponse<{ cart: Object }>>}
+     * @throws When response is 4xx/5xx (400 NOT_BACKOFFICE_CART; 401; 403; 404; 500)
+     */
+    remove({token, jwtToken, headers, cartId}) {
+      return client({
+        url: `/carts/${cartId}/payment-taxes`,
+        method: "delete",
+        headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers})
+      });
+    }
+  };
+
   const expirationTime = {
     /**
      * POST /carts/:cartId/expiration-time - set cart expiration time.
@@ -344,6 +384,7 @@ function cartFactory({client, internalAuthTokenProvider}) {
     payments,
     taxExemptPaymentMethod,
     financingCosts,
+    paymentTaxes,
     expirationTime
   };
 }

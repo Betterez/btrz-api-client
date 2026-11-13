@@ -93,6 +93,19 @@ describe("sales/cart", () => {
     return api.sales.cart.financingCosts.create({jwtToken, token, cartId, financingCost});
   });
 
+  it("should quote the payment taxes of a cart with the planned payments", () => {
+    const cartId = "someCartId";
+    const payments = [{provider: "inPerson", method: "cash", amount: 100000}];
+    axiosMock.onPost(`/carts/${cartId}/payment-taxes`).reply(expectRequest({statusCode: 200, token, jwtToken, body: {payments}}));
+    return api.sales.cart.paymentTaxes.create({jwtToken, token, cartId, payments});
+  });
+
+  it("should remove the payment taxes of a cart", () => {
+    const cartId = "someCartId";
+    axiosMock.onDelete(`/carts/${cartId}/payment-taxes`).reply(expectRequest({statusCode: 200, token, jwtToken}));
+    return api.sales.cart.paymentTaxes.remove({jwtToken, token, cartId});
+  });
+
   it("should delete a paid in item from a cart", () => {
     const cartId = "someCartId";
     const itemId = "itemId";
