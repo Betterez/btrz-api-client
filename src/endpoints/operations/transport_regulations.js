@@ -28,6 +28,26 @@ function transportRegulationsFactory({client, internalAuthTokenProvider}) {
         headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
         data
       });
+    },
+    manifests: {
+      /**
+       * PUT /transport-regulations/cnrt/manifests/:manifestId - link a CNRT list made by hand to the trip.
+       * @param {Object} opts
+       * @param {string} opts.manifestId - Manifest id
+       * @param {Object} opts.data - Request body ({cnrtListId})
+       * @param {string} [opts.token] - API key
+       * @param {string} [opts.jwtToken] - JWT or internal auth symbol
+       * @param {Object} [opts.headers] - Optional headers
+       * @returns {Promise<import("axios").AxiosResponse>}
+       */
+      update({manifestId, data, token, jwtToken, headers}) {
+        return client({
+          url: `/transport-regulations/cnrt/manifests/${manifestId}`,
+          method: "put",
+          headers: authorizationHeaders({token, jwtToken, internalAuthTokenProvider, headers}),
+          data
+        });
+      }
     }
   };
 
