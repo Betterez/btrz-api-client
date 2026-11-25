@@ -24,4 +24,21 @@ describe("btrzpay/staticQr", () => {
 
     assert.deepStrictEqual(response.data, qrImage);
   });
+
+  it("should confirm a pending static QR payment of a transaction with the QR provider", async () => {
+    const transactionId = "6745f1a2b3c4d5e6f7a8b9c0";
+    const body = {user: "Ana Perez", createdDateTime: "2026-11-24 10:30"};
+    axiosMock.onPost(`/static-qr/transactions/${transactionId}/confirm-payment`).reply((config) => {
+      const [statusCode] = expectRequest({statusCode: 200, token, jwtToken, body})(config);
+
+      return [statusCode, {}];
+    });
+
+    const response = await api.btrzpay.staticQr.confirmPayment({
+      token, jwtToken, transactionId, user: body.user, createdDateTime: body.createdDateTime
+    });
+
+    assert.equal(response.status, 200);
+    assert.deepStrictEqual(response.data, {});
+  });
 });
