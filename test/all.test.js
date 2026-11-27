@@ -96,6 +96,7 @@ require("./endpoints/inventory/fees.test.js");
 require("./endpoints/inventory/filtered-trips-v2.test.js");
 require("./endpoints/inventory/filtered-trips.test.js");
 require("./endpoints/inventory/financing-costs.test.js");
+require("./endpoints/inventory/payment-taxes.test.js");
 require("./endpoints/inventory/garages.test.js");
 require("./endpoints/inventory/banorte-terminals.test.js");
 require("./endpoints/inventory/clover-terminals.test.js");
